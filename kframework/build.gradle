@@ -1,0 +1,127 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    dataBinding {
+        enabled = true
+    }
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 28
+
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+
+    //Base
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'androidx.appcompat:appcompat:1.1.0-alpha05'
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0-alpha05'
+    api 'com.google.android.material:material:1.1.0-alpha06'
+    api 'androidx.multidex:multidex:2.0.1'
+    api 'androidx.gridlayout:gridlayout:1.0.0'
+    api 'androidx.annotation:annotation:1.0.2'
+    api "com.android.support:support-annotations:28.0.0"
+    kapt "com.android.support:support-annotations:28.0.0"
+
+    //rx
+    api 'com.trello.rxlifecycle3:rxlifecycle:3.0.0'
+    api 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
+    api 'com.trello.rxlifecycle3:rxlifecycle-android:3.0.0'
+    api 'com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.0.0'
+    api 'com.trello.rxlifecycle3:rxlifecycle-kotlin:3.0.0'
+    api 'com.trello.rxlifecycle3:rxlifecycle-android-lifecycle-kotlin:3.0.0'
+
+    api 'com.github.tbruyelle:rxpermissions:0.10.2'
+    api 'io.reactivex.rxjava2:rxjava:2.2.6'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+    //json
+    api 'com.google.code.gson:gson:2.8.5'
+
+    //图片加载器
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    api 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+
+    //viewpager2
+    api 'androidx.viewpager2:viewpager2:1.0.0-alpha04'
+
+    //高斯模糊
+    api 'com.github.Commit451:NativeStackBlur:1.0.5'
+
+    //网络加载库  包括共有两种网络请求框架，可供选择，具体自己选择
+    api('com.squareup.retrofit2:retrofit:2.5.0') {
+        exclude group: 'com.squareup.okhttp3'
+    }
+    api 'com.squareup.retrofit2:converter-gson:2.5.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    api 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    api 'com.squareup.okhttp3:okhttp:3.12.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    //recycleLife
+    api 'androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01'
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0-alpha01'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha01'
+    api 'androidx.lifecycle:lifecycle-livedata:2.2.0-alpha01'
+    api('com.jeremyliao:live-event-bus-x:1.2.2') {
+        exclude group: 'androidx.lifecycle'
+    }
+
+    //可拖拽滑动badgeview
+    api 'cn.bingoogolapple:bga-badgeview-api:1.1.8'
+    kapt "cn.bingoogolapple:bga-badgeview-compiler:1.1.8"
+
+    //zixing
+    api group: 'com.google.zxing', name: 'core', version: '3.3.3'
+
+    //room
+    api "androidx.room:room-runtime:2.1.0-beta01"
+    kapt "androidx.room:room-compiler:2.1.0-beta01"
+
+    //coroutines
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="Dto"
+            type="showmethe.github.kframework.picture.LocalMedia"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/px3dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px350dp">
+
+        <ImageView
+            android:id="@+id/img"
+            img="@{Dto.path}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <CheckBox
+            android:id="@+id/cbImg"
+            android:checked="@={Dto.check}"
+            android:layout_margin="@dimen/px10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</layout>

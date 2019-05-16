@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".picture.VideoRecordActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px150dp">
+
+        <ImageView
+            android:id="@+id/iv_change"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px30dp"
+            android:background="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+    <showmethe.github.kframework.picture.AutoFitTextureView
+        android:id="@+id/texture"
+        android:layout_below="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <example.ken.com.library.utils.RxMedia.RecordButton
+        android:id="@+id/capture"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        app:excircleRadius="@dimen/px70dp"
+        app:innerCircleRadius="@dimen/px40dp"
+        app:maxTime="15"
+        app:minTime="1"
+        app:progressColor="@color/colorAccent"
+        android:layout_marginBottom="@dimen/px30dp"
+        android:layout_width="@dimen/px200dp"
+        android:layout_height="@dimen/px200dp" />
+
+</RelativeLayout>
