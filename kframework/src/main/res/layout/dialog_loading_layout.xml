@@ -5,24 +5,24 @@
     android:layout_width="@dimen/px250dp"
     android:layout_height="@dimen/px250dp">
 
-  <!--  <example.ken.com.library.widget.BallRotationProgressBar
+    <showmethe.github.kframework.widget.animView.BallRotationProgressBar
         android:id="@+id/progressbar"
         android:layout_centerInParent="true"
         app:firstBallColor="@color/colorAccent"
-        app:secondBallColor="@color/color_ff321c"
+        app:secondBallColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
+        android:layout_height="wrap_content" />
 
     <!--<example.ken.com.library.widget.TextJumpAnim
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />-->
 
-    <showmethe.github.kframework.widget.animView.RectScaleAnim
+ <!--   <showmethe.github.kframework.widget.animView.RectScaleAnim
       android:layout_centerInParent="true"
         app:rectColor="@color/colorAccent"
         android:id="@+id/progressbar"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content" />-->
 
 </RelativeLayout>

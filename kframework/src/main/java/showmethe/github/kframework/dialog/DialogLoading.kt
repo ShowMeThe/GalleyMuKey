@@ -13,13 +13,14 @@ import android.view.View
 import android.view.Window
 
 import showmethe.github.kframework.R
+import showmethe.github.kframework.widget.animView.BallRotationProgressBar
 import showmethe.github.kframework.widget.animView.RectScaleAnim
 
 
 class DialogLoading : androidx.fragment.app.DialogFragment() {
 
     lateinit var mContext: Context
-    internal var progressbar: RectScaleAnim? = null
+    internal var progressbar: BallRotationProgressBar? = null
 
 
     override fun onAttach(context: Context) {

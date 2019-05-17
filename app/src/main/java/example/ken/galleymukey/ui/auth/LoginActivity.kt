@@ -53,6 +53,14 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     override fun observerUI() {
+        viewModel.result.observe(this,androidx.lifecycle.Observer {
+            it?.apply {
+                if(this){
+                    showToast("Sign up successfully")
+                    signUpDialog.dismiss()
+                }
+            }
+        })
 
     }
 
@@ -75,7 +83,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
         signUpDialog.setOnRegisterGetListener {
            if(checkReg(it)){
-
+               viewModel.register(it)
            }
         }
 
@@ -107,7 +115,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
         }else if(it.password!!.isEmpty()){
             showToast("Please input password")
             return false
-        } else if(it.code!!.isEmpty() || !it.code!!.equals(num)){
+        } else if(it.code!!.isEmpty() || !it.code!!.equals(num.toString())){
             showToast("Please input correctly code")
             return false
         }

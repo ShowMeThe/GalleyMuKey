@@ -1,5 +1,6 @@
 package example.ken.galleymukey.source.dao
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -21,6 +22,6 @@ interface UserInfoDao {
 
 
     @Query("select * from UserInfoDto where account  = (:account) and password  = (:password)  ")
-    fun query(account :String?,password : String?) : MutableLiveData<UserInfoDto>
+    fun query(account :String?,password : String?) : LiveData<UserInfoDto>
 
 }
