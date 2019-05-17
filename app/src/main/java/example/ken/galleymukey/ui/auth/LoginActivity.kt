@@ -27,6 +27,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
+import example.ken.galleymukey.bean.LoginBean
+import example.ken.galleymukey.bean.RegisterBean
 import example.ken.galleymukey.dialog.SignUpDialog
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
@@ -40,6 +42,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     val random = ThreadLocalRandom.current();
     var snackbar : Snackbar? = null
+    var num = 0
 
     override fun showCreateReveal(): Boolean = true
     override fun getViewId(): Int = R.layout.activity_login
@@ -58,9 +61,6 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
         addBanner()
 
 
-
-
-
     }
 
     override fun initListener() {
@@ -73,11 +73,51 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             showSnack(it)
         }
 
+        signUpDialog.setOnRegisterGetListener {
+           if(checkReg(it)){
+
+           }
+        }
+
+        dialog.setOnLoingGetListener {
+            if(checkLogin(it)){
+
+            }
+        }
+
     }
 
 
+    fun checkLogin(it : LoginBean) : Boolean{
+        if(it.account!!.isEmpty()){
+            showToast("Please input username")
+            return false
+        }else if(it.password!!.isEmpty()){
+            showToast("Please input password")
+            return false
+        }
+        return true
+    }
+
+
+    fun checkReg(it : RegisterBean) : Boolean{
+        if(it.account!!.isEmpty()){
+            showToast("Please input username")
+           return false
+        }else if(it.password!!.isEmpty()){
+            showToast("Please input password")
+            return false
+        } else if(it.code!!.isEmpty() || !it.code!!.equals(num)){
+            showToast("Please input correctly code")
+            return false
+        }
+        return true
+    }
+
+
+
     fun showSnack(view : View){
-        val num = random.nextInt(1000,9999)
+        num = random.nextInt(1000,9999)
         snackbar =  Snackbar.make(view,"${num}",15000).setAction("copy") {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager;
             val clipData = ClipData.newPlainText("text","${num}")

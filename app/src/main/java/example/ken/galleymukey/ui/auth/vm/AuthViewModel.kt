@@ -2,6 +2,10 @@ package example.ken.galleymukey.ui.auth.vm
 
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import example.ken.galleymukey.bean.LoginBean
+import example.ken.galleymukey.bean.RegisterBean
+import example.ken.galleymukey.ui.auth.repository.AuthRepository
 import showmethe.github.kframework.base.BaseViewModel
 
 /**
@@ -12,14 +16,34 @@ import showmethe.github.kframework.base.BaseViewModel
 class AuthViewModel(application: Application) : BaseViewModel(application){
 
 
-    override fun onViewModelCreated(owner: LifecycleOwner) {
 
-    }
+    val repository = AuthRepository()
+    val result = MutableLiveData<Boolean>()
+    val auth = MutableLiveData<LoginBean>()
+
+
 
     override fun notifyOwner(owner: LifecycleOwner) {
+        repository.update(owner)
+    }
+
+    override fun onViewModelCreated(owner: LifecycleOwner) {
 
 
     }
+
+
+    fun register(bean : RegisterBean){
+        repository.register(bean,result)
+    }
+
+
+    fun login(bean : LoginBean){
+
+
+
+    }
+
 
 
 }

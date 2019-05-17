@@ -1,11 +1,9 @@
 package example.ken.galleymukey.dialog
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -13,13 +11,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import androidx.annotation.Nullable
+import androidx.databinding.DataBindingUtil
 import example.ken.galleymukey.R
+import example.ken.galleymukey.bean.RegisterBean
+import example.ken.galleymukey.databinding.DialogSignUpBinding
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.dialog_sign_up.view.*
-import showmethe.github.kframework.util.widget.RxCount
-import showmethe.github.kframework.util.widget.StatusBarUtil
 import java.util.concurrent.TimeUnit
 
 
@@ -34,11 +33,14 @@ class SignUpDialog   : BottomSheetDialogFragment() {
 
     private var mdDisposable: Disposable? = null
     private var mBehavior: BottomSheetBehavior<*>? = null
+    private var binding : DialogSignUpBinding? = null
+    private val bean = RegisterBean()
 
     override fun onCreateDialog(@Nullable savedInstanceState: Bundle?): Dialog {
         super.onCreate(savedInstanceState)
         val dialog = BottomSheetDialog(context!!,R.style.FullScreenBottomSheet)
         val view = View.inflate(context, R.layout.dialog_sign_up, null)
+        binding = DataBindingUtil.bind<DialogSignUpBinding>(view)
         dialog.setContentView(view)
         dialog.window!!.findViewById<View>(example.ken.galleymukey.R.id.design_bottom_sheet)
             .setBackgroundResource(android.R.color.transparent);
@@ -55,10 +57,18 @@ class SignUpDialog   : BottomSheetDialogFragment() {
 
         view?.apply {
 
+            binding?.apply {
+                bean = this@SignUpDialog.bean
+                executePendingBindings()
+            }
+
             ivBack.setOnClickListener { hidden() }
 
             tvCode.setOnClickListener { start(tvCode,30,1) }
 
+            btnReg.setOnClickListener {
+                onRegisterGet?.invoke(bean)
+            }
 
         }
         return dialog
@@ -85,6 +95,15 @@ class SignUpDialog   : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
 
     }
+
+
+
+    var onRegisterGet : ((bean : RegisterBean)->Unit)? = null
+
+    fun setOnRegisterGetListener(onRegisterGet : ((bean : RegisterBean)->Unit)){
+        this.onRegisterGet = onRegisterGet
+    }
+
 
     var onCodeGet : ((view : View)->Unit)? = null
 

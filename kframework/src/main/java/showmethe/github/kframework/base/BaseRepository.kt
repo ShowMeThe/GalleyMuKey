@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit
 /**
  * 仓库持有了 Activity 对象 需要在viewModel里释放 执行onClear() 否则viewModel 会出现暂时性内存泄露
  */
-abstract class BaseRepertory() : LifecycleOwnerObserver{
+abstract class BaseRepository() : LifecycleOwnerObserver{
 
     private var currentRetryCount = 0
     val loadingDialog  = DialogLoading()

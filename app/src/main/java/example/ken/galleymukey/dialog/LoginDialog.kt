@@ -10,6 +10,8 @@ import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import example.ken.galleymukey.R
+import example.ken.galleymukey.bean.LoginBean
+import example.ken.galleymukey.databinding.DialogLoginBinding
 import kotlinx.android.synthetic.main.dialog_login.view.*
 
 
@@ -21,6 +23,8 @@ import kotlinx.android.synthetic.main.dialog_login.view.*
 class LoginDialog : DialogFragment() {
 
     lateinit var mContext: Context
+    private val bean= LoginBean()
+    private var binding : DialogLoginBinding? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -49,14 +53,15 @@ class LoginDialog : DialogFragment() {
 
         view?.apply {
 
+            binding?.apply {
+                bean = this@LoginDialog.bean
+                executePendingBindings()
+            }
+
 
             ivClose.setOnClickListener { dialog.dismiss() }
 
-
-
-
-
-
+            btnLogin.setOnClickListener { onLoginGet?.invoke(bean) }
 
 
         }
@@ -65,10 +70,20 @@ class LoginDialog : DialogFragment() {
         return dialog
     }
 
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         onDialogDismiss?.invoke()
     }
+
+
+
+    var onLoginGet : ((bean : LoginBean)->Unit)? = null
+
+    fun setOnLoingGetListener(onLoginGet : ((bean : LoginBean)->Unit)){
+        this.onLoginGet = onLoginGet
+    }
+
 
 
     var onDialogDismiss : (()->Unit)? = null

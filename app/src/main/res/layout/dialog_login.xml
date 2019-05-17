@@ -1,88 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/transparent"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 	
-	<RelativeLayout
-		android:layout_marginStart="@dimen/px150dp"
-		android:layout_marginEnd="@dimen/px150dp"
-		android:layout_centerInParent="true"
+	<data>
+		<variable
+			name="Bean"
+			type="example.ken.galleymukey.bean.LoginBean" />
+	</data>
+	
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 		
-		<ImageView
-			android:id="@+id/ivClose"
-			android:background="@mipmap/close"
-			android:layout_alignParentEnd="true"
-			android:layout_width="@dimen/px60dp"
-			android:layout_height="@dimen/px60dp" />
-		
-		<LinearLayout
-			android:layout_marginTop="@dimen/px30dp"
-			android:layout_below="@+id/ivClose"
-			android:orientation="vertical"
-			android:elevation="@dimen/px5dp"
-			android:background="@drawable/shape_white"
+		<RelativeLayout
+			android:layout_marginStart="@dimen/px150dp"
+			android:layout_marginEnd="@dimen/px150dp"
+			android:layout_centerInParent="true"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<com.google.android.material.textfield.TextInputLayout
-				android:layout_marginTop="@dimen/px20dp"
-				android:layout_marginStart="@dimen/px30dp"
-				android:layout_marginEnd="@dimen/px30dp"
-				android:textColorHint="@color/colorAccent"
+			<ImageView
+				android:id="@+id/ivClose"
+				android:background="@mipmap/close"
+				android:layout_alignParentEnd="true"
+				android:layout_width="@dimen/px60dp"
+				android:layout_height="@dimen/px60dp" />
+			
+			<LinearLayout
+				android:layout_marginTop="@dimen/px30dp"
+				android:layout_below="@+id/ivClose"
+				android:orientation="vertical"
+				android:elevation="@dimen/px5dp"
+				android:background="@drawable/shape_white"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
-				<EditText
-					android:id="@+id/edName"
-					android:hint="Account"
-					android:maxLines="1"
-					android:inputType="text"
-					style="@style/EditText_448aff"
-					android:imeOptions="actionNext"
-					android:textColor="@color/colorAccent"
-					android:textSize="@dimen/px43dp"
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_marginTop="@dimen/px20dp"
+					android:layout_marginStart="@dimen/px30dp"
+					android:layout_marginEnd="@dimen/px30dp"
+					android:textColorHint="@color/colorAccent"
 					android:layout_width="match_parent"
-					android:layout_height="@dimen/px110dp" />
-			</com.google.android.material.textfield.TextInputLayout>
-			
-			<com.google.android.material.textfield.TextInputLayout
-				android:layout_margin="@dimen/px30dp"
-				android:textColorHint="@color/colorAccent"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:passwordToggleEnabled="true"
-				>
-				<EditText
-					android:id="@+id/edPassword"
-					android:hint="Password"
-					android:maxLines="1"
-					style="@style/EditText_448aff"
-					android:imeOptions="actionDone"
-					android:inputType="textPassword"
-					android:textColor="@color/colorAccent"
-					android:textSize="@dimen/px43dp"
+					android:layout_height="wrap_content">
+					<EditText
+						android:id="@+id/edName"
+						android:hint="Account"
+						android:maxLines="1"
+						android:inputType="text"
+						android:text="@{Bean.account}"
+						style="@style/EditText_448aff"
+						android:imeOptions="actionNext"
+						android:textColor="@color/colorAccent"
+						android:textSize="@dimen/px43dp"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/px110dp" />
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_margin="@dimen/px30dp"
+					android:textColorHint="@color/colorAccent"
 					android:layout_width="match_parent"
-					android:layout_height="@dimen/px110dp" />
-			</com.google.android.material.textfield.TextInputLayout>
+					android:layout_height="wrap_content"
+					app:passwordToggleEnabled="true"
+					>
+					<EditText
+						android:id="@+id/edPassword"
+						android:hint="Password"
+						android:maxLines="1"
+						android:text="@{Bean.password}"
+						style="@style/EditText_448aff"
+						android:imeOptions="actionDone"
+						android:inputType="textPassword"
+						android:textColor="@color/colorAccent"
+						android:textSize="@dimen/px43dp"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/px110dp" />
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<Button
+					android:id="@+id/btnLogin"
+					android:text="LOGIN"
+					android:textColor="@color/white"
+					android:layout_margin="@dimen/px30dp"
+					android:textSize="@dimen/px43dp"
+					android:background="@drawable/shape_rect_039be5"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/px150dp" />
 			
-			<Button
-				android:id="@+id/btnLogin"
-				android:text="LOGIN"
-				android:textColor="@color/white"
-				android:layout_margin="@dimen/px30dp"
-				android:textSize="@dimen/px43dp"
-				android:background="@drawable/shape_rect_039be5"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/px150dp" />
-			
-		</LinearLayout>
+			</LinearLayout>
 		
 		
 		
+		</RelativeLayout>
+	
+	
 	</RelativeLayout>
 	
-
-</RelativeLayout>
+</layout>

@@ -1,5 +1,6 @@
 package example.ken.galleymukey.base
 
+import example.ken.galleymukey.source.DataSourceBuilder
 import showmethe.github.kframework.base.BaseApplication
 
 /**
@@ -11,6 +12,6 @@ class AppApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
+        DataSourceBuilder.build(this)
     }
 }
