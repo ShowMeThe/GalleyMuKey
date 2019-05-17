@@ -138,7 +138,7 @@ object StatusBarUtil {
     }
 
 
-    private fun getStatusBarHeight(activity: Activity): Int {
+    fun getStatusBarHeight(activity: Activity): Int {
         var result = 0
         //获取状态栏高度的资源id
         val resourceId = activity.resources.getIdentifier("status_bar_height", "dimen", "android")

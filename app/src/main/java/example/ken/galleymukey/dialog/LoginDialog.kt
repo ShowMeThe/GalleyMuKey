@@ -2,6 +2,7 @@ package example.ken.galleymukey.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -48,6 +49,7 @@ class LoginDialog : DialogFragment() {
 
         view?.apply {
 
+
             ivClose.setOnClickListener { dialog.dismiss() }
 
 
@@ -64,7 +66,17 @@ class LoginDialog : DialogFragment() {
         return dialog
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDialogDismiss?.invoke()
+    }
 
+
+    var onDialogDismiss : (()->Unit)? = null
+
+    fun setOnDialogDismissListener (onDialogDismiss : (()->Unit)){
+        this.onDialogDismiss = onDialogDismiss
+    }
 
 
 }

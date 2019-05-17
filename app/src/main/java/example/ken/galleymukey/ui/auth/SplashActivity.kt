@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import example.ken.galleymukey.R
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
+import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -32,7 +33,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
         GlobalScope.launch(Dispatchers.Main) {
-            delay(2000)
+            delay(2700)
             startActivity(null,LoginActivity::class.java)
             finish()
         }
@@ -41,6 +42,9 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     override fun initListener() {
+
+
+
     }
 
 

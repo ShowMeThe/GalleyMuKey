@@ -1,22 +1,40 @@
 package example.ken.galleymukey.ui.auth
 
+import android.animation.Animator
+import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
+import com.commit451.nativestackblur.NativeStackBlur
 import example.ken.galleymukey.R
 import example.ken.galleymukey.dialog.LoginDialog
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.glide.BlurImageTransform
 import showmethe.github.kframework.glide.TGlide
+import showmethe.github.kframework.util.commbine.LruCacheUtil
 import showmethe.github.kframework.util.widget.StatusBarUtil
+import android.graphics.Matrix
+import android.graphics.drawable.Drawable
+import android.R.attr.bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
+import android.util.Log
+import example.ken.galleymukey.dialog.SignUpDialog
+
 
 class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
-    val dialog = LoginDialog()
+    val dialog by lazy {  LoginDialog() }
+    val signUpDialog by lazy { SignUpDialog() }
+
 
     override fun showCreateReveal(): Boolean = true
-    override fun getViewId(): Int =R.layout.activity_login
+    override fun getViewId(): Int = R.layout.activity_login
     override fun initViewModel(): AuthViewModel = createViewModel(AuthViewModel::class.java)
 
     override fun onBundle(bundle: Bundle) {
@@ -29,9 +47,9 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     override fun init(savedInstanceState: Bundle?) {
         StatusBarUtil.setFullScreen(this)
-
-
         addBanner()
+
+
 
 
 
@@ -39,19 +57,27 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     override fun initListener() {
 
-
         btnLogin.setOnClickListener { showLoginDialog() }
+
+        btnReg.setOnClickListener { showSignUpDialog() }
 
 
     }
 
-
+    fun showSignUpDialog(){
+        supportFragmentManager.executePendingTransactions()
+        if(!signUpDialog.isAdded){
+            signUpDialog.show(supportFragmentManager,"")
+        }
+    }
 
 
     fun showLoginDialog(){
         supportFragmentManager.executePendingTransactions()
-        if(!dialog.isAdded)
-        dialog.show(supportFragmentManager,"")
+        if(!dialog.isAdded){
+            dialog.show(supportFragmentManager,"")
+        }
+
     }
 
 
