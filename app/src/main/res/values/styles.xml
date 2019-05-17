@@ -15,5 +15,17 @@
         <item name="android:windowEnterAnimation">@anim/anim_right_in</item>
         <item name="android:windowExitAnimation">@anim/anim_left_out</item>
     </style>
+    
+   
+    <style name="EditText_448aff" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/text_666666</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+    
+    <style name="EditText_7c4dff" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/text_666666</item>
+        <item name="colorControlActivated">@color/color_7c4dff</item>
+    </style>
+
 
 </resources>

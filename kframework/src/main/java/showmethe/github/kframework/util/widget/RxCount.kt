@@ -28,7 +28,6 @@ class RxCount(private val mGetCodeBtn: Button) {
                         mdDisposable!!.dispose()
                     }
                 }.subscribe()
-
     }
 
     private lateinit var preStart : (button : Button) -> Unit

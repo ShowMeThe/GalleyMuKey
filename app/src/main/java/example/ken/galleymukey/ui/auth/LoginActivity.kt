@@ -21,10 +21,16 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 import android.graphics.Matrix
 import android.graphics.drawable.Drawable
 import android.R.attr.bitmap
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.graphics.drawable.BitmapDrawable
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.Log
+import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.dialog.SignUpDialog
+import java.util.*
+import java.util.concurrent.ThreadLocalRandom
+import kotlin.collections.ArrayList
 
 
 class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
@@ -32,6 +38,8 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     val dialog by lazy {  LoginDialog() }
     val signUpDialog by lazy { SignUpDialog() }
 
+    val random = ThreadLocalRandom.current();
+    var snackbar : Snackbar? = null
 
     override fun showCreateReveal(): Boolean = true
     override fun getViewId(): Int = R.layout.activity_login
@@ -61,8 +69,26 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
         btnReg.setOnClickListener { showSignUpDialog() }
 
+        signUpDialog.setOnCodeGetListener {
+            showSnack(it)
+        }
 
     }
+
+
+    fun showSnack(view : View){
+        val num = random.nextInt(1000,9999)
+        snackbar =  Snackbar.make(view,"${num}",15000).setAction("copy") {
+            val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager;
+            val clipData = ClipData.newPlainText("text","${num}")
+            clipboard.primaryClip = clipData
+            showToast("Copy successfully")
+            snackbar!!.dismiss()
+        }
+        snackbar!!.show()
+    }
+
+
 
     fun showSignUpDialog(){
         supportFragmentManager.executePendingTransactions()

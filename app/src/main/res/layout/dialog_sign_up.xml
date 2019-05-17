@@ -18,10 +18,21 @@
 			android:layout_height="wrap_content">
 			
 			
+			<ImageView
+				android:id="@+id/ivBack"
+				android:layout_marginTop="@dimen/px10dp"
+				android:layout_marginStart="@dimen/px20dp"
+				android:src="@mipmap/dialog_back"
+				android:layout_width="@dimen/px150dp"
+				android:layout_height="@dimen/px130dp" />
+			
+			
 			<com.google.android.material.textfield.TextInputLayout
 				android:layout_marginTop="@dimen/px20dp"
 				android:layout_marginStart="@dimen/px30dp"
 				android:layout_marginEnd="@dimen/px30dp"
+				android:textColorHint="@color/color_7c4dff"
+				app:hintTextColor="@color/color_7c4dff"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				<EditText
@@ -30,7 +41,9 @@
 					android:maxLines="1"
 					android:inputType="text"
 					android:imeOptions="actionNext"
-					android:textColor="@color/colorAccent"
+					style="@style/EditText_7c4dff"
+					android:textColorHint="@color/color_7c4dff"
+					android:textColor="@color/color_7c4dff"
 					android:textSize="@dimen/px43dp"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px110dp" />
@@ -39,6 +52,8 @@
 			
 			<com.google.android.material.textfield.TextInputLayout
 				android:layout_margin="@dimen/px30dp"
+				android:textColorHint="@color/color_7c4dff"
+				app:hintTextColor="@color/color_7c4dff"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				app:passwordToggleEnabled="true"
@@ -47,30 +62,54 @@
 					android:id="@+id/edPassword"
 					android:hint="Password"
 					android:maxLines="1"
-					android:imeOptions="actionDone"
+					style="@style/EditText_7c4dff"
+					android:imeOptions="actionNext"
 					android:inputType="textPassword"
-					android:textColor="@color/colorAccent"
+					android:textColor="@color/color_7c4dff"
+					android:textColorHint="@color/color_7c4dff"
 					android:textSize="@dimen/px43dp"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px110dp" />
 			</com.google.android.material.textfield.TextInputLayout>
 			
-			<com.google.android.material.textfield.TextInputLayout
-				android:layout_margin="@dimen/px30dp"
+			<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				>
-				<EditText
-					android:id="@+id/edCode"
-					android:hint="Code"
-					android:maxLines="1"
-					android:imeOptions="actionDone"
-					android:inputType="textPassword"
-					android:textColor="@color/colorAccent"
+				android:layout_height="wrap_content">
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_margin="@dimen/px30dp"
+					android:layout_width="0dp"
+					android:textColorHint="@color/color_7c4dff"
+					app:hintTextColor="@color/color_7c4dff"
+					android:layout_weight="1"
+					android:layout_height="wrap_content"
+					>
+					<EditText
+						android:id="@+id/edCode"
+						android:hint="Code"
+						android:maxLines="1"
+						style="@style/EditText_7c4dff"
+						android:textColorHint="@color/color_7c4dff"
+						android:imeOptions="actionDone"
+						android:inputType="number"
+						android:textColor="@color/color_7c4dff"
+						android:textSize="@dimen/px43dp"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/px110dp" />
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<TextView
+					android:id="@+id/tvCode"
+					android:text="GET CODE"
+					android:textStyle="bold"
+					android:gravity="center"
 					android:textSize="@dimen/px43dp"
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/px110dp" />
-			</com.google.android.material.textfield.TextInputLayout>
+					android:layout_marginEnd="@dimen/px30dp"
+					android:textColor="@color/color_7c4dff"
+					android:layout_width="@dimen/px250dp"
+					android:layout_height="wrap_content" />
+				
+			</LinearLayout>
 			
 			<Button
 				android:id="@+id/btnReg"

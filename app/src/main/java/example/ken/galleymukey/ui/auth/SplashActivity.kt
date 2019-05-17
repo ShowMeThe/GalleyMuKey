@@ -16,7 +16,6 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
-
     override fun getViewId(): Int = R.layout.activity_splash
 
     override fun initViewModel(): AuthViewModel = createViewModel(AuthViewModel::class.java)
@@ -33,7 +32,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
         GlobalScope.launch(Dispatchers.Main) {
-            delay(2700)
+            delay(3000)
             startActivity(null,LoginActivity::class.java)
             finish()
         }

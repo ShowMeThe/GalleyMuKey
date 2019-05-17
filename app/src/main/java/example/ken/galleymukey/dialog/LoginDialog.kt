@@ -59,7 +59,6 @@ class LoginDialog : DialogFragment() {
 
 
 
-
         }
 
 
