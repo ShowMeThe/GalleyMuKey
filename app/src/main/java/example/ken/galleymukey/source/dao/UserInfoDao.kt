@@ -20,8 +20,10 @@ interface UserInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun register(bean : UserInfoDto)
 
-
-    @Query("select * from UserInfoDto where account  = (:account) and password  = (:password)  ")
+    @Query("select * from UserInfoDto where account  = (:account) and password  = (:password)")
     fun query(account :String?,password : String?) : LiveData<UserInfoDto>
+
+    @Query("select * from UserInfoDto where account  = (:account)")
+    fun queryAccount(account :String?) : LiveData<UserInfoDto>
 
 }

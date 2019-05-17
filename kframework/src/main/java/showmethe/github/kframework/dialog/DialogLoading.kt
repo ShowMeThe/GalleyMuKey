@@ -40,7 +40,7 @@ class DialogLoading : androidx.fragment.app.DialogFragment() {
             val window = dialog.window
             val dm = DisplayMetrics()
             window?.apply {
-              // attributes.dimAmount = 0f  //底层不变暗
+               attributes.dimAmount = 0f  //底层不变暗
                windowManager.defaultDisplay.getMetrics(dm)
                setLayout(dm.widthPixels, window.attributes.height)
                setBackgroundDrawable(ColorDrawable(0x00000000))

@@ -19,6 +19,6 @@ interface RoomDao{
     fun put(bean : RoomBean)
 
     @Query("select * from RoomBean where storeKey  = (:key)")
-    fun get(key :String ) : RoomBean
+    fun get(key :String ) : RoomBean?
 
 }

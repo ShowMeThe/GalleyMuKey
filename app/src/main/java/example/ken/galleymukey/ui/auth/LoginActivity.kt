@@ -26,10 +26,15 @@ import android.content.ClipboardManager
 import android.graphics.drawable.BitmapDrawable
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.util.Log
+import android.widget.EditText
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
+import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.dialog.SignUpDialog
+import showmethe.github.kframework.util.rden.RDEN
+import showmethe.github.kframework.util.system.KeyBoardUtils
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.collections.ArrayList
@@ -53,20 +58,41 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     override fun observerUI() {
+
         viewModel.result.observe(this,androidx.lifecycle.Observer {
             it?.apply {
                 if(this){
-                    showToast("Sign up successfully")
+                    showToast("Sign up Successful")
                     signUpDialog.dismiss()
                 }
             }
         })
 
+        viewModel.auth.observe(this,androidx.lifecycle.Observer {
+            it?.apply {
+                showToast("Login Successful")
+                RDEN.put(RdenConstant.account,it.account!!)
+                dialog.dismiss()
+            }
+        })
+
+        viewModel.bannerList.observe(this,androidx.lifecycle.Observer {
+            it?.apply {
+                banner.addList(it)
+                banner.setOnImageLoader { url, imageView -> TGlide.load(url, imageView) }
+                banner.play()
+            }
+        })
+
+
+
     }
 
     override fun init(savedInstanceState: Bundle?) {
         StatusBarUtil.setFullScreen(this)
-        addBanner()
+
+        viewModel.getBanner("LoginBanner")
+
 
 
     }
@@ -89,7 +115,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
         dialog.setOnLoingGetListener {
             if(checkLogin(it)){
-
+                viewModel.login(it)
             }
         }
 
@@ -124,7 +150,9 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
 
-    fun showSnack(view : View){
+
+    fun showSnack(view : TextView){
+        KeyBoardUtils.hideSoftKeyboard(this)
         num = random.nextInt(1000,9999)
         snackbar =  Snackbar.make(view,"${num}",15000).setAction("copy") {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager;
@@ -156,18 +184,8 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
     fun addBanner(){
-        val list = ArrayList<String>()
-        list.add("http://image1.xyzs.com/upload/a6/1c/1450580015244844/20151224/145089874795426_0.jpg")
-        list.add("http://image2.xyzs.com/upload/9f/f3/1449368181406009/20151209/144960051320867_0.jpg")
-        list.add("http://image3.xyzs.com/upload/b9/40/1449104703418440/20151205/144925600471264_0.jpg")
-        list.add("http://image1.xyzs.com/upload/9b/b2/1450314878985387/20151219/145046718515607_0.jpg")
-        list.add("http://image2.xyzs.com/upload/fc/6a/1450315960904658/20151219/145046718037409_0.jpg")
 
-        banner.addList(list)
-        banner.setOnImageLoader { url, imageView ->
-            TGlide.load(url, imageView)
-        }
-        banner.play()
+
     }
 
 }

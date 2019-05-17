@@ -2,6 +2,7 @@ package example.ken.galleymukey.source
 
 import android.content.Context
 import androidx.room.Room
+import example.ken.galleymukey.source.dao.ImageUrlDao
 import example.ken.galleymukey.source.dao.UserInfoDao
 import showmethe.github.kframework.util.rden.DatabaseCreator
 
@@ -19,6 +20,7 @@ class DataSourceBuilder {
 
         fun build(context : Context){
             creator = Room.databaseBuilder(context.applicationContext,AppDataBaseCreator::class.java,"app_database")
+                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries().build()
         }
 
@@ -28,6 +30,10 @@ class DataSourceBuilder {
             return creator.getUserInfoDto()
         }
 
+
+        fun getImageDao() : ImageUrlDao{
+            return  creator.getImageUrlDao()
+        }
 
     }
 

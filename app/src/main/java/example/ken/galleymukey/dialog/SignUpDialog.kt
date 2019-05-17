@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,6 +19,7 @@ import example.ken.galleymukey.databinding.DialogSignUpBinding
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.dialog_sign_up.*
 import kotlinx.android.synthetic.main.dialog_sign_up.view.*
 import java.util.concurrent.TimeUnit
 
@@ -34,7 +36,7 @@ class SignUpDialog   : BottomSheetDialogFragment() {
     private var mdDisposable: Disposable? = null
     private var mBehavior: BottomSheetBehavior<*>? = null
     private var binding : DialogSignUpBinding? = null
-    private val bean = RegisterBean()
+
 
     override fun onCreateDialog(@Nullable savedInstanceState: Bundle?): Dialog {
         super.onCreate(savedInstanceState)
@@ -56,9 +58,9 @@ class SignUpDialog   : BottomSheetDialogFragment() {
         }
 
         view?.apply {
-
+            val registerBean = RegisterBean()
             binding?.apply {
-                bean = this@SignUpDialog.bean
+                bean = registerBean
                 executePendingBindings()
             }
 
@@ -67,7 +69,7 @@ class SignUpDialog   : BottomSheetDialogFragment() {
             tvCode.setOnClickListener { start(tvCode,30,1) }
 
             btnReg.setOnClickListener {
-                onRegisterGet?.invoke(bean)
+                onRegisterGet?.invoke(registerBean)
             }
 
         }
@@ -105,9 +107,9 @@ class SignUpDialog   : BottomSheetDialogFragment() {
     }
 
 
-    var onCodeGet : ((view : View)->Unit)? = null
+    var onCodeGet : ((view : TextView)->Unit)? = null
 
-    fun setOnCodeGetListener(onCodeGet : ((view : View)->Unit)){
+    fun setOnCodeGetListener(onCodeGet : ((view : TextView)->Unit)){
         this.onCodeGet = onCodeGet
     }
 

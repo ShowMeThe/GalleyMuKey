@@ -8,11 +8,14 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.LoginBean
+import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.databinding.DialogLoginBinding
 import kotlinx.android.synthetic.main.dialog_login.view.*
+import showmethe.github.kframework.util.rden.RDEN
 
 
 /**
@@ -23,7 +26,6 @@ import kotlinx.android.synthetic.main.dialog_login.view.*
 class LoginDialog : DialogFragment() {
 
     lateinit var mContext: Context
-    private val bean= LoginBean()
     private var binding : DialogLoginBinding? = null
 
     override fun onAttach(context: Context) {
@@ -34,6 +36,7 @@ class LoginDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(mContext)
         val view = View.inflate(mContext, R.layout.dialog_login, null)
+        binding = DataBindingUtil.bind(view)
         dialog.setContentView(view)
         dialog.setCanceledOnTouchOutside(false)
 
@@ -51,17 +54,19 @@ class LoginDialog : DialogFragment() {
             }
         }
 
+        val loginBean= LoginBean()
         view?.apply {
 
+            loginBean.account = RDEN.get(RdenConstant.account,"")
             binding?.apply {
-                bean = this@LoginDialog.bean
+                bean = loginBean
                 executePendingBindings()
             }
 
 
             ivClose.setOnClickListener { dialog.dismiss() }
 
-            btnLogin.setOnClickListener { onLoginGet?.invoke(bean) }
+            btnLogin.setOnClickListener { onLoginGet?.invoke(loginBean) }
 
 
         }
