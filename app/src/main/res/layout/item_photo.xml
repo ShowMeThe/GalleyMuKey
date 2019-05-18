@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<com.google.android.material.card.MaterialCardView
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px900dp"
+			android:layout_margin="@dimen/px30dp"
+			app:cardCornerRadius="@dimen/px20dp"
+			app:cardElevation="@dimen/px3dp"
+			app:cardBackgroundColor="@color/white"
+			app:rippleColor="@color/colorPrimaryDark"
+			app:strokeColor="@color/colorPrimaryDark"
+			app:strokeWidth="@dimen/px1dp"
+			>
+			
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				
+				
+				<showmethe.github.kframework.widget.banner.Banner
+					android:id="@+id/banner"
+					app:autoPlay="false"
+					app:showIndicator="false"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/px500dp">
+				</showmethe.github.kframework.widget.banner.Banner>
+				
+				<TextView
+					android:id="@+id/tvSelect"
+					android:textColor="@color/colorPrimaryDark"
+					android:textSize="@dimen/px43dp"
+					android:gravity="center"
+					android:textStyle="italic|bold"
+					android:layout_alignParentEnd="true"
+					android:layout_marginTop="@dimen/px30dp"
+					android:layout_marginEnd="@dimen/px30dp"
+					android:background="@drawable/shape_rect_white__85"
+					android:layout_width="@dimen/px120dp"
+					android:layout_height="@dimen/px70dp" />
+				
+				
+				
+				
+			</RelativeLayout>
+		</com.google.android.material.card.MaterialCardView>
+	
+	</LinearLayout>
+</layout>

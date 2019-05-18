@@ -49,10 +49,7 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val params = selectDot
-                        .layoutParams as RelativeLayout.LayoutParams
-                params.leftMargin = (mDotDis * positionOffset).toInt() + position * mDotDis
-                selectDot.layoutParams = params
+               calculate(position, positionOffset)
             }
 
             override fun onPageSelected(position: Int) {
@@ -66,6 +63,14 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
     }
 
 
+    fun calculate(position: Int, positionOffset: Float){
+        val params = selectDot
+            .layoutParams as RelativeLayout.LayoutParams
+        params.leftMargin = (mDotDis * positionOffset).toInt() + position * mDotDis
+        selectDot.layoutParams = params
+    }
+
+
     fun setViewPager(viewPager: ViewPager?, tabCount: Int, dWidth: Int, selectColor: Int, unSelectColor: Int) {
         if (viewPager == null) return
         this.viewPager = viewPager
@@ -74,10 +79,7 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val params = selectDot
-                        .layoutParams as RelativeLayout.LayoutParams
-                params.leftMargin = (mDotDis * positionOffset).toInt() + position * mDotDis
-                selectDot.layoutParams = params
+                calculate(position, positionOffset)
             }
 
             override fun onPageSelected(position: Int) {

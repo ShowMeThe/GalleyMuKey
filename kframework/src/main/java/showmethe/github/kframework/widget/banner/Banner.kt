@@ -89,6 +89,7 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
             override fun onPageSelected(position: Int) {
                 currentItem = position.toLong()
+                onPagerListener?.invoke(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -120,6 +121,21 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
 
+    var onPagerListener: ((position : Int)->Unit)? = null
+
+    fun setOnPagerLisnener(onPagerListener: ((position : Int)->Unit)){
+        this.onPagerListener = onPagerListener
+    }
+
+
+    fun setCurrentPosition(position : Int){
+        if(position<=imageList.size-1){
+            currentItem = position.toLong()
+            viewPager?.post {
+                viewPager!!.setCurrentItem(position,false)
+            }
+        }
+    }
 
 
     fun play() {
@@ -161,6 +177,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
     var downX = 0f
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if(!autoPlay) return super.dispatchTouchEvent(ev)
+
         val action = ev.action
         when(action){
             MotionEvent.ACTION_UP,MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_OUTSIDE -> {
@@ -174,7 +192,9 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
                         viewPager?.setCurrentItem(0 ,true)
                     }
                 }
-                resumePlay()
+                if(autoPlay){
+                    resumePlay()
+                }
             }
             MotionEvent.ACTION_DOWN -> {
                 stopPlay()
@@ -196,8 +216,10 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     fun addList(arrayList: ArrayList<*>) {
         imageList.clear()
         imageList.addAll(arrayList)
-        dotTabView!!.setIndicatorRadius(selectRadius, unSelectRadius)
-        dotTabView!!.setViewPager2(viewPager, imageList.size, 10, selectColor, unselectColor)
+        if(showIndicator){
+            dotTabView!!.setIndicatorRadius(selectRadius, unSelectRadius)
+            dotTabView!!.setViewPager2(viewPager, imageList.size, 10, selectColor, unselectColor)
+        }
         count = imageList.size
     }
 

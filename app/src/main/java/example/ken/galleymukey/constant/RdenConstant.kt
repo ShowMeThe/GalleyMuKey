@@ -10,7 +10,7 @@ class RdenConstant {
     companion object{
 
         val account = "account"
-
+        val hasLogin = "hasLogin"
 
 
 

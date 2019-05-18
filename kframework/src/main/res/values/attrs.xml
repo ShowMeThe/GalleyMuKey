@@ -20,13 +20,7 @@
             <enum name="both" value="2" />
         </attr>
     </declare-styleable>
-
-
-    <declare-styleable name="TabLayout">
-        <attr name="indicatorStartColor" format="color|reference"/>
-        <attr name="indicatorEndColor" format="color|reference"/>
-    </declare-styleable>
-
+    
 
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/px43dp</item>

@@ -11,6 +11,15 @@
     </style>
     
     
+    <!-- Base application theme. -->
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+    
     <style name="LeftRightAnim">
         <item name="android:windowEnterAnimation">@anim/anim_right_in</item>
         <item name="android:windowExitAnimation">@anim/anim_left_out</item>
@@ -27,5 +36,10 @@
         <item name="colorControlActivated">@color/color_7c4dff</item>
     </style>
 
+    <style name="line_7986cb">
+        <item name="android:background">@color/color_7986cb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px1dp</item>
+    </style>
 
 </resources>

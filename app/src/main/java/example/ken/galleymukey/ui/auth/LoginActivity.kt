@@ -33,6 +33,7 @@ import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.dialog.SignUpDialog
+import example.ken.galleymukey.ui.main.MainActivity
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.system.KeyBoardUtils
 import java.util.*
@@ -72,7 +73,9 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             it?.apply {
                 showToast("Login Successful")
                 RDEN.put(RdenConstant.account,it.account!!)
+                RDEN.put(RdenConstant.hasLogin,true)
                 dialog.dismiss()
+                startActivity(null,MainActivity::class.java)
             }
         })
 

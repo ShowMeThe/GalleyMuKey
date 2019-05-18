@@ -59,7 +59,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : RxFragment
 
 
     fun createViewModel(aClass : Class<VM>) : VM{
-        return  ViewModelProviders.of(this, ViewModelProvider.AndroidViewModelFactory(activity!!.application)).get(aClass)
+        return  ViewModelProviders.of(activity!!, ViewModelProvider.AndroidViewModelFactory(activity!!.application)).get(aClass)
     }
 
     fun <T> applySchedulers(): ObservableTransformer<T, T> {
@@ -84,7 +84,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : RxFragment
     /**
      * fragment可见的时候操作，取代onResume，且在可见状态切换到可见的时候调用
      */
-    protected fun onVisible() {
+    open fun onVisible() {
 
 
     }
@@ -92,7 +92,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : RxFragment
     /**
      * fragment不可见的时候操作,onPause的时候,以及不可见的时候调用
      */
-    protected fun onHidden() {
+    open fun onHidden() {
 
     }
 

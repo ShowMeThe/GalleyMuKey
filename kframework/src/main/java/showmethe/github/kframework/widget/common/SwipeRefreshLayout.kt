@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import java.util.Objects
 
@@ -59,7 +60,10 @@ class SwipeRefreshLayout : androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
     fun canRecycleViewScroll(recyclerView: RecyclerView): Boolean {
         val layoutManager = recyclerView.layoutManager!!
-        return (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition() != 0
-
+        if(layoutManager is LinearLayoutManager){
+            return layoutManager.findFirstCompletelyVisibleItemPosition() != 0
+        }else {
+         return false
+        }
     }
 }
