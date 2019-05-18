@@ -9,13 +9,16 @@
 		
 		<com.google.android.material.card.MaterialCardView
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px900dp"
-			android:layout_margin="@dimen/px30dp"
-			app:cardCornerRadius="@dimen/px20dp"
+			android:layout_height="@dimen/px1050dp"
+			android:layout_marginTop="@dimen/px30dp"
+			android:layout_marginStart="@dimen/px15dp"
+			android:layout_marginEnd="@dimen/px15dp"
+			android:layout_marginBottom="@dimen/px30dp"
 			app:cardElevation="@dimen/px3dp"
+			app:cardCornerRadius="@dimen/px15dp"
 			app:cardBackgroundColor="@color/white"
 			app:rippleColor="@color/colorPrimaryDark"
-			app:strokeColor="@color/colorPrimaryDark"
+			app:strokeColor="@color/color_7986cb"
 			app:strokeWidth="@dimen/px1dp"
 			>
 			
@@ -29,7 +32,7 @@
 					app:autoPlay="false"
 					app:showIndicator="false"
 					android:layout_width="match_parent"
-					android:layout_height="@dimen/px500dp">
+					android:layout_height="@dimen/px700dp">
 				</showmethe.github.kframework.widget.banner.Banner>
 				
 				<TextView

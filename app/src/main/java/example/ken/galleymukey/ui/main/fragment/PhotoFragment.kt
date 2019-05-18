@@ -2,6 +2,7 @@ package example.ken.galleymukey.ui.main.fragment
 
 import android.os.Bundle
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import example.ken.galleymukey.R
@@ -32,6 +33,13 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
     override fun observerUI() {
 
+        viewModel.bean.observe(this, Observer {
+            it?.apply {
+                refresh.isRefreshing = false
+                list.clear()
+                list.addAll(this)
+            }
+        })
 
 
     }
@@ -41,16 +49,18 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
         refresh.setColorSchemeResources(R.color.colorPrimaryDark)
 
-        for(i in 1..20){
-            list.add(PhotoWallBean())
-        }
+
         adapter = PhotoAdapter(context,list)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
 
-
+        viewModel.getHomePhoto()
     }
 
     override fun initListener() {
+
+        refresh.setOnRefreshListener {
+            viewModel.getHomePhoto()
+        }
     }
 }

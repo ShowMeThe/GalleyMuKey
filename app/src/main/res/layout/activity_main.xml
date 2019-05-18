@@ -13,7 +13,7 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginBottom="@dimen/px150dp"
+		android:layout_marginBottom="@dimen/px40dp"
 		app:layout_dodgeInsetEdges="bottom"
 		>
 		<com.google.android.material.tabs.TabLayout

@@ -2,11 +2,14 @@ package example.ken.galleymukey.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
+import example.ken.galleymukey.source.Source
 import example.ken.galleymukey.source.dto.ImageUrlDto
+import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
 import example.ken.galleymukey.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -17,9 +20,16 @@ import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
+import java.util.concurrent.ThreadLocalRandom
+import kotlin.random.Random
 
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
+
+
+    val random = Random(System.currentTimeMillis())
+    val bannerList = ArrayList<String>()
+    val source = Source()
 
     override fun getViewId(): Int = R.layout.activity_splash
 
@@ -34,10 +44,12 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-
+        random.nextInt(0,10)
+        source.init()
 
         GlobalScope.launch(Dispatchers.Main) {
             addBanner()
+            addPhotoWall()
             delay(3000)
             if(RDEN.get(RdenConstant.hasLogin,false)!!){
                 startActivity(null,LoginActivity::class.java)
@@ -51,17 +63,28 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     fun addBanner(){
-        val list = ArrayList<String>()
-        list.add("http://image1.xyzs.com/upload/a6/1c/1450580015244844/20151224/145089874795426_0.jpg")
-        list.add("http://image2.xyzs.com/upload/9f/f3/1449368181406009/20151209/144960051320867_0.jpg")
-        list.add("http://image3.xyzs.com/upload/b9/40/1449104703418440/20151205/144925600471264_0.jpg")
-        list.add("http://image1.xyzs.com/upload/9b/b2/1450314878985387/20151219/145046718515607_0.jpg")
-        list.add("http://image2.xyzs.com/upload/fc/6a/1450315960904658/20151219/145046718037409_0.jpg")
 
         val bean  = ImageUrlDto()
-        bean.arrarys = list
+        for(i in 0..random.nextInt(2,7)){
+            bannerList.add(source.getBanner()[(random.nextInt(0,15)+1)])
+        }
+        bean.arrarys = bannerList
         bean.key = "LoginBanner"
         DataSourceBuilder.getImageDao().addImages(bean)
+    }
+
+    fun addPhotoWall(){
+
+       for(i in 0..random.nextInt(5,20)){
+           val bean = PhotoWallDto()
+           val list = ArrayList<String>()
+           for(a in 0..random.nextInt(1,5)){
+               list.add(source.getBanner()[(random.nextInt(0,15)+1)])
+           }
+           bean.id = i
+           bean.imageTop = list
+           DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
+       }
     }
 
 

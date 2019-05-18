@@ -3,6 +3,8 @@ package example.ken.galleymukey.ui.main.vm
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.ui.main.repository.MainRepository
 import showmethe.github.kframework.base.BaseViewModel
 
 /**
@@ -12,8 +14,8 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
-
-
+    val repository = MainRepository()
+    val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
@@ -21,5 +23,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
     override fun notifyOwner(owner: LifecycleOwner) {
+        repository.update(owner)
     }
+
+
+    fun getHomePhoto(){
+        repository.getHomePhoto(bean)
+    }
+
+
 }

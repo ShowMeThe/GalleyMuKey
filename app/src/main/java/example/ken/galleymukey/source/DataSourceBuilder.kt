@@ -3,6 +3,7 @@ package example.ken.galleymukey.source
 import android.content.Context
 import androidx.room.Room
 import example.ken.galleymukey.source.dao.ImageUrlDao
+import example.ken.galleymukey.source.dao.PhotoWallDao
 import example.ken.galleymukey.source.dao.UserInfoDao
 import showmethe.github.kframework.util.rden.DatabaseCreator
 
@@ -31,8 +32,12 @@ class DataSourceBuilder {
         }
 
 
-        fun getImageDao() : ImageUrlDao{
-            return  creator.getImageUrlDao()
+        fun getImageDao() : ImageUrlDao {
+            return creator.getImageUrlDao()
+        }
+
+        fun getPhotoWall() : PhotoWallDao{
+            return  creator.getPhotoDao()
         }
 
     }

@@ -20,21 +20,17 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
 
 
     override fun bindItems(binding: ItemPhotoBinding?, item: PhotoWallBean, position: Int) {
-        val list = ArrayList<String>()
-        list.add("http://image1.xyzs.com/upload/a6/1c/1450580015244844/20151224/145089874795426_0.jpg")
-        list.add("http://image2.xyzs.com/upload/9f/f3/1449368181406009/20151209/144960051320867_0.jpg")
-        list.add("http://image3.xyzs.com/upload/b9/40/1449104703418440/20151205/144925600471264_0.jpg")
 
         binding?.apply {
-            banner.addList(list)
+            banner.addList(item.imagePaths!!)
             banner.setCurrentPosition(item.currentPos)
             banner.setOnImageLoader { url, imageView -> TGlide.load(url, imageView) }
             banner.setOnPagerLisnener {
                 data[position].currentPos = it
-                tvSelect.text = "${data[position].currentPos+1}/${list.size}"
+                tvSelect.text = "${data[position].currentPos+1}/${item.imagePaths!!.size}"
             }
 
-            tvSelect.text = "${item.currentPos+1}/${list.size}"
+            tvSelect.text = "${item.currentPos+1}/${item.imagePaths!!.size}"
 
         }
 
