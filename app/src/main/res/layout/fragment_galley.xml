@@ -6,15 +6,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<LinearLayout
-			android:background="@color/colorPrimaryDark"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/px180dp">
-			
-			
-			
-		</LinearLayout>
-	
 		<com.google.android.material.tabs.TabLayout
 			android:id="@+id/tab"
 			android:background="@color/white"

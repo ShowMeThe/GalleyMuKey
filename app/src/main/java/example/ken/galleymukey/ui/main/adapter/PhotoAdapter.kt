@@ -24,7 +24,7 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
         binding?.apply {
             banner.addList(item.imagePaths!!)
             banner.setCurrentPosition(item.currentPos)
-            banner.setOnImageLoader { url, imageView -> TGlide.load(url, imageView) }
+            banner.setOnImageLoader { url, imageView -> TGlide.loadNoCrop(url, imageView) }
             banner.setOnPagerLisnener {
                 data[position].currentPos = it
                 tvSelect.text = "${data[position].currentPos+1}/${item.imagePaths!!.size}"
