@@ -98,13 +98,13 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
     fun addPhotoWall(){
+        DataSourceBuilder.getPhotoWall().delete()
        for(i in 0..random.nextInt(5,20)){
            val bean = PhotoWallDto()
            val list = ArrayList<String>()
            for(a in 0..random.nextInt(1,5)){
                list.add(source.getBanner()[(random.nextInt(0,28))])
            }
-           bean.id = i
            bean.imageTop = list
            bean.avatar = source.getBanner()[(random.nextInt(0,28))]
            bean.username = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]

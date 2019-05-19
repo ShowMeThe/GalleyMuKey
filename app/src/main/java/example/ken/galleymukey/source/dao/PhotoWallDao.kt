@@ -1,10 +1,7 @@
 package example.ken.galleymukey.source.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import example.ken.galleymukey.source.dto.ImageUrlDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
 
@@ -23,5 +20,7 @@ interface PhotoWallDao {
     @Query("select * from PhotoWallDto")
     fun getPhotoBean() : LiveData<List<PhotoWallDto>>
 
+    @Query("delete  from PhotoWallDto")
+    fun delete()
 
 }

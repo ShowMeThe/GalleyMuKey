@@ -11,7 +11,7 @@ import example.ken.galleymukey.source.dto.*
  *
  * 2019/5/17
  **/
-@Database(entities = arrayOf(UserInfoDto::class,ImageUrlDto::class,PhotoWallDto::class, HotWallDto::class),version = 2)
+@Database(entities = arrayOf(UserInfoDto::class,ImageUrlDto::class,PhotoWallDto::class, HotWallDto::class),version = 6)
 abstract class AppDataBaseCreator : RoomDatabase() {
 
     abstract fun getUserInfoDto() : UserInfoDao

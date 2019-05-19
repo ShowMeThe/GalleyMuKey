@@ -13,6 +13,7 @@ import java.util.ArrayList
  */
 class PhotoWallBean : Observable {
 
+    var id = 0
     var imagePaths: ArrayList<String>? = null
 
     var currentPos: Int = 0
@@ -23,6 +24,8 @@ class PhotoWallBean : Observable {
             field = avatar
             notifyChange(BR.avatar)
         }
+
+    var like : Boolean  = false
 
     @get:Bindable
     var username : String? = null

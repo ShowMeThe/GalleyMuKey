@@ -7,6 +7,8 @@ import androidx.databinding.ObservableArrayList
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.databinding.ItemPhotoBinding
+import example.ken.galleymukey.source.dao.PhotoWallDao
+import example.ken.galleymukey.source.dto.PhotoWallDto
 import showmethe.github.kframework.adapter.AutoLoadAdapter
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.glide.TGlide
@@ -38,9 +40,12 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
             banner.setOnPageClickListner {
                 onPhotoClick?.invoke(banner,item.imagePaths!![it])
             }
-
+            like.setLike(item.like,false)
+            like.setOnClickListener {
+                item.like = !item.like
+                like.setLike( data[position].like,true)
+            }
         }
-
     }
 
     var onPhotoClick: ((view: View, url:String)->Unit)? = null
@@ -48,6 +53,7 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
     fun setOnPhotoClickListener(onPhotoClick: ((view: View,url:String)->Unit)){
         this.onPhotoClick = onPhotoClick
     }
+
 
     override fun getItemLayout(): Int = R.layout.item_photo
 }

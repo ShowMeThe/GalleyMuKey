@@ -21,6 +21,9 @@
         </attr>
     </declare-styleable>
     
+    <declare-styleable name="LikeView">
+        <attr name="like_state" format="boolean"/>
+    </declare-styleable>
 
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/px43dp</item>

@@ -60,14 +60,15 @@
 			</RelativeLayout>
 		</com.google.android.material.card.MaterialCardView>
 		
-		<LinearLayout
+		<RelativeLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px150dp">
+			android:layout_height="@dimen/px180dp">
 			
 			<ImageView
 				android:id="@+id/ivAvatar"
 				circle="@{bean.avatar}"
+				android:layout_centerVertical="true"
 				android:background="@drawable/shape_circle_bg"
 				android:layout_gravity="center|start"
 				android:layout_marginStart="@dimen/px30dp"
@@ -78,18 +79,26 @@
 				android:id="@+id/tvName"
 				android:text="@{bean.username}"
 				android:textSize="@dimen/px43dp"
+				android:layout_toEndOf="@+id/ivAvatar"
+				android:layout_centerVertical="true"
 				android:textColor="@color/text_333333"
 				android:layout_marginStart="@dimen/px30dp"
 				android:layout_gravity="center"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content" />
-		
-		
-		</LinearLayout>
+			  
+		    <showmethe.github.kframework.widget.common.LikeView
+			    android:id="@+id/like"
+			    app:like_state="false"
+			    android:layout_marginEnd="@dimen/px30dp"
+			    android:layout_alignParentEnd="true"
+			    android:layout_width="@dimen/px150dp"
+			    android:layout_height="@dimen/px150dp" />
+			
+		</RelativeLayout>
 		
 		
 		<TextView
-			android:layout_below="@id/banner"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/px400dp" />
 		

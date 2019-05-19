@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui.main.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
         viewModel.bean.observe(this, Observer {
             it?.apply {
+                Log.e("isLike","list notitfy ")
                 smrl.showContent()
                 refresh.isRefreshing = false
                 list.clear()
@@ -68,6 +70,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
             bundle.putString("photo",url)
             context.startActivity(bundle, ImageShowActivity::class.java,view,"photo")
         }
+
 
     }
 }

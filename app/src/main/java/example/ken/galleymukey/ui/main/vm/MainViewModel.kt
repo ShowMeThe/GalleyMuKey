@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.main.repository.MainRepository
 import showmethe.github.kframework.base.BaseViewModel
 

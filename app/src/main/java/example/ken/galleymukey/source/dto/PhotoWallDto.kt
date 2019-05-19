@@ -19,5 +19,6 @@ class PhotoWallDto {
     var imageTop : ArrayList<String> ? = null
     var avatar : String? = null
     var username : String? = null
+    var like  : Boolean? = null
 
 }
