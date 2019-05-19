@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.databinding.FragmentPhotoBinding
+import example.ken.galleymukey.ui.main.ImageShowActivity
 import example.ken.galleymukey.ui.main.adapter.PhotoAdapter
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_galley.*
@@ -61,5 +62,12 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
         refresh.setOnRefreshListener {
             viewModel.getHomePhoto()
         }
+
+        adapter.setOnPhotoClickListener { view, url ->
+            val bundle = Bundle()
+            bundle.putString("photo",url)
+            context.startActivity(bundle, ImageShowActivity::class.java,view,"photo")
+        }
+
     }
 }

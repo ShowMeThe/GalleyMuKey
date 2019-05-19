@@ -2,6 +2,7 @@ package example.ken.galleymukey.ui.main.adapter
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import androidx.databinding.ObservableArrayList
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.PhotoWallBean
@@ -22,6 +23,9 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
     override fun bindItems(binding: ItemPhotoBinding?, item: PhotoWallBean, position: Int) {
 
         binding?.apply {
+            bean = item
+            executePendingBindings()
+
             banner.addList(item.imagePaths!!)
             banner.setCurrentPosition(item.currentPos)
             banner.setOnImageLoader { url, imageView -> TGlide.loadNoCrop(url, imageView) }
@@ -31,9 +35,18 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
             }
 
             tvSelect.text = "${item.currentPos+1}/${item.imagePaths!!.size}"
+            banner.setOnPageClickListner {
+                onPhotoClick?.invoke(banner,item.imagePaths!![it])
+            }
 
         }
 
+    }
+
+    var onPhotoClick: ((view: View, url:String)->Unit)? = null
+
+    fun setOnPhotoClickListener(onPhotoClick: ((view: View,url:String)->Unit)){
+        this.onPhotoClick = onPhotoClick
     }
 
     override fun getItemLayout(): Int = R.layout.item_photo

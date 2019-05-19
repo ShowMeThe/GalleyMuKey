@@ -32,7 +32,13 @@ class HotAdapter(context: Context, mData: ObservableArrayList<HotWallBean>) :
                 (holder as NormalViewHolder).binding.apply {
                     bean = item
                     executePendingBindings()
+                    iv.setOnClickListener {
+                        onPhotoClick?.invoke(it,item.pathTop!!)
+                    }
 
+                    iv2.setOnClickListener {
+                        onPhotoClick?.invoke(it,item.pathBottom!!)
+                    }
                 }
 
             }
@@ -40,6 +46,9 @@ class HotAdapter(context: Context, mData: ObservableArrayList<HotWallBean>) :
                 (holder as GriViewHolder).binding.apply {
                     bean = item
                     executePendingBindings()
+                    iv.setOnClickListener {
+                        onPhotoClick?.invoke(it,item.pathTop!!)
+                    }
                 }
 
             }
@@ -61,6 +70,8 @@ class HotAdapter(context: Context, mData: ObservableArrayList<HotWallBean>) :
     }
 
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when(viewType){
              0 -> return NormalViewHolder(DataBindingUtil.bind<ItemHotBinding>(inflateItemView(parent, R.layout.item_hot))!!)
@@ -69,6 +80,12 @@ class HotAdapter(context: Context, mData: ObservableArrayList<HotWallBean>) :
         return  NormalViewHolder(DataBindingUtil.bind<ItemHotBinding>(inflateItemView(parent, R.layout.item_hot))!!)
     }
 
+
+    var onPhotoClick: ((view: View, url:String)->Unit)? = null
+
+    fun setOnPhotoClickListener(onPhotoClick: ((view: View,url:String)->Unit)){
+        this.onPhotoClick = onPhotoClick
+    }
 
     override fun getItemViewType(position: Int): Int {
         when(mData[position].type){

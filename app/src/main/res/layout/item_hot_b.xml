@@ -18,6 +18,7 @@
 			android:background="@color/color_7986cb"
 			android:scaleType="centerCrop"
 			imgPath="@{bean.pathTop}"
+			android:transitionName="photo"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent" />
 	

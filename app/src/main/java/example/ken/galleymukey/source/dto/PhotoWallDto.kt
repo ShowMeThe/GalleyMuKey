@@ -17,6 +17,7 @@ class PhotoWallDto {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var imageTop : ArrayList<String> ? = null
-
+    var avatar : String? = null
+    var username : String? = null
 
 }

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	
+	<data>
+		<variable
+			name="bean"
+			type="example.ken.galleymukey.bean.PhotoWallBean" />
+	</data>
+	
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		android:orientation="vertical"
@@ -14,12 +20,12 @@
 			android:layout_marginBottom="@dimen/px10dp"
 			android:layout_marginStart="@dimen/px10dp"
 			android:layout_marginEnd="@dimen/px10dp"
-			app:cardCornerRadius="@dimen/px25dp"
+			app:cardCornerRadius="@dimen/px35dp"
 			app:cardPreventCornerOverlap="true"
 			app:cardElevation="@dimen/px5dp"
 			app:cardBackgroundColor="@color/white"
 			app:rippleColor="@color/colorPrimaryDark"
-			app:strokeColor="@color/text_999999"
+			app:strokeColor="@color/color_7986cb"
 			app:strokeWidth="@dimen/px1dp"
 			>
 			
@@ -31,6 +37,7 @@
 					android:id="@+id/banner"
 					app:autoPlay="false"
 					app:showIndicator="false"
+					android:transitionName="photo"
 					android:background="@color/color_7986cb"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px800dp">
@@ -48,14 +55,44 @@
 					android:background="@drawable/shape_rect_white__85"
 					android:layout_width="@dimen/px120dp"
 					android:layout_height="@dimen/px70dp" />
-				
-				   <TextView
-					   android:layout_below="@id/banner"
-					   android:layout_width="match_parent"
-					   android:layout_height="@dimen/px400dp" />
+			
 				
 			</RelativeLayout>
 		</com.google.android.material.card.MaterialCardView>
-	
+		
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px150dp">
+			
+			<ImageView
+				android:id="@+id/ivAvatar"
+				circle="@{bean.avatar}"
+				android:background="@drawable/shape_circle_bg"
+				android:layout_gravity="center|start"
+				android:layout_marginStart="@dimen/px30dp"
+				android:layout_width="@dimen/px120dp"
+				android:layout_height="@dimen/px120dp" />
+		
+			<TextView
+				android:id="@+id/tvName"
+				android:text="@{bean.username}"
+				android:textSize="@dimen/px43dp"
+				android:textColor="@color/text_333333"
+				android:layout_marginStart="@dimen/px30dp"
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		
+		
+		</LinearLayout>
+		
+		
+		<TextView
+			android:layout_below="@id/banner"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px400dp" />
+		
+		<View style="@style/line_7986cb"/>
 	</LinearLayout>
 </layout>

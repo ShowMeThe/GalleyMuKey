@@ -20,4 +20,7 @@ interface HotWallDao {
     @Query("select * from HotWallDto")
     fun getHotBeanList() : LiveData<List<HotWallDto>>
 
+    @Query("delete  from HotWallDto")
+    fun deleteAll()
+
 }

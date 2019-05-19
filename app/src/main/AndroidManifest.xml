@@ -11,28 +11,26 @@
 		android:roundIcon="@mipmap/ic_launcher"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
-		tools:replace="android:theme"
-		tools:ignore="GoogleAppIndexingWarning">
-		
-		
-		<activity android:name=".ui.auth.SplashActivity"
-			android:theme="@style/Theme.Splash"
-			>
+		tools:ignore="GoogleAppIndexingWarning"
+		tools:replace="android:theme">
+		<activity android:name=".ui.main.ImageShowActivity"
+			android:theme="@style/MaterialTheme"
+			></activity>
+		<activity
+			android:name=".ui.auth.SplashActivity"
+			android:theme="@style/Theme.Splash">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".ui.auth.LoginActivity"
-			android:theme="@style/MaterialTheme"
-			>
-		
-		</activity>
-		<activity android:name=".ui.main.MainActivity"
-			android:theme="@style/MaterialTheme"
-			>
-		</activity>
+		<activity
+			android:name=".ui.auth.LoginActivity"
+			android:theme="@style/MaterialTheme"></activity>
+		<activity
+			android:name=".ui.main.MainActivity"
+			android:theme="@style/MaterialTheme"></activity>
 	</application>
 
 </manifest>

@@ -105,6 +105,10 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
             }
         })
 
+        adapter.setOnItemClickListener { view, position ->
+            onPageClick?.invoke(position)
+        }
+
         addViewInLayout(view, -1, DEFAULT_LAYOUT_PARAMS, true)
     }
 
@@ -127,8 +131,14 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         this.onPagerListener = onPagerListener
     }
 
+    var onPageClick: ((position:Int)->Unit)? = null
 
-    fun setCurrentPosition(position : Int){
+    fun setOnPageClickListner(onPageClick : ((position:Int)->Unit)){
+        this.onPageClick = onPageClick
+    }
+
+
+        fun setCurrentPosition(position : Int){
         if(position<=imageList.size-1){
             currentItem = position.toLong()
             viewPager?.post {

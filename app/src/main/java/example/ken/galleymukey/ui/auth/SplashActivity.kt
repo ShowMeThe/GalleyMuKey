@@ -77,15 +77,16 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     fun addHotWall(){
-        val num =  27*(random.nextInt(1,2))
-        for(i in 0..num){
+        DataSourceBuilder.getHotWall().deleteAll()
+        val num =  10 * (random.nextInt(1,5))
+        for(i in 0 until num){
             val bean = HotWallDto()
-            when(i%7){
-                0,6 ->{
+            when(i%10){
+                0,6->{
                     bean.imageTop = source.getBanner()[(random.nextInt(0,28))]
                     bean.type = 1
                 }
-                1,2,3,4,5->{
+                1,2,3,4,5,7,8,9->{
                     bean.imageTop = source.getBanner()[(random.nextInt(0,28))]
                     bean.imageBottom = source.getBanner()[(random.nextInt(0,28))]
                     bean.type = 0
@@ -105,6 +106,8 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
            }
            bean.id = i
            bean.imageTop = list
+           bean.avatar = source.getBanner()[(random.nextInt(0,28))]
+           bean.username = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]
            DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
        }
     }

@@ -30,6 +30,8 @@ class MainRepository : BaseRepository() {
                     for(dto  in this){
                         val bean = PhotoWallBean()
                         bean.imagePaths = dto.imageTop
+                        bean.avatar = dto.avatar
+                        bean.username = dto.username
                         list.add(bean)
                     }
                     bean.value = list

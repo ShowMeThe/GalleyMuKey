@@ -17,3 +17,10 @@ fun ImageView.setUrl(url : String?){
         TGlide.loadNoCrop(url,this@setUrl)
     }
 }
+
+@BindingAdapter("circle")
+fun ImageView.circle(url : String?){
+    url?.apply {
+        TGlide.loadCirclePicture(url,this@circle)
+    }
+}

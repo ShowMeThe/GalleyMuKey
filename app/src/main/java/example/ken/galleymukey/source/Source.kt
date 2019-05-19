@@ -10,6 +10,7 @@ class Source{
 
 
     private val bannerSource =  ArrayList<String>()
+    private val userName =  ArrayList<String>()
 
     fun init(){
         bannerSource.apply {
@@ -43,11 +44,31 @@ class Source{
             add("http://image4.xyzs.com/upload/79/0d/1450661268823426/20151224/145090275549310_0.jpg")
             add("http://image3.xyzs.com/upload/fd/d4/1450660354737808/20151224/145090275350248_0.jpg")
         }
+
+
+        userName.apply {
+            add("Abbott")
+            add("Alfred")
+            add("Edwiin")
+            add("Barlow")
+            add("Basil")
+            add("Carey")
+            add("Beck")
+            add("Evan")
+            add("@")
+            add("$")
+            add("^")
+            add("*@@")
+            add("&_")
+            add("%hh*_")
+        }
+
+
     }
 
 
     fun getBanner() = bannerSource
 
-
+    fun getUserName() = userName
 
 }

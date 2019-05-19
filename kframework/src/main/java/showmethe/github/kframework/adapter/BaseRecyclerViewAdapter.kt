@@ -55,9 +55,11 @@ abstract class BaseRecyclerViewAdapter<D, V : RecyclerView.ViewHolder>(var conte
 
     }
 
-    interface OnItemClickListener {
+    @FunctionalInterface
+     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
     }
+
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener

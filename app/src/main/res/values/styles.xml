@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    
         <item name="android:windowBackground">@color/colorAccent</item>
     </style>
     
@@ -18,6 +17,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/changebounds</item>
+      <!--  <item name="android:windowSharedElementExitTransition">@transition/changebounds</item>-->
+        <item name="android:windowSharedElementReturnTransition">@transition/changebounds</item>
+        
     </style>
     
     <style name="LeftRightAnim">
@@ -38,6 +42,18 @@
 
     <style name="line_7986cb">
         <item name="android:background">@color/color_7986cb</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px1dp</item>
+    </style>
+    
+    <style name="line_999">
+        <item name="android:background">@color/text_999999</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px1dp</item>
+    </style>
+    
+    <style name="line_9575cd">
+        <item name="android:background">@color/color_9575cd</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/px1dp</item>
     </style>
