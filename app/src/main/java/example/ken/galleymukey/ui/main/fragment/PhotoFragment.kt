@@ -35,13 +35,12 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
         viewModel.bean.observe(this, Observer {
             it?.apply {
+                smrl.showContent()
                 refresh.isRefreshing = false
                 list.clear()
                 list.addAll(this)
             }
         })
-
-
     }
 
 

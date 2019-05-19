@@ -11,4 +11,8 @@ class PhotoWallBean {
 
     var imagePaths: ArrayList<String>? = null
     var currentPos: Int = 0
+
+
+
+
 }

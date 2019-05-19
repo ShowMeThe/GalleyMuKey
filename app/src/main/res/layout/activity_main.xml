@@ -13,14 +13,12 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginBottom="@dimen/px40dp"
-		app:layout_dodgeInsetEdges="bottom"
 		>
 		<com.google.android.material.tabs.TabLayout
 			android:id="@+id/tab"
 			android:background="@color/colorPrimaryDark"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px190dp"
+			android:layout_height="@dimen/px120dp"
 			app:tabIndicatorColor="@color/white"
 			app:tabGravity="fill"
 			app:tabRippleColor="@color/white_85"
@@ -33,6 +31,8 @@
 			>
 		</com.google.android.material.tabs.TabLayout>
 		
+		
+		
 		<FrameLayout
 			android:id="@+id/frameLayout"
 			android:layout_width="match_parent"
@@ -41,27 +41,6 @@
 	
 	</LinearLayout>
 
-
-	<com.google.android.material.bottomappbar.BottomAppBar
-		android:id="@+id/bottomBar"
-		android:layout_gravity="bottom"
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/px150dp"
-		app:backgroundTint="@color/colorPrimaryDark"
-		app:fabCradleMargin="@dimen/px15dp"
-		app:fabAlignmentMode="center"
-		>
-	</com.google.android.material.bottomappbar.BottomAppBar>
-	
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/fab"
-		android:src="@mipmap/add"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:rippleColor="@color/color_7986cb"
-		app:layout_anchor="@id/bottomBar"
-		app:backgroundTint="@color/colorPrimaryDark"
-		/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

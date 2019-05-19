@@ -1,24 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 	
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
 		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
 			android:id="@+id/refresh"
+			app:layout_dodgeInsetEdges="bottom"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/rv"
+			<showmethe.github.kframework.widget.common.SmartRelativeLayout
+				android:id="@+id/smrl"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-			</androidx.recyclerview.widget.RecyclerView>
-		
+				android:layout_height="match_parent">
+				
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/rv"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				</androidx.recyclerview.widget.RecyclerView>
+			
+			
+			</showmethe.github.kframework.widget.common.SmartRelativeLayout>
 		
 		</showmethe.github.kframework.widget.common.SwipeRefreshLayout>
+		
+		
+		<com.google.android.material.bottomappbar.BottomAppBar
+			android:id="@+id/bottomBar"
+			android:layout_gravity="bottom"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px130dp"
+			app:backgroundTint="@color/colorPrimaryDark"
+			app:fabCradleMargin="@dimen/px13dp"
+			app:fabAlignmentMode="end"
+			>
+		</com.google.android.material.bottomappbar.BottomAppBar>
+		
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fab"
+			android:src="@mipmap/add"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:rippleColor="@color/color_7986cb"
+			app:layout_anchor="@id/bottomBar"
+			app:fabSize="normal"
+			app:fabCustomSize="@dimen/px130dp"
+			app:backgroundTint="@color/colorPrimaryDark"
+			/>
 	
-	</LinearLayout>
+	
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

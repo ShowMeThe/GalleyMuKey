@@ -10,13 +10,17 @@
 		<com.google.android.material.card.MaterialCardView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/px30dp"
-			android:layout_marginBottom="@dimen/px30dp"
-			app:cardElevation="@dimen/px3dp"
+			android:layout_marginTop="@dimen/px15dp"
+			android:layout_marginBottom="@dimen/px10dp"
+			android:layout_marginStart="@dimen/px10dp"
+			android:layout_marginEnd="@dimen/px10dp"
+			app:cardCornerRadius="@dimen/px25dp"
+			app:cardPreventCornerOverlap="true"
+			app:cardElevation="@dimen/px5dp"
 			app:cardBackgroundColor="@color/white"
 			app:rippleColor="@color/colorPrimaryDark"
-			app:strokeColor="@color/color_7986cb"
-			app:strokeWidth="0.3dp"
+			app:strokeColor="@color/text_999999"
+			app:strokeWidth="@dimen/px1dp"
 			>
 			
 			<RelativeLayout

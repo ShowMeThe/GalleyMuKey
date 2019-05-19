@@ -10,7 +10,7 @@
 			android:id="@+id/tab"
 			android:background="@color/white"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px150dp"
+			android:layout_height="@dimen/px120dp"
 			app:tabTextColor="@color/color_7986cb"
 			app:tabSelectedTextColor="@color/colorPrimaryDark"
 			app:tabGravity="center"
@@ -21,7 +21,6 @@
 		</com.google.android.material.tabs.TabLayout>
 		
 		<View style="@style/line_7986cb"/>
-		
 		
 		<androidx.viewpager.widget.ViewPager
 			android:id="@+id/viewPager"

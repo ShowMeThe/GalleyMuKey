@@ -64,11 +64,11 @@ abstract class BaseRecyclerViewAdapter<D, V : RecyclerView.ViewHolder>(var conte
     }
 
 
-    protected fun getItem(position: Int): D {
+    open fun getItem(position: Int): D {
         return mData[position]
     }
 
-    protected fun inflateItemView(viewGroup: ViewGroup, layoutId: Int): View {
+    open fun inflateItemView(viewGroup: ViewGroup, layoutId: Int): View {
         return LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
     }
 

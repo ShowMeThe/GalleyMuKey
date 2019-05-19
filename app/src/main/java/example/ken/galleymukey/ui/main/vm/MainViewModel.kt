@@ -3,6 +3,7 @@ package example.ken.galleymukey.ui.main.vm
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.ui.main.repository.MainRepository
 import showmethe.github.kframework.base.BaseViewModel
@@ -16,6 +17,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     val repository = MainRepository()
     val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
+    val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
@@ -31,5 +33,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         repository.getHomePhoto(bean)
     }
 
-
+    fun getHotWall(){
+        repository.getHotWall(hotBean)
+    }
 }

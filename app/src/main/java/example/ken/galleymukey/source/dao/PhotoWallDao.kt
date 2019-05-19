@@ -23,4 +23,5 @@ interface PhotoWallDao {
     @Query("select * from PhotoWallDto")
     fun getPhotoBean() : LiveData<List<PhotoWallDto>>
 
+
 }

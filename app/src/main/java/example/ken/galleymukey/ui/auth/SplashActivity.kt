@@ -8,6 +8,8 @@ import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.Source
+
+import example.ken.galleymukey.source.dto.HotWallDto
 import example.ken.galleymukey.source.dto.ImageUrlDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
@@ -49,6 +51,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
         GlobalScope.launch(Dispatchers.Main) {
             addBanner()
+            addHotWall()
             addPhotoWall()
             delay(3000)
             if(RDEN.get(RdenConstant.hasLogin,false)!!){
@@ -66,20 +69,39 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
         val bean  = ImageUrlDto()
         for(i in 0..random.nextInt(2,7)){
-            bannerList.add(source.getBanner()[(random.nextInt(0,15)+1)])
+            bannerList.add(source.getBanner()[(random.nextInt(0,28))])
         }
         bean.arrarys = bannerList
         bean.key = "LoginBanner"
         DataSourceBuilder.getImageDao().addImages(bean)
     }
 
-    fun addPhotoWall(){
+    fun addHotWall(){
+        val num =  27*(random.nextInt(1,2))
+        for(i in 0..num){
+            val bean = HotWallDto()
+            when(i%7){
+                0,6 ->{
+                    bean.imageTop = source.getBanner()[(random.nextInt(0,28))]
+                    bean.type = 1
+                }
+                1,2,3,4,5->{
+                    bean.imageTop = source.getBanner()[(random.nextInt(0,28))]
+                    bean.imageBottom = source.getBanner()[(random.nextInt(0,28))]
+                    bean.type = 0
+                }
+            }
+            DataSourceBuilder.getHotWall().addHotBean(bean)
+        }
+    }
 
+
+    fun addPhotoWall(){
        for(i in 0..random.nextInt(5,20)){
            val bean = PhotoWallDto()
            val list = ArrayList<String>()
            for(a in 0..random.nextInt(1,5)){
-               list.add(source.getBanner()[(random.nextInt(0,15)+1)])
+               list.add(source.getBanner()[(random.nextInt(0,28))])
            }
            bean.id = i
            bean.imageTop = list
