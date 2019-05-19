@@ -5,9 +5,15 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
+
+    /**
+     *          MD5: 5A:CB:A1:97:66:7F:4C:89:F3:D4:C0:97:0F:57:88:5E
+     *          SHA1: 49:7C:D2:3D:ED:60:28:38:09:CF:90:97:A3:8C:6F:D5:AB:AB:3E:D4
+     *          SHA256: 1B:2E:35:92:12:C3:0F:4D:20:58:28:1A:22:6B:BA:7F:A2:A7:6D:0E:B5:44:A6:EA:CC:D3:28:28:51:98:3B:61
+     */
     signingConfigs {
         debug {
-            storeFile file('D:\\Andrioddevelop\\GalleyMuKey\\app\\release\\galleyMukey.jks')
+            storeFile file('release\\galleyMukey.jks')
             storePassword '123456'
             keyAlias = 'key0'
             keyPassword '123456'
