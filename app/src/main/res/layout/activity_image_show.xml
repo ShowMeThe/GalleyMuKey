@@ -8,7 +8,14 @@
 	android:background="@color/color_7986cb"
 	tools:context=".ui.main.ImageShowActivity">
 	
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	</androidx.appcompat.widget.Toolbar>
+	
 	<LinearLayout
+		android:layout_below="@id/toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/px150dp">
 		

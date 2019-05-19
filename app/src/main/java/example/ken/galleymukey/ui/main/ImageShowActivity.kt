@@ -30,7 +30,10 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        StatusBarUtil.setStatusColor(this,R.color.color_7986cb)
+        StatusBarUtil.fixToolbarScreen(this,toolbar)
+
+
+
     }
 
     override fun initListener() {
