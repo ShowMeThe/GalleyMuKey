@@ -40,9 +40,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            zipAlignEnabled true
+            buildConfigField "boolean", "IS_SHOW_LOG", NOT_SHOW_LOG
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+            buildConfigField "boolean", "IS_SHOW_LOG", SHOW_LOG
             signingConfig signingConfigs.debug
         }
     }
