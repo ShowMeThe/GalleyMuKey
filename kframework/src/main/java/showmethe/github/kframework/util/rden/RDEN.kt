@@ -81,7 +81,6 @@ class RDEN private constructor(){
        inline fun <reified T>get(key : String,default: T) : T {
            try {
                val clazz = T::class.java
-               Log.e("2222222","${clazz.name}")
                if(clazz.name.equals(String :: class.java.name)){
                    val bean =  getRoomDao().get(key)
                    if(bean?.stringValue.isNullOrEmpty()){

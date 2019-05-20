@@ -13,9 +13,11 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:theme">
-		<activity android:name=".ui.main.ImageShowActivity"
-			android:theme="@style/MaterialTheme"
-			></activity>
+		
+	
+		<activity
+			android:name=".ui.main.ImageShowActivity"
+			android:theme="@style/MaterialTheme" />
 		<activity
 			android:name=".ui.auth.SplashActivity"
 			android:theme="@style/Theme.Splash">
@@ -27,10 +29,10 @@
 		</activity>
 		<activity
 			android:name=".ui.auth.LoginActivity"
-			android:theme="@style/MaterialTheme"></activity>
+			android:theme="@style/MaterialTheme" />
 		<activity
-			android:name=".ui.main.MainActivity"
-			android:theme="@style/MaterialTheme"></activity>
+			android:name=".ui.MainActivity"
+			android:theme="@style/MaterialTheme" />
 	</application>
 
 </manifest>

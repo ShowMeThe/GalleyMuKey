@@ -1,8 +1,6 @@
 package example.ken.galleymukey.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.ViewDataBinding
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
@@ -13,17 +11,13 @@ import example.ken.galleymukey.source.dto.HotWallDto
 import example.ken.galleymukey.source.dto.ImageUrlDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
-import example.ken.galleymukey.ui.main.MainActivity
-import kotlinx.android.synthetic.main.activity_splash.*
+import example.ken.galleymukey.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.internal.connection.RealConnection
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.util.rden.RDEN
-import showmethe.github.kframework.util.widget.StatusBarUtil
-import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
@@ -61,7 +55,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 startActivity(null,LoginActivity::class.java)
             }else{
                 RDEN.put(RdenConstant.hasAdd,true)
-                startActivity(null,MainActivity::class.java)
+                startActivity(null, MainActivity::class.java)
             }
             finish()
         }

@@ -1,4 +1,4 @@
-package example.ken.galleymukey.ui.main
+package example.ken.galleymukey.ui
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -6,11 +6,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
+import example.ken.galleymukey.ui.cate.fragment.CateFragment
 import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import showmethe.github.kframework.base.BaseActivity
-import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
@@ -45,7 +45,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     fun initTab(){
         tab.addTab(tab.newTab().setText("Galley").setIcon(ContextCompat.getDrawable(context,R.mipmap.navi_1)))
-        tab.addTab(tab.newTab().setText("Galley").setIcon(ContextCompat.getDrawable(context,R.mipmap.navi_1)))
+        tab.addTab(tab.newTab().setText("Category").setIcon(ContextCompat.getDrawable(context,R.mipmap.category)))
         tab.addTab(tab.newTab().setText("Galley").setIcon(ContextCompat.getDrawable(context,R.mipmap.navi_1)))
 
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
@@ -67,7 +67,8 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     fun switchFragment(position:Int){
         when(position){
             0 ->  replaceFragment(GalleyFragment::class.java.name)
-     /*       1 ->  replaceFragment(GalleyFragment::class.java.name)
+            1 ->  replaceFragment(CateFragment::class.java.name)
+     /*
             2 ->  replaceFragment(GalleyFragment::class.java.name)*/
         }
     }

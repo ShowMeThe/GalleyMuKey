@@ -1,44 +1,26 @@
 package example.ken.galleymukey.ui.auth
 
-import android.animation.Animator
-import android.graphics.Bitmap
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
-import com.commit451.nativestackblur.NativeStackBlur
 import example.ken.galleymukey.R
 import example.ken.galleymukey.dialog.LoginDialog
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import showmethe.github.kframework.base.BaseActivity
-import showmethe.github.kframework.glide.BlurImageTransform
 import showmethe.github.kframework.glide.TGlide
-import showmethe.github.kframework.util.commbine.LruCacheUtil
 import showmethe.github.kframework.util.widget.StatusBarUtil
-import android.graphics.Matrix
-import android.graphics.drawable.Drawable
-import android.R.attr.bitmap
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.graphics.drawable.BitmapDrawable
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
-import android.util.Log
-import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.dialog.SignUpDialog
-import example.ken.galleymukey.ui.main.MainActivity
+import example.ken.galleymukey.ui.MainActivity
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.system.KeyBoardUtils
-import java.util.*
 import java.util.concurrent.ThreadLocalRandom
-import kotlin.collections.ArrayList
 
 
 class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
@@ -75,7 +57,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 RDEN.put(RdenConstant.account,it.account!!)
                 RDEN.put(RdenConstant.hasLogin,true)
                 dialog.dismiss()
-                startActivity(null,MainActivity::class.java)
+                startActivity(null, MainActivity::class.java)
             }
         })
 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<LinearLayout
+			android:transitionName="search"
+			android:background="@drawable/shape_search_bar"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px180dp">
+			
+			<ImageView
+				android:layout_marginStart="@dimen/px30dp"
+				android:layout_gravity="center"
+				android:background="@mipmap/search"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+			
+			<EditText
+				android:id="@+id/edSearch"
+				android:textSize="@dimen/px43dp"
+				android:textColor="@color/colorPrimaryDark"
+				android:layout_marginStart="@dimen/px30dp"
+				android:layout_marginEnd="@dimen/px30dp"
+				android:paddingStart="@dimen/px30dp"
+				android:paddingEnd="@dimen/px30dp"
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:inputType="text"
+				android:maxLines="1"
+				android:layout_gravity="center"
+				android:background="@drawable/shape_rect_raidus_white_85"
+				android:layout_height="@dimen/px90dp">
+			</EditText>
+			
+			<TextView
+				android:id="@+id/tvSearch"
+				android:textColor="@color/white"
+				android:textSize="@dimen/px47dp"
+				android:textStyle="bold"
+				android:text="Search"
+				android:layout_gravity="center"
+				android:layout_marginEnd="@dimen/px30dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		</LinearLayout>
+		
+		<showmethe.github.kframework.widget.common.PullDragLayout
+			app:BottomBorderHeight="@dimen/px110dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			<LinearLayout
+				android:background="@color/colorPrimaryDark"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				
+				
+			</LinearLayout>
+			
+			<RelativeLayout
+				android:background="@drawable/shape_rect_top_radius"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<View
+					android:id="@+id/line"
+					android:layout_marginTop="@dimen/px30dp"
+					android:layout_centerHorizontal="true"
+					android:background="@drawable/shape_rect_radius_dark"
+					android:layout_width="@dimen/px140dp"
+					android:layout_height="@dimen/px20dp"/>
+				
+				<com.google.android.flexbox.FlexboxLayout
+					android:id="@+id/flexLayout"
+					android:layout_below="@id/line"
+					android:layout_margin="@dimen/px30dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:flexDirection="row"
+					app:flexWrap="wrap"
+					>
+				</com.google.android.flexbox.FlexboxLayout>
+				
+				<Button
+					android:id="@+id/btnConfirm"
+					android:text="Confirm"
+					android:layout_below="@+id/flexLayout"
+					android:layout_marginTop="@dimen/px30dp"
+					android:layout_marginStart="@dimen/px100dp"
+					android:layout_marginEnd="@dimen/px100dp"
+					android:layout_marginBottom="@dimen/px30dp"
+					android:background="@drawable/shape_rect_7c4dff"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/px130dp" />
+			</RelativeLayout>
+			
+		</showmethe.github.kframework.widget.common.PullDragLayout>
+		
+	</LinearLayout>
+</layout>
