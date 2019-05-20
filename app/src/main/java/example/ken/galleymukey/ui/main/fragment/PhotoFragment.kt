@@ -37,7 +37,6 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
         viewModel.bean.observe(this, Observer {
             it?.apply {
-                Log.e("isLike","list notitfy ")
                 smrl.showContent()
                 refresh.isRefreshing = false
                 list.clear()
@@ -70,7 +69,9 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
             bundle.putString("photo",url)
             context.startActivity(bundle, ImageShowActivity::class.java,view,"photo")
         }
-
+        adapter.setOnLikeClickListener { id, like ->
+            viewModel.setLike(id, like)
+        }
 
     }
 }

@@ -14,11 +14,11 @@ import example.ken.galleymukey.source.converters.ArraysConverters
 @TypeConverters(ArraysConverters::class)
 class PhotoWallDto {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id: Int = 0
     var imageTop : ArrayList<String> ? = null
     var avatar : String? = null
     var username : String? = null
-    var like  : Boolean? = null
+    var like  : Boolean = false
 
 }

@@ -1,7 +1,10 @@
 package showmethe.github.kframework.util.rden
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.jetbrains.annotations.NotNull
 
 /**
@@ -67,25 +70,60 @@ class RDEN private constructor(){
            getRoomDao().put(bean)
        }
 
+       fun put(@NotNull key: String,@NotNull value : ArrayList<*>){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.listValue = value
+           getRoomDao().put(bean)
+       }
 
-       inline fun <reified T>get(key : String,default: T) : T? {
+
+       inline fun <reified T>get(key : String,default: T) : T {
            try {
                val clazz = T::class.java
+               Log.e("2222222","${clazz.name}")
                if(clazz.name.equals(String :: class.java.name)){
                    val bean =  getRoomDao().get(key)
-                   return bean?.stringValue as T
+                   if(bean?.stringValue.isNullOrEmpty()){
+                       return default
+                   }else{
+                       return bean?.stringValue as T
+                   }
                }else  if(clazz.name == "java.lang.Boolean"){
                    val bean =  getRoomDao().get(key)
-                   return bean?.booleanValue as T
+                   if(bean?.booleanValue == null){
+                       return default
+                   }else{
+                       return bean.booleanValue as T
+                   }
                } else if(clazz.name == "java.lang.Integer"){
                    val bean =  getRoomDao().get(key)
-                   return bean?.integerValue as T
+                   if(bean?.integerValue == null){
+                       return  default
+                   }else{
+                       return bean.integerValue as T
+                   }
                }else if(clazz.name == "java.lang.Long"){
                    val bean =  getRoomDao().get(key)
-                   return bean?.longValue as T
+                   if(bean?.longValue == null){
+                       return default
+                   }else{
+                       return bean.longValue as T
+                   }
                }else if(clazz.name.equals(ByteArray :: class.java.name)){
                    val bean =  getRoomDao().get(key)
-                   return bean?.bytesValue as T
+                   if(bean?.bytesValue == null){
+                       return default
+                   }else{
+                       return bean.bytesValue as T
+                   }
+               }else if(clazz.name.equals("java.util.ArrayList")){
+                   val bean =  getRoomDao().get(key)
+                   if(bean?.listValue == null){
+                       return default
+                   }else{
+                       return bean.listValue as T
+                   }
                }
            }catch (e : Exception){
                return default
@@ -93,9 +131,18 @@ class RDEN private constructor(){
            return default
        }
 
+
+      private fun stringToObject(value: String): ArrayList<String>{
+           val listType = object : TypeToken<ArrayList<String>>() {
+           }.type
+           return  Gson().fromJson(value, listType)
+       }
+
+
+       private fun objectToString(list: ArrayList<String>): String {
+           val gson = Gson()
+           return gson.toJson(list)
+       }
+
    }
-
-
-
-
 }

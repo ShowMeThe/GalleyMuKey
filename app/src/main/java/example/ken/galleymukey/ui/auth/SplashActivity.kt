@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.internal.connection.RealConnection
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
@@ -50,13 +51,16 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
         source.init()
 
         GlobalScope.launch(Dispatchers.Main) {
-            addBanner()
-            addHotWall()
-            addPhotoWall()
+            if(!RDEN.get(RdenConstant.hasAdd,false)){
+                addBanner()
+                addHotWall()
+                addPhotoWall()
+            }
             delay(3000)
-            if(RDEN.get(RdenConstant.hasLogin,false)!!){
+            if(RDEN.get(RdenConstant.hasLogin,false)){
                 startActivity(null,LoginActivity::class.java)
             }else{
+                RDEN.put(RdenConstant.hasAdd,true)
                 startActivity(null,MainActivity::class.java)
             }
             finish()
@@ -99,15 +103,17 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     fun addPhotoWall(){
         DataSourceBuilder.getPhotoWall().delete()
-       for(i in 0..random.nextInt(5,20)){
+       for(i in 0..random.nextInt(10,25)){
            val bean = PhotoWallDto()
            val list = ArrayList<String>()
            for(a in 0..random.nextInt(1,5)){
                list.add(source.getBanner()[(random.nextInt(0,28))])
            }
+           bean.id = i
            bean.imageTop = list
            bean.avatar = source.getBanner()[(random.nextInt(0,28))]
            bean.username = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]
+           bean.like = (bean.username!!.contains("A") or bean.username!!.contains("e"))
            DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
        }
     }

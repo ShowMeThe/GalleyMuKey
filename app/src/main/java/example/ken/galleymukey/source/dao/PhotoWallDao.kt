@@ -23,4 +23,10 @@ interface PhotoWallDao {
     @Query("delete  from PhotoWallDto")
     fun delete()
 
+    @Query("update  PhotoWallDto set `like` = :like where id = :id")
+    fun setIdLike(id:Int,like: Boolean)
+
+
+    @Query("select  *  from PhotoWallDto where id = :id")
+    fun findBean(id:Int) : PhotoWallDto
 }

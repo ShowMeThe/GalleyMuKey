@@ -43,10 +43,18 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
             like.setLike(item.like,false)
             like.setOnClickListener {
                 item.like = !item.like
-                like.setLike( data[position].like,true)
+                like.setLike( item.like,true)
+                onLikeClick?.invoke(item.id,item.like)
             }
         }
     }
+
+    var onLikeClick: ((id: Int, like:Boolean)->Unit)? = null
+
+    fun setOnLikeClickListener(onLikeClick: ((id: Int, like:Boolean)->Unit)){
+        this.onLikeClick = onLikeClick
+    }
+
 
     var onPhotoClick: ((view: View, url:String)->Unit)? = null
 

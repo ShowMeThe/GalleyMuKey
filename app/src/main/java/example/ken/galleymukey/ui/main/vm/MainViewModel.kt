@@ -37,4 +37,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     fun getHotWall(){
         repository.getHotWall(hotBean)
     }
+
+    fun setLike(id :Int,like: Boolean){
+        repository.setLike(id,like)
+    }
 }

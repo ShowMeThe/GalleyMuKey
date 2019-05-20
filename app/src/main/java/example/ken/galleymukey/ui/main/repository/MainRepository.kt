@@ -1,5 +1,6 @@
 package example.ken.galleymukey.ui.main.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.bean.HotWallBean
@@ -34,11 +35,12 @@ class MainRepository : BaseRepository() {
                         bean.imagePaths = dto.imageTop
                         bean.avatar = dto.avatar
                         bean.username = dto.username
-                        bean.like = (dto.username!!.contains("A") or dto.username!!.contains("e"))
+                        bean.like = dto.like
                         list.add(bean)
                     }
                     bean.value = list
                     dismissLoading()
+
                 }
             })
         }
@@ -59,6 +61,12 @@ class MainRepository : BaseRepository() {
                     dismissLoading()
                 }
             })
+        }
+    }
+
+    fun setLike(id :Int,like: Boolean){
+        GlobalScope.launch (Dispatchers.Main){
+            photoDao.setIdLike(id,like)
         }
     }
 
