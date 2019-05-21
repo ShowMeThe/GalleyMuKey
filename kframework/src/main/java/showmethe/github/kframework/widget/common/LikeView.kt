@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat
 import showmethe.github.kframework.R
 
 
+
+
 /**
  * com.example.ewhale.cartshopmall.widget
  *  ken
@@ -32,21 +34,24 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var currentProgress = 0f
     private var centerX: Int = 0
     private var centerY: Int = 0
-    private var maxDotSize: Float = 0.toFloat()
+    private var maxDotSize: Float = 6.toFloat()
     private var currentRadius = 0f
     private var currentDotSize = 0f
     private val circlePaint = Paint()
     private val bitmapPaint = Paint()
     private var maxDotsRadius: Float = 0.toFloat()
     private var  dotsAnimator : ObjectAnimator? = null
+    private var  scaleAnimator : ObjectAnimator? = null
     private val rect=  Rect()
     private var like : Bitmap? = null
     private var unlike : Bitmap? = null
     private var mHeight = 0
     private var mWidth = 0
     private var isLike = false
-
-    val set  =  AnimatorSet();
+    private val set  =  AnimatorSet();
+    private var percentage = 0.5f
+    private var widthDis =0
+    private var heightDis =0
 
     init {
         init(context,attrs)
@@ -83,13 +88,20 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         like = BitmapFactory.decodeResource(resources, R.drawable.heart)
         unlike = BitmapFactory.decodeResource(resources,R.drawable.heart_1)
 
-        val widthDis = mWidth/4
-        val heightDis = mHeight/4
-        rect.set(mWidth/2 - widthDis,mHeight/2 - heightDis,mWidth/2 + widthDis,mHeight/2 + heightDis)
+        widthDis = mWidth/2
+        heightDis = mHeight/2
+
+
     }
 
     override fun onDraw(canvas: Canvas) {
         drawOuterDotsFrame(canvas)
+
+        rect.set((mWidth/2 - widthDis*percentage).toInt(),
+            (mHeight/2 - heightDis*percentage).toInt(),
+            (mWidth/2 + widthDis*percentage).toInt(),
+            (mHeight/2 + heightDis*percentage).toInt()
+        )
         if(isLike){
             canvas.drawBitmap(like,null,rect,bitmapPaint)
         }else{
@@ -99,18 +111,27 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     fun setLike(boolean: Boolean,state: Boolean){
         isLike = boolean
-        if(isLike && state){
-            play()
+            if(state){
+                if(isLike){
+                    play()
+                }else{
+                    percentage = 0.5f
+                    playScale()
+                }
         }
         postInvalidate()
     }
 
     private fun drawOuterDotsFrame(canvas: Canvas) {
-        for (i in 0 until DOTS_COUNT) {
-            val cX = (centerX + currentRadius * Math.cos(i * DOTS_POSITION_ANGLE * Math.PI / 180)) .toFloat()
-            val cY = (centerY + currentRadius * Math.sin(i * DOTS_POSITION_ANGLE * Math.PI / 180)).toFloat()
+        for (i in 0 until DOTS_COUNT) { //小红点会绕中心旋转
+            val cX = (centerX + currentRadius * Math.cos((i+1*percentage*1.5) * DOTS_POSITION_ANGLE * Math.PI / 180)) .toFloat()
+            val cY = (centerY + currentRadius * Math.sin((i+1*percentage*1.5)* DOTS_POSITION_ANGLE * Math.PI / 180)).toFloat()
             circlePaint.color = colors!![0]
-            canvas.drawCircle(cX, cY, currentDotSize, circlePaint)
+            if(i%2 == 0){
+                canvas.drawCircle(cX, cY, currentDotSize, circlePaint)
+            }else{
+                canvas.drawCircle(cX, cY, (currentDotSize*0.6).toFloat(), circlePaint)
+            }
         }
     }
 
@@ -118,6 +139,13 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         this.currentProgress = currentProgress
         updateOuterDotsPosition()
         postInvalidate()
+    }
+
+    private fun setPercentage(percentage: Float) {
+        this.percentage = percentage
+        if(!isLike){
+            postInvalidate()
+        }
     }
 
     private fun updateOuterDotsPosition() {
@@ -139,10 +167,18 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
    private fun initAnim(){
        dotsAnimator = ObjectAnimator.ofFloat(this, "currentProgress", 0f, 1f)
-       set.play(dotsAnimator)
-       set.duration = 750
+       scaleAnimator = ObjectAnimator.ofFloat(this, "percentage", 0.1f, 0.5f)
+       set.playTogether(dotsAnimator,scaleAnimator)
+       set.duration = 700
        set.interpolator = AccelerateDecelerateInterpolator()
    }
+
+    private fun playScale(){
+        scaleAnimator = ObjectAnimator.ofFloat(this, "percentage", 0.1f, 0.5f)
+        scaleAnimator!!.duration = 300
+        scaleAnimator!!.interpolator = AccelerateDecelerateInterpolator()
+        scaleAnimator!!.start()
+    }
 
    private fun play(){
         if(set.isStarted || set.isRunning){

@@ -62,11 +62,19 @@ class HashTagDialog: BottomSheetDialogFragment() {
             rv.adapter = adapter
             rv.layoutManager = GridLayoutManager(context,3)
 
-
+            btnConfirm.setOnClickListener {
+                onConfirm?.invoke()
+            }
         }
 
         return dialog
     }
 
+
+   private var onConfirm:(()->Unit)? = null
+
+    fun setOnConfirmClickListener(onConfirm:(()->Unit)){
+        this.onConfirm  = onConfirm
+    }
 
 }

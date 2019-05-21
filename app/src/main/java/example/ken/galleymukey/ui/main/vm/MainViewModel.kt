@@ -19,6 +19,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val repository = MainRepository()
     val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
     val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
+    val boolean = MutableLiveData<Boolean>()
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
