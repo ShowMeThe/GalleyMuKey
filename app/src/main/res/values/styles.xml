@@ -18,11 +18,26 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="popupMenuStyle">@style/popMenu</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/popMenuText</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/popMenuText</item>
         <item name="android:windowSharedElementEnterTransition">@transition/changebounds</item>
       <!--  <item name="android:windowSharedElementExitTransition">@transition/changebounds</item>-->
         <item name="android:windowSharedElementReturnTransition">@transition/changebounds</item>
-        
     </style>
+    
+    <!--popMenu的Style-->
+    <style name="popMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/white</item><!-- popMenu的背景色-->
+    </style>
+    
+    <style name="popMenuText">
+        <item name="android:textColor">@color/text_666666</item>
+        <item name="android:textSize">@dimen/px43dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
     
     <style name="LeftRightAnim">
         <item name="android:windowEnterAnimation">@anim/anim_right_in</item>

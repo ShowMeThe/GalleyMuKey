@@ -14,7 +14,8 @@
 		android:layout_height="wrap_content">
 	</androidx.appcompat.widget.Toolbar>
 	
-	<LinearLayout
+	<RelativeLayout
+		android:layout_marginTop="@dimen/px25dp"
 		android:layout_below="@id/toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/px150dp">
@@ -22,12 +23,22 @@
 		<ImageView
 			android:id="@+id/ivBack"
 			android:src="@mipmap/back_1"
-			android:layout_gravity="center"
+			android:layout_alignParentStart="true"
+			android:layout_centerVertical="true"
 			android:layout_marginStart="@dimen/px30dp"
 			android:layout_width="@dimen/px80dp"
 			android:layout_height="@dimen/px80dp" />
 		
-	</LinearLayout>
+		<ImageView
+			android:id="@+id/ivMenu"
+			android:src="@mipmap/menudots"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_marginEnd="@dimen/px30dp"
+			android:layout_width="@dimen/px80dp"
+			android:layout_height="@dimen/px80dp" />
+		
+	</RelativeLayout>
 	
 	<ImageView
 		android:id="@+id/image"

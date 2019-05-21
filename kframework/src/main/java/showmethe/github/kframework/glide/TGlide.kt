@@ -188,12 +188,14 @@ class TGlide private constructor(context: Context){
 
 
         //保存到指定文件夹
-        fun saveInDir(storeDir: String, fileName: String, url: String) {
+        fun saveInDir(storeDir: String, fileName: String, url: String,callBack: (path:String)->Unit) {
             INSTANT.apply {
                 mRequestManager.asBitmap().load(url).into(object : BitmapTarget() {
                     override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         if(!resource.isRecycled){
-                            savePicture(storeDir, fileName, resource)
+                            savePicture(storeDir, fileName, resource){
+                                callBack.invoke(it)
+                            }
                         }
                     }
 
@@ -208,7 +210,7 @@ class TGlide private constructor(context: Context){
     //储存到本地操作
     @SuppressLint("CheckResult")
     @Throws(IOException::class)
-    private fun savePicture(storeDir: String, fileName: String, bitmap: Bitmap) {
+    private fun savePicture(storeDir: String, fileName: String, bitmap: Bitmap,callBack: (path:String)->Unit) {
         Observable.create(ObservableOnSubscribe<String> { ee ->
             val dir = File(mContext.externalCacheDir.path + "/" + storeDir + "/")
             if (!dir.exists()) {
@@ -244,9 +246,11 @@ class TGlide private constructor(context: Context){
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                }
+            .doOnNext {
+                callBack.invoke(it)
+            }.subscribe()
     }
+
 
 
 

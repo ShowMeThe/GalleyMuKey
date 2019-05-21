@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:background="@drawable/shape_rect_top_radius"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+	
+		
+		<View
+			android:id="@+id/line"
+			android:layout_marginTop="@dimen/px30dp"
+			android:layout_marginBottom="@dimen/px40dp"
+			android:layout_gravity="center"
+			android:background="@drawable/shape_rect_radius_dark"
+			android:layout_width="@dimen/px140dp"
+			android:layout_height="@dimen/px20dp"/>
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/rv"
+			android:layout_margin="@dimen/px30dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		</androidx.recyclerview.widget.RecyclerView>
+		
+		
+		<Button
+			android:id="@+id/btnConfirm"
+			android:text="Confirm"
+			android:layout_marginTop="@dimen/px30dp"
+			android:layout_marginStart="@dimen/px100dp"
+			android:layout_marginEnd="@dimen/px100dp"
+			android:layout_marginBottom="@dimen/px30dp"
+			android:background="@drawable/shape_rect_7c4dff"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px130dp" />
+
+
+
+</LinearLayout>

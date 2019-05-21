@@ -18,6 +18,13 @@ fun ImageView.setUrl(url : String?){
     }
 }
 
+@BindingAdapter("imgPathCrop")
+fun ImageView.imgPathCrop(url : String?){
+    url?.apply {
+        TGlide.load(url,this@imgPathCrop)
+    }
+}
+
 @BindingAdapter("circle")
 fun ImageView.circle(url : String?){
     url?.apply {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Point
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -33,6 +34,8 @@ class PullDragLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mMaxHeight: Int = 0//最大高度
     private var mOnStateListener: OnStateListener? = null
     private var mScrollChageListener: OnScrollChageListener? = null
+
+
 
     internal var mCallback: ViewDragHelper.Callback = object : ViewDragHelper.Callback() {
         override fun tryCaptureView(child: View, pointerId: Int): Boolean {
@@ -181,15 +184,23 @@ class PullDragLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
         mContentView = getChildAt(0)
         mBottomView = getChildAt(1)
-        measureChild(mBottomView, widthMeasureSpec, heightSize)
+
+        if(first){
+            measureChild(mBottomView, widthMeasureSpec, heightSize)
+            first = false
+            Log.e("222222222222","12313")
+            first = false
+        }
+
+        measureChild(mContentView, widthMeasureSpec, heightMeasureSpec)
 
         val bottomViewHeight = mBottomView!!.measuredHeight
-        measureChild(mContentView, widthMeasureSpec, heightMeasureSpec)
         val contentHeight = mContentView!!.measuredHeight
         setMeasuredDimension(View.MeasureSpec.getSize(widthMeasureSpec),
-                bottomViewHeight + contentHeight + paddingBottom + paddingTop)
-
+            bottomViewHeight + contentHeight + paddingBottom + paddingTop)
     }
+
+    var first = true
 
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
