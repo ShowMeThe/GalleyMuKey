@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.media.MediaMetadataRetriever
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
@@ -192,15 +193,10 @@ class TGlide private constructor(context: Context){
             INSTANT.apply {
                 mRequestManager.asBitmap().load(url).into(object : BitmapTarget() {
                     override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        if(!resource.isRecycled){
-                            savePicture(storeDir, fileName, resource){
-                                callBack.invoke(it)
-                            }
+                        Log.e("222222222","222222222")
+                        savePicture(storeDir, fileName, resource){
+                            callBack.invoke(it)
                         }
-                    }
-
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-
                     }
                 })
             }
@@ -212,7 +208,7 @@ class TGlide private constructor(context: Context){
     @Throws(IOException::class)
     private fun savePicture(storeDir: String, fileName: String, bitmap: Bitmap,callBack: (path:String)->Unit) {
         Observable.create(ObservableOnSubscribe<String> { ee ->
-            val dir = File(mContext.externalCacheDir.path + "/" + storeDir + "/")
+            val dir = File(storeDir)
             if (!dir.exists()) {
                 dir.mkdirs()
             }
@@ -226,6 +222,7 @@ class TGlide private constructor(context: Context){
             } else {
                 saveFile.createNewFile()
             }
+
             var fos: FileOutputStream? = null
             try {
                 fos = FileOutputStream(saveFile)
@@ -247,6 +244,7 @@ class TGlide private constructor(context: Context){
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
+                Log.e("222222222","${it}")
                 callBack.invoke(it)
             }.subscribe()
     }

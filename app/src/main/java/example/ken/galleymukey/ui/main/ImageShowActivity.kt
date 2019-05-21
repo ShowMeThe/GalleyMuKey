@@ -21,13 +21,12 @@ import java.io.File
 
 
 @ParallaxBack
-class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(),
-    android.widget.PopupMenu.OnMenuItemClickListener {
+class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
 
     companion object{
         private val storeDir =
-            Environment.getExternalStorageDirectory().path + File.separator+Environment.DIRECTORY_PICTURES
+            Environment.getExternalStorageDirectory().path + File.separator+Environment.DIRECTORY_PICTURES+File.separator
 
     }
 
@@ -59,24 +58,26 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(),
             finishAfterTransition()
         }
 
+
         ivMenu.setOnClickListener {
             val popup = PopupMenu(this, it)
             val inflater = popup.menuInflater
-            inflater.inflate(R.menu.pre_view_menu, popup.menu);
+            inflater.inflate(R.menu.pre_view_menu, popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId){
+                    R.id.save_item ->{
+                        TGlide.saveInDir(storeDir, "${System.currentTimeMillis()}",url){
+                            showToast("Save at $it")
+                        }
+                    }
+                }
+                false
+            }
             popup.show()
         }
 
     }
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.save_item ->{
-                TGlide.saveInDir(storeDir, DateUtil.getNowTime(),url){
-                    showToast(it)
-                }
-            }
-        }
-       return false
-    }
+
 
     override fun onBackPressed() {
         finishAfterTransition()
