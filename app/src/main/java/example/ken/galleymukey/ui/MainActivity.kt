@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -73,6 +74,20 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         }
     }
 
+    override fun onBackPressed() {
+        if(tab.selectedTabPosition == 1){
+            viewModel.cateChildManager?.fragments?.apply {
+                Log.e("2222222222","" + size)
+                if(size > 1){
+                    viewModel.catePopBack.value = true
+                }else{
+                    super.onBackPressed()
+                }
+            }
+        }else{
+            super.onBackPressed()
+        }
+    }
 
 
     var fragments: List<Fragment>? = null

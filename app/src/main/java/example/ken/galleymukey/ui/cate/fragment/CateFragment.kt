@@ -2,11 +2,13 @@ package example.ken.galleymukey.ui.cate.fragment
 
 import android.animation.Animator
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.HashTagBean
@@ -28,11 +30,13 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
 
 
     var fragments: List<Fragment>? = null
+
     var temp = ""//初始对比
     var sb = StringBuilder()
 
     val dialog = HashTagDialog()
     val list = ArrayList<HashTagBean>()
+
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_cate
@@ -42,6 +46,14 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
 
     override fun observerUI() {
 
+        viewModel.catePopBack.observe(this, Observer {
+            it?.apply {
+                if(this){
+                    unRotate()
+                }
+            }
+        })
+
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -50,10 +62,10 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
         replaceFragment(CategoryFragment::class.java.name)
 
 
-
     }
 
     override fun initListener() {
+
         ivHashTag.setOnClickListener {
             KeyBoardUtils.hideSoftKeyboard(context)
             dialog.show(childFragmentManager,"")
@@ -154,13 +166,15 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
                     R.anim.slide_bottom_out,
                     R.anim.slide_left_in,
                     R.anim.slide_left_out)
-                transaction.add(R.id.frameLayout, tempFragment, tag)
+                transaction.add(R.id.frameLayout, tempFragment, tag
+                )
 
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
+        viewModel.cateChildManager = childFragmentManager
         fragments  = childFragmentManager.fragments
         if (fragments != null) {
             for (i in fragments!!.indices) {
@@ -182,7 +196,9 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
                 }
             }
         }
+
         transaction.commitAllowingStateLoss()
+
     }
 
 }

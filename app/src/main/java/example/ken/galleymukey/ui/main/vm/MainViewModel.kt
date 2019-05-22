@@ -1,6 +1,8 @@
 package example.ken.galleymukey.ui.main.vm
 
 import android.app.Application
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.HotWallBean
@@ -16,6 +18,10 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
+
+    var cateChildManager : FragmentManager? = null
+
+    var catePopBack = MutableLiveData<Boolean>()
     val repository = MainRepository()
     val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
     val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
