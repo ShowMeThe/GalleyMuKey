@@ -58,7 +58,7 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     private fun init(context: Context,attrs: AttributeSet?) {
-        colors = arrayOf(Color.parseColor("#f44336"))
+        colors = arrayOf(Color.parseColor("#f44336"))//颜色数组修改
         circlePaint.style = Paint.Style.FILL
         initAnim()
         initType(context,attrs)
@@ -126,8 +126,8 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         for (i in 0 until DOTS_COUNT) { //小红点会绕中心旋转
             val cX = (centerX + currentRadius * Math.cos((i+1*percentage*1.5) * DOTS_POSITION_ANGLE * Math.PI / 180)) .toFloat()
             val cY = (centerY + currentRadius * Math.sin((i+1*percentage*1.5)* DOTS_POSITION_ANGLE * Math.PI / 180)).toFloat()
-            circlePaint.color = colors!![0]
-            if(i%2 == 0){
+            circlePaint.color = colors!![0] //固定了一个颜色
+            if(i%2 == 0){ //奇偶大小变化
                 canvas.drawCircle(cX, cY, currentDotSize, circlePaint)
             }else{
                 canvas.drawCircle(cX, cY, (currentDotSize*0.6).toFloat(), circlePaint)
