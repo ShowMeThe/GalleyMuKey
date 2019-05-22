@@ -1,9 +1,12 @@
 package example.ken.galleymukey.ui.main
 
+import android.graphics.Point
+import android.graphics.PointF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.Menu
 import androidx.databinding.ViewDataBinding
 import com.parallaxbacklayout.ParallaxBack
@@ -16,8 +19,13 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 import androidx.appcompat.widget.PopupMenu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import com.parallaxbacklayout.ViewDragHelper
 import showmethe.github.kframework.util.system.DateUtil
 import java.io.File
+import android.view.MotionEvent
+
+
 
 
 @ParallaxBack
@@ -30,7 +38,12 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
     }
 
-    var url = ""
+    private  var url = ""
+    private var dPoint = PointF()
+    var offsetY = 0f
+    var layoutY = 0f
+    var imageY = 0f
+
     override fun getViewId(): Int = R.layout.activity_image_show
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
@@ -49,8 +62,10 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
         StatusBarUtil.fixToolbarScreen(this,toolbar)
 
 
-
     }
+
+
+
 
     override fun initListener() {
 
@@ -75,6 +90,39 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
             }
             popup.show()
         }
+
+
+        image.setOnTouchListener { v, event ->
+            when(event.action){
+                MotionEvent.ACTION_DOWN ->{
+                    imageY = image.y
+                    dPoint.set(event.rawX,event.rawY)
+                    layoutY = layout.y
+                }
+                MotionEvent.ACTION_MOVE ->{
+                    val y = event.rawY
+                    offsetY =  y - dPoint.y
+                    if(Math.abs(offsetY)>screenHeight/6){
+                        return@setOnTouchListener true
+                    }
+                    image.translationY = offsetY
+                    layout.translationY = -Math.abs(offsetY)
+
+                }
+                MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP->{
+                    if(Math.abs(offsetY)>screenHeight/10){
+                        finishAfterTransition()
+                    }else{
+                        layout.y = layoutY
+                        image.y = imageY
+                    }
+
+                }
+            }
+            true
+        }
+
+
 
     }
 

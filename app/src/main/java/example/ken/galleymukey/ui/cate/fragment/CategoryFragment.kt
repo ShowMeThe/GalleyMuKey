@@ -1,10 +1,12 @@
 package example.ken.galleymukey.ui.cate.fragment
 
 import android.os.Bundle
+import androidx.annotation.RestrictTo
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.FragmentCategoryBinding
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import showmethe.github.kframework.base.BaseFragment
+import showmethe.github.kframework.http.RetroHttp
 
 /**
  * example.ken.galleymukey.ui.cate.fragment
@@ -21,6 +23,8 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
     }
 
     override fun observerUI() {
+
+
 
     }
 
