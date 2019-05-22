@@ -77,7 +77,6 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     override fun onBackPressed() {
         if(tab.selectedTabPosition == 1){
             viewModel.cateChildManager?.fragments?.apply {
-                Log.e("2222222222","" + size)
                 if(size > 1){
                     viewModel.catePopBack.value = true
                 }else{
