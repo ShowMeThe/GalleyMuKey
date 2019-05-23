@@ -68,7 +68,6 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
             val bundle = Bundle()
             bundle.putString("photo",url)
             bundle.putInt("id",list[position].id)
-            bundle.putBoolean("like",list[position].like)
             context.startActivity(bundle, ImageShowActivity::class.java,view,"photo")
         }
         adapter.setOnLikeClickListener { id, like ->

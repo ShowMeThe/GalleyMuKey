@@ -42,7 +42,6 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
     private  var url = ""
     private var id = -1
-    private var like = false
     private var dPoint = PointF()
     private var offsetY = 0f
     private var layoutY = 0f
@@ -58,7 +57,6 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     override fun onBundle(bundle: Bundle) {
         url = bundle.getString("photo","")
         id = bundle.getInt("id",-1)
-        like = bundle.getBoolean("like",like)
         TGlide.load(url,image)
     }
 
@@ -110,9 +108,9 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
                         secondClick = System.currentTimeMillis()
                         if(secondClick - firstClick <400){
                             if(id!=-1){
-                                like = !like
+
                                 showLike()
-                                viewModel.setLike(id,like)
+                                viewModel.setLike(id,true)
 
                             }
                             count = 0
@@ -153,7 +151,7 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     fun showLike(){
         ivLike.animate().alpha(0.8f)
             .setInterpolator(AccelerateInterpolator())
-            .setDuration(800).setListener(object :Animator.AnimatorListener{
+            .setDuration(700).setListener(object :Animator.AnimatorListener{
                 override fun onAnimationRepeat(animation: Animator?) {
                 }
 
@@ -164,7 +162,7 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
                 }
                 override fun onAnimationStart(animation: Animator?) {
                     ivLike.visibility = View.VISIBLE
-                    ivLike.setLike(like,true)
+                    ivLike.setLike(true,true)
                 }
             }).start()
     }

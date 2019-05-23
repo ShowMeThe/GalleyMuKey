@@ -52,6 +52,8 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var percentage = 0.5f
     private var widthDis =0
     private var heightDis =0
+    private var likeImg  = R.drawable.heart
+    private var unLikeImg  = R.drawable.heart_1
 
     init {
         init(context,attrs)
@@ -67,6 +69,8 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private fun initType(context: Context, attrs: AttributeSet?) {
         val arrary = context.obtainStyledAttributes(attrs!!,R.styleable.LikeView)
         isLike = arrary.getBoolean(R.styleable.LikeView_like_state,false)
+        likeImg = arrary.getResourceId(R.styleable.LikeView_like,R.drawable.heart)
+        unLikeImg =  arrary.getResourceId(R.styleable.LikeView_unLike,R.drawable.heart_1)
         arrary.recycle()
     }
 
@@ -85,8 +89,8 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         maxDotSize = 5f
         //最大半径
         maxDotsRadius = w / 2 - maxDotSize * 4
-        like = BitmapFactory.decodeResource(resources, R.drawable.heart)
-        unlike = BitmapFactory.decodeResource(resources,R.drawable.heart_1)
+        like = BitmapFactory.decodeResource(resources, likeImg)
+        unlike = BitmapFactory.decodeResource(resources,unLikeImg)
 
         widthDis = mWidth/2
         heightDis = mHeight/2
@@ -169,7 +173,7 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
        dotsAnimator = ObjectAnimator.ofFloat(this, "currentProgress", 0f, 1f)
        scaleAnimator = ObjectAnimator.ofFloat(this, "percentage", 0.1f, 0.5f)
        set.playTogether(dotsAnimator,scaleAnimator)
-       set.duration = 700
+       set.duration = 650
        set.interpolator = AccelerateDecelerateInterpolator()
    }
 
