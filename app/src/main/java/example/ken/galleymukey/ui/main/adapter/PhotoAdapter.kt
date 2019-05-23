@@ -38,7 +38,7 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
 
             tvSelect.text = "${item.currentPos+1}/${item.imagePaths!!.size}"
             banner.setOnPageClickListner {
-                onPhotoClick?.invoke(banner,item.imagePaths!![it])
+                onPhotoClick?.invoke(banner,item.imagePaths!![it],position)
             }
             like.setLike(item.like,false)
             like.setOnClickListener {
@@ -56,9 +56,9 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
     }
 
 
-    var onPhotoClick: ((view: View, url:String)->Unit)? = null
+    var onPhotoClick: ((view: View, url:String,postiion: Int)->Unit)? = null
 
-    fun setOnPhotoClickListener(onPhotoClick: ((view: View,url:String)->Unit)){
+    fun setOnPhotoClickListener(onPhotoClick: ((view: View,url:String,postiion: Int)->Unit)){
         this.onPhotoClick = onPhotoClick
     }
 

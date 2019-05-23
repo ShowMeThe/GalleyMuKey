@@ -16,7 +16,9 @@
 			app:unselected_color="@color/color_7986cb"
 			app:selected_color="@color/color_039be5"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="wrap_content"
+			app:imageMinHeight="@dimen/px2500dp"
+			>
 		</showmethe.github.kframework.widget.banner.Banner>
 		
 		

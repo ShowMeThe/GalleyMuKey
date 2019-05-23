@@ -1,5 +1,6 @@
 package example.ken.galleymukey.ui.main
 
+import android.animation.Animator
 import android.graphics.Point
 import android.graphics.PointF
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +25,9 @@ import com.parallaxbacklayout.ViewDragHelper
 import showmethe.github.kframework.util.system.DateUtil
 import java.io.File
 import android.view.MotionEvent
-
-
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import kotlinx.android.synthetic.main.item_hot.*
 
 
 @ParallaxBack
@@ -39,10 +41,15 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     }
 
     private  var url = ""
+    private var id = -1
+    private var like = false
     private var dPoint = PointF()
-    var offsetY = 0f
-    var layoutY = 0f
-    var imageY = 0f
+    private var offsetY = 0f
+    private var layoutY = 0f
+    private var imageY = 0f
+    private var firstClick: Long = 0//第一次点击时间
+    private var secondClick: Long = 0//第二次点击时间
+    private var count = 0;
 
     override fun getViewId(): Int = R.layout.activity_image_show
 
@@ -50,6 +57,8 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
     override fun onBundle(bundle: Bundle) {
         url = bundle.getString("photo","")
+        id = bundle.getInt("id",-1)
+        like = bundle.getBoolean("like",like)
         TGlide.load(url,image)
     }
 
@@ -63,8 +72,6 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
 
     }
-
-
 
 
     override fun initListener() {
@@ -93,11 +100,30 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
 
         image.setOnTouchListener { v, event ->
+
             when(event.action){
                 MotionEvent.ACTION_DOWN ->{
+                    count++
+                    if(count == 1){
+                        firstClick = System.currentTimeMillis()
+                    }else if(count == 2){
+                        secondClick = System.currentTimeMillis()
+                        if(secondClick - firstClick <400){
+                            if(id!=-1){
+                                like = !like
+                                showLike()
+                                viewModel.setLike(id,like)
+
+                            }
+                            count = 0
+                        }else{
+                            count = 1
+                        }
+                    }
+                    layoutY = layout.y
                     imageY = image.y
                     dPoint.set(event.rawX,event.rawY)
-                    layoutY = layout.y
+
                 }
                 MotionEvent.ACTION_MOVE ->{
                     val y = event.rawY
@@ -121,9 +147,26 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
             }
             true
         }
+    }
 
 
+    fun showLike(){
+        ivLike.animate().alpha(0.8f)
+            .setInterpolator(AccelerateInterpolator())
+            .setDuration(800).setListener(object :Animator.AnimatorListener{
+                override fun onAnimationRepeat(animation: Animator?) {
+                }
 
+                override fun onAnimationEnd(animation: Animator?) {
+                    ivLike.visibility = View.INVISIBLE
+                }
+                override fun onAnimationCancel(animation: Animator?) {
+                }
+                override fun onAnimationStart(animation: Animator?) {
+                    ivLike.visibility = View.VISIBLE
+                    ivLike.setLike(like,true)
+                }
+            }).start()
     }
 
 

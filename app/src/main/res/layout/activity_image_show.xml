@@ -8,6 +8,24 @@
 	android:background="@color/color_7986cb"
 	tools:context=".ui.main.ImageShowActivity">
 	
+	
+	<ImageView
+		android:id="@+id/image"
+		android:transitionName="photo"
+		android:scaleType="fitXY"
+		android:layout_centerInParent="true"
+		android:adjustViewBounds="true"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+	
+	<showmethe.github.kframework.widget.common.LikeView
+		android:id="@+id/ivLike"
+		android:visibility="invisible"
+		android:layout_centerInParent="true"
+		android:layout_width="@dimen/px200dp"
+		android:layout_height="@dimen/px200dp" />
+	
+	
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbar"
 		android:layout_width="match_parent"
@@ -38,15 +56,7 @@
 			android:layout_marginEnd="@dimen/px30dp"
 			android:layout_width="@dimen/px80dp"
 			android:layout_height="@dimen/px80dp" />
-		
+	
 	</RelativeLayout>
-	
-	<ImageView
-		android:id="@+id/image"
-		android:transitionName="photo"
-		android:layout_centerInParent="true"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
-	
 
 </RelativeLayout>

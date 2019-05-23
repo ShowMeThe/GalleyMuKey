@@ -35,12 +35,15 @@
 				
 				<showmethe.github.kframework.widget.banner.Banner
 					android:id="@+id/banner"
-					app:autoPlay="false"
-					app:showIndicator="false"
 					android:transitionName="photo"
 					android:background="@color/color_7986cb"
 					android:layout_width="match_parent"
-					android:layout_height="@dimen/px800dp">
+					android:layout_height="wrap_content"
+					app:autoPlay="false"
+					app:showIndicator="false"
+					app:imageMaxHeight="@dimen/px1800dp"
+					app:imageMinHeight="@dimen/px600dp"
+					>
 				</showmethe.github.kframework.widget.banner.Banner>
 				
 				<TextView

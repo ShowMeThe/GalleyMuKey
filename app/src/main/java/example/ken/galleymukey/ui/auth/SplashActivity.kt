@@ -51,12 +51,13 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 addPhotoWall()
             }
             delay(3000)
-            if(RDEN.get(RdenConstant.hasLogin,false)){
+            startActivity(null, MainActivity::class.java)
+           /* if(RDEN.get(RdenConstant.hasLogin,false)){
                 startActivity(null,LoginActivity::class.java)
             }else{
                 RDEN.put(RdenConstant.hasAdd,true)
                 startActivity(null, MainActivity::class.java)
-            }
+            }*/
             finish()
         }
 

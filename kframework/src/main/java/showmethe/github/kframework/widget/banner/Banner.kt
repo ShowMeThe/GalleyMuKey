@@ -43,6 +43,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     private var currentItem: Long = 0
     private var delayTime = TIME
     private var showIndicator = true
+    private var mMinHeight = 0f
+    private var mMaxHeight = 0f
     private val mHandler = Handler(Looper.getMainLooper())
 
 
@@ -100,6 +102,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         adapter.setOnImageLoader(object : BannerViewAdapter.onImageLoader {
             override fun display(url: Any, imageView: ImageView) {
                 loader?.apply {
+                    imageView.maxHeight = mMaxHeight.toInt()
+                    imageView.minimumHeight = mMinHeight.toInt()
                     invoke(url, imageView)
                 }
             }
@@ -117,6 +121,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         autoPlay = array.getBoolean(R.styleable.Banner_autoPlay, true)
         selectColor = array.getColor(R.styleable.Banner_selected_color, ContextCompat.getColor(context, R.color.colorAccent))
         unselectColor = array.getColor(R.styleable.Banner_unselected_color, ContextCompat.getColor(context, R.color.white_85))
+        mMinHeight = array.getDimension(R.styleable.Banner_imageMinHeight,resources.getDimension(R.dimen.px600dp))
+        mMaxHeight = array.getDimension(R.styleable.Banner_imageMaxHeight,resources.getDimension(R.dimen.px2500dp))
         selectRadius = array.getDimension(R.styleable.Banner_select_radius, 16f).toInt()
         unSelectRadius = array.getDimension(R.styleable.Banner_unSelect_radius, 15f).toInt()
         delayTime = array.getInt(R.styleable.Banner_delayTime, TIME)

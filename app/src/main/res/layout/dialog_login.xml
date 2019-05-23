@@ -43,13 +43,12 @@
 					android:textColorHint="@color/colorAccent"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
-					<EditText
+					<androidx.appcompat.widget.AppCompatEditText
 						android:id="@+id/edName"
 						android:hint="Account"
 						android:maxLines="1"
 						android:inputType="text"
 						android:text="@={Bean.account}"
-						style="@style/EditText_448aff"
 						android:imeOptions="actionNext"
 						android:textColor="@color/colorAccent"
 						android:textSize="@dimen/px43dp"
@@ -64,12 +63,11 @@
 					android:layout_height="wrap_content"
 					app:passwordToggleEnabled="true"
 					>
-					<EditText
+					<androidx.appcompat.widget.AppCompatEditText
 						android:id="@+id/edPassword"
 						android:hint="Password"
 						android:maxLines="1"
 						android:text="@={Bean.password}"
-						style="@style/EditText_448aff"
 						android:imeOptions="actionDone"
 						android:inputType="textPassword"
 						android:textColor="@color/colorAccent"
