@@ -4,7 +4,9 @@
 	<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		>
+		
 		
 		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
 			android:id="@+id/refresh"
@@ -37,6 +39,9 @@
 			app:backgroundTint="@color/colorPrimaryDark"
 			app:fabCradleMargin="@dimen/px13dp"
 			app:fabAlignmentMode="end"
+			app:hideOnScroll="true"
+			app:layout_dodgeInsetEdges="bottom"
+			
 			>
 		</com.google.android.material.bottomappbar.BottomAppBar>
 		
@@ -48,7 +53,7 @@
 			app:rippleColor="@color/color_7986cb"
 			app:layout_anchor="@id/bottomBar"
 			app:fabSize="normal"
-			app:fabCustomSize="@dimen/px130dp"
+			app:fabCustomSize="@dimen/px150dp"
 			app:backgroundTint="@color/colorPrimaryDark"
 			/>
 	
