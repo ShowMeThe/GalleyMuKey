@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 	
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
+			<com.google.android.material.appbar.AppBarLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				<com.google.android.material.appbar.CollapsingToolbarLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:layout_scrollFlags="scroll|snap|enterAlways"
+					>
+					<com.google.android.material.tabs.TabLayout
+						android:id="@+id/tab"
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/px120dp"
+						app:tabTextColor="@color/color_7986cb"
+						app:tabSelectedTextColor="@color/colorPrimaryDark"
+						app:tabGravity="center"
+						app:tabMinWidth="@dimen/px80dp"
+						app:tabRippleColor="@color/color_7c4dff"
+						app:tabIndicatorHeight="0dp"
+						
+						>
+					</com.google.android.material.tabs.TabLayout>
+				
+				
+				</com.google.android.material.appbar.CollapsingToolbarLayout>
+			</com.google.android.material.appbar.AppBarLayout>
 		
-		<com.google.android.material.tabs.TabLayout
-			android:id="@+id/tab"
-			android:background="@color/white"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/px120dp"
-			app:tabTextColor="@color/color_7986cb"
-			app:tabSelectedTextColor="@color/colorPrimaryDark"
-			app:tabGravity="center"
-			app:tabMinWidth="@dimen/px80dp"
-			app:tabRippleColor="@color/color_7c4dff"
-			app:tabIndicatorHeight="0dp"
-			>
-		</com.google.android.material.tabs.TabLayout>
-		
-		<View style="@style/line_7986cb"/>
 		
 		<androidx.viewpager.widget.ViewPager
 			android:id="@+id/viewPager"
@@ -31,5 +43,5 @@
 			android:layout_height="wrap_content">
 		</androidx.viewpager.widget.ViewPager>
 		
-	</LinearLayout>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

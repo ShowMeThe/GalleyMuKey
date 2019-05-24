@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:title="Search"
-		android:id="@+id/search"
-		android:icon="@mipmap/search"
+		android:title="home"
+		android:id="@+id/home"
+		android:icon="@mipmap/open_drawer"
+		app:showAsAction="ifRoom"
 		 />
+	
 	<item
-		android:title="Search"
-		android:id="@+id/search1"
-		android:icon="@mipmap/search"
-		/>
-	<item
-		android:title="Search"
-		android:id="@+id/search2"
-		android:icon="@mipmap/search"
-		/>
+		android:title="cart"
+		android:id="@+id/cart"
+		android:icon="@mipmap/cart"
+		app:showAsAction="ifRoom"/>
+	
 </menu>

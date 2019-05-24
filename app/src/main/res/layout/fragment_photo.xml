@@ -8,7 +8,6 @@
 		>
 		
 		
-		
 		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
 			android:id="@+id/refresh"
 			app:layout_dodgeInsetEdges="bottom"
@@ -32,29 +31,7 @@
 		</showmethe.github.kframework.widget.common.SwipeRefreshLayout>
 		
 		
-		<com.google.android.material.bottomappbar.BottomAppBar
-			android:id="@+id/bottomBar"
-			android:layout_gravity="bottom"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/px150dp"
-			app:backgroundTint="@color/colorPrimaryDark"
-			app:fabCradleMargin="@dimen/px13dp"
-			app:fabAlignmentMode="center"
-			app:fabCradleRoundedCornerRadius="@dimen/px150dp"
-			>
-		</com.google.android.material.bottomappbar.BottomAppBar>
 		
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/fab"
-			android:src="@mipmap/add"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:rippleColor="@color/color_7986cb"
-			app:layout_anchor="@id/bottomBar"
-			app:fabSize="normal"
-			app:fabCustomSize="@dimen/px150dp"
-			app:backgroundTint="@color/colorPrimaryDark"
-			/>
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 	
 	

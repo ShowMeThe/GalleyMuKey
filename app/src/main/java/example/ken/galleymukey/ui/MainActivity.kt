@@ -2,8 +2,13 @@ package example.ken.galleymukey.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
@@ -12,6 +17,7 @@ import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
@@ -27,21 +33,49 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        StatusBarUtil.fixToolbarScreen(this,toolbar)
+        setContainer()
+        setSupportActionBar(bottomBar)
         initTab()
         switchFragment(0)
 
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.home_menu,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when(id){
+            R.id.home ->{
+                drawer.openDrawer(Gravity.LEFT)
+            }
+        }
+        return true
     }
 
 
     override fun initListener() {
 
+        drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerOpened(drawerView: View) {
+                drawerView.isClickable = true
+            }
+        })
+
 
 
     }
 
 
+    fun setContainer(){
+        val layoutParams = container.layoutParams
+        layoutParams.width = (screenWidth*0.75).toInt()
+        container.layoutParams = layoutParams
+    }
 
 
     fun initTab(){
@@ -62,7 +96,6 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                 switchFragment(pos)
             }
         })
-
     }
 
     fun switchFragment(position:Int){
