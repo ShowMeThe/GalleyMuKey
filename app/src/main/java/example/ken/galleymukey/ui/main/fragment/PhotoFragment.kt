@@ -2,6 +2,11 @@ package example.ken.galleymukey.ui.main.fragment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import androidx.appcompat.view.menu.MenuBuilder
+
+import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +20,10 @@ import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_galley.*
 import kotlinx.android.synthetic.main.fragment_photo.*
 import showmethe.github.kframework.base.BaseFragment
+import androidx.appcompat.app.AppCompatActivity
+
+
+
 
 /**
  * example.ken.galleymukey.ui.main.fragment
@@ -46,9 +55,11 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
     }
 
 
-    override fun init(savedInstanceState: Bundle?) {
 
+
+    override fun init(savedInstanceState: Bundle?) {
         refresh.setColorSchemeResources(R.color.colorPrimaryDark)
+
 
 
         adapter = PhotoAdapter(context,list)

@@ -51,6 +51,7 @@ class MainRepository : BaseRepository() {
         showLoading()
         GlobalScope.launch (Dispatchers.Main){
             hotDto.getHotBeanList().observe(owner!!, Observer {
+                dismissLoading()
                 it?.apply {
                     val list = ArrayList<HotWallBean>()
                     for(beans in this){
@@ -58,7 +59,6 @@ class MainRepository : BaseRepository() {
                         list.add(hot)
                     }
                     bean.value = list
-                    dismissLoading()
                 }
             })
         }
