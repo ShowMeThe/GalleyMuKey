@@ -65,6 +65,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerOpened(drawerView: View) {
                 drawerView.isClickable = true
+
             }
         })
 
@@ -112,7 +113,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     }
 
     override fun onBackPressed() {
-        if(!drawer.isDrawerOpen(drawer)){
+        if(!drawer.isDrawerOpen(Gravity.LEFT)){
             if(tab.selectedTabPosition == 1){
                 viewModel.cateChildManager?.fragments?.apply {
                     if(size > 1){
@@ -125,7 +126,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                 super.onBackPressed()
             }
         }else{
-            drawer.closeDrawer(drawer)
+            drawer.closeDrawer(Gravity.LEFT)
         }
     }
 
