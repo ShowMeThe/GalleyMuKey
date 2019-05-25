@@ -47,12 +47,13 @@
         <attr name="rectColor" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="PayPasswordInputView">
+    <declare-styleable name="PasswordInputView">
         <attr name="passwordLength" format="integer"/>
         <attr name="passwordInputType" format="enum">
             <enum name="number" value="0"/>
             <enum name="none" value="1"/>
         </attr>
+        <attr name="passwordRectColor" format="color|reference"/>
     </declare-styleable>
 
     <declare-styleable name="RecordButton">

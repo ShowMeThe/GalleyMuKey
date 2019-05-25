@@ -328,7 +328,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
             (rootLayout.width * 0.5).toInt(),
             (rootLayout.height * 0.5).toInt(), finalRadius,0f
         )
-        circularReveal.duration = 550
+        circularReveal.duration = 650
         circularReveal.interpolator = AccelerateInterpolator()
         circularReveal.addListener(object : Animator.AnimatorListener{
             override fun onAnimationRepeat(animation: Animator?) {

@@ -1,11 +1,16 @@
 package example.ken.galleymukey.ui.mine.fragment
 
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
 import example.ken.galleymukey.R
+import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.databinding.FragmentInfoBinding
 import example.ken.galleymukey.ui.mine.vm.ProfileInfoViewModel
 import kotlinx.android.synthetic.main.fragment_info.*
+import kotlinx.android.synthetic.main.include_title_bar.*
 import showmethe.github.kframework.base.BaseFragment
+import showmethe.github.kframework.util.rden.RDEN
 
 /**
  * example.ken.galleymukey.ui.mine.fragment
@@ -23,11 +28,33 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
     override fun observerUI() {
 
+        viewModel.bean.observe(this, Observer {
+                binding?.apply {
+                    it?.apply {
+                    bean = this
+                    executePendingBindings()
+                }
+            }
+        })
+
+        viewModel.updateController.observe(this, Observer {
+            it?.apply {
+                viewModel.updateInfo()
+            }
+        })
+
+        viewModel.updateInfo.observe(this, Observer {
+            it?.apply {
+                if(this>0){
+                    showToast("Update Successfully")
+                }
+            }
+        })
 
     }
 
     override fun init(savedInstanceState: Bundle?) {
-
+        viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
 
     }
 
@@ -35,6 +62,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
         tvUpdate.setOnClickListener {
             viewModel.switchToReset.value = true
+
         }
 
 

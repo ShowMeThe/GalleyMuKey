@@ -16,5 +16,8 @@ class UserInfoDto {
     var id: Int = 0
     var account : String? = ""
     var password : String? = ""
-
+    var phone :String =""
+    var desContent : String = ""
+    var avatar : String=""
+    var email : String=""
 }

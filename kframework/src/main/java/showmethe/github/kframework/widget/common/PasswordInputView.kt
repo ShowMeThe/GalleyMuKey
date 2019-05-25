@@ -29,7 +29,7 @@ import showmethe.github.kframework.util.system.KeyBoardUtils
  * Time : 11:30
  */
 @SuppressLint("AppCompatCustomView")
-class PayPasswordInputView @JvmOverloads constructor(
+class PasswordInputView @JvmOverloads constructor(
         /**
          * 上下文
          */
@@ -120,9 +120,10 @@ class PayPasswordInputView @JvmOverloads constructor(
 
 
     private fun initType(context: Context, attrs: AttributeSet?) {
-        val array = context.obtainStyledAttributes(attrs, R.styleable.PayPasswordInputView)
-        PWD_LENGTH = array.getInteger(R.styleable.PayPasswordInputView_passwordLength, 6)
-        limit = array.getInt(R.styleable.PayPasswordInputView_passwordInputType, 0)
+        val array = context.obtainStyledAttributes(attrs, R.styleable.PasswordInputView)
+        PWD_LENGTH = array.getInteger(R.styleable.PasswordInputView_passwordLength, 6)
+        limit = array.getInt(R.styleable.PasswordInputView_passwordInputType, 0)
+
         PWD_LENGTH = if (PWD_LENGTH > 0) PWD_LENGTH else 6
         filters = arrayOf<InputFilter>(InputFilter.LengthFilter(PWD_LENGTH))
         if (limit == 0) {

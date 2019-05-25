@@ -62,7 +62,7 @@ abstract class BaseRepository() : LifecycleOwnerObserver{
         BaseApplication.ctx?.apply {
             get()?.apply {
                 supportFragmentManager.executePendingTransactions()
-                if (!loadingDialog.isAdded) {
+                if (!loadingDialog.isAdded && !isFinishing) {
                     loadingDialog.show(supportFragmentManager, "")
                 }
             }
@@ -71,7 +71,7 @@ abstract class BaseRepository() : LifecycleOwnerObserver{
 
 
         fun dismissLoading() {
-            if(loadingDialog.isAdded && loadingDialog!=null)
+            if(loadingDialog.isAdded)
             loadingDialog.dismiss()
         }
 

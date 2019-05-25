@@ -21,7 +21,6 @@ import showmethe.github.kframework.base.BaseActivity
 class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>() {
 
 
-
     override fun getViewId(): Int = R.layout.activity_profile_info
     override fun initViewModel(): ProfileInfoViewModel = createViewModel(ProfileInfoViewModel::class.java)
     override fun onBundle(bundle: Bundle) {
@@ -32,8 +31,10 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
         viewModel.switchToReset.observe(this, Observer {
             it?.apply {
                 if(this){
+                    ivRight.visibility = View.GONE
                     viewModel.currentType = true
                     replaceFragment(ResetFragment::class.java.name)
+                    tvTitle.text = "Update Password"
                 }
             }
         })
@@ -42,7 +43,7 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
     }
 
     override fun init(savedInstanceState: Bundle?) {
-
+        tvTitle.text = "Profile"
 
 
         replaceFragment(InfoFragment::class.java.name)
@@ -56,6 +57,13 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
         rotate()
 
 
+        ivRight.setOnClickListener {
+            if(viewModel.currentType){
+                viewModel.updateController.value = true
+            }else{
+
+            }
+        }
 
 
 
@@ -63,6 +71,8 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
             if(supportFragmentManager.fragments.size>=2){
                 viewModel.currentType = false
                 supportFragmentManager.popBackStack()
+                ivRight.visibility = View.VISIBLE
+                tvTitle.text = "Profile"
             }else{
                 finishAfterTransition()
             }
@@ -71,10 +81,13 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
     }
 
 
+
     override fun onBackPressed() {
         if(supportFragmentManager.fragments.size>= 2){
             viewModel.currentType = false
             supportFragmentManager.popBackStack()
+            ivRight.visibility = View.VISIBLE
+            tvTitle.text = "Profile"
         }else{
             super.onBackPressed()
         }

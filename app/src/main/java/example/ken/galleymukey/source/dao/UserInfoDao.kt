@@ -2,10 +2,7 @@ package example.ken.galleymukey.source.dao
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import example.ken.galleymukey.source.dto.UserInfoDto
 import showmethe.github.kframework.util.rden.RoomBean
 
@@ -25,5 +22,13 @@ interface UserInfoDao {
 
     @Query("select * from UserInfoDto where account  = (:account)")
     fun queryAccount(account :String?) : LiveData<UserInfoDto>
+
+    @Update
+    fun updateUserInfo(dto : UserInfoDto) : Int
+
+    @Query("Update  UserInfoDto set password=:password where  account = :account  ")
+    fun updatePassword(account:String,password: String) : Int
+
+
 
 }
