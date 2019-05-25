@@ -14,6 +14,7 @@ import example.ken.galleymukey.ui.cate.fragment.SearchFragment
 import example.ken.galleymukey.ui.mine.fragment.InfoFragment
 import example.ken.galleymukey.ui.mine.fragment.ResetFragment
 import example.ken.galleymukey.ui.mine.vm.ProfileInfoViewModel
+
 import kotlinx.android.synthetic.main.include_title_bar.*
 import showmethe.github.kframework.base.BaseActivity
 
