@@ -15,6 +15,7 @@ import example.ken.galleymukey.R
 import example.ken.galleymukey.ui.cate.fragment.CateFragment
 import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
+import example.ken.galleymukey.ui.mine.ProfileInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.util.widget.StatusBarUtil
@@ -66,6 +67,9 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
             }
         })
 
+        ivHead.setOnClickListener {
+            startActivity(null,ProfileInfoActivity::class.java)
+        }
 
 
     }

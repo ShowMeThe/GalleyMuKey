@@ -65,5 +65,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/px1dp</item>
     </style>
+    
+    <style name="line_7c4dff">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px1dp</item>
+    </style>
 
 </resources>
