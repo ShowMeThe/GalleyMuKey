@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
+import example.ken.galleymukey.ui.cart.fragment.CartFragment
 import example.ken.galleymukey.ui.cate.fragment.CateFragment
 import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
@@ -83,9 +84,9 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     fun initTab(){
-        tab.addTab(tab.newTab().setText("Galley").setIcon(ContextCompat.getDrawable(context,R.mipmap.navi_1)))
-        tab.addTab(tab.newTab().setText("Category").setIcon(ContextCompat.getDrawable(context,R.mipmap.category)))
-        tab.addTab(tab.newTab().setText("Galley").setIcon(ContextCompat.getDrawable(context,R.mipmap.navi_1)))
+        tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.photo)))
+        tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.category)))
+        tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.shopping)))
 
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -106,8 +107,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         when(position){
             0 ->  replaceFragment(GalleyFragment::class.java.name)
             1 ->  replaceFragment(CateFragment::class.java.name)
-     /*
-            2 ->  replaceFragment(GalleyFragment::class.java.name)*/
+            2 ->  replaceFragment(CartFragment::class.java.name)
         }
     }
 
