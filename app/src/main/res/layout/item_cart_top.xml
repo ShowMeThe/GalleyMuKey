@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	<data>
+		<variable
+			name="Bean"
+			type="String" />
+	</data>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+	
+		<TextView
+			android:id="@+id/tvTop"
+			android:text="@{Bean}"
+			android:textSize="@dimen/px95dp"
+			android:textStyle="bold"
+			android:layout_marginStart="@dimen/px40dp"
+			android:layout_marginEnd="@dimen/px50dp"
+			android:layout_marginTop="@dimen/px50dp"
+			android:layout_marginBottom="@dimen/px30dp"
+			android:textColor="@color/color_0288d1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		
+		
+	</LinearLayout>
+</layout>

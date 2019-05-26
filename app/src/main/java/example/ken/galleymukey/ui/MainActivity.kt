@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
 import example.ken.galleymukey.ui.cart.fragment.CartFragment
@@ -40,6 +42,8 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         setSupportActionBar(bottomBar)
         initTab()
         switchFragment(0)
+
+
 
     }
 
