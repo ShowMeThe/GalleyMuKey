@@ -32,9 +32,11 @@ class ResetFragment  : BaseFragment<FragmentResetBinding, ProfileInfoViewModel>(
 
         viewModel.updatePswd.observe(this, Observer {
             it?.apply {
-                showToast("Update Successfully")
-                context.startActivity(null,LoginActivity::class.java)
-                AppManager.get().finishAllWithoutTarget(LoginActivity::class.java)
+                if(this>0){
+                    showToast("Update Successfully")
+                    context.startActivity(null,LoginActivity::class.java)
+                    AppManager.get().finishAllWithoutTarget(LoginActivity::class.java)
+                }
             }
         })
 

@@ -1,5 +1,6 @@
 package example.ken.galleymukey.ui.mine.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.bean.UserInfoBean
@@ -32,16 +33,17 @@ class ProfileRepository : BaseRepository() {
         }
     }
 
+
     fun updatePassword(bean  : UserInfoBean,password: String,result: MutableLiveData<Int>){
-        userInfoDao.queryAccount(bean.account).observe(owner!!, Observer {
-              if(password.equals(it.password)){
-                 showToast("New Password should not equals Old Password")
-              }else{
-                  userInfoDao.updatePassword(bean.account,password).apply {
-                      result.value = this
-                  }
-              }
-        })
+        userInfoDao.queryUserInfo(bean.account).apply {
+            if(password.equals(this.password)){
+                showToast("New Password should not equals Old Password")
+            }else{
+                userInfoDao.updatePassword(bean.account,password).apply {
+                    result.value = this
+                }
+            }
+        }
 
     }
 
