@@ -65,15 +65,12 @@ abstract class DataBindBaseAdapter<D, V : ViewDataBinding>(var context: Context,
 
 
     override fun onBindViewHolder(holder: DataBindingViewHolder<V>, position: Int) {
-        bindItems(holder.binding, data[position], position)
-
-
         holder.itemView.setOnClickListener {
             onItemClick?.apply {
                 invoke(it,holder.layoutPosition)
             }
         }
-
+        bindItems(holder.binding, data[position], position)
     }
 
 

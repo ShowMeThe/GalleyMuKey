@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui.cart.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.GridLayoutManager
@@ -107,6 +108,9 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         homeAdapter = CartHomeAdapter(context,data)
         rvBottom.adapter = homeAdapter
         rvBottom.layoutManager = GridLayoutManager(context,2)
+
+
+
     }
 
 

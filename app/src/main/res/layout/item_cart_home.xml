@@ -3,6 +3,7 @@
 	
 	
 		<com.google.android.material.card.MaterialCardView
+			android:id="@+id/cardView"
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:app="http://schemas.android.com/apk/res-auto"
 			android:layout_width="match_parent"
@@ -11,6 +12,8 @@
 			android:layout_marginStart="@dimen/px15dp"
 			android:layout_marginEnd="@dimen/px15dp"
 			android:layout_marginBottom="@dimen/px15dp"
+			android:clickable="true"
+			android:focusable="true"
 			app:cardCornerRadius="@dimen/px30dp"
 			app:rippleColor="@color/colorAccent"
 			app:cardBackgroundColor="@color/white"
@@ -24,12 +27,15 @@
 				android:layout_height="wrap_content">
 				
 				<ImageView
+					android:id="@+id/ivLogo"
+					android:transitionName="ivLogo"
 					android:background="@color/colorAccent"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px550dp" />
 			
 				<TextView
 					android:id="@+id/tv"
+					android:transitionName="tv"
 					android:textColor="@color/colorPrimaryDark"
 					android:textStyle="bold"
 					android:text="This is a good thing can helop your fix your body and save your life"
@@ -41,6 +47,8 @@
 					android:layout_height="wrap_content" />
 				
 				<Button
+					android:id="@+id/btnBuy"
+					android:transitionName="btnBuy"
 					android:layout_marginStart="@dimen/px30dp"
 					android:layout_marginEnd="@dimen/px30dp"
 					android:layout_marginTop="@dimen/px30dp"

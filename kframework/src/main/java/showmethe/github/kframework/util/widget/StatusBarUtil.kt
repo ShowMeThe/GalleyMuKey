@@ -42,10 +42,16 @@ object StatusBarUtil {
     fun fixToolbarScreen(activity: Activity, toolbar: Toolbar) {
         StatusBarUtil.setFullScreen(activity)
         val params = toolbar.layoutParams
-        params.height = (getStatusBarHeight(activity) * 0.5).toInt()
+        params.height = (getStatusBarHeight(activity) * 1).toInt()
         toolbar.layoutParams = params
     }
 
+
+    fun fixToolbar(activity: Activity, toolbar: Toolbar) {
+        val params = toolbar.layoutParams
+        params.height = (getStatusBarHeight(activity) * 1).toInt()
+        toolbar.layoutParams = params
+    }
 
     /**
      * 顶部状态栏上移

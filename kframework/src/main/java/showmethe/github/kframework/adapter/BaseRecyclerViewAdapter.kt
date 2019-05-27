@@ -88,17 +88,19 @@ abstract class BaseRecyclerViewAdapter<D, V : RecyclerView.ViewHolder>(var conte
         viewHolder.itemView.layoutParams = layoutParams
         val item = getItem(position)
 
+        if (onItemClickListener != null) {
+            viewHolder.itemView.setOnClickListener { v ->
+                onItemClickListener!!.onItemClick(v, viewHolder.layoutPosition)
+            }
+        }
+
         try {
             bindDataToItemView(viewHolder, item, position)
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        if (onItemClickListener != null) {
-            viewHolder.itemView.setOnClickListener { v ->
-                onItemClickListener!!.onItemClick(v, viewHolder.layoutPosition)
-            }
-        }
+
     }
 
 }

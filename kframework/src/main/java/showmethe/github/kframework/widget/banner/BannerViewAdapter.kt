@@ -9,6 +9,7 @@ import androidx.databinding.ObservableArrayList
 import showmethe.github.kframework.R
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.databinding.ItemBannerViewBinding
+import showmethe.github.kframework.glide.TGlide
 
 /**
  * showmethe.github.kframework.widget.banner

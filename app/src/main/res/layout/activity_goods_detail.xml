@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/colorAccent"
+		tools:context=".ui.cart.GoodsDetailActivity">
+		
+		<androidx.coordinatorlayout.widget.CoordinatorLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			>
+			<com.google.android.material.appbar.AppBarLayout
+				android:id="@+id/appbar"
+				android:background="@color/transparent"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+				<com.google.android.material.appbar.CollapsingToolbarLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:layout_scrollFlags="scroll|snap"
+					>
+					<showmethe.github.kframework.widget.banner.Banner
+						android:id="@+id/banner"
+						android:transitionName="ivLogo"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:imageMaxHeight="@dimen/px1200dp"
+						app:imageMinHeight="@dimen/px600dp"
+						>
+					</showmethe.github.kframework.widget.banner.Banner>
+					
+					<ImageView
+						android:id="@+id/ivCover"
+						android:alpha="0"
+						android:background="@color/colorAccent"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent" />
+					
+				</com.google.android.material.appbar.CollapsingToolbarLayout>
+				
+				<LinearLayout
+					android:id="@+id/fade"
+					android:visibility="gone"
+					android:orientation="vertical"
+					android:background="@color/colorAccent"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					>
+					
+					<androidx.appcompat.widget.Toolbar
+						android:id="@+id/toolbar2"
+						android:elevation="0dp"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						>
+					</androidx.appcompat.widget.Toolbar>
+					
+					<ImageView
+						android:src="@mipmap/search_back"
+						android:rotation="90"
+						android:layout_marginTop="@dimen/px15dp"
+						android:layout_marginBottom="@dimen/px15dp"
+						android:layout_centerVertical="true"
+						android:layout_marginStart="@dimen/px30dp"
+						android:layout_width="@dimen/px80dp"
+						android:layout_height="@dimen/px80dp" />
+				</LinearLayout>
+			
+			
+			</com.google.android.material.appbar.AppBarLayout>
+			
+			<androidx.core.widget.NestedScrollView
+				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px2200dp">
+				
+				<View
+					
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" />
+			</androidx.core.widget.NestedScrollView>
+			
+		</androidx.coordinatorlayout.widget.CoordinatorLayout >
+		
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:background="@color/transparent"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<androidx.appcompat.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+			</androidx.appcompat.widget.Toolbar>
+			
+			<ImageView
+				android:src="@mipmap/search_back"
+				android:rotation="90"
+				android:layout_marginTop="@dimen/px15dp"
+				android:layout_marginBottom="@dimen/px15dp"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="@dimen/px30dp"
+				android:layout_width="@dimen/px80dp"
+				android:layout_height="@dimen/px80dp" />
+		</LinearLayout>
+	
+		
+	</RelativeLayout>
+	
+</layout>

@@ -13,7 +13,8 @@
 		android:theme="@style/MaterialTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:theme">
-		<activity android:name=".ui.mine.ProfileInfoActivity"/>
+		<activity android:name=".ui.cart.GoodsDetailActivity"></activity>
+		<activity android:name=".ui.mine.ProfileInfoActivity" />
 		<activity android:name=".ui.main.ImageShowActivity" />
 		<activity
 			android:name=".ui.auth.SplashActivity"

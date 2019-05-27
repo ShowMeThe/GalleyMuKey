@@ -48,7 +48,7 @@
 				
 				<TextView
 					android:id="@+id/tvSelect"
-					android:textColor="@color/colorPrimaryDark"
+					android:textColor="@color/white"
 					android:textSize="@dimen/px43dp"
 					android:gravity="center"
 					android:textStyle="italic|bold"
