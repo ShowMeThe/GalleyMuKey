@@ -98,6 +98,7 @@ object ToastFactory {
         if (toast == null) {
             layout = View.inflate(BaseApplication.context, R.layout.view_toast_draw, null)
         } else {
+            toast?.cancel()
             layout = toast!!.view
         }
         title = layout.findViewById(R.id.text)
@@ -120,6 +121,7 @@ object ToastFactory {
         if (imgToast == null) {
             layout = View.inflate(BaseApplication.context, R.layout.view_img_toast, null)
         } else {
+            imgToast?.cancel()
             layout = imgToast!!.view
         }
         title = layout.findViewById(R.id.text)
