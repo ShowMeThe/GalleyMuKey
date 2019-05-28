@@ -1,4 +1,4 @@
-package example.ken.galleymukey.dialog
+package showmethe.github.kframework.dialog
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -13,15 +13,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import example.ken.galleymukey.R
-import example.ken.galleymukey.dialog.adapter.YearAdapter
+import showmethe.github.kframework.dialog.adapter.YearAdapter
 import kotlinx.android.synthetic.main.dialog_canlendar.view.*
+import showmethe.github.kframework.R
 import java.lang.Exception
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * example.ken.galleymukey.dialog
+ * example.ken.dialog
  *
  * 2019/5/28
  **/
