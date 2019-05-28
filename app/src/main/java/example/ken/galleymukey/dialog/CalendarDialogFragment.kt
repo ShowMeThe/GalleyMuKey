@@ -110,10 +110,13 @@ class CalendarDialogFragment : DialogFragment() {
 
 
             adapter.setOnItemClickListener { view, position ->
+                val pos = adapter.currentPos
                 adapter.currentPos = position
+                adapter.notifyItemChanged(pos)
+                adapter.notifyItemChanged(adapter.currentPos)
+
                 year = list[adapter.currentPos].toInt()
                 tvYear.text = year.toString()
-                adapter.notifyDataSetChanged()
 
                 instant.set(Calendar.YEAR,year)
                 instant.set(Calendar.YEAR,year)
