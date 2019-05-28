@@ -19,7 +19,7 @@
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="colorControlNormal">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/white</item>
-        <item name="popupMenuStyle">@style/popMenu</item>windowContentTransitions
+        <item name="popupMenuStyle">@style/popMenu</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/popMenuText</item>
         <item name="android:textAppearanceLargePopupMenu">@style/popMenuText</item>
         
@@ -70,6 +70,12 @@
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/px1dp</item>
+    </style>
+    
+    <style name="CalendarTextStyle">
+        <item name="android:textSize">@dimen/px45dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TabLayoutTextStyle">
