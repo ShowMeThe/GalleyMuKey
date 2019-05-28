@@ -54,6 +54,14 @@ class UserInfoBean : Observable {
             field = email
             notifyChange(BR.email)
         }
+
+    @get:Bindable
+    var birthday = ""
+        set(birthday) {
+            field = birthday
+            notifyChange(BR.birthday)
+        }
+
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
 

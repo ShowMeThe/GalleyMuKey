@@ -20,4 +20,5 @@ class UserInfoDto {
     var desContent : String = ""
     var avatar : String=""
     var email : String=""
+    var birthday : String=""
 }

@@ -28,6 +28,7 @@ class ProfileRepository : BaseRepository() {
         dto.phone = bean.phone
         dto.password = bean.password
         dto.email = bean.email
+        dto.birthday = bean.birthday
         userInfoDao.updateUserInfo(dto).apply {
             result.value = this
         }
@@ -58,6 +59,7 @@ class ProfileRepository : BaseRepository() {
                 userInfoBean.id = id
                 userInfoBean.password = password!!
                 userInfoBean.phone = phone
+                userInfoBean.birthday = birthday
                 bean.value = userInfoBean
             }
         })

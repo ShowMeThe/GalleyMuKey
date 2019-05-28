@@ -1,5 +1,6 @@
 package example.ken.galleymukey.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
@@ -43,6 +44,7 @@ class CalendarDialogFragment : DialogFragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(mContext)
         val view = View.inflate(mContext, R.layout.dialog_canlendar, null)
@@ -92,7 +94,7 @@ class CalendarDialogFragment : DialogFragment() {
             }
 
             tvYear.text = year.toString()
-            tvDate.text = "${month}/${day}"
+            tvDate.text = "$month/${day}"
 
             adapter.notifyDataSetChanged()
             rv.smoothScrollToPosition(adapter.currentPos)
@@ -102,7 +104,8 @@ class CalendarDialogFragment : DialogFragment() {
                 this@CalendarDialogFragment.day = dayOfMonth
                 this@CalendarDialogFragment.year = year
                 tvYear.text = year.toString()
-                tvDate.text = "${dayOfMonth}/${month+1}"
+                tvDate.text = "$dayOfMonth/${month+1}"
+
             }
 
 
@@ -138,6 +141,7 @@ class CalendarDialogFragment : DialogFragment() {
 
             btnDone.setOnClickListener {
                 onDatePickDialog?.invoke(day,month,year)
+                dialog.dismiss()
             }
 
         }

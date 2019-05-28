@@ -89,6 +89,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
         btnReg.setOnClickListener { showSignUpDialog() }
 
         signUpDialog.setOnCodeGetListener {
+            KeyBoardUtils.hideSoftKeyboard(this)
             showSnack(it)
         }
 

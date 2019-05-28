@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.databinding.FragmentInfoBinding
+import example.ken.galleymukey.dialog.CalendarDialogFragment
 import example.ken.galleymukey.ui.mine.vm.ProfileInfoViewModel
 import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.include_title_bar.*
@@ -18,6 +19,8 @@ import showmethe.github.kframework.util.rden.RDEN
  * 2019/5/25
  **/
 class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
+
+    val dialog = CalendarDialogFragment()
 
     override fun initViewModel(): ProfileInfoViewModel = createViewModel(ProfileInfoViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_info
@@ -65,6 +68,13 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
         }
 
+        llBirthday.setOnClickListener {
+            dialog.show(childFragmentManager,"CalendarDialogFragment")
+        }
+
+        dialog.setOnDatePickDialogListener { day, month, year ->
+            viewModel.bean.value?.birthday =  "$year-$month-$day"
+        }
 
     }
 }
