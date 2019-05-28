@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	
-	<RelativeLayout
+	<LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/colorAccent"
+		android:orientation="vertical"
 		tools:context=".ui.cart.GoodsDetailActivity">
 		
 		<androidx.coordinatorlayout.widget.CoordinatorLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
 			>
 			<com.google.android.material.appbar.AppBarLayout
 				android:id="@+id/appbar"
@@ -23,7 +24,7 @@
 				<com.google.android.material.appbar.CollapsingToolbarLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					app:layout_scrollFlags="scroll|snap"
+					app:layout_scrollFlags="scroll|exitUntilCollapsed"
 					>
 					<showmethe.github.kframework.widget.banner.Banner
 						android:id="@+id/banner"
@@ -32,6 +33,7 @@
 						android:layout_height="wrap_content"
 						app:imageMaxHeight="@dimen/px1200dp"
 						app:imageMinHeight="@dimen/px600dp"
+						app:layout_collapseMode="parallax"
 						>
 					</showmethe.github.kframework.widget.banner.Banner>
 					
@@ -40,79 +42,81 @@
 						android:alpha="0"
 						android:background="@color/colorAccent"
 						android:layout_width="match_parent"
-						android:layout_height="match_parent" />
-					
-				</com.google.android.material.appbar.CollapsingToolbarLayout>
-				
-				<LinearLayout
-					android:id="@+id/fade"
-					android:visibility="gone"
-					android:orientation="vertical"
-					android:background="@color/colorAccent"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					>
+						android:layout_height="match_parent"
+						/>
 					
 					<androidx.appcompat.widget.Toolbar
-						android:id="@+id/toolbar2"
-						android:elevation="0dp"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
+						android:background="@color/transparent"
+						app:layout_collapseMode="pin"
 						>
+						<LinearLayout
+							android:orientation="vertical"
+							android:background="@color/transparent"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							>
+							
+							<ImageView
+								android:src="@mipmap/search_back"
+								android:rotation="90"
+								android:layout_marginTop="@dimen/px120dp"
+								android:layout_marginBottom="@dimen/px15dp"
+								android:layout_marginStart="@dimen/px20dp"
+								android:layout_width="@dimen/px80dp"
+								android:layout_height="@dimen/px80dp" />
+						</LinearLayout>
+						
 					</androidx.appcompat.widget.Toolbar>
-					
-					<ImageView
-						android:src="@mipmap/search_back"
-						android:rotation="90"
-						android:layout_marginTop="@dimen/px15dp"
-						android:layout_marginBottom="@dimen/px15dp"
-						android:layout_centerVertical="true"
-						android:layout_marginStart="@dimen/px30dp"
-						android:layout_width="@dimen/px80dp"
-						android:layout_height="@dimen/px80dp" />
-				</LinearLayout>
-			
-			
+				</com.google.android.material.appbar.CollapsingToolbarLayout>
 			</com.google.android.material.appbar.AppBarLayout>
 			
-			<androidx.core.widget.NestedScrollView
+			<LinearLayout
+				android:orientation="vertical"
+				android:background="@color/color_7c4dff"
 				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/px2200dp">
+				android:layout_height="wrap_content">
 				
-				<View
-					
+				<androidx.core.widget.NestedScrollView
 					android:layout_width="match_parent"
-					android:layout_height="match_parent" />
-			</androidx.core.widget.NestedScrollView>
+					android:layout_height="wrap_content">
+					
+					<LinearLayout
+						android:orientation="vertical"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+						
+						<FrameLayout
+							android:layout_width="match_parent"
+							android:layout_height="match_parent">
+						</FrameLayout>
+						
+					</LinearLayout>
+				</androidx.core.widget.NestedScrollView>
+			</LinearLayout>
 			
 		</androidx.coordinatorlayout.widget.CoordinatorLayout >
 		
 		
-		<LinearLayout
-			android:orientation="vertical"
-			android:background="@color/transparent"
+		<Button
+			android:id="@+id/btnBuy"
+			android:transitionName="btnBuy"
+			android:layout_marginStart="@dimen/px130dp"
+			android:layout_marginEnd="@dimen/px130dp"
+			android:layout_marginTop="@dimen/px30dp"
+			android:layout_marginBottom="@dimen/px30dp"
+			android:textColor="@color/white"
+			android:text="$12.00"
+			android:gravity="center"
+			android:padding="@dimen/px15dp"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-			
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-			</androidx.appcompat.widget.Toolbar>
-			
-			<ImageView
-				android:src="@mipmap/search_back"
-				android:rotation="90"
-				android:layout_marginTop="@dimen/px15dp"
-				android:layout_marginBottom="@dimen/px15dp"
-				android:layout_centerVertical="true"
-				android:layout_marginStart="@dimen/px30dp"
-				android:layout_width="@dimen/px80dp"
-				android:layout_height="@dimen/px80dp" />
-		</LinearLayout>
+			android:layout_height="@dimen/px140dp"
+			android:drawableStart="@mipmap/cart"
+			android:background="@drawable/shape_rect_red"
+			/>
 	
-		
-	</RelativeLayout>
+	</LinearLayout>
 	
 </layout>

@@ -32,12 +32,13 @@ class GoodsDetailActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        StatusBarUtil.fixToolbarScreen(this,toolbar)
-        StatusBarUtil.fixToolbar(this,toolbar2)
+        StatusBarUtil.setFullScreen(this)
 
         list.apply {
-            add("http://image1.xyzs.com/upload/a6/1c/1450580015244844/20151224/145089874795426_0.jpg")
-            add("http://image2.xyzs.com/upload/9f/f3/1449368181406009/20151209/144960051320867_0.jpg")
+            add("http://image1.xyzs.com/upload/6d/7a/1450150493535765/20151217/145028979798709_0.jpg")
+            add("http://image4.xyzs.com/upload/03/f7/1449978315650125/20151217/145028981364776_0.jpg")
+            add("http://image4.xyzs.com/upload/03/f7/1449978315650125/20151217/145028981364776_0.jpg")
+            add("http://image1.xyzs.com/upload/b2/88/1450055515760915/20151217/145028981024042_0.jpg")
         }
         banner.addList(list)
         banner.setOnImageLoader { url, imageView ->
@@ -53,23 +54,24 @@ class GoodsDetailActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
             if (verticalOffset == 0) {
                 //展开
             }else if(Math.abs(verticalOffset) >= appBarLayout.totalScrollRange){
-                //折叠中
-                fade.visibility = View.VISIBLE
+                //折叠
+
             }else{
                 //中间态
                 val alpha = Math.abs(verticalOffset.toFloat()/appBarLayout.totalScrollRange.toFloat())
-                ivCover.alpha =  alpha
-                if(alpha <= 0.3f && verticalOffset>0){
-                    fade.visibility = View.GONE
-                }else if (alpha <= 1f && verticalOffset<0){
-                    fade.visibility = View.GONE
-                }
+                ivCover.alpha  = (alpha*1.5).toFloat()
             }
         })
 
 
 
+
     }
 
+
+
+    override fun onBackPressed() {
+        finishAfterTransition()
+    }
 
 }

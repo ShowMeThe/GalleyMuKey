@@ -1,7 +1,11 @@
 package example.ken.galleymukey.ui.main.adapter
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import android.util.Pair
 import android.view.View
 import androidx.databinding.ObservableArrayList
 import example.ken.galleymukey.R
@@ -9,8 +13,10 @@ import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.databinding.ItemPhotoBinding
 import example.ken.galleymukey.source.dao.PhotoWallDao
 import example.ken.galleymukey.source.dto.PhotoWallDto
+import example.ken.galleymukey.ui.main.ImageShowActivity
 import showmethe.github.kframework.adapter.AutoLoadAdapter
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
+import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
 
 /**
@@ -37,9 +43,19 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
             }
 
             tvSelect.text = "${item.currentPos+1}/${item.imagePaths!!.size}"
+
             banner.setOnPageClickListner {
-                onPhotoClick?.invoke(banner,item.imagePaths!![it],position)
+                val bundle = Bundle()
+                val intent = Intent(context,ImageShowActivity::class.java)
+                val option = ActivityOptions.makeSceneTransitionAnimation(context as BaseActivity<*, *>,
+                    *arrayOf<Pair<View, String>>(Pair.create(banner,"photo"))).toBundle()
+                bundle.putString("photo",data[position].imagePaths!![item.currentPos])
+                bundle.putInt("id",data[position].id)
+                intent.putExtras(bundle)
+                context.startActivity(intent,option)
+
             }
+
             like.setLike(item.like,false)
             like.setOnClickListener {
                 item.like = !item.like
@@ -56,11 +72,6 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
     }
 
 
-    var onPhotoClick: ((view: View, url:String,postiion: Int)->Unit)? = null
-
-    fun setOnPhotoClickListener(onPhotoClick: ((view: View,url:String,postiion: Int)->Unit)){
-        this.onPhotoClick = onPhotoClick
-    }
 
 
     override fun getItemLayout(): Int = R.layout.item_photo

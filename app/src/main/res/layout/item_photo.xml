@@ -41,8 +41,8 @@
 					android:layout_height="wrap_content"
 					app:autoPlay="false"
 					app:showIndicator="false"
-					app:imageMaxHeight="@dimen/px1800dp"
-					app:imageMinHeight="@dimen/px600dp"
+					app:imageMaxHeight="@dimen/px1600dp"
+					app:imageMinHeight="@dimen/px800dp"
 					>
 				</showmethe.github.kframework.widget.banner.Banner>
 				

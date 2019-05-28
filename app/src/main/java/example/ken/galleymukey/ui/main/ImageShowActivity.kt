@@ -57,7 +57,7 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     override fun onBundle(bundle: Bundle) {
         url = bundle.getString("photo","")
         id = bundle.getInt("id",-1)
-        TGlide.load(url,image)
+        TGlide.loadNoCrop(url,image)
     }
 
     override fun observerUI() {

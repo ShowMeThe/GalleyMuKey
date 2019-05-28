@@ -299,6 +299,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
     }
 
 
+
     /**
      * 水波纹覆盖显示动画
      * @param rootLayout
