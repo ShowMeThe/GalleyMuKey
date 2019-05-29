@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import android.os.Bundle
 import android.os.IBinder
+import android.transition.Explode
+import android.transition.TransitionInflater
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
@@ -16,6 +18,7 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+
 import com.jeremyliao.liveeventbus.LiveEventBus
 import showmethe.github.kframework.util.widget.ScreenSizeUtil
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
@@ -50,6 +53,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getViewId())
+
         binding = DataBindingUtil.setContentView(this, getViewId())
         root = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0)
 
@@ -93,7 +97,6 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
      */
     private fun setUpReveal(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            //root.visibility = View.INVISIBLE
             val viewTreeObserver = root.viewTreeObserver
             if (viewTreeObserver.isAlive) {
                 viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -266,7 +269,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
             intent.putExtras(bundle)
         }
         startActivity(intent)
-        overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
+        //overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
     }
 
     /**
@@ -329,15 +332,14 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
             (rootLayout.width * 0.5).toInt(),
             (rootLayout.height * 0.5).toInt(), finalRadius,0f
         )
-        circularReveal.duration = 650
-        circularReveal.interpolator = AccelerateInterpolator()
+        circularReveal.duration = 800
+        circularReveal.interpolator = LinearInterpolator()
         circularReveal.addListener(object : Animator.AnimatorListener{
             override fun onAnimationRepeat(animation: Animator?) {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
                 call.invoke()
-                finish()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

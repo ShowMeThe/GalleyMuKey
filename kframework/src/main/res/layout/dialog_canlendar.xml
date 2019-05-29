@@ -1,107 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	
-	
-	<LinearLayout
-		android:background="@color/white"
-		android:orientation="vertical"
+	<com.google.android.material.card.MaterialCardView
+		android:id="@+id/cardView"
 		android:layout_marginStart="@dimen/px150dp"
 		android:layout_marginEnd="@dimen/px150dp"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-		
-		<TextView
-			android:text="Canlendar"
-			android:gravity="center"
-			android:textSize="@dimen/px45dp"
-			android:textStyle="bold"
-			android:textColor="@color/colorAccent"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/px150dp" />
-		
+		android:layout_height="wrap_content"
+		app:cardCornerRadius="@dimen/px25dp"
+		app:cardBackgroundColor="@color/white"
+		app:shapeAppearanceOverlay="@dimen/px35dp"
+		>
 		
 		<LinearLayout
 			android:orientation="vertical"
-			android:background="@color/colorAccent"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<RadioGroup
-				android:id="@+id/rg"
+			<TextView
+				android:text="Calendar"
+				android:gravity="center"
+				android:textSize="@dimen/px45dp"
+				android:textStyle="bold"
+				android:textColor="@color/colorAccent"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px150dp" />
+			
+			
+			<LinearLayout
+				android:orientation="vertical"
+				android:background="@color/colorAccent"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
-				<RadioButton
-					android:id="@+id/tvYear"
-					android:text="1998"
-					android:textStyle="bold"
-					android:button="@null"
-					android:textSize="@dimen/px62dp"
-					android:layout_marginTop="@dimen/px45dp"
-					android:layout_marginStart="@dimen/px55dp"
-					android:layout_marginBottom="@dimen/px15dp"
-					android:checked="false"
-					android:textColor="@color/date_menu_select"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" >
+				<RadioGroup
+					android:id="@+id/rg"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<RadioButton
+						android:id="@+id/tvYear"
+						android:text=""
+						android:textStyle="bold"
+						android:button="@null"
+						android:textSize="@dimen/px62dp"
+						android:layout_marginTop="@dimen/px45dp"
+						android:layout_marginStart="@dimen/px55dp"
+						android:layout_marginBottom="@dimen/px15dp"
+						android:checked="false"
+						android:textColor="@color/date_menu_select"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" >
 					
 					
-				</RadioButton>
+					</RadioButton>
+					
+					<RadioButton
+						android:id="@+id/tvDate"
+						android:text=""
+						android:textStyle="bold"
+						android:button="@null"
+						android:textSize="@dimen/px82dp"
+						android:layout_marginTop="@dimen/px5dp"
+						android:layout_marginStart="@dimen/px55dp"
+						android:layout_marginBottom="@dimen/px35dp"
+						android:checked="true"
+						android:textColor="@color/date_menu_select"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
 				
-				<RadioButton
-					android:id="@+id/tvDate"
-					android:text="1月1日周二"
-					android:textStyle="bold"
-					android:button="@null"
-					android:textSize="@dimen/px82dp"
-					android:layout_marginTop="@dimen/px5dp"
-					android:layout_marginStart="@dimen/px55dp"
-					android:layout_marginBottom="@dimen/px35dp"
-					android:checked="true"
-					android:textColor="@color/date_menu_select"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
 				
+				</RadioGroup>
+			</LinearLayout>
+			
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px900dp">
 				
-			</RadioGroup>
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/rv"
+					android:visibility="invisible"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					>
+				</androidx.recyclerview.widget.RecyclerView>
+				
+				<CalendarView
+					android:id="@+id/calendar"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:theme="@style/BaseTheme"
+					>
+				</CalendarView>
+			
+			
+			</RelativeLayout>
+			
+			<Button
+				android:id="@+id/btnDone"
+				android:text="Done"
+				android:textStyle="bold"
+				android:layout_margin="@dimen/px50dp"
+				android:elevation="@dimen/px15dp"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px140dp"
+				android:backgroundTint="@color/colorAccent"
+				/>
+		
 		</LinearLayout>
-		
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/px900dp">
-			
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/rv"
-				android:visibility="invisible"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				>
-			</androidx.recyclerview.widget.RecyclerView>
-			
-			<CalendarView
-				android:id="@+id/calendar"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:theme="@style/AppTheme"
-				>
-			</CalendarView>
-			
-			
-		</RelativeLayout>
-		
-		<Button
-			android:id="@+id/btnDone"
-			android:text="Done"
-			android:textStyle="bold"
-			android:layout_margin="@dimen/px50dp"
-			android:elevation="@dimen/px15dp"
-			android:layout_width="match_parent"
-			android:layout_height="@dimen/px140dp"
-			android:backgroundTint="@color/colorAccent"
-			/>
-		
-	</LinearLayout>
+	
+	
+	
+	
+	</com.google.android.material.card.MaterialCardView>
+	
 	
 </LinearLayout>

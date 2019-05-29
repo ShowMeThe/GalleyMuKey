@@ -37,7 +37,7 @@ class ProfileRepository : BaseRepository() {
 
     fun updatePassword(bean  : UserInfoBean,password: String,result: MutableLiveData<Int>){
         userInfoDao.queryUserInfo(bean.account).apply {
-            if(password.equals(this.password)){
+            if(password.equals(this?.password)){
                 showToast("New Password should not equals Old Password")
             }else{
                 userInfoDao.updatePassword(bean.account,password).apply {

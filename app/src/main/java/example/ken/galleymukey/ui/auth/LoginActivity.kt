@@ -1,5 +1,6 @@
 package example.ken.galleymukey.ui.auth
 
+import android.animation.Animator
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import example.ken.galleymukey.R
@@ -11,6 +12,10 @@ import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.util.Log
+import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.bean.LoginBean
@@ -31,6 +36,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     val random = ThreadLocalRandom.current();
     var snackbar : Snackbar? = null
     var num = 0
+
 
     override fun showCreateReveal(): Boolean = true
     override fun getViewId(): Int = R.layout.activity_login
@@ -57,7 +63,8 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 RDEN.put(RdenConstant.account,it.account!!)
                 RDEN.put(RdenConstant.hasLogin,true)
                 dialog.dismiss()
-                startActivity(null, MainActivity::class.java)
+                startActivity(null,MainActivity::class.java)
+                finishAfterTransition()
             }
         })
 
@@ -68,9 +75,6 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 banner.play()
             }
         })
-
-
-
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -169,9 +173,6 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
 
-    fun addBanner(){
 
-
-    }
 
 }

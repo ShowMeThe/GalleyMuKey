@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.shape.*
 import showmethe.github.kframework.dialog.adapter.YearAdapter
 import kotlinx.android.synthetic.main.dialog_canlendar.view.*
 import showmethe.github.kframework.R
@@ -68,6 +70,13 @@ class CalendarDialogFragment : DialogFragment() {
         }
 
         view?.apply {
+
+            val shapeAppearanceModel = ShapeAppearanceModel()
+            shapeAppearanceModel.setTopLeftCorner(CornerFamily.CUT,45)
+            val drawable = MaterialShapeDrawable(shapeAppearanceModel)
+            drawable.fillColor = ContextCompat.getColorStateList(context,R.color.white)
+            cardView.background = drawable
+
             adapter = YearAdapter(mContext,list)
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(mContext,RecyclerView.VERTICAL,false)

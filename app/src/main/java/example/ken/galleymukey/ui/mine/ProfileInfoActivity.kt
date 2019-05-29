@@ -21,6 +21,7 @@ import showmethe.github.kframework.base.BaseActivity
 class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>() {
 
 
+
     override fun getViewId(): Int = R.layout.activity_profile_info
     override fun initViewModel(): ProfileInfoViewModel = createViewModel(ProfileInfoViewModel::class.java)
     override fun onBundle(bundle: Bundle) {

@@ -49,19 +49,18 @@ class AuthRepository : BaseRepository() {
     fun login(bean: LoginBean, result: MutableLiveData<UserInfoDto>){
         showLoading()
         GlobalScope.launch (Dispatchers.Main){
-            userInfoDao.queryAccount(bean.account).observe(owner!!,
-                Observer<UserInfoDto> {
-                    dismissLoading()
-                    if(it!=null){
-                        if(it.password.equals(MD5.string2MD5(bean.password!!))){
-                            result.value  = it
-                        }else{
-                            showToast("Password error")
-                        }
+            userInfoDao.queryUserInfo(bean.account).apply {
+                dismissLoading()
+                if(this!=null){
+                    if(password.equals(MD5.string2MD5(bean.password!!))){
+                        result.value  = this
                     }else{
-                        showToast("Account not found")
+                        showToast("Password error")
                     }
-                })
+                }else{
+                    showToast("Account not found")
+                }
+            }
         }
     }
 

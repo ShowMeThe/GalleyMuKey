@@ -24,7 +24,7 @@ interface UserInfoDao {
     fun queryAccount(account :String?) : LiveData<UserInfoDto>
 
     @Query("select * from UserInfoDto where account  = (:account)")
-    fun queryUserInfo(account :String?) : UserInfoDto
+    fun queryUserInfo(account :String?) : UserInfoDto?
 
     @Update
     fun updateUserInfo(dto : UserInfoDto) : Int

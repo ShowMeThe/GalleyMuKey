@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.dialog_sign_up.*
 import kotlinx.android.synthetic.main.dialog_sign_up.view.*
+import showmethe.github.kframework.util.system.KeyBoardUtils
 import java.util.concurrent.TimeUnit
 
 
@@ -47,7 +48,7 @@ class SignUpDialog   : BottomSheetDialogFragment() {
         dialog.window!!.findViewById<View>(example.ken.galleymukey.R.id.design_bottom_sheet)
             .setBackgroundResource(android.R.color.transparent);
         mBehavior = BottomSheetBehavior.from<View>(view.parent as View)
-
+        dialog.setCanceledOnTouchOutside(true)
         val window = dialog.window
         val dm = DisplayMetrics()
         window?.apply {
@@ -66,7 +67,10 @@ class SignUpDialog   : BottomSheetDialogFragment() {
 
             ivBack.setOnClickListener { hidden() }
 
-            tvCode.setOnClickListener { start(tvCode,30,1) }
+            tvCode.setOnClickListener {
+                start(tvCode,30,1)
+                KeyBoardUtils.closeKeyboard(context,edCode)
+            }
 
             btnReg.setOnClickListener {
                 onRegisterGet?.invoke(registerBean)
