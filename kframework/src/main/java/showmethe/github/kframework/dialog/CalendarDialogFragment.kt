@@ -18,6 +18,7 @@ import com.google.android.material.shape.*
 import showmethe.github.kframework.dialog.adapter.YearAdapter
 import kotlinx.android.synthetic.main.dialog_canlendar.view.*
 import showmethe.github.kframework.R
+import showmethe.github.kframework.util.CreateDrawable
 import java.lang.Exception
 import java.util.*
 
@@ -71,11 +72,7 @@ class CalendarDialogFragment : DialogFragment() {
 
         view?.apply {
 
-            val shapeAppearanceModel = ShapeAppearanceModel()
-            shapeAppearanceModel.setTopLeftCorner(CornerFamily.CUT,45)
-            val drawable = MaterialShapeDrawable(shapeAppearanceModel)
-            drawable.fillColor = ContextCompat.getColorStateList(context,R.color.white)
-            cardView.background = drawable
+            cardView.background = CreateDrawable.create(context,CornerFamily.CUT,45,R.color.white)
 
             adapter = YearAdapter(mContext,list)
             rv.adapter = adapter
