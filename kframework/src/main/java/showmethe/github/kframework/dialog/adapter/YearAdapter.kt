@@ -7,6 +7,7 @@ import androidx.databinding.ObservableArrayList
 
 import showmethe.github.kframework.R
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
+import showmethe.github.kframework.databinding.ItemYearBinding
 
 /**
  * example.ken.dialog.adapter

@@ -6,11 +6,12 @@ import androidx.lifecycle.Observer
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.databinding.FragmentInfoBinding
-import example.ken.galleymukey.dialog.CalendarDialogFragment
+
 import example.ken.galleymukey.ui.mine.vm.ProfileInfoViewModel
 import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.include_title_bar.*
 import showmethe.github.kframework.base.BaseFragment
+import showmethe.github.kframework.dialog.CalendarDialogFragment
 import showmethe.github.kframework.util.rden.RDEN
 
 /**

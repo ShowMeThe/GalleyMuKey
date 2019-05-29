@@ -78,19 +78,19 @@ class CalendarDialogFragment : DialogFragment() {
                     month = getInt("month")
                     day = getInt("day")
                     adapter.currentPos = year - 1990
-
-                    instant.set(Calendar.YEAR,year)
-                    instant.set(Calendar.MONTH,month-1)
-                    instant.set(Calendar.DAY_OF_MONTH,day)
-                    calendar.date = instant.timeInMillis
-
                 }
-            }else{
+            }else if(year == 0|| day ==0 || month == 0){
                 year = instant.get(Calendar.YEAR)
                 day = instant.get(Calendar.DAY_OF_MONTH)
                 month = instant.get(Calendar.MONTH)+1
                 adapter.currentPos = instant.get(Calendar.YEAR) - 1990
             }
+
+            instant.set(Calendar.YEAR,year)
+            instant.set(Calendar.MONTH,month-1)
+            instant.set(Calendar.DAY_OF_MONTH,day)
+            calendar.date = instant.timeInMillis
+
 
             tvYear.text = year.toString()
             tvDate.text = "$month/${day}"
@@ -117,7 +117,6 @@ class CalendarDialogFragment : DialogFragment() {
                 year = list[adapter.currentPos].toInt()
                 tvYear.text = year.toString()
 
-                instant.set(Calendar.YEAR,year)
                 instant.set(Calendar.YEAR,year)
                 instant.set(Calendar.MONTH,month-1)
                 instant.set(Calendar.DAY_OF_MONTH,day)
