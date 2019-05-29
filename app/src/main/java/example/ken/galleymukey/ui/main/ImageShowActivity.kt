@@ -43,8 +43,10 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     private  var url = ""
     private var id = -1
     private var dPoint = PointF()
+    private var minHeight= 0
     private var offsetY = 0f
     private var layoutY = 0f
+    private var imageX = 0f
     private var imageY = 0f
     private var firstClick: Long = 0//第一次点击时间
     private var secondClick: Long = 0//第二次点击时间
@@ -108,17 +110,19 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
                         secondClick = System.currentTimeMillis()
                         if(secondClick - firstClick <400){
                             if(id!=-1){
-
                                 showLike()
                                 viewModel.setLike(id,true)
-
                             }
                             count = 0
-                        }else{
-                            count = 1
+                        } else if(secondClick - firstClick in 401..1200){
+                            finishAfterTransition()
+                            count = 0
+                        } else{
+                            count = 0
                         }
                     }
                     layoutY = layout.y
+                    imageX = image.x
                     imageY = image.y
                     dPoint.set(event.rawX,event.rawY)
 
@@ -126,19 +130,29 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
                 MotionEvent.ACTION_MOVE ->{
                     val y = event.rawY
                     offsetY =  y - dPoint.y
-                    if(Math.abs(offsetY)>screenHeight/6){
+                    if(Math.abs(offsetY)>screenHeight/2){
                         return@setOnTouchListener true
                     }
+                    //移动
                     image.translationY = offsetY
-                    layout.translationY = -Math.abs(offsetY)
+                    image.translationX = event.rawX - dPoint.x
 
+                    //缩放
+                    image.scaleX = 1  - Math.abs(offsetY/screenHeight)
+                    image.scaleY = 1  - Math.abs(offsetY/screenHeight)
+
+                    //alpha
+                    layout.translationY = -Math.abs(offsetY)
+                    rlBg.alpha = 1- Math.abs(offsetY)/screenHeight
                 }
                 MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP->{
-                    if(Math.abs(offsetY)>screenHeight/10){
+                    if(Math.abs(offsetY)>screenHeight/8){
                         finishAfterTransition()
                     }else{
+                        //恢复原位
                         layout.y = layoutY
                         image.y = imageY
+                        image.x = imageX
                     }
 
                 }

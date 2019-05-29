@@ -43,9 +43,10 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     private var currentItem: Long = 0
     private var delayTime = TIME
     private var showIndicator = true
-    private var mMinHeight = 0f
+    var mMinHeight = 0f
     private var mMaxHeight = 0f
     private val mHandler = Handler(Looper.getMainLooper())
+
 
 
     private val task = object : Runnable {
