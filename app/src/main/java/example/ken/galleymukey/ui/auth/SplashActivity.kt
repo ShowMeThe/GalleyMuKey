@@ -56,6 +56,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
               if(!RDEN.get(RdenConstant.hasLogin,false)){
                   startActivity(null,LoginActivity::class.java)
+
             }else{
                  startActivity(null, MainActivity::class.java)
             }

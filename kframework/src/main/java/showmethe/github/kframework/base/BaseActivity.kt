@@ -269,7 +269,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
             intent.putExtras(bundle)
         }
         startActivity(intent)
-        //overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
+        overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
     }
 
     /**
