@@ -81,6 +81,22 @@ class TGlide private constructor(context: Context){
             }
         }
 
+        fun loadWithCallBack(url: Any, imageView: ImageView,realCallBack:((width:Int,height:Int)->Unit)) {
+            INSTANT.apply {
+                mRequestManager.asBitmap().load(url).into(object : BitmapTarget() {
+                    override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        realCallBack.apply {
+                            invoke(resource.width,resource.height)
+                        }
+                        imageView.setImageBitmap(resource)
+                    }
+                })
+            }
+        }
+
+
+
+
         fun loadInBackground(url: Any, imageView: ImageView) {
             INSTANT.apply {
                 mRequestManager
@@ -193,7 +209,6 @@ class TGlide private constructor(context: Context){
             INSTANT.apply {
                 mRequestManager.asBitmap().load(url).into(object : BitmapTarget() {
                     override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        Log.e("222222222","222222222")
                         savePicture(storeDir, fileName, resource){
                             callBack.invoke(it)
                         }

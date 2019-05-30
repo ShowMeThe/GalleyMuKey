@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.text.format.DateUtils
 import android.util.Log
-import android.view.Menu
+import android.view.*
 import androidx.databinding.ViewDataBinding
 import com.parallaxbacklayout.ParallaxBack
 import example.ken.galleymukey.R
@@ -18,13 +18,9 @@ import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
 import androidx.appcompat.widget.PopupMenu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
 import com.parallaxbacklayout.ViewDragHelper
 import showmethe.github.kframework.util.system.DateUtil
 import java.io.File
-import android.view.MotionEvent
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
 import kotlinx.android.synthetic.main.item_hot.*
@@ -59,7 +55,11 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     override fun onBundle(bundle: Bundle) {
         url = bundle.getString("photo","")
         id = bundle.getInt("id",-1)
-        TGlide.loadNoCrop(url,image)
+        TGlide.loadWithCallBack(url,image){
+                width, height ->
+            image.minimumHeight = height
+            image.minimumWidth = width
+        }
     }
 
     override fun observerUI() {
@@ -69,7 +69,7 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
     override fun init(savedInstanceState: Bundle?) {
         StatusBarUtil.fixToolbarScreen(this,toolbar)
-
+        StatusBarUtil.setTranslucentNavigation(this)
 
     }
 
@@ -153,6 +153,8 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
                         layout.y = layoutY
                         image.y = imageY
                         image.x = imageX
+                        image.scaleX = 1f
+                        image.scaleY = 1f
                     }
 
                 }
