@@ -55,11 +55,7 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     override fun onBundle(bundle: Bundle) {
         url = bundle.getString("photo","")
         id = bundle.getInt("id",-1)
-        TGlide.loadWithCallBack(url,image){
-                width, height ->
-            image.minimumHeight = height
-            image.minimumWidth = width
-        }
+        TGlide.load(url,image)
     }
 
     override fun observerUI() {
