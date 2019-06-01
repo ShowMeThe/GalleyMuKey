@@ -35,7 +35,6 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
     var sb = StringBuilder()
 
     val dialog = HashTagDialog()
-    val list = ArrayList<HashTagBean>()
 
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
@@ -54,11 +53,17 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
             }
         })
 
+        viewModel.hashTag.observe(this, Observer {
+            it?.apply {
+                dialog.beanList.value = this
+            }
+        })
+
     }
 
     override fun init(savedInstanceState: Bundle?) {
 
-        addHashTag()
+       viewModel.getHashTag()
         replaceFragment(CategoryFragment::class.java.name)
 
 
@@ -88,7 +93,8 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
 
 
         dialog.setOnConfirmClickListener {
-            viewModel.boolean.value = true
+            viewModel.keyword.value = it
+            dialog.dismiss()
         }
 
     }
@@ -139,19 +145,6 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
             }
         }).start()
     }
-
-
-    fun addHashTag(){
-        list.add(HashTagBean("http://image1.xyzs.com/upload/a6/1c/1450580015244844/20151224/145089874795426_0.jpg","YHGJKII"))
-        list.add(HashTagBean("http://image3.xyzs.com/upload/b9/40/1449104703418440/20151205/144925600471264_0.jpg","12333"))
-        list.add(HashTagBean("http://image4.xyzs.com/upload/03/f7/1449978315650125/20151217/145028981364776_0.jpg","JJJCC"))
-        list.add(HashTagBean("http://image2.xyzs.com/upload/9f/d5/1450057331616098/20151217/145028980491632_0.jpg","JJJCC"))
-        list.add(HashTagBean("http://image4.xyzs.com/upload/03/f7/1449978315650125/20151217/145028981364776_0.jpg","DDD"))
-        list.add(HashTagBean("http://image1.xyzs.com/upload/09/b4/1450405158764323/20151224/145090278841619_0.jpg","ADDCCSS"))
-        list.add(HashTagBean("http://image1.xyzs.com/upload/1a/b1/1450492649469952/20151224/145090277979009_0.jpg","GGG"))
-        dialog.beanList.value = list
-    }
-
 
 
 

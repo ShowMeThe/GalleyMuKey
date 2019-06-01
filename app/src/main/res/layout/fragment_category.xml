@@ -8,6 +8,36 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<TextView
+				android:layout_margin="@dimen/px30dp"
+				android:text="Maybe your like"
+				android:textSize="@dimen/px43dp"
+				android:textColor="@color/colorPrimaryDark"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+			<View
+				android:layout_marginStart="@dimen/px58dp"
+				android:layout_marginEnd="@dimen/px58dp"
+				android:background="@color/color_0288d1"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px1dp"/>
+			
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rvHashTag"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+			</androidx.recyclerview.widget.RecyclerView>
+			
+			
+			
+			
+			
+		</LinearLayout>
 		
 		
 	

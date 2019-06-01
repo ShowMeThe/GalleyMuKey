@@ -46,6 +46,14 @@ class DataSourceBuilder {
             return creator.getGoodsListDao()
         }
 
+        fun getHashTag() :  HashTagDao{
+            return creator.getHashDao()
+        }
+
+        fun getCateDao() : CateDao{
+            return creator.getCateDao()
+        }
+
     }
 
 }

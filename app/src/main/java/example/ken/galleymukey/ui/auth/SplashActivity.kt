@@ -6,11 +6,8 @@ import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.Source
-import example.ken.galleymukey.source.dto.GoodsListDto
+import example.ken.galleymukey.source.dto.*
 
-import example.ken.galleymukey.source.dto.HotWallDto
-import example.ken.galleymukey.source.dto.ImageUrlDto
-import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
 import example.ken.galleymukey.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_image_show.*
@@ -53,6 +50,8 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 addHotWall()
                 addPhotoWall()
                 addGoodsList()
+                addHashTag()
+                addCate()
                 RDEN.put(RdenConstant.hasAdd,true)
             }
 
@@ -139,6 +138,27 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
         }
 
     }
+
+    fun addHashTag(){
+        for((index,hash) in source.getHashTag().withIndex()){
+            val dto = HashTagDto()
+            dto.keyword = hash
+            dto.img = source.getBanner()[(random.nextInt(0,28))]
+            DataSourceBuilder.getHashTag().insertHash(dto)
+        }
+
+    }
+
+    fun addCate(){
+        for(i in 0..random.nextInt(10,20)){
+            val dto = CateDto()
+            dto.keyword = source.getHashTag()[random.nextInt(0,6)]
+            dto.img = source.getBanner()[(random.nextInt(0,28))]
+            DataSourceBuilder.getCateDao().addCate(dto)
+        }
+
+    }
+
 
 
     override fun initListener() {

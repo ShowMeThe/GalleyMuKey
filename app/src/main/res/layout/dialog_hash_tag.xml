@@ -30,7 +30,7 @@
 			android:layout_marginStart="@dimen/px100dp"
 			android:layout_marginEnd="@dimen/px100dp"
 			android:layout_marginBottom="@dimen/px30dp"
-			android:background="@drawable/shape_rect_7c4dff"
+			android:background="@drawable/shape_rect_039be5"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/px130dp" />
 

@@ -1,7 +1,10 @@
 package example.ken.galleymukey.ui.main.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import example.ken.galleymukey.bean.CateTagBean
+import example.ken.galleymukey.bean.HashTagBean
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.source.DataSourceBuilder
@@ -22,6 +25,8 @@ class MainRepository : BaseRepository() {
     val imgUrlDao = DataSourceBuilder.getImageDao()
     val hotDto = DataSourceBuilder.getHotWall()
     val goodDao = DataSourceBuilder.getGoodsList()
+    val hashTagDao = DataSourceBuilder.getHashTag()
+    val cateDao = DataSourceBuilder.getCateDao()
 
     fun getHomePhoto(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
 
@@ -77,6 +82,48 @@ class MainRepository : BaseRepository() {
 
                 it?.apply {
                     bean.value = this
+                }
+            })
+
+        }
+    }
+
+    fun getHashTag(beans : MutableLiveData<ArrayList<HashTagBean>>){
+        val list = hashTagDao.findAll()
+        val beanList = ArrayList<HashTagBean>()
+        for(dto in list){
+            val bean = HashTagBean(dto.img,dto.keyword)
+            beanList.add(bean)
+        }
+        beans.value = beanList
+    }
+
+    fun getCate(keyword:String,cateDto: MutableLiveData<ArrayList<CateTagBean>>){
+        if(keyword.isEmpty()){
+            cateDao.findAll().observe(owner!!, Observer {
+                val list = ArrayList<CateTagBean>()
+                it?.apply {
+                    for(bean in this){
+                        val tagBean = CateTagBean()
+                        tagBean.img = bean.img
+                        tagBean.keyword = bean.keyword
+                        list.add(tagBean)
+                    }
+                    cateDto.value = list
+                }
+            })
+        }else{
+            cateDao.findCate(keyword).observe(owner!!, Observer {
+                val list = ArrayList<CateTagBean>()
+                it?.apply {
+                    for(bean in this){
+                        val tagBean = CateTagBean()
+                        tagBean.img = bean.img
+                        tagBean.keyword = bean.keyword
+
+                        list.add(tagBean)
+                    }
+                    cateDto.value = list
                 }
             })
 

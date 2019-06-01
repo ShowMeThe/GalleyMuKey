@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import example.ken.galleymukey.bean.CateTagBean
+import example.ken.galleymukey.bean.HashTagBean
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.source.dto.GoodsListDto
+import example.ken.galleymukey.source.dto.HashTagDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.main.repository.MainRepository
 import showmethe.github.kframework.base.BaseViewModel
@@ -28,6 +31,10 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
     val goodsBean = MutableLiveData<List<GoodsListDto>>()
     val boolean = MutableLiveData<Boolean>()
+    val hashTag = MutableLiveData<ArrayList<HashTagBean>>()
+    val keyword = MutableLiveData<String>()
+    val cate = MutableLiveData<ArrayList<CateTagBean>>()
+
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
@@ -55,6 +62,14 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     fun getGoodsList(first:Int,second:Int){
         repository.getGoodsList(first,second,goodsBean)
+    }
+
+    fun getHashTag(){
+        repository.getHashTag(hashTag)
+    }
+
+    fun getCate(keyword: String){
+        repository.getCate(keyword,cate)
     }
 
 }

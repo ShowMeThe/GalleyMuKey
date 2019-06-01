@@ -19,6 +19,7 @@ import example.ken.galleymukey.bean.HashTagBean
 
 import example.ken.galleymukey.ui.cate.adapter.CateMenuAdapter
 import kotlinx.android.synthetic.main.dialog_hash_tag.view.*
+import java.lang.StringBuilder
 
 
 /**
@@ -63,7 +64,13 @@ class HashTagDialog: BottomSheetDialogFragment() {
             rv.layoutManager = GridLayoutManager(context,3)
 
             btnConfirm.setOnClickListener {
-                onConfirm?.invoke()
+                val sb = StringBuilder()
+                for(dto in list){
+                    if(dto.isActive){
+                        sb.append(dto.hashTag).append(",")
+                    }
+                }
+                onConfirm?.invoke(sb.toString())
             }
         }
 
@@ -71,9 +78,9 @@ class HashTagDialog: BottomSheetDialogFragment() {
     }
 
 
-   private var onConfirm:(()->Unit)? = null
+   private var onConfirm:((keywords: String)->Unit)? = null
 
-    fun setOnConfirmClickListener(onConfirm:(()->Unit)){
+    fun setOnConfirmClickListener(onConfirm:((keywords: String)->Unit)){
         this.onConfirm  = onConfirm
     }
 

@@ -12,6 +12,7 @@ class Source{
     private val bannerSource =  ArrayList<String>()
     private val userName =  ArrayList<String>()
     private val content = ArrayList<String>()
+    private val hashTag = ArrayList<String>()
 
     fun init(){
         bannerSource.apply {
@@ -75,6 +76,14 @@ class Source{
                     " stepfathers, and uncles. It is observed on the third Sunday in June.")
         }
 
+        hashTag.apply {
+            add("Beautiful")
+            add("Film")
+            add("Tree")
+            add("Hill")
+            add("People")
+        }
+
 
     }
 
@@ -84,5 +93,7 @@ class Source{
     fun getUserName() = userName
 
     fun getContent() = content
+
+    fun getHashTag() = hashTag
 
 }
