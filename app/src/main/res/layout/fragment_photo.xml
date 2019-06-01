@@ -10,6 +10,7 @@
 		
 		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
 			android:id="@+id/refresh"
+			android:background="@color/colorPrimaryDark"
 			app:layout_dodgeInsetEdges="bottom"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
@@ -22,7 +23,11 @@
 				<androidx.recyclerview.widget.RecyclerView
 					android:id="@+id/rv"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
+					android:layout_height="wrap_content"
+					android:requiresFadingEdge="vertical"
+					android:fadingEdge="vertical"
+					android:fadingEdgeLength="@dimen/px30dp"
+					>
 				</androidx.recyclerview.widget.RecyclerView>
 			
 			

@@ -31,7 +31,7 @@ class ResultCallBack<T>: CallBack<T>(){
 
     private var error: ((resource: Resource<T>) -> Unit)? = null
 
-    fun error(listener: ((response: Resource<T>) -> Unit)) {
+    fun onError(listener: ((response: Resource<T>) -> Unit)) {
         error = listener
     }
 
@@ -42,7 +42,7 @@ class ResultCallBack<T>: CallBack<T>(){
         }
     }
 
-    override fun success(response: T?, message: String) {
+     override fun success(response: T?, message: String) {
         resource?.apply {
             invoke(Resource(SUCCESS,  response, 0,message))
         }

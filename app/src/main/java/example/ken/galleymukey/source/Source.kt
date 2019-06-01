@@ -11,6 +11,7 @@ class Source{
 
     private val bannerSource =  ArrayList<String>()
     private val userName =  ArrayList<String>()
+    private val content = ArrayList<String>()
 
     fun init(){
         bannerSource.apply {
@@ -64,11 +65,24 @@ class Source{
         }
 
 
+        content.apply {
+            add("Louis got a new book. The book was about animals. Louis loved animals. The book had lots of pictures. It had pictures of dogs and cats.")
+            add("Elizabeth washes her hands every day. She likes to wash her hands. She washes her hands with soap and water. " +
+                    "She uses soap and water to wash her hands. She uses warm water and soap.")
+            add("Elizabeth has very clean hands. She does not have many germs on her hands. Germs cannot live on her clean hands.")
+            add("The purpose of a Christmas tree is to have a central location to place gifts.")
+            add("Father's Day is a holiday observed in the United States to honor fathers, fatherhood, and other paternal figures like grandfathers," +
+                    " stepfathers, and uncles. It is observed on the third Sunday in June.")
+        }
+
+
     }
 
 
     fun getBanner() = bannerSource
 
     fun getUserName() = userName
+
+    fun getContent() = content
 
 }

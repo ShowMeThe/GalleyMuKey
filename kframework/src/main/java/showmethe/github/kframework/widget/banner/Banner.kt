@@ -45,6 +45,7 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     private var showIndicator = true
     var mMinHeight = 0f
     private var mMaxHeight = 0f
+    private var scaleType = 0
     private val mHandler = Handler(Looper.getMainLooper())
 
 
@@ -105,6 +106,11 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
                 loader?.apply {
                     imageView.maxHeight = mMaxHeight.toInt()
                     imageView.minimumHeight = mMinHeight.toInt()
+                    when(scaleType){
+                        0 -> imageView.scaleType = ImageView.ScaleType.FIT_XY
+                        1 -> imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                    }
+
                     invoke(url, imageView)
                 }
             }
@@ -127,6 +133,7 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         selectRadius = array.getDimension(R.styleable.Banner_select_radius, 16f).toInt()
         unSelectRadius = array.getDimension(R.styleable.Banner_unSelect_radius, 15f).toInt()
         delayTime = array.getInt(R.styleable.Banner_delayTime, TIME)
+        scaleType  = array.getInt(R.styleable.Banner_imageScaleType,0)
         showIndicator = array.getBoolean(R.styleable.Banner_showIndicator,true)
         array.recycle()
     }
@@ -233,7 +240,7 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     fun addList(arrayList: ArrayList<*>) {
         imageList.clear()
         imageList.addAll(arrayList)
-        if(showIndicator){
+        if(showIndicator&& arrayList.size>1){
             dotTabView!!.setIndicatorRadius(selectRadius, unSelectRadius)
             dotTabView!!.setViewPager2(viewPager, imageList.size, 10, selectColor, unselectColor)
         }

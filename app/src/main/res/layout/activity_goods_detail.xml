@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	
+	<data>
+		<variable
+			name="Bean"
+			type="example.ken.galleymukey.source.dto.GoodsListDto" />
+	</data>
+	
 	<LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,8 +37,9 @@
 						android:transitionName="ivLogo"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						app:imageMaxHeight="@dimen/px1200dp"
-						app:imageMinHeight="@dimen/px600dp"
+						app:imageMaxHeight="@dimen/px1600dp"
+						app:imageMinHeight="@dimen/px1400dp"
+						app:imageScaleType="centerCrop"
 						app:layout_collapseMode="parallax"
 						>
 					</showmethe.github.kframework.widget.banner.Banner>
@@ -59,6 +66,7 @@
 							>
 							
 							<ImageView
+								android:id="@+id/ivBack"
 								android:src="@mipmap/search_back"
 								android:rotation="90"
 								android:layout_marginTop="@dimen/px120dp"
@@ -74,7 +82,7 @@
 			
 			<LinearLayout
 				android:orientation="vertical"
-				android:background="@color/color_7c4dff"
+				android:background="@color/white"
 				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
@@ -87,11 +95,25 @@
 						android:orientation="vertical"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content">
-						
-						<FrameLayout
+					
+						<TextView
+							android:id="@+id/tvName"
+							android:transitionName="tvName"
+							android:text="@{Bean.goodsName}"
+							android:textColor="@color/colorPrimaryDark"
+							android:layout_margin="@dimen/px30dp"
 							android:layout_width="match_parent"
-							android:layout_height="match_parent">
-						</FrameLayout>
+							android:layout_height="wrap_content" />
+						
+						
+						<TextView
+							android:id="@+id/tvDes"
+							android:transitionName="tvDes"
+							android:text="@{Bean.goodsDes}"
+							android:textColor="@color/colorPrimaryDark"
+							android:layout_margin="@dimen/px30dp"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content" />
 						
 					</LinearLayout>
 				</androidx.core.widget.NestedScrollView>
@@ -108,7 +130,7 @@
 			android:layout_marginTop="@dimen/px30dp"
 			android:layout_marginBottom="@dimen/px30dp"
 			android:textColor="@color/white"
-			android:text="$12.00"
+			android:text='@{@string/dollars + Bean.price}'
 			android:gravity="center"
 			android:padding="@dimen/px15dp"
 			android:layout_width="match_parent"

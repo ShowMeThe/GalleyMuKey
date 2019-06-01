@@ -10,6 +10,10 @@
         <attr name="select_radius" format="dimension"/>
         <attr name="unSelect_radius" format="dimension"/>
         <attr name="delayTime" format="integer"/>
+        <attr name="imageScaleType" format="enum">
+            <enum name="fixXY" value="0"/>
+            <enum name="centerCrop" value="1"/>
+        </attr>
         <attr name="showIndicator" format="boolean"/>
         <attr name="imageMinHeight" format="dimension"/>
         <attr name="imageMaxHeight" format="dimension"/>

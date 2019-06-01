@@ -34,7 +34,7 @@ abstract class CallBack<T> : Observer<JsonResult<T>> {
             if (t == null) {
                 fail(-1, "")
             } else {
-                if (t.code == 2000000) {
+                if (t.code == 0) {
                     success(t.data, t.message!!)
                 } else {
                     fail(t.code, t.message!!)
@@ -67,9 +67,9 @@ abstract class CallBack<T> : Observer<JsonResult<T>> {
 
     }
 
-    abstract fun onPreLoading()
+    internal abstract fun onPreLoading()
 
-    abstract fun success(response: T?, @NonNull message: String)
+    internal abstract fun success(response: T?, @NonNull message: String)
 
-    abstract fun fail(@NonNull errCode: Int, @NonNull message: String)
+    internal abstract fun fail(@NonNull errCode: Int, @NonNull message: String)
 }

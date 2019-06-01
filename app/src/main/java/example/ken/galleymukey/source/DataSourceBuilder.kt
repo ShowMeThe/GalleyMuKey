@@ -2,10 +2,7 @@ package example.ken.galleymukey.source
 
 import android.content.Context
 import androidx.room.Room
-import example.ken.galleymukey.source.dao.HotWallDao
-import example.ken.galleymukey.source.dao.ImageUrlDao
-import example.ken.galleymukey.source.dao.PhotoWallDao
-import example.ken.galleymukey.source.dao.UserInfoDao
+import example.ken.galleymukey.source.dao.*
 import showmethe.github.kframework.util.rden.DatabaseCreator
 
 /**
@@ -43,6 +40,10 @@ class DataSourceBuilder {
 
         fun getHotWall() : HotWallDao{
             return  creator.getHotWallDao()
+        }
+
+        fun getGoodsList() :  GoodsListDao{
+            return creator.getGoodsListDao()
         }
 
     }

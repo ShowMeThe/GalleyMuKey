@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.main.repository.MainRepository
 import showmethe.github.kframework.base.BaseViewModel
@@ -25,6 +26,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val repository = MainRepository()
     val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
     val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
+    val goodsBean = MutableLiveData<List<GoodsListDto>>()
     val boolean = MutableLiveData<Boolean>()
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
@@ -45,7 +47,14 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         repository.getHotWall(hotBean)
     }
 
+
     fun setLike(id :Int,like: Boolean){
         repository.setLike(id,like)
     }
+
+
+    fun getGoodsList(first:Int,second:Int){
+        repository.getGoodsList(first,second,goodsBean)
+    }
+
 }

@@ -27,7 +27,7 @@ class AuthRepository : BaseRepository() {
     val imageUrlDao = DataSourceBuilder.getImageDao()
 
     fun register(it: RegisterBean,result: MutableLiveData<Boolean>){
-        showLoading()
+
         GlobalScope.launch (Dispatchers.Main){
             userInfoDao.query(it.account,it.password).apply {
                 if(value == null){
@@ -35,7 +35,7 @@ class AuthRepository : BaseRepository() {
                     info.account = it.account
                     info.password = MD5.string2MD5(it.password!!)
                     userInfoDao.register(info)
-                    dismissLoading()
+
                     result.value = true
                 }else{
                     showToast("Account has been signed up")
@@ -47,10 +47,10 @@ class AuthRepository : BaseRepository() {
 
 
     fun login(bean: LoginBean, result: MutableLiveData<UserInfoDto>){
-        showLoading()
+
         GlobalScope.launch (Dispatchers.Main){
             userInfoDao.queryUserInfo(bean.account).apply {
-                dismissLoading()
+
                 if(this!=null){
                     if(password.equals(MD5.string2MD5(bean.password!!))){
                         result.value  = this

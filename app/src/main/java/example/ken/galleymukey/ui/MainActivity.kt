@@ -114,9 +114,20 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     fun switchFragment(position:Int){
         when(position){
-            0 ->  replaceFragment(GalleyFragment::class.java.name)
-            1 ->  replaceFragment(CateFragment::class.java.name)
-            2 ->  replaceFragment(CartFragment::class.java.name)
+            0 ->  {
+                replaceFragment(GalleyFragment::class.java.name)
+                fab.show()
+                bottomBar.visibility = View.VISIBLE
+            }
+            1 ->  {
+                replaceFragment(CateFragment::class.java.name)
+                fab.hide()
+            }
+            2 ->  {
+                replaceFragment(CartFragment::class.java.name)
+                fab.hide()
+                bottomBar.visibility = View.VISIBLE
+            }
         }
     }
 

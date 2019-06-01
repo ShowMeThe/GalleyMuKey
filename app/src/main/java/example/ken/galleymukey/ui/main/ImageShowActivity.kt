@@ -26,6 +26,12 @@ import android.view.animation.Animation
 import kotlinx.android.synthetic.main.item_hot.*
 
 
+
+
+
+
+
+
 @ParallaxBack
 class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
@@ -35,7 +41,7 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
             Environment.getExternalStorageDirectory().path + File.separator+Environment.DIRECTORY_PICTURES+File.separator
 
     }
-
+    
     private  var url = ""
     private var id = -1
     private var dPoint = PointF()
@@ -99,28 +105,31 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
 
             when(event.action){
                 MotionEvent.ACTION_DOWN ->{
-                    count++
-                    if(count == 1){
-                        firstClick = System.currentTimeMillis()
-                    }else if(count == 2){
-                        secondClick = System.currentTimeMillis()
-                        if(secondClick - firstClick <400){
-                            if(id!=-1){
-                                showLike()
-                                viewModel.setLike(id,true)
+                    if(event.pointerCount == 1){
+                        count++
+                        if(count == 1){
+                            firstClick = System.currentTimeMillis()
+                        }else if(count == 2){
+                            secondClick = System.currentTimeMillis()
+                            if(secondClick - firstClick <400){
+                                if(id!=-1){
+                                    showLike()
+                                    viewModel.setLike(id,true)
+                                }
+                                count = 0
+                            } else if(secondClick - firstClick in 401..1200){
+                                finishAfterTransition()
+                                count = 0
+                            } else{
+                                count = 0
                             }
-                            count = 0
-                        } else if(secondClick - firstClick in 401..1200){
-                            finishAfterTransition()
-                            count = 0
-                        } else{
-                            count = 0
                         }
+                        layoutY = layout.y
+                        imageX = image.x
+                        imageY = image.y
+                        dPoint.set(event.rawX,event.rawY)
                     }
-                    layoutY = layout.y
-                    imageX = image.x
-                    imageY = image.y
-                    dPoint.set(event.rawX,event.rawY)
+
 
                 }
                 MotionEvent.ACTION_MOVE ->{
@@ -152,10 +161,19 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
                         image.scaleX = 1f
                         image.scaleY = 1f
                     }
-
                 }
             }
             true
+        }
+    }
+
+    fun spacing(event: MotionEvent): Double{
+        if(event.pointerCount ==  2){
+            val x : Float = event.getX(0) - event.getX(1)
+            val y : Float  = event.getY(0) - event.getY(1)
+            return Math.sqrt((x * x + y * y).toDouble())
+        }else{
+            return 0.0
         }
     }
 

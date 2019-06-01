@@ -46,7 +46,8 @@
 			<FrameLayout
 				android:id="@+id/frameLayout"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+				android:layout_height="match_parent"
+				>
 			</FrameLayout>
 		
 		</LinearLayout>
@@ -59,6 +60,7 @@
 			app:backgroundTint="@color/colorPrimaryDark"
 			app:fabCradleMargin="@dimen/px13dp"
 			app:fabAlignmentMode="end"
+			app:hideOnScroll="true"
 			>
 		</com.google.android.material.bottomappbar.BottomAppBar>
 		

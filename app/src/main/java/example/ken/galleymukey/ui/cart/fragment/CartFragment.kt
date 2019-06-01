@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.FragmentCartBinding
+import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.ui.cart.adapter.CartCenterAdapter
 import example.ken.galleymukey.ui.cart.adapter.CartHomeAdapter
 import example.ken.galleymukey.ui.cart.adapter.CartTopAdapter
@@ -33,7 +36,10 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
     var lists = ObservableArrayList<String>()
 
     lateinit var homeAdapter : CartHomeAdapter
-    var data = ObservableArrayList<String>()
+    var data = ObservableArrayList<GoodsListDto>()
+
+    val first =MutableLiveData<Int>()
+    val secound = MutableLiveData<Int>()
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_cart
@@ -44,6 +50,25 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
 
     override fun observerUI() {
 
+        viewModel.goodsBean.observe(this, Observer {
+            it?.apply {
+                data.clear()
+                data.addAll(this)
+            }
+        })
+
+        first.observe(this, Observer {
+            it?.apply {
+                viewModel.getGoodsList(this,centerAdapter.currentPos)
+            }
+        })
+
+        secound.observe(this, Observer {
+            it?.apply {
+                viewModel.getGoodsList(adapter.currentPos,this)
+            }
+        })
+
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -51,8 +76,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         initAdapter()
 
 
-
-
+        viewModel.getGoodsList(0,0)
 
     }
 
@@ -66,6 +90,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
             adapter.currentPos = position
             adapter.notifyDataSetChanged()
             centerAdapter.currentPos = 0
+            first.value = position
             centerAdapter.notifyDataSetChanged()
             rvTop.smoothScrollToPosition(position)
         }
@@ -74,6 +99,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         centerAdapter.setOnItemClickListener { view, position ->
             centerAdapter.currentPos = position
             centerAdapter.notifyDataSetChanged()
+            secound.value = position
             rvCenter.smoothScrollToPosition(position)
         }
 
@@ -101,9 +127,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         rvCenter.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
 
 
-       for(i in 1..20){
-           data.add("")
-       }
+
 
         homeAdapter = CartHomeAdapter(context,data)
         rvBottom.adapter = homeAdapter

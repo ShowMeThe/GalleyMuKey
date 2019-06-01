@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
+import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
@@ -29,7 +30,7 @@ import java.util.concurrent.TimeUnit
 abstract class BaseRepository() : LifecycleOwnerObserver{
 
     private var currentRetryCount = 0
-    val loadingDialog  = DialogLoading()
+
     var owner:LifecycleOwner? = null
     var refresh : WeakReference<SwipeRefreshLayout>? = null
 
@@ -58,29 +59,20 @@ abstract class BaseRepository() : LifecycleOwnerObserver{
     }
 
 
-    fun showLoading() {
-        BaseApplication.ctx?.apply {
-            get()?.apply {
-                supportFragmentManager.executePendingTransactions()
-                if (!loadingDialog.isAdded && !isFinishing) {
-                    loadingDialog.show(supportFragmentManager, "")
-                }
-            }
-        }
-    }
 
-
-        fun dismissLoading() {
-            if(loadingDialog.isAdded)
-            loadingDialog.dismiss()
-        }
 
         fun showToast(message: String) {
             ToastFactory.createToast(message)
         }
 
-        fun <T> applySchedulers(): ObservableTransformer<T, T> {
-            val provider = AndroidLifecycle.createLifecycleProvider(owner)
+        fun filterOwner() : Boolean{
+            return owner!=null
+        }
+
+
+        fun <T> applySchedulers(event: Lifecycle.Event = Lifecycle.Event.ON_STOP): ObservableTransformer<T, T> {
+            val provider : LifecycleProvider<Lifecycle.Event> =
+                AndroidLifecycle.createLifecycleProvider(owner)
 
             return ObservableTransformer {
                 it.retryWhen { throwableObservable ->
@@ -97,14 +89,15 @@ abstract class BaseRepository() : LifecycleOwnerObserver{
                         }
                     }
                 }.filter { t -> t != null }.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread()).compose(provider.bindUntilEvent<T>(Lifecycle.Event.ON_DESTROY))
+                        .observeOn(AndroidSchedulers.mainThread()).compose(provider.bindUntilEvent<T>(event))
             }
         }
 
 
-        fun <T> applySchedulers(interval: Long): ObservableTransformer<T, T> {
+        fun <T> applyLongSchedulers(interval: Long = 15000): ObservableTransformer<T, T> {
             val inter = if (interval < 15000) 15000 else interval
-            val provider = AndroidLifecycle.createLifecycleProvider(owner)
+            val provider : LifecycleProvider<Lifecycle.Event> =
+                AndroidLifecycle.createLifecycleProvider(owner)
             return ObservableTransformer {
                 it.repeatWhen { objectObservable ->
                     objectObservable.flatMap {
@@ -117,16 +110,16 @@ abstract class BaseRepository() : LifecycleOwnerObserver{
 
 
         /**
-         * 一定要调用，否则可能造成内存泄漏
+         * 适当使用避免造成内存泄漏
          */
         fun onClear() {
-            if (loadingDialog.isAdded) {
-                loadingDialog.dismiss()
-            }
+
             if(refresh!=null){
                 refresh = null
             }
-            owner = null
+            if(owner!=null){
+                owner = null
+            }
         }
 
 }

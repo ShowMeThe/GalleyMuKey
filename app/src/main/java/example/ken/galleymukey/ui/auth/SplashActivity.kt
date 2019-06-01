@@ -6,17 +6,20 @@ import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.Source
+import example.ken.galleymukey.source.dto.GoodsListDto
 
 import example.ken.galleymukey.source.dto.HotWallDto
 import example.ken.galleymukey.source.dto.ImageUrlDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
 import example.ken.galleymukey.ui.MainActivity
+import kotlinx.android.synthetic.main.activity_image_show.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.util.StringUtil
 import showmethe.github.kframework.util.rden.RDEN
 import kotlin.random.Random
 
@@ -49,17 +52,18 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 addBanner()
                 addHotWall()
                 addPhotoWall()
+                addGoodsList()
                 RDEN.put(RdenConstant.hasAdd,true)
             }
 
             delay(3000)
-
-              if(!RDEN.get(RdenConstant.hasLogin,false)){
+            startActivity(null, MainActivity::class.java)
+              /*if(!RDEN.get(RdenConstant.hasLogin,false)){
                   startActivity(null,LoginActivity::class.java)
 
             }else{
-                 startActivity(null, MainActivity::class.java)
-            }
+
+            }*/
             finish()
         }
 
@@ -113,6 +117,27 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
            bean.like = (bean.username!!.contains("A") or bean.username!!.contains("e"))
            DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
        }
+    }
+
+    fun addGoodsList(){
+        DataSourceBuilder.getGoodsList().delete()
+        for(i in 0..random.nextInt(40 , 60)){
+            val bean = GoodsListDto()
+            val list = ArrayList<String>()
+            for(a in 0..random.nextInt(1,5)){
+                list.add(source.getBanner()[(random.nextInt(0,28))])
+            }
+            bean.id = i
+            bean.imageList = list
+            bean.coverImg = list[0]
+            bean.goodsDes = source.getContent()[random.nextInt(0,2)]
+            bean.goodsName = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]
+            bean.firstType = random.nextInt(0,4)
+            bean.secondType = random.nextInt(0,4)
+            bean.price = StringUtil.double2Decimal( random.nextDouble(10.0,30.0))
+            DataSourceBuilder.getGoodsList().insertGoods(bean)
+        }
+
     }
 
 

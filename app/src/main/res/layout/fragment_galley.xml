@@ -10,28 +10,19 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				>
-				<com.google.android.material.appbar.CollapsingToolbarLayout
+				<com.google.android.material.tabs.TabLayout
+					android:id="@+id/tab"
+					android:background="@color/white"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					app:layout_scrollFlags="scroll|snap|enterAlways"
+					android:layout_height="@dimen/px120dp"
+					app:tabTextColor="@color/color_90caf9"
+					app:tabSelectedTextColor="@color/colorPrimaryDark"
+					app:tabGravity="center"
+					app:tabMinWidth="@dimen/px80dp"
+					app:tabRippleColor="@color/color_90caf9"
+					app:tabIndicatorHeight="0dp"
 					>
-					<com.google.android.material.tabs.TabLayout
-						android:id="@+id/tab"
-						android:background="@color/white"
-						android:layout_width="match_parent"
-						android:layout_height="@dimen/px120dp"
-						app:tabTextColor="@color/color_90caf9"
-						app:tabSelectedTextColor="@color/colorPrimaryDark"
-						app:tabGravity="center"
-						app:tabMinWidth="@dimen/px80dp"
-						app:tabRippleColor="@color/color_90caf9"
-						app:tabIndicatorHeight="0dp"
-						
-						>
-					</com.google.android.material.tabs.TabLayout>
-				
-				
-				</com.google.android.material.appbar.CollapsingToolbarLayout>
+				</com.google.android.material.tabs.TabLayout>
 			</com.google.android.material.appbar.AppBarLayout>
 		
 		

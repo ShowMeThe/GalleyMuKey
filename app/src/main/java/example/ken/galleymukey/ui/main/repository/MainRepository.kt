@@ -1,12 +1,11 @@
 package example.ken.galleymukey.ui.main.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.source.DataSourceBuilder
-import example.ken.galleymukey.source.dto.PhotoWallDto
+import example.ken.galleymukey.source.dto.GoodsListDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,9 +21,10 @@ class MainRepository : BaseRepository() {
     val photoDao = DataSourceBuilder.getPhotoWall()
     val imgUrlDao = DataSourceBuilder.getImageDao()
     val hotDto = DataSourceBuilder.getHotWall()
+    val goodDao = DataSourceBuilder.getGoodsList()
 
     fun getHomePhoto(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
-        showLoading()
+
         GlobalScope.launch (Dispatchers.Main){
             photoDao.getPhotoBean().observe(owner!!, Observer {
                 it?.apply {
@@ -39,7 +39,7 @@ class MainRepository : BaseRepository() {
                         list.add(bean)
                     }
                     bean.value = list
-                    dismissLoading()
+
 
                 }
             })
@@ -48,10 +48,10 @@ class MainRepository : BaseRepository() {
 
 
     fun getHotWall(bean  : MutableLiveData<ArrayList<HotWallBean>>){
-        showLoading()
+
         GlobalScope.launch (Dispatchers.Main){
             hotDto.getHotBeanList().observe(owner!!, Observer {
-                dismissLoading()
+
                 it?.apply {
                     val list = ArrayList<HotWallBean>()
                     for(beans in this){
@@ -70,5 +70,18 @@ class MainRepository : BaseRepository() {
         }
     }
 
+    fun getGoodsList(first:Int,second:Int,bean: MutableLiveData<List<GoodsListDto>>){
+
+        GlobalScope.launch (Dispatchers.Main){
+            goodDao.findFStAll(first, second).observe(owner!!, Observer {
+
+                it?.apply {
+                    bean.value = this
+                }
+            })
+
+        }
+
+    }
 
 }

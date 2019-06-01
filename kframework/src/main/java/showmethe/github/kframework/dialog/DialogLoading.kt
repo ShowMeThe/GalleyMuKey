@@ -53,7 +53,7 @@ class DialogLoading : androidx.fragment.app.DialogFragment() {
     }
 
 
-    override fun show(manager: androidx.fragment.app.FragmentManager, tag: String?) {
+    override fun show(manager:FragmentManager, tag: String?) {
         try {
            if(!isAdded){
                super.show(manager, tag)
