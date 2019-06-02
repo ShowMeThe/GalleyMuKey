@@ -17,7 +17,7 @@ import showmethe.github.kframework.widget.animView.BallRotationProgressBar
 import showmethe.github.kframework.widget.animView.RectScaleAnim
 
 
-class DialogLoading : androidx.fragment.app.DialogFragment() {
+class DialogLoading : BaseDialogFragment() {
 
     lateinit var mContext: Context
     internal var progressbar: BallRotationProgressBar? = null
@@ -50,16 +50,6 @@ class DialogLoading : androidx.fragment.app.DialogFragment() {
         }
 
         return dialog
-    }
-
-
-    override fun show(manager:FragmentManager, tag: String?) {
-        try {
-           if(!isAdded){
-               super.show(manager, tag)
-           }
-        }catch (e : Exception){
-        }
     }
 
 }
