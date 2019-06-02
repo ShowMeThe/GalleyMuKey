@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/px500dp"
+		app:rippleColor="@color/white_85"
+		app:cardBackgroundColor="@color/white"
+		app:cardElevation="@dimen/px5dp"
+		app:cardCornerRadius="@dimen/px20dp"
+		app:cardPreventCornerOverlap="true"
+		>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+		
+			
+			
+			
+		
+		</LinearLayout>
+	
+	</com.google.android.material.card.MaterialCardView>
+</layout>

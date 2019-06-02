@@ -4,20 +4,18 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Pair
 import android.view.View
 import androidx.databinding.ObservableArrayList
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.databinding.ItemPhotoBinding
-import example.ken.galleymukey.source.dao.PhotoWallDao
-import example.ken.galleymukey.source.dto.PhotoWallDto
 import example.ken.galleymukey.ui.main.ImageShowActivity
-import showmethe.github.kframework.adapter.AutoLoadAdapter
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
+import showmethe.github.kframework.widget.transformer.ParallaxTransformer
+import showmethe.github.kframework.widget.transformer.SpinnerTransformer
 
 /**
  * example.ken.galleymukey.ui.main.adapter
@@ -35,12 +33,14 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
             executePendingBindings()
 
             banner.addList(item.imagePaths!!)
+
             banner.setCurrentPosition(item.currentPos)
             banner.setOnImageLoader { url, imageView -> TGlide.loadNoCrop(url, imageView) }
             banner.setOnPagerLisnener {
                 data[position].currentPos = it
                 tvSelect.text = "${data[position].currentPos+1}/${item.imagePaths!!.size}"
             }
+
 
             tvSelect.text = "${item.currentPos+1}/${item.imagePaths!!.size}"
 

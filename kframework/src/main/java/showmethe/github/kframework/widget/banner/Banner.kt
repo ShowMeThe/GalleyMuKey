@@ -15,11 +15,15 @@ import android.widget.RelativeLayout
 
 import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 
 import java.util.ArrayList
 
 import showmethe.github.kframework.R
+import showmethe.github.kframework.widget.transformer.AlphaScalePageTransformer
+import showmethe.github.kframework.widget.transformer.ParallaxTransformer
+import showmethe.github.kframework.widget.transformer.SpinnerTransformer
 
 
 /**
@@ -33,6 +37,7 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     private var viewPager: ViewPager2? = null
     lateinit var adapter: BannerViewAdapter
     private var dotTabView: DotTabView? = null
+    private var orientation = ViewPager2.ORIENTATION_HORIZONTAL
     private var autoPlay = false
     private var smoothType = true
     private var selectColor: Int = 0
@@ -47,7 +52,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     private var mMaxHeight = 0f
     private var scaleType = 0
     private val mHandler = Handler(Looper.getMainLooper())
-
+    private var transformer: ViewPager2.PageTransformer? = null
+    private var transformerType = -1
 
 
     private val task = object : Runnable {
@@ -83,8 +89,15 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
         adapter = BannerViewAdapter(context, imageList)
         viewPager?.adapter = adapter
-        viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        viewPager?.orientation = orientation
         viewPager?.offscreenPageLimit = 5
+
+        when(transformerType){
+             0 ->   viewPager?.setPageTransformer(ParallaxTransformer())
+             1 ->   viewPager?.setPageTransformer(SpinnerTransformer())
+             2 ->   viewPager?.setPageTransformer(AlphaScalePageTransformer())
+        }
+
 
         viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -135,7 +148,14 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         delayTime = array.getInt(R.styleable.Banner_delayTime, TIME)
         scaleType  = array.getInt(R.styleable.Banner_imageScaleType,0)
         showIndicator = array.getBoolean(R.styleable.Banner_showIndicator,true)
+        orientation = array.getInt(R.styleable.Banner_pageOrientation,RecyclerView.HORIZONTAL)
+        transformerType = array.getInt(R.styleable.Banner_transformer,-1)
         array.recycle()
+    }
+
+    fun setPageTransformer(transformer: ViewPager2.PageTransformer){
+        this.transformer = transformer
+        viewPager?.setPageTransformer(transformer)
     }
 
 
@@ -152,11 +172,11 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
 
-        fun setCurrentPosition(position : Int){
+    fun setCurrentPosition(position : Int){
         if(position<=imageList.size-1){
             currentItem = position.toLong()
             viewPager?.post {
-                viewPager!!.setCurrentItem(position,false)
+                viewPager!!.setCurrentItem(position,true)
             }
         }
     }
