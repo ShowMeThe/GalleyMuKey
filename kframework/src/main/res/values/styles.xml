@@ -43,7 +43,7 @@
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
     </style>
     
-    <style name="FullScreenBottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <style name="FullScreenBottomSheet" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="android:windowFullscreen">false</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowBackground">@color/transparent</item>
