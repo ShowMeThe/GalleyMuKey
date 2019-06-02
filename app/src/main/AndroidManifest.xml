@@ -51,7 +51,8 @@
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateAlwaysHidden"
-			/>
+			>
+		</activity>
 		<activity android:name=".ui.MainActivity"
 			android:configChanges="orientation|keyboardHidden|navigation|locale"
 			android:launchMode="singleTop"

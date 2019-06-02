@@ -80,6 +80,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     override fun init(savedInstanceState: Bundle?) {
         StatusBarUtil.setFullScreen(this)
 
+
         viewModel.getBanner("LoginBanner")
 
 

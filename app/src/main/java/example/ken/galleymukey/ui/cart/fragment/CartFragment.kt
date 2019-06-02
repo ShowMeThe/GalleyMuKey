@@ -18,7 +18,7 @@ import example.ken.galleymukey.ui.cart.adapter.CartHomeAdapter
 import example.ken.galleymukey.ui.cart.adapter.CartTopAdapter
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_cart.*
-import kotlinx.android.synthetic.main.fragment_hot.*
+
 import showmethe.github.kframework.base.BaseFragment
 
 /**
@@ -52,6 +52,7 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
 
         viewModel.goodsBean.observe(this, Observer {
             it?.apply {
+                refresh.isRefreshing = false
                 data.clear()
                 data.addAll(this)
             }
@@ -72,11 +73,13 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-
+        refresh.setColorSchemeResources(R.color.colorPrimaryDark)
         initAdapter()
 
 
         viewModel.getGoodsList(0,0)
+
+
 
     }
 
@@ -103,6 +106,9 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
             rvCenter.smoothScrollToPosition(position)
         }
 
+        refresh.setOnRefreshListener {
+            viewModel.getGoodsList(adapter.currentPos,centerAdapter.currentPos)
+        }
 
     }
 

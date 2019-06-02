@@ -20,14 +20,22 @@
 		</androidx.recyclerview.widget.RecyclerView>
 		
 		
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/rvBottom"
+		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
+			android:id="@+id/refresh"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:fadingEdge="vertical"
-			android:fadingEdgeLength="@dimen/px30dp"
-			>
-		</androidx.recyclerview.widget.RecyclerView>
-	
+			android:layout_height="wrap_content">
+			
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rvBottom"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:fadingEdge="vertical"
+				android:fadingEdgeLength="@dimen/px30dp"
+				>
+			</androidx.recyclerview.widget.RecyclerView>
+		
+		
+		</showmethe.github.kframework.widget.common.SwipeRefreshLayout>
+		
 	</LinearLayout>
 </layout>

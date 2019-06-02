@@ -45,7 +45,7 @@ class SwipeRefreshLayout : androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         for (i in 0 until v.childCount) {
             val temp = v.getChildAt(i)
             if (temp is RecyclerView) {
-                if (Objects.requireNonNull<RecyclerView.Adapter<*>>(temp.adapter).getItemCount() == 0) {
+                if (Objects.requireNonNull<RecyclerView.Adapter<*>>(temp.adapter).itemCount == 0) {
                     return false
                 } else if (canRecycleViewScroll(temp)) return true
             } else if (temp is NestedScrollView) {
@@ -63,16 +63,6 @@ class SwipeRefreshLayout : androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
     fun canRecycleViewScroll(recyclerView: RecyclerView): Boolean {
         val layoutManager = recyclerView.layoutManager!!
-        if(layoutManager is LinearLayoutManager){
-            if(layoutManager.findFirstVisibleItemPosition() == 0){
-                if(layoutManager.findViewByPosition(layoutManager.findFirstVisibleItemPosition())!!.height>ScreenSizeUtil.height*0.6){
-                    return layoutManager.findFirstCompletelyVisibleItemPosition()== 0
-                }else{
-                    return layoutManager.findFirstCompletelyVisibleItemPosition()!= 0
-                }
-            }else return false
-        }else {
-         return true
-        }
+        return layoutManager !is LinearLayoutManager
     }
 }

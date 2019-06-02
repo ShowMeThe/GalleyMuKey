@@ -11,11 +11,13 @@
 		<showmethe.github.kframework.widget.banner.Banner
 			android:id="@+id/banner"
 			app:delayTime="3200"
+			app:imageScaleType="centerCrop"
 			app:unselected_color="@color/color_7986cb"
 			app:selected_color="@color/color_039be5"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			app:imageMinHeight="@dimen/px2500dp"
+			android:layout_height="match_parent"
+			app:imageMaxHeight="3000dp"
+			app:imageMinHeight="3000dp"
 			>
 		</showmethe.github.kframework.widget.banner.Banner>
 		
