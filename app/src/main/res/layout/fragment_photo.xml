@@ -8,7 +8,7 @@
 		>
 		
 		
-		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/refresh"
 			android:background="@color/colorPrimaryDark"
 			app:layout_dodgeInsetEdges="bottom"
@@ -33,7 +33,7 @@
 			
 			</showmethe.github.kframework.widget.common.SmartRelativeLayout>
 		
-		</showmethe.github.kframework.widget.common.SwipeRefreshLayout>
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 		
 		
 		

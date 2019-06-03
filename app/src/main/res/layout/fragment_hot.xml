@@ -6,7 +6,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/refresh"
 			android:background="@color/colorPrimaryDark"
 			android:layout_width="match_parent"
@@ -30,7 +30,7 @@
 			
 			</showmethe.github.kframework.widget.common.SmartRelativeLayout>
 			
-		</showmethe.github.kframework.widget.common.SwipeRefreshLayout>
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 	
 	</LinearLayout>
 </layout>

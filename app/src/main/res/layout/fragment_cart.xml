@@ -20,7 +20,7 @@
 		</androidx.recyclerview.widget.RecyclerView>
 		
 		
-		<showmethe.github.kframework.widget.common.SwipeRefreshLayout
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/refresh"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
@@ -35,7 +35,7 @@
 			</androidx.recyclerview.widget.RecyclerView>
 		
 		
-		</showmethe.github.kframework.widget.common.SwipeRefreshLayout>
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 		
 	</LinearLayout>
 </layout>
