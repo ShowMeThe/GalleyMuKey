@@ -20,10 +20,12 @@
 			android:clickable="true"
 			android:focusable="true"
 			app:cardCornerRadius="@dimen/px30dp"
-			app:rippleColor="@color/colorAccent"
-			app:cardBackgroundColor="@color/white"
-			app:cardElevation="@dimen/px10dp"
+			app:rippleColor="@color/color_ffab91"
+			app:cardBackgroundColor="@color/colorPrimary"
+			app:cardElevation="@dimen/px14dp"
 			app:cardPreventCornerOverlap="true"
+			app:strokeColor="@color/white"
+			app:strokeWidth="@dimen/px2dp"
 			>
 			
 			<LinearLayout
@@ -34,7 +36,7 @@
 				<ImageView
 					android:id="@+id/ivLogo"
 					android:transitionName="ivLogo"
-					imgPath="@{Bean.coverImg}"
+					imgPathCrop="@{Bean.coverImg}"
 					android:scaleType="centerCrop"
 					android:background="@color/colorAccent"
 					android:layout_width="match_parent"
@@ -65,7 +67,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content" />
 				
-				<Button
+				<com.google.android.material.button.MaterialButton
 					android:id="@+id/btnBuy"
 					android:transitionName="btnBuy"
 					android:layout_marginStart="@dimen/px30dp"
@@ -77,10 +79,15 @@
 					android:gravity="center"
 					android:padding="@dimen/px15dp"
 					android:layout_width="wrap_content"
-					android:layout_height="@dimen/px100dp"
-					android:drawableStart="@mipmap/cart"
-					android:background="@drawable/shape_rect_red"
+					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/px30dp"
+					app:elevation="@dimen/px15dp"
+					app:icon="@mipmap/cart"
+					app:iconGravity="textStart"
+					app:iconTint="@color/white"
+					app:rippleColor="@color/color_ffab91"
+					app:cornerRadius="@dimen/px10dp"
+					app:backgroundTint="@color/color_ff6e00"
 					/>
 			
 			

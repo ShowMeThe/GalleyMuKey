@@ -29,12 +29,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val repository = MainRepository()
     val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
     val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
-    val goodsBean = MutableLiveData<List<GoodsListDto>>()
+
     val boolean = MutableLiveData<Boolean>()
     val hashTag = MutableLiveData<ArrayList<HashTagBean>>()
     val keyword = MutableLiveData<String>()
     val cate = MutableLiveData<ArrayList<CateTagBean>>()
-
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
@@ -60,8 +59,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-    fun getGoodsList(first:Int,second:Int){
-        repository.getGoodsList(first,second,goodsBean)
+    fun getGoodsList(first:Int,goodsBean : MutableLiveData<List<GoodsListDto>>){
+        repository.getGoodsList(first,goodsBean)
     }
 
     fun getHashTag(){

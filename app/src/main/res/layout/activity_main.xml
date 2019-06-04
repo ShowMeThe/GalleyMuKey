@@ -22,13 +22,14 @@
 			>
 			<androidx.appcompat.widget.Toolbar
 				android:id="@+id/toolbar"
+				android:background="@color/colorPrimary"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 			</androidx.appcompat.widget.Toolbar>
 			
 			<com.google.android.material.tabs.TabLayout
 				android:id="@+id/tab"
-				android:background="@color/colorPrimaryDark"
+				android:background="@color/colorPrimary"
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/px140dp"
 				app:tabIndicatorColor="@color/white"
@@ -57,7 +58,7 @@
 			android:layout_gravity="bottom"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/px130dp"
-			app:backgroundTint="@color/colorPrimaryDark"
+			app:backgroundTint="@color/colorPrimary"
 			app:fabCradleMargin="@dimen/px13dp"
 			app:fabAlignmentMode="end"
 			app:hideOnScroll="true"
@@ -69,11 +70,11 @@
 			android:src="@mipmap/add"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:rippleColor="@color/color_7986cb"
+			app:rippleColor="@color/color_ff6e00"
 			app:layout_anchor="@id/bottomBar"
 			app:fabSize="normal"
 			app:fabCustomSize="@dimen/px150dp"
-			app:backgroundTint="@color/colorPrimaryDark"
+			app:backgroundTint="@color/color_ff6e00"
 			/>
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 	
@@ -87,7 +88,7 @@
 		>
 		
 		<RelativeLayout
-			android:background="@color/colorPrimaryDark"
+			android:background="@color/colorPrimary"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/px650dp">
 			

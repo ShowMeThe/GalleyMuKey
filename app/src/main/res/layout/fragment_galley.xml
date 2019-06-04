@@ -15,11 +15,11 @@
 					android:background="@color/white"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px120dp"
-					app:tabTextColor="@color/color_90caf9"
-					app:tabSelectedTextColor="@color/colorPrimaryDark"
+					app:tabTextColor="@color/color_212121"
+					app:tabSelectedTextColor="@color/color_ff6e00"
 					app:tabGravity="center"
 					app:tabMinWidth="@dimen/px80dp"
-					app:tabRippleColor="@color/color_90caf9"
+					app:tabRippleColor="@color/color_ffab91"
 					app:tabIndicatorHeight="0dp"
 					>
 				</com.google.android.material.tabs.TabLayout>

@@ -4,17 +4,22 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.util.Pair
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
+import androidx.palette.graphics.Palette
+import com.bumptech.glide.request.transition.Transition
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.ItemCartHomeBinding
 import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.ui.cart.GoodsDetailActivity
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.glide.BitmapTarget
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.ToastFactory
 
@@ -29,6 +34,20 @@ class CartHomeAdapter(context: Context, data: ObservableArrayList<GoodsListDto>)
         binding?.apply {
             bean = item
             executePendingBindings()
+
+            TGlide.loadIntoBitmap(item.coverImg,object : BitmapTarget(){
+                override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    Palette.from(resource).generate {
+                        it?.apply {
+                            tvDes.setTextColor(getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00)))
+                            cardView.strokeColor = getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00))
+                            btnBuy.setBackgroundColor(getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00)))
+                        }
+
+                    }
+                }
+            })
+
             cardView.setOnClickListener {
                 val option = ActivityOptions.makeSceneTransitionAnimation(context as BaseActivity<*,*>,
                     *arrayOf<Pair<View,String>>(Pair.create(ivLogo,"ivLogo"),

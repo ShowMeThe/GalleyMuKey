@@ -19,8 +19,8 @@ interface GoodsListDao {
     fun insertGoods(dto : GoodsListDto)
 
 
-    @Query("select * from GoodsListDto where firstType = :first and secondType = :second")
-    fun findFStAll(first:Int,second:Int) : LiveData<List<GoodsListDto>>
+    @Query("select * from GoodsListDto where firstType = :first ")
+    fun findFStAll(first:Int) : LiveData<List<GoodsListDto>>
 
     @Query("delete  from GoodsListDto")
     fun delete()

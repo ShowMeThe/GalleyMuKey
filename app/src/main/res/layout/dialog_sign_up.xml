@@ -126,7 +126,7 @@
 					android:textColor="@color/white"
 					android:layout_margin="@dimen/px30dp"
 					android:textSize="@dimen/px43dp"
-					android:background="@drawable/shape_rect_7c4dff"
+					android:background="@drawable/shape_rect_212121"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px150dp" />
 			

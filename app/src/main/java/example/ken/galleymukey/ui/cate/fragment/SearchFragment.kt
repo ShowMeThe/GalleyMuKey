@@ -27,7 +27,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, MainViewModel>() {
 
         viewModel.boolean.observe(this, Observer {
             it?.apply {
-                tv.text = "123313"
+
+
             }
         })
 

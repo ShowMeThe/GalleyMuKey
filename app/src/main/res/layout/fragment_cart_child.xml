@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	
+	<showmethe.github.kframework.widget.common.SmartRelativeLayout
+		android:id="@+id/smrl"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+			android:id="@+id/refresh"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rvBottom"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:fadingEdge="vertical"
+				android:fadingEdgeLength="@dimen/px30dp"
+				>
+			</androidx.recyclerview.widget.RecyclerView>
+		
+		
+		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+	
+		
+		
+	</showmethe.github.kframework.widget.common.SmartRelativeLayout>
+</layout>

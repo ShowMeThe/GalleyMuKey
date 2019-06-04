@@ -120,7 +120,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     fun addGoodsList(){
         DataSourceBuilder.getGoodsList().delete()
-        for(i in 0..random.nextInt(40 , 60)){
+        for(i in 0..random.nextInt(60 , 80)){
             val bean = GoodsListDto()
             val list = ArrayList<String>()
             for(a in 0..random.nextInt(1,5)){
@@ -132,7 +132,6 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             bean.goodsDes = source.getContent()[random.nextInt(0,2)]
             bean.goodsName = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]
             bean.firstType = random.nextInt(0,4)
-            bean.secondType = random.nextInt(0,4)
             bean.price = StringUtil.double2Decimal( random.nextDouble(10.0,30.0))
             DataSourceBuilder.getGoodsList().insertGoods(bean)
         }
@@ -150,9 +149,9 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     fun addCate(){
-        for(i in 0..random.nextInt(10,20)){
+        for(i in 0..random.nextInt(40,60)){
             val dto = CateDto()
-            dto.keyword = source.getHashTag()[random.nextInt(0,6)]
+            dto.keyword = source.getHashTag()[random.nextInt(0,5)]
             dto.img = source.getBanner()[(random.nextInt(0,28))]
             DataSourceBuilder.getCateDao().addCate(dto)
         }

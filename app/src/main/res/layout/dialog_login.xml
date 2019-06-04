@@ -82,7 +82,7 @@
 					android:textColor="@color/white"
 					android:layout_margin="@dimen/px30dp"
 					android:textSize="@dimen/px43dp"
-					android:background="@drawable/shape_rect_039be5"
+					android:background="@drawable/shape_rect_ff6e00"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px150dp" />
 			

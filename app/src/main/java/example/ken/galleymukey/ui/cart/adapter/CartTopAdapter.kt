@@ -23,9 +23,9 @@ class CartTopAdapter(context: Context, data: ObservableArrayList<String>) :
             executePendingBindings()
 
             if(currentPos == position){
-                tvTop.setTextColor(ContextCompat.getColor(context,R.color.color_0288d1))
+                tvTop.setTextColor(ContextCompat.getColor(context,R.color.color_ff6e00))
             }else{
-                tvTop.setTextColor(ContextCompat.getColor(context,R.color.color_64b5f6))
+                tvTop.setTextColor(ContextCompat.getColor(context,R.color.color_ffab91))
             }
         }
     }

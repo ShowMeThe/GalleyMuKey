@@ -1,20 +1,15 @@
 package example.ken.galleymukey.ui.cart.fragment
 
 import android.os.Bundle
-import android.util.Log
-import android.view.animation.AnticipateOvershootInterpolator
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.viewpager.widget.ViewPager
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.FragmentCartBinding
-import example.ken.galleymukey.source.dto.GoodsListDto
-import example.ken.galleymukey.ui.cart.adapter.CartCenterAdapter
-import example.ken.galleymukey.ui.cart.adapter.CartHomeAdapter
+import example.ken.galleymukey.ui.cart.adapter.CartHomePageAdapter
 import example.ken.galleymukey.ui.cart.adapter.CartTopAdapter
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_cart.*
@@ -32,14 +27,8 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
     lateinit var adapter : CartTopAdapter
     val list = ObservableArrayList<String>()
 
-    lateinit var centerAdapter : CartCenterAdapter
-    var lists = ObservableArrayList<String>()
-
-    lateinit var homeAdapter : CartHomeAdapter
-    var data = ObservableArrayList<GoodsListDto>()
-
-    val first =MutableLiveData<Int>()
-    val secound = MutableLiveData<Int>()
+    val fragmentList = ArrayList<Fragment>()
+    lateinit var fraAdapter: CartHomePageAdapter
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_cart
@@ -50,34 +39,16 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
 
     override fun observerUI() {
 
-        viewModel.goodsBean.observe(this, Observer {
-            it?.apply {
-                refresh.isRefreshing = false
-                data.clear()
-                data.addAll(this)
-            }
-        })
 
-        first.observe(this, Observer {
-            it?.apply {
-                viewModel.getGoodsList(this,centerAdapter.currentPos)
-            }
-        })
-
-        secound.observe(this, Observer {
-            it?.apply {
-                viewModel.getGoodsList(adapter.currentPos,this)
-            }
-        })
 
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        refresh.setColorSchemeResources(R.color.colorPrimaryDark)
+
         initAdapter()
 
 
-        viewModel.getGoodsList(0,0)
+
 
 
 
@@ -92,22 +63,8 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         adapter.setOnItemClickListener { view, position ->
             adapter.currentPos = position
             adapter.notifyDataSetChanged()
-            centerAdapter.currentPos = 0
-            first.value = position
-            centerAdapter.notifyDataSetChanged()
             rvTop.smoothScrollToPosition(position)
-        }
-
-
-        centerAdapter.setOnItemClickListener { view, position ->
-            centerAdapter.currentPos = position
-            centerAdapter.notifyDataSetChanged()
-            secound.value = position
-            rvCenter.smoothScrollToPosition(position)
-        }
-
-        refresh.setOnRefreshListener {
-            viewModel.getGoodsList(adapter.currentPos,centerAdapter.currentPos)
+            viewPager.setCurrentItem(position,true)
         }
 
     }
@@ -124,22 +81,24 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         rvTop.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
 
 
-        lists.add("All")
-        lists.add("Hot Sell")
-        lists.add("Coming soon")
 
-        centerAdapter = CartCenterAdapter(context,lists)
-        rvCenter.adapter= centerAdapter
-        rvCenter.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
+        fragmentList.add(CardChildFragment.create(0))
+        fragmentList.add(CardChildFragment.create(1))
+        fragmentList.add(CardChildFragment.create(2))
 
-
-
-
-        homeAdapter = CartHomeAdapter(context,data)
-        rvBottom.adapter = homeAdapter
-        rvBottom.layoutManager = GridLayoutManager(context,2)
+        fraAdapter = CartHomePageAdapter(fragmentList,childFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+        viewPager.adapter = fraAdapter
+        viewPager.offscreenPageLimit = 3
 
 
+        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener(){
+            override fun onPageSelected(position: Int) {
+                adapter.currentPos = position
+                adapter.notifyDataSetChanged()
+                rvTop.smoothScrollToPosition(position)
+            }
+        })
 
     }
 

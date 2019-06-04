@@ -75,10 +75,10 @@ class MainRepository : BaseRepository() {
         }
     }
 
-    fun getGoodsList(first:Int,second:Int,bean: MutableLiveData<List<GoodsListDto>>){
+    fun getGoodsList(first:Int,bean: MutableLiveData<List<GoodsListDto>>){
 
         GlobalScope.launch (Dispatchers.Main){
-            goodDao.findFStAll(first, second).observe(owner!!, Observer {
+            goodDao.findFStAll(first).observe(owner!!, Observer {
 
                 it?.apply {
                     bean.value = this

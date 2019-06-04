@@ -31,7 +31,6 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     override fun getViewId(): Int =R.layout.activity_main
     override fun initViewModel(): MainViewModel =createViewModel(MainViewModel::class.java)
-
     override fun onBundle(bundle: Bundle) {
 
     }

@@ -118,8 +118,8 @@ dependencies {
     api group: 'com.google.zxing', name: 'core', version: '3.3.3'
 
     //room
-    api "androidx.room:room-runtime:2.1.0-beta01"
-    kapt "androidx.room:room-compiler:2.1.0-beta01"
+    api "androidx.room:room-runtime:2.1.0-rc01"
+    kapt "androidx.room:room-compiler:2.1.0-rc01"
 
     //coroutines
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
@@ -127,4 +127,7 @@ dependencies {
 
     //flexboxlayout
     api 'com.google.android:flexbox:1.1.0'
+
+    //palette
+    api 'androidx.palette:palette:1.0.0'
 }

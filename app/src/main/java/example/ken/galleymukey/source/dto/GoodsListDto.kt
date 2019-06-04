@@ -47,7 +47,6 @@ class GoodsListDto : Observable,Serializable{
             notifyChange(BR.goodsDes)
         }
     var firstType : Int = 0
-    var secondType : Int = 0
 
     @get:Bindable
     var price : String = ""
