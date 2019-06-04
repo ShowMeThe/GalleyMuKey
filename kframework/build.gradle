@@ -127,4 +127,7 @@ dependencies {
 
     //flexboxlayout
     api 'com.google.android:flexbox:1.1.0'
+
+    //palette
+    api 'androidx.palette:palette:1.0.0'
 }
