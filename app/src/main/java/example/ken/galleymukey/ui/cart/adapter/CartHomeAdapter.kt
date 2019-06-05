@@ -9,14 +9,18 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Pair
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.transition.Transition
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.ItemCartHomeBinding
 import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.ui.cart.GoodsDetailActivity
+import showmethe.github.kframework.adapter.BaseRecyclerViewAdapter
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.BitmapTarget
@@ -29,21 +33,23 @@ import showmethe.github.kframework.util.ToastFactory
  * 2019/5/26
  **/
 class CartHomeAdapter(context: Context, data: ObservableArrayList<GoodsListDto>) :
-    DataBindBaseAdapter<GoodsListDto, ItemCartHomeBinding>(context, data) {
-    override fun bindItems(binding: ItemCartHomeBinding?, item: GoodsListDto, position: Int) {
-        binding?.apply {
+    BaseRecyclerViewAdapter<GoodsListDto, CartHomeAdapter.ViewHolder>(context, data) {
+
+    private val defaultColor  = ContextCompat.getColor(context,R.color.color_ff6e00)
+
+    override fun bindDataToItemView(holder: ViewHolder, item: GoodsListDto, position: Int) {
+        holder.binding.apply {
             bean = item
             executePendingBindings()
 
             TGlide.loadIntoBitmap(item.coverImg,object : BitmapTarget(){
                 override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    Palette.from(resource).generate {
+                    val palette = Palette.from(resource).generate {
                         it?.apply {
-                            tvDes.setTextColor(getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00)))
-                            cardView.strokeColor = getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00))
-                            btnBuy.setBackgroundColor(getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00)))
+                            tvDes.setTextColor(getVibrantColor(defaultColor))
+                            cardView.strokeColor = getVibrantColor(defaultColor)
+                            btnBuy.setBackgroundColor(getVibrantColor(defaultColor))
                         }
-
                     }
                 }
             })
@@ -63,7 +69,13 @@ class CartHomeAdapter(context: Context, data: ObservableArrayList<GoodsListDto>)
         }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(DataBindingUtil.bind<ItemCartHomeBinding>(inflateItemView(parent,R.layout.item_cart_home))!!)
+    }
 
 
-    override fun getItemLayout(): Int = R.layout.item_cart_home
+    class ViewHolder(var binding: ItemCartHomeBinding) : RecyclerView.ViewHolder(binding.root){
+
+    }
+
 }
