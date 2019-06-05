@@ -20,11 +20,11 @@
 			android:clickable="true"
 			android:focusable="true"
 			app:cardCornerRadius="@dimen/px30dp"
-			app:rippleColor="@color/color_ffab91"
+			app:rippleColor="@color/color_85ff6e00"
 			app:cardBackgroundColor="@color/colorPrimary"
 			app:cardElevation="@dimen/px14dp"
 			app:cardPreventCornerOverlap="true"
-			app:strokeColor="@color/white"
+			app:strokeColor="@color/colorPrimaryDark"
 			app:strokeWidth="@dimen/px2dp"
 			>
 			
@@ -81,6 +81,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/px30dp"
+					android:elevation="@dimen/px15dp"
 					app:elevation="@dimen/px15dp"
 					app:icon="@mipmap/cart"
 					app:iconGravity="textStart"

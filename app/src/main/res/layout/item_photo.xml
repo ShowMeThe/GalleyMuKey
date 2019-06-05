@@ -37,7 +37,7 @@
 				<showmethe.github.kframework.widget.banner.Banner
 					android:id="@+id/banner"
 					android:transitionName="photo"
-					android:background="@color/color_7986cb"
+					android:background="@color/color_212121"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					app:autoPlay="false"

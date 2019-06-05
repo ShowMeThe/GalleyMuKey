@@ -30,23 +30,33 @@ import showmethe.github.kframework.util.ToastFactory
  **/
 class CartHomeAdapter(context: Context, data: ObservableArrayList<GoodsListDto>) :
     DataBindBaseAdapter<GoodsListDto, ItemCartHomeBinding>(context, data) {
+
+    val defaultColor = ContextCompat.getColor(context,R.color.color_ff6e00)
+
     override fun bindItems(binding: ItemCartHomeBinding?, item: GoodsListDto, position: Int) {
         binding?.apply {
             bean = item
             executePendingBindings()
 
-            TGlide.loadIntoBitmap(item.coverImg,object : BitmapTarget(){
-                override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    Palette.from(resource).generate {
-                        it?.apply {
-                            tvDes.setTextColor(getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00)))
-                            cardView.strokeColor = getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00))
-                            btnBuy.setBackgroundColor(getVibrantColor(ContextCompat.getColor(context,R.color.color_ff6e00)))
+            if(item.vibrantColor == -1){
+                TGlide.loadIntoBitmap(item.coverImg,object : BitmapTarget(){
+                    override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        Palette.from(resource).generate {
+                            it?.apply {
+                                item.vibrantColor = getVibrantColor(defaultColor)
+                                tvDes.setTextColor(item.vibrantColor)
+                                cardView.strokeColor = item.vibrantColor
+                                btnBuy.setBackgroundColor(item.vibrantColor)
+                            }
                         }
-
                     }
-                }
-            })
+                })
+            }else{
+                tvDes.setTextColor(item.vibrantColor)
+                cardView.strokeColor = item.vibrantColor
+                btnBuy.setBackgroundColor(item.vibrantColor)
+            }
+
 
             cardView.setOnClickListener {
                 val option = ActivityOptions.makeSceneTransitionAnimation(context as BaseActivity<*,*>,

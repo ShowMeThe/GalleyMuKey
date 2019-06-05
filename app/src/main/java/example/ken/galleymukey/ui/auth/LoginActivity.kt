@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
@@ -145,7 +146,11 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     fun showSnack(view : TextView){
         KeyBoardUtils.hideSoftKeyboard(this)
         num = random.nextInt(1000,9999)
-        snackbar =  Snackbar.make(view,"${num}",15000).setAction("copy") {
+        snackbar =  Snackbar.make(view,"${num}",15000)
+            .setBackgroundTint(ContextCompat.getColor(context,R.color.color_ff6e00))
+            .setTextColor(ContextCompat.getColor(context,R.color.white))
+            .setActionTextColor(ContextCompat.getColor(context,R.color.white))
+            .setAction("copy") {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager;
             val clipData = ClipData.newPlainText("text","${num}")
             clipboard.primaryClip = clipData

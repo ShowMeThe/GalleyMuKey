@@ -122,7 +122,7 @@
 		</androidx.coordinatorlayout.widget.CoordinatorLayout >
 		
 		
-		<Button
+		<com.google.android.material.button.MaterialButton
 			android:id="@+id/btnBuy"
 			android:transitionName="btnBuy"
 			android:layout_marginStart="@dimen/px130dp"
@@ -134,9 +134,13 @@
 			android:gravity="center"
 			android:padding="@dimen/px15dp"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px140dp"
-			android:drawableStart="@mipmap/cart"
-			android:background="@drawable/shape_rect_red"
+			android:layout_height="wrap_content"
+			android:elevation="@dimen/px15dp"
+			app:icon="@mipmap/cart"
+			app:cornerRadius="@dimen/px15dp"
+			app:elevation="@dimen/px20dp"
+			app:backgroundTint="@color/color_ff6e00"
+			app:iconTint="@color/white"
 			/>
 	
 	</LinearLayout>

@@ -32,10 +32,10 @@ abstract class DataBindBaseAdapter<D, V : ViewDataBinding>(var context: Context,
             override fun onChanged(sender: ObservableArrayList<D>?) {
                 notifyDataSetChanged()
             }
-            override fun onItemRangeRemoved(sender: ObservableArrayList<D>?, positionStart: Int, itemCount: Int) {
+            override fun onItemRangeRemoved(sender: ObservableArrayList<D>, positionStart: Int, itemCount: Int) {
                 if (itemCount == 1) {
                     notifyItemRemoved(positionStart)
-                    notifyItemRangeChanged(positionStart, itemCount)
+                    notifyItemRangeChanged(positionStart, sender.size - positionStart)
                 } else {
                     notifyDataSetChanged()
                 }

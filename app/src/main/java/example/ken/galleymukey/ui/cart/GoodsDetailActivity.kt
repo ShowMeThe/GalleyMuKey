@@ -1,11 +1,15 @@
 package example.ken.galleymukey.ui.cart
 
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
+import androidx.palette.graphics.Palette
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.appbar.AppBarLayout
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.ActivityGoodsDetailBinding
@@ -14,6 +18,7 @@ import example.ken.galleymukey.ui.cart.vm.GoodsViewModel
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.base.BaseViewModel
+import showmethe.github.kframework.glide.BitmapTarget
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
@@ -27,6 +32,19 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
 
     override fun onBundle(bundle: Bundle) {
         dto = bundle.getSerializable("dto") as GoodsListDto?
+        val defaultColor = ContextCompat.getColor(context,R.color.color_ff6e00)
+        dto?.apply {
+            TGlide.loadIntoBitmap(coverImg,object : BitmapTarget(){
+                override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    Palette.from(resource).generate {
+                        it?.apply {
+                            tvDes.setTextColor(getVibrantColor(defaultColor))
+                            btnBuy.setBackgroundColor(getVibrantColor(defaultColor))
+                        }
+                    }
+                }
+            })
+        }
     }
 
     override fun observerUI() {

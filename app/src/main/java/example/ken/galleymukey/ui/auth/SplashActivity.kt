@@ -56,13 +56,13 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             }
 
             delay(3000)
-            startActivity(null, MainActivity::class.java)
-              /*if(!RDEN.get(RdenConstant.hasLogin,false)){
+
+              if(!RDEN.get(RdenConstant.hasLogin,false)){
                   startActivity(null,LoginActivity::class.java)
 
             }else{
-
-            }*/
+                  startActivity(null, MainActivity::class.java)
+            }
             finish()
         }
 

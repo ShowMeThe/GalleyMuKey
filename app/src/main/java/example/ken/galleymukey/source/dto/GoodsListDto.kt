@@ -4,10 +4,7 @@ import android.os.Parcelable
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
+import androidx.room.*
 import example.ken.galleymukey.BR
 import example.ken.galleymukey.source.converters.ArraysConverters
 import kotlinx.android.parcel.Parcelize
@@ -54,6 +51,9 @@ class GoodsListDto : Observable,Serializable{
             field = price
             notifyChange(BR.price)
         }
+
+    @Ignore
+    var vibrantColor:Int = -1
 
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()

@@ -26,21 +26,26 @@
 				android:layout_height="wrap_content">
 				
 				
-				<ImageView
+				<com.google.android.material.button.MaterialButton
 					android:id="@+id/ivBack"
 					android:layout_marginTop="@dimen/px10dp"
 					android:layout_marginStart="@dimen/px20dp"
-					android:src="@mipmap/dialog_back"
 					android:layout_width="@dimen/px150dp"
-					android:layout_height="@dimen/px130dp" />
+					android:layout_height="@dimen/px130dp"
+					app:icon="@mipmap/dialog_back"
+					app:backgroundTint="@color/white"
+					app:iconTint="@color/color_ff6e00"
+					app:iconSize="@dimen/px120dp"
+					app:rippleColor="@color/color_85ff6e00"
+					/>
 				
 				
 				<com.google.android.material.textfield.TextInputLayout
 					android:layout_marginTop="@dimen/px20dp"
 					android:layout_marginStart="@dimen/px30dp"
 					android:layout_marginEnd="@dimen/px30dp"
-					android:textColorHint="@color/color_7c4dff"
-					app:hintTextColor="@color/color_7c4dff"
+					android:textColorHint="@color/color_ff6e00"
+					app:hintTextColor="@color/color_ff6e00"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
 					<EditText
@@ -50,8 +55,8 @@
 						android:inputType="text"
 						android:text="@={Bean.account}"
 						android:imeOptions="actionNext"
-						android:textColorHint="@color/color_7c4dff"
-						android:textColor="@color/color_7c4dff"
+						android:textColorHint="@color/colorPrimaryDark"
+						android:textColor="@color/colorPrimaryDark"
 						android:textSize="@dimen/px43dp"
 						android:layout_width="match_parent"
 						android:layout_height="@dimen/px110dp" />
@@ -60,8 +65,8 @@
 				
 				<com.google.android.material.textfield.TextInputLayout
 					android:layout_margin="@dimen/px30dp"
-					android:textColorHint="@color/color_7c4dff"
-					app:hintTextColor="@color/color_7c4dff"
+					android:textColorHint="@color/color_ff6e00"
+					app:hintTextColor="@color/color_ff6e00"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					app:passwordToggleEnabled="true"
@@ -74,8 +79,8 @@
 						
 						android:imeOptions="actionNext"
 						android:inputType="textPassword"
-						android:textColor="@color/color_7c4dff"
-						android:textColorHint="@color/color_7c4dff"
+						android:textColor="@color/color_ff6e00"
+						android:textColorHint="@color/color_ff6e00"
 						android:textSize="@dimen/px43dp"
 						android:layout_width="match_parent"
 						android:layout_height="@dimen/px110dp" />
@@ -88,8 +93,8 @@
 					<com.google.android.material.textfield.TextInputLayout
 						android:layout_margin="@dimen/px30dp"
 						android:layout_width="0dp"
-						android:textColorHint="@color/color_7c4dff"
-						app:hintTextColor="@color/color_7c4dff"
+						android:textColorHint="@color/color_ff6e00"
+						app:hintTextColor="@color/color_ff6e00"
 						android:layout_weight="1"
 						android:layout_height="wrap_content"
 						>
@@ -98,10 +103,10 @@
 							android:hint="Code"
 							android:maxLines="1"
 							android:text="@={Bean.code}"
-							android:textColorHint="@color/color_7c4dff"
+							android:textColorHint="@color/color_ff6e00"
 							android:imeOptions="actionDone"
 							android:inputType="number"
-							android:textColor="@color/color_7c4dff"
+							android:textColor="@color/color_ff6e00"
 							android:textSize="@dimen/px43dp"
 							android:layout_width="match_parent"
 							android:layout_height="@dimen/px110dp" />
@@ -114,7 +119,7 @@
 						android:gravity="center"
 						android:textSize="@dimen/px43dp"
 						android:layout_marginEnd="@dimen/px30dp"
-						android:textColor="@color/color_7c4dff"
+						android:textColor="@color/colorAccent"
 						android:layout_width="@dimen/px250dp"
 						android:layout_height="wrap_content" />
 				
