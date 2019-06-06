@@ -20,7 +20,7 @@ import java.io.InputStream
 class CustomGlideModule : AppGlideModule() {
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        val diskCacheSizeBytes = 50 * 1024 * 100 // 50 MB
+        val diskCacheSizeBytes = 100 * 1024 * 100 // 50 MB
         builder.setDiskCache(InternalCacheDiskCacheFactory(context, diskCacheSizeBytes.toLong()))
     }
 

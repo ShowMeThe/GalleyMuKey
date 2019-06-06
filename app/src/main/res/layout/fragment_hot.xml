@@ -23,7 +23,7 @@
 					android:layout_height="wrap_content"
 					android:requiresFadingEdge="vertical"
 					android:fadingEdge="vertical"
-					android:fadingEdgeLength="@dimen/px30dp"
+					android:fadingEdgeLength="@dimen/px20dp"
 					>
 				</androidx.recyclerview.widget.RecyclerView>
 			

@@ -58,8 +58,8 @@
         <item name="android:windowExitAnimation">@anim/anim_left_out</item>
     </style>
     
-    <style name="line_7986cb">
-        <item name="android:background">@color/color_7986cb</item>
+    <style name="line_ffab91">
+        <item name="android:background">@color/color_85ff6e00</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/px1dp</item>
     </style>
@@ -71,7 +71,7 @@
     </style>
     
     <style name="line_9575cd">
-        <item name="android:background">@color/color_9575cd</item>
+        <item name="android:background">@color/color_85ff6e00</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/px1dp</item>
     </style>

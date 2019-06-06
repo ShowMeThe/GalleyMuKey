@@ -17,8 +17,19 @@ import showmethe.github.kframework.R
  **/
 object CreateDrawable {
 
-    fun create(context: Context, @CornerFamily family: Int, radius :Int,color:Int) : Drawable{
+    enum class  CornerType{
+        TOPLEFT,TOPRIGHT,BOTTOMLEFT,BOTTMRIGHT,ALL
+    }
+
+   fun create(context: Context, @CornerFamily family: Int, radius :Int,color:Int,type:CornerType = CreateDrawable.CornerType.ALL) : Drawable{
         val shapeAppearanceModel = ShapeAppearanceModel()
+        when(type){
+            CreateDrawable.CornerType.TOPLEFT -> shapeAppearanceModel.setTopLeftCorner(family,radius)
+            CreateDrawable.CornerType.TOPRIGHT -> shapeAppearanceModel.setTopRightCorner(family,radius)
+            CreateDrawable.CornerType.BOTTOMLEFT -> shapeAppearanceModel.setBottomLeftCorner(family,radius)
+            CreateDrawable.CornerType.BOTTMRIGHT -> shapeAppearanceModel.setBottomRightCorner(family,radius)
+            CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,radius)
+        }
         shapeAppearanceModel.setTopLeftCorner(family,radius)
         val drawable = MaterialShapeDrawable(shapeAppearanceModel)
         drawable.fillColor = ContextCompat.getColorStateList(context, color)

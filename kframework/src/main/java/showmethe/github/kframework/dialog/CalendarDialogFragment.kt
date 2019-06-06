@@ -72,7 +72,7 @@ class CalendarDialogFragment : DialogFragment() {
 
         view?.apply {
 
-            cardView.background = CreateDrawable.create(context,CornerFamily.CUT,45,R.color.white)
+            cardView.background = CreateDrawable.create(context,CornerFamily.CUT,45,R.color.white,CreateDrawable.CornerType.TOPLEFT)
 
             adapter = YearAdapter(mContext,list)
             rv.adapter = adapter
