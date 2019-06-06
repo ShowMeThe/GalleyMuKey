@@ -1,6 +1,7 @@
 package showmethe.github.kframework.adapter
 
 import android.content.Context
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
@@ -27,19 +28,26 @@ abstract class DataBindBaseAdapter<D, V : ViewDataBinding>(var context: Context,
 
 
 
+
     init {
         this.data.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableArrayList<D>>(){
             override fun onChanged(sender: ObservableArrayList<D>?) {
                 notifyDataSetChanged()
             }
-            override fun onItemRangeRemoved(sender: ObservableArrayList<D>, positionStart: Int, itemCount: Int) {
+            override fun onItemRangeRemoved(sender: ObservableArrayList<D>?, positionStart: Int, itemCount: Int) {
                 if (itemCount == 1) {
                     notifyItemRemoved(positionStart)
-                    notifyItemRangeChanged(positionStart, sender.size - positionStart)
+                    notifyItemRangeChanged(positionStart, itemCount)
                 } else {
                     notifyDataSetChanged()
                 }
             }
+
+            override fun onItemRangeInserted(sender: ObservableArrayList<D>, positionStart: Int, itemCount: Int) {
+                notifyItemRangeInserted(positionStart,itemCount)
+                notifyItemRangeChanged(positionStart, sender.size - positionStart)
+            }
+
 
             override fun onItemRangeMoved(sender: ObservableArrayList<D>?, fromPosition: Int, toPosition: Int, itemCount: Int) {
                 if (itemCount == 1) {
@@ -49,17 +57,18 @@ abstract class DataBindBaseAdapter<D, V : ViewDataBinding>(var context: Context,
                 }
             }
 
-            override fun onItemRangeInserted(sender: ObservableArrayList<D>, positionStart: Int, itemCount: Int) {
-                notifyItemInserted(positionStart)
-                notifyItemRangeChanged(positionStart, sender.size - positionStart)
-            }
-
             override fun onItemRangeChanged(sender: ObservableArrayList<D>?, positionStart: Int, itemCount: Int) {
                 notifyItemRangeChanged(positionStart, itemCount)
 
             }
+
         })
 
+    }
+
+
+    override fun getItemId(position: Int): Long {
+        return if(data.size>0) data[position].hashCode().toLong() else 0
     }
 
 

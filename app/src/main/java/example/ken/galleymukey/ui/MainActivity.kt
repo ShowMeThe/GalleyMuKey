@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.picker.MaterialDateRangePickerDialogFragment
@@ -161,6 +162,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                     R.anim.slide_right_out)
 
                 transaction.add(R.id.frameLayout, tempFragment, tag)
+                    .setMaxLifecycle(tempFragment, Lifecycle.State.RESUMED);
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -176,14 +178,14 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                         R.anim.slide_left_out,
                         R.anim.slide_left_in,
                         R.anim.slide_right_out)
-                    transaction.show(fragment)
+                    transaction.show(fragment).setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
                 } else {
                     transaction.setCustomAnimations(R.anim.slide_right_in,
                         R.anim.slide_left_out,
                         R.anim.slide_left_in,
                         R.anim.slide_right_out)
 
-                    transaction.hide(fragment)
+                    transaction.hide(fragment).setMaxLifecycle(fragment, Lifecycle.State.STARTED)
                 }
             }
         }

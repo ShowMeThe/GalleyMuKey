@@ -57,6 +57,7 @@ class CardChildFragment : BaseFragment<FragmentCartChildBinding, MainViewModel>(
                 refresh.isRefreshing = false
                 data.clear()
                 data.addAll(this)
+
             }
         })
 

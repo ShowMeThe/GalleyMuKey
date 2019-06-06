@@ -7,18 +7,18 @@
 		android:layout_height="match_parent"
 		>
 		
+	<showmethe.github.kframework.widget.common.SmartRelativeLayout
+		android:id="@+id/smrl"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
 		
 		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/refresh"
-			android:background="@color/colorPrimaryDark"
 			app:layout_dodgeInsetEdges="bottom"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<showmethe.github.kframework.widget.common.SmartRelativeLayout
-				android:id="@+id/smrl"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent">
+		
 				
 				<androidx.recyclerview.widget.RecyclerView
 					android:id="@+id/rv"
@@ -30,12 +30,9 @@
 					>
 				</androidx.recyclerview.widget.RecyclerView>
 			
-			
-			</showmethe.github.kframework.widget.common.SmartRelativeLayout>
-		
 		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 		
-		
+		</showmethe.github.kframework.widget.common.SmartRelativeLayout>
 		
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 	
