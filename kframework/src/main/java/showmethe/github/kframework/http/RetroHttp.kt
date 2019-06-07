@@ -1,7 +1,5 @@
 package showmethe.github.kframework.http
 
-import android.content.Context
-
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
@@ -22,6 +20,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import showmethe.github.kframework.base.BaseApplication
+import showmethe.github.kframework.http.Interceptor.ReadWriteCacheInterceptor
+import showmethe.github.kframework.http.Interceptor.RequestHeaderInterceptor
+import showmethe.github.kframework.http.Interceptor.RequestLogInterceptor
 
 /**
  *
@@ -130,7 +131,7 @@ class RetroHttp  private constructor() : SessionObservable{
 
     companion object {
 
-       private var baseUrl = "https://www.baidu.com/"
+       private var baseUrl = "http://www.loopinmo.com/dzhyk/"
 
 
         private val CONNECT_TIMEOUT = 30
@@ -143,8 +144,8 @@ class RetroHttp  private constructor() : SessionObservable{
             return INSTANT
         }
 
-        fun <T> createApi(tClass: Class<T>): Lazy<T> {
-            return  lazy (mode = LazyThreadSafetyMode.SYNCHRONIZED){ RetroHttp.get().createApi(tClass) }
+        fun <T> createApi(tClass: Class<T>): T {
+            return  lazy (mode = LazyThreadSafetyMode.SYNCHRONIZED){ RetroHttp.get().createApi(tClass) }.value
         }
 
 

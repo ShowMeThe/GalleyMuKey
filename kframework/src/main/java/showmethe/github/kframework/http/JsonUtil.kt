@@ -61,14 +61,7 @@ object JsonUtil {
 
     }
 
-    /**
-     * 把json转成对应的类型。适合用于自定义数据类型，如ArrayList<Foo>等
-     * @param content json
-     * @param type 自定义类型的token。使用方法如下
-     * Type listType = new TypeToken<ArrayList></ArrayList><Foo>>(){}.getType();
-     * @param <T>
-     * @return 对应类型的对象
-    </T></Foo></Foo> */
+
     fun <T> fromJson(content: String, type: Type?): T? {
         if (content.isNotEmpty() && type != null) {
             try {
@@ -139,12 +132,8 @@ object JsonUtil {
         return Collections.EMPTY_LIST
     }
 
-    /**
-     * 从json中搜索，根据键的名字，返回值。
-     * @param json
-     * @param name json中的键名
-     * @return Object
-     */
+
+
     fun findObject(json: String, name: String): Any? {
 
         var `object`: Any? = null

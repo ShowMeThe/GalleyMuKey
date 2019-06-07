@@ -1,14 +1,14 @@
-package showmethe.github.kframework.http
+package showmethe.github.kframework.http.rx
 
 
-import android.util.Log
 import java.io.IOException
 
 import io.reactivex.Observer
 import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
-import okhttp3.ResponseBody
 import retrofit2.HttpException
+import showmethe.github.kframework.http.JsonResult
+import showmethe.github.kframework.http.JsonUtil
 
 /**
  * PackageName: com.library.activity
@@ -34,7 +34,7 @@ abstract class CallBack<T> : Observer<JsonResult<T>> {
             if (t == null) {
                 fail(-1, "")
             } else {
-                if (t.code == 0) {
+                if (t.code == 2000000) {
                     success(t.data, t.message!!)
                 } else {
                     fail(t.code, t.message!!)
@@ -49,7 +49,7 @@ abstract class CallBack<T> : Observer<JsonResult<T>> {
     override fun onError(e: Throwable) {
         var errorMessage = e.toString().replace("java.lang.Throwable:".toRegex(), "")
         if (e is HttpException) {
-            val body = e.response().errorBody()
+            val body = e.response()?.errorBody()
             try {
                 val result = JsonUtil.fromJson(body!!.string(), JsonResult::class.java)
                 if (result != null) {
@@ -67,9 +67,9 @@ abstract class CallBack<T> : Observer<JsonResult<T>> {
 
     }
 
-    internal abstract fun onPreLoading()
+    abstract fun onPreLoading()
 
-    internal abstract fun success(response: T?, @NonNull message: String)
+    abstract fun success(response: T?, @NonNull message: String)
 
-    internal abstract fun fail(@NonNull errCode: Int, @NonNull message: String)
+    abstract fun fail(@NonNull errCode: Int, @NonNull message: String)
 }

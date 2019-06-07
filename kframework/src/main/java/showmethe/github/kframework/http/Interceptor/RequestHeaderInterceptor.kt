@@ -1,15 +1,12 @@
-package showmethe.github.kframework.http
-
-import android.util.Log
+package showmethe.github.kframework.http.Interceptor
 
 
 import java.io.IOException
 
-import okhttp3.HttpUrl
 import okhttp3.Interceptor
-import okhttp3.Request
+import showmethe.github.kframework.http.SessionObserver
 
-class RequestHeaderInterceptor : Interceptor,SessionObserver{
+class RequestHeaderInterceptor : Interceptor, SessionObserver {
 
     override fun update(sessionId: String) {
         this.sessionId = sessionId
