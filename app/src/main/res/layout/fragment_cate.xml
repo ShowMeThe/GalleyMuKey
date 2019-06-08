@@ -42,6 +42,7 @@
 				android:layout_width="0dp"
 				android:inputType="text"
 				android:maxLines="1"
+				android:imeOptions="actionSearch"
 				android:layout_gravity="center"
 				android:background="@drawable/shape_rect_raidus_white_85"
 				android:layout_height="@dimen/px90dp">

@@ -12,6 +12,7 @@ import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.source.dto.HashTagDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
+import example.ken.galleymukey.ui.cate.repository.SearchRepository
 import example.ken.galleymukey.ui.main.repository.MainRepository
 import showmethe.github.kframework.base.BaseViewModel
 
@@ -23,7 +24,10 @@ import showmethe.github.kframework.base.BaseViewModel
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
     val repository = MainRepository()
+    val searchRepository = SearchRepository()
 
+    val users = MutableLiveData<ArrayList<PhotoWallBean>>()
+    val searchContent = MutableLiveData<String>()
 
     var cateChildManager : FragmentManager? = null
     var catePopBack = MutableLiveData<Boolean>()
@@ -37,10 +41,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
         owner.lifecycle.addObserver(repository)
+        owner.lifecycle.addObserver(searchRepository)
     }
 
 
-
+    fun searchUser(name:String){
+        searchRepository.searchUser(name,users)
+    }
 
     fun getHomePhoto(){
         repository.getHomePhoto(bean)

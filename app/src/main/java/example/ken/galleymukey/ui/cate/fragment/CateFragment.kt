@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import android.view.inputmethod.EditorInfo
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -89,6 +90,15 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
         ivBack.setOnClickListener {
             unRotate()
 
+        }
+
+
+        edSearch.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.searchContent.value = edSearch.text.toString()
+                KeyBoardUtils.closeKeyboard(context,edSearch)
+            }
+            false
         }
 
 

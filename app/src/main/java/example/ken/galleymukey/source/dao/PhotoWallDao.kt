@@ -29,4 +29,8 @@ interface PhotoWallDao {
 
     @Query("select  *  from PhotoWallDto where id = :id")
     fun findBean(id:Int) : PhotoWallDto
+
+
+    @Query("select  *  from PhotoWallDto where username   like '%'|| :name  || '%' ")
+    fun findUser(name:String) : LiveData<List<PhotoWallDto>>
 }

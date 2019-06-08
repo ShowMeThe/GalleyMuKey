@@ -7,6 +7,28 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
+		<com.google.android.material.tabs.TabLayout
+			android:id="@+id/tab"
+			android:background="@color/white"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px120dp"
+			app:tabTextColor="@color/white"
+			app:tabSelectedTextColor="@color/color_ff6e00"
+			app:tabGravity="center"
+			app:tabMinWidth="@dimen/px80dp"
+			app:tabRippleColor="@color/color_ffab91"
+			app:tabIndicatorHeight="@dimen/px4dp"
+			app:tabIndicatorColor="@color/color_ff6e00"
+			>
+		</com.google.android.material.tabs.TabLayout>
+
+		<View style="@style/line_7c4dff"/>
+
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/viewPager"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		</androidx.viewpager.widget.ViewPager>
 		
 		
 	</LinearLayout>
