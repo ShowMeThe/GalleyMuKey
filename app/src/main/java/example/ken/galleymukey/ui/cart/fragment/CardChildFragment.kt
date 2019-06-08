@@ -14,13 +14,14 @@ import example.ken.galleymukey.ui.cart.adapter.CartHomeAdapter
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_cart_child.*
 import showmethe.github.kframework.base.BaseFragment
+import showmethe.github.kframework.base.LazyFragment
 
 /**
  * example.ken.galleymukey.ui.cart.fragment
  * cuvsu
  * 2019/6/4
  **/
-class CardChildFragment : BaseFragment<FragmentCartChildBinding, MainViewModel>() {
+class CardChildFragment : LazyFragment<FragmentCartChildBinding, MainViewModel>() {
 
 
 
@@ -40,6 +41,7 @@ class CardChildFragment : BaseFragment<FragmentCartChildBinding, MainViewModel>(
         }
 
     }
+
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
 
@@ -63,12 +65,12 @@ class CardChildFragment : BaseFragment<FragmentCartChildBinding, MainViewModel>(
 
     }
 
-    override fun init(savedInstanceState: Bundle?) {
+    override fun init() {
         refresh.setColorSchemeResources(R.color.colorPrimaryDark)
+        refresh.isRefreshing = true
         homeAdapter = CartHomeAdapter(context,data)
         rvBottom.adapter = homeAdapter
         rvBottom.layoutManager = GridLayoutManager(context,2)
-
 
         viewModel.getGoodsList(type,goodsBean)
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter
  **/
 class CartHomePageAdapter(var list : List<Fragment>,fm: FragmentManager, behavior: Int) : FragmentPagerAdapter(fm, behavior) {
 
+
     override fun getCount(): Int =list.size
 
     override fun getItem(position: Int): Fragment = list[position]

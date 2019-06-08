@@ -91,7 +91,6 @@ class CartFragment : BaseFragment<FragmentCartBinding, MainViewModel>() {
         viewPager.adapter = fraAdapter
         viewPager.offscreenPageLimit = 3
 
-
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener(){
             override fun onPageSelected(position: Int) {
                 adapter.currentPos = position

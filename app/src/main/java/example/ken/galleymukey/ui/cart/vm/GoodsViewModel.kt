@@ -11,8 +11,8 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class GoodsViewModel(application: Application) : BaseViewModel(application) {
     override fun onViewModelCreated(owner: LifecycleOwner) {
+
     }
 
-    override fun notifyOwner(owner: LifecycleOwner) {
-    }
+
 }

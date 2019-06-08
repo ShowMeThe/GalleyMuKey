@@ -79,7 +79,6 @@ class MainRepository : BaseRepository() {
 
         GlobalScope.launch (Dispatchers.Main){
             goodDao.findFStAll(first).observe(owner!!, Observer {
-
                 it?.apply {
                     bean.value = this
                 }

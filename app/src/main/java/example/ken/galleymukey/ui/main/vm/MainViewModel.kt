@@ -22,11 +22,11 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class MainViewModel(application: Application) : BaseViewModel(application) {
 
+    val repository = MainRepository()
+
 
     var cateChildManager : FragmentManager? = null
-
     var catePopBack = MutableLiveData<Boolean>()
-    val repository = MainRepository()
     val bean  = MutableLiveData<ArrayList<PhotoWallBean>>()
     val hotBean = MutableLiveData<ArrayList<HotWallBean>>()
 
@@ -36,13 +36,10 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val cate = MutableLiveData<ArrayList<CateTagBean>>()
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-
-
+        owner.lifecycle.addObserver(repository)
     }
 
-    override fun notifyOwner(owner: LifecycleOwner) {
-        repository.update(owner)
-    }
+
 
 
     fun getHomePhoto(){

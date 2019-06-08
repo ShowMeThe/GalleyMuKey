@@ -26,9 +26,7 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
 
     }
 
-    override fun notifyOwner(owner: LifecycleOwner) {
-        repository.update(owner)
-    }
+
 
 
 

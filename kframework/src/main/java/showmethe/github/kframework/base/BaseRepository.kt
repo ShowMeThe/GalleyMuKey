@@ -2,6 +2,7 @@ package showmethe.github.kframework.base
 
 import androidx.lifecycle.Lifecycle
 import android.content.Context
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
@@ -27,7 +28,7 @@ import java.util.concurrent.TimeUnit
 /**
  * 仓库持有了 Activity 对象 需要在viewModel里释放 执行onClear() 否则viewModel 会出现暂时性内存泄露
  */
-abstract class BaseRepository() : LifecycleOwnerObserver{
+abstract class BaseRepository() :  DefaultLifecycleObserver {
 
     private var currentRetryCount = 0
 
@@ -39,8 +40,12 @@ abstract class BaseRepository() : LifecycleOwnerObserver{
         private const val waitRetryTime = 3000
     }
 
-    override fun update(owner: LifecycleOwner) {
+    override fun onCreate(owner: LifecycleOwner) {
         this.owner = owner
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        this.owner = null
     }
 
 

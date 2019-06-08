@@ -13,6 +13,4 @@ class PictureViewModel(application: Application) : BaseViewModel(application) {
     override fun onViewModelCreated(owner: LifecycleOwner) {
     }
 
-    override fun notifyOwner(owner: LifecycleOwner) {
-    }
 }

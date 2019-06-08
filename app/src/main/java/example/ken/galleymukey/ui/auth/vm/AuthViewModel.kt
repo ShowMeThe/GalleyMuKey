@@ -24,12 +24,10 @@ class AuthViewModel(application: Application) : BaseViewModel(application){
     val bannerList = MutableLiveData<ArrayList<String>>()
 
 
-    override fun notifyOwner(owner: LifecycleOwner) {
-        repository.update(owner)
-    }
+
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-
+        owner.lifecycle.addObserver(repository)
 
     }
 
