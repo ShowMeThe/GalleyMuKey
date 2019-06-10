@@ -16,6 +16,8 @@ import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.picker.MaterialDateRangePickerDialogFragment
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
+import example.ken.galleymukey.constant.RdenConstant
+import example.ken.galleymukey.ui.auth.LoginActivity
 
 import example.ken.galleymukey.ui.cart.fragment.CartFragment
 import example.ken.galleymukey.ui.cate.fragment.CateFragment
@@ -24,6 +26,7 @@ import example.ken.galleymukey.ui.main.vm.MainViewModel
 import example.ken.galleymukey.ui.mine.ProfileInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
@@ -78,6 +81,12 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
         ivHead.setOnClickListener {
             startActivity(null,ProfileInfoActivity::class.java)
+        }
+
+        llLogout.setOnClickListener {
+            RDEN.put(RdenConstant.hasLogin,false)
+            startActivity(null,LoginActivity::class.java)
+            finishAfterTransition()
         }
 
 

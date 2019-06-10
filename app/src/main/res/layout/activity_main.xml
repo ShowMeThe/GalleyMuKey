@@ -99,14 +99,56 @@
 				android:background="@drawable/shape_circle_bg"
 				android:layout_width="@dimen/px200dp"
 				android:layout_height="@dimen/px200dp" />
-			
-			
+		
+		
 		</RelativeLayout>
 		
 		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			>
+			
+			
+		</LinearLayout>
 		
-	
 		
+		
+		<LinearLayout
+			android:background="@color/colorAccent"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px200dp">
+			
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:id="@+id/llLogout"
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:gravity="center"
+				android:layout_height="match_parent">
+				
+				<ImageView
+					android:src="@mipmap/logout"
+					android:layout_width="@dimen/px75dp"
+					android:layout_height="@dimen/px75dp" />
+				
+				<TextView
+					android:layout_marginStart="@dimen/px20dp"
+					android:text="Logout"
+					android:textColor="@color/colorPrimaryDark"
+					android:textSize="@dimen/px43dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+				
+			
+			</LinearLayout>
+			
+			
+			
+			
+		</LinearLayout>
 	</LinearLayout>
 	
 	
