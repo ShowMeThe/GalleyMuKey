@@ -36,8 +36,12 @@ class SearchUserFragment : LazyFragment<ViewDataBinding, MainViewModel>() {
 
         viewModel.searchContent.observe(this, Observer {
             it?.apply {
-                if(isNotEmpty())
-                viewModel.searchUser(this)
+                if(isNotEmpty()){
+                    viewModel.searchUser(this)
+                }else{
+                    datas.clear()
+                }
+
             }
         })
 

@@ -19,7 +19,7 @@ import showmethe.github.kframework.util.ToastFactory
 
 /**
  * showmethe.github.kframework.base
- * cuvsu
+ * ken
  * 2019/6/8
  **/
 abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragment() {

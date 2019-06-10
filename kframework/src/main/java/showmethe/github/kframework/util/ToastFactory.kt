@@ -78,7 +78,6 @@ object ToastFactory {
                     override fun onAnimationEnd(animation: Animation) {
                         // 隐藏布局，不使用remove方法为防止多次创建多个布局
                         mView.visibility = View.GONE
-                      //  container.removeView(mView)
                     }
 
                     override fun onAnimationRepeat(animation: Animation) {}
@@ -148,7 +147,7 @@ object ToastFactory {
 
     /**
      * 检查通知栏权限有没有开启
-     * 参考SupportCompat包中的： NotificationManagerCompat.from(context).areNotificationsEnabled();
+     *
      */
     fun isNotificationEnabled(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

@@ -2,10 +2,14 @@ package example.ken.galleymukey.ui.cate.fragment
 
 import android.animation.Animator
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -49,6 +53,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
         viewModel.catePopBack.observe(this, Observer {
             it?.apply {
                 if(this){
+                    edSearch.setText("")
                     unRotate()
                 }
             }
@@ -93,9 +98,21 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
         }
 
 
+        edSearch.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.searchContent.value = edSearch.text.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
         edSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.searchContent.value = edSearch.text.toString()
                 KeyBoardUtils.closeKeyboard(context,edSearch)
             }
             false

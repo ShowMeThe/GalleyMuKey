@@ -136,6 +136,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                 viewModel.cateChildManager?.fragments?.apply {
                     if(size > 1){
                         viewModel.catePopBack.value = true
+
                     }else{
                         super.onBackPressed()
                     }
