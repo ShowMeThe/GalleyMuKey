@@ -3,6 +3,7 @@ package example.ken.galleymukey.ui.main.vm
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.CateTagBean
@@ -39,11 +40,16 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val keyword = MutableLiveData<String>()
     val cate = MutableLiveData<ArrayList<CateTagBean>>()
 
-    override fun onViewModelCreated(owner: LifecycleOwner) {
-        owner.lifecycle.addObserver(repository)
-        owner.lifecycle.addObserver(searchRepository)
+
+    override fun addObserver(lifecycle: Lifecycle) {
+        lifecycle.addObserver(repository)
+        lifecycle.addObserver(searchRepository)
     }
 
+    override fun onViewModelCreated(owner: LifecycleOwner) {
+
+
+    }
 
     fun searchUser(name:String){
         searchRepository.searchUser(name,users)

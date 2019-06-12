@@ -1,6 +1,7 @@
 package showmethe.github.kframework.picture
 
 import android.app.Application
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import showmethe.github.kframework.base.BaseViewModel
 
@@ -10,6 +11,12 @@ import showmethe.github.kframework.base.BaseViewModel
  * 2019/4/5
  **/
 class PictureViewModel(application: Application) : BaseViewModel(application) {
+
+    override fun addObserver(lifecycle: Lifecycle) {
+
+
+    }
+
     override fun onViewModelCreated(owner: LifecycleOwner) {
     }
 

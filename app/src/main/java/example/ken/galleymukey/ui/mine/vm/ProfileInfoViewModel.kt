@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui.mine.vm
 
 import android.app.Application
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.UserInfoBean
@@ -14,6 +15,7 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class ProfileInfoViewModel(application: Application) : BaseViewModel(application) {
 
+
     val repository = ProfileRepository()
     val switchToReset = MutableLiveData<Boolean>()
     var currentType = true //true info //false reset
@@ -22,10 +24,14 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
     var bean = MutableLiveData<UserInfoBean>()
     var updateController = MutableLiveData<Boolean>()
 
+
+    override fun addObserver(lifecycle: Lifecycle) {
+        lifecycle.addObserver(repository)
+    }
+
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
     }
-
 
 
 

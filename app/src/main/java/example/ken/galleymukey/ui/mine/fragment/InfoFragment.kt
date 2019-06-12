@@ -59,7 +59,6 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
     override fun init(savedInstanceState: Bundle?) {
         viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
-
     }
 
     override fun initListener() {

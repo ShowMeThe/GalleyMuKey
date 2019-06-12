@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui.auth.vm
 
 import android.app.Application
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.LoginBean
@@ -24,10 +25,11 @@ class AuthViewModel(application: Application) : BaseViewModel(application){
     val bannerList = MutableLiveData<ArrayList<String>>()
 
 
-
+    override fun addObserver(lifecycle: Lifecycle) {
+        lifecycle.addObserver(repository)
+    }
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-        owner.lifecycle.addObserver(repository)
 
     }
 

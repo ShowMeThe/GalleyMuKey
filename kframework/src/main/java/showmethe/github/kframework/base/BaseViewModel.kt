@@ -3,6 +3,7 @@ package showmethe.github.kframework.base
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import showmethe.github.kframework.util.ToastFactory
 
@@ -19,12 +20,15 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     override fun onCreate(owner: LifecycleOwner) {
         this.owner = owner
 
-
+        addObserver(owner.lifecycle)
         onViewModelCreated(owner)
     }
 
+    abstract fun addObserver(lifecycle: Lifecycle)
 
     abstract fun onViewModelCreated(owner: LifecycleOwner)
+
+
 
     fun showToast(message : String){
         ToastFactory.createToast(message)
