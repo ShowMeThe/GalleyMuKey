@@ -76,7 +76,7 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
             }else{
                 //中间态
                 val alpha = Math.abs(verticalOffset.toFloat()/appBarLayout.totalScrollRange.toFloat())
-                ivCover.alpha  = (alpha*1.5).toFloat()
+                ivCover.alpha  = if(alpha<0.25) 0f else (alpha*1.5).toFloat()
             }
         })
 
