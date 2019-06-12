@@ -12,7 +12,7 @@ class RdenConstant {
         val account = "account"
         val hasLogin = "hasLogin"
         val hasAdd = "hasAdd"
-
+        val avatar = "avatar"
 
     }
 

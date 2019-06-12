@@ -8,6 +8,14 @@ package example.ken.galleymukey.source
 
 class Source{
 
+    companion object{
+        private var INSTANT : Source? = null
+
+        fun get() : Source{
+            INSTANT = Source()
+            return   INSTANT!!
+        }
+    }
 
     private val bannerSource =  ArrayList<String>()
     private val userName =  ArrayList<String>()

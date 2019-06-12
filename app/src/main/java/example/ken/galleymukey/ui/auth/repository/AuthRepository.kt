@@ -8,6 +8,7 @@ import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
 import example.ken.galleymukey.source.AppDataBaseCreator
 import example.ken.galleymukey.source.DataSourceBuilder
+import example.ken.galleymukey.source.Source
 import example.ken.galleymukey.source.dto.ImageUrlDto
 import example.ken.galleymukey.source.dto.UserInfoDto
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,7 @@ class AuthRepository : BaseRepository() {
                     val info = UserInfoDto()
                     info.account = it.account
                     info.password = MD5.string2MD5(it.password!!)
+                    info.avatar = Source.get().getBanner()[4]
                     userInfoDao.register(info)
 
                     result.value = true

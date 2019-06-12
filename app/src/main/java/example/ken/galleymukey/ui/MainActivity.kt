@@ -16,6 +16,7 @@ import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.picker.MaterialDateRangePickerDialogFragment
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
+import example.ken.galleymukey.constant.LiveHelperConstant
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.ui.auth.LoginActivity
 
@@ -26,6 +27,8 @@ import example.ken.galleymukey.ui.main.vm.MainViewModel
 import example.ken.galleymukey.ui.mine.ProfileInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.glide.TGlide
+import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
@@ -46,11 +49,20 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         StatusBarUtil.fixToolbarScreen(this,toolbar)
         setContainer()
         setSupportActionBar(bottomBar)
+        TGlide.loadCirclePicture( RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         switchFragment(0)
+    }
 
 
+    override fun isLiveEventBusHere(): Boolean = true
+    override fun onEventComing(helper: LiveBusHelper) {
+        when(helper.code){
+            LiveHelperConstant.onAvatarUpdate ->{
+                TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
+            }
 
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

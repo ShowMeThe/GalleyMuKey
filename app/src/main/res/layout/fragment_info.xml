@@ -173,7 +173,7 @@
 					android:backgroundTint="@color/white"
 					android:layout_marginTop="@dimen/px30dp"
 					android:shadowRadius="3"
-					android:shadowColor="@color/color_9575cd"
+					android:shadowColor="@color/colorPrimaryDark"
 					android:shadowDy="3"
 					android:shadowDx="3"
 					/>

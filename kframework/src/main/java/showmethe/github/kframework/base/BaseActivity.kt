@@ -146,7 +146,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
     }
 
 
-    private fun onEventComing(liveBusHelper: Any?) {
+    open fun onEventComing(helper : LiveBusHelper) {
 
     }
 

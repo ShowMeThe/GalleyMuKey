@@ -8,10 +8,13 @@ import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.databinding.FragmentInfoBinding
 
 import example.ken.galleymukey.ui.mine.vm.ProfileInfoViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_info.*
+import kotlinx.android.synthetic.main.fragment_info.ivHead
 import kotlinx.android.synthetic.main.include_title_bar.*
 import showmethe.github.kframework.base.BaseFragment
 import showmethe.github.kframework.dialog.CalendarDialogFragment
+import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.rden.RDEN
 
 /**
@@ -59,6 +62,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
     override fun init(savedInstanceState: Bundle?) {
         viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
+        TGlide.loadCirclePicture( RDEN.get(RdenConstant.avatar,""),ivHead)
     }
 
     override fun initListener() {

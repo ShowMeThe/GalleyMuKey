@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     val random = Random(System.currentTimeMillis())
     val bannerList = ArrayList<String>()
-    val source = Source()
+    val source = Source.get()
 
     override fun getViewId(): Int = R.layout.activity_splash
 
