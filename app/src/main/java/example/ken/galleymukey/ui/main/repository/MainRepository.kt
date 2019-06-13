@@ -7,12 +7,14 @@ import example.ken.galleymukey.bean.CateTagBean
 import example.ken.galleymukey.bean.HashTagBean
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.GoodsListDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseRepository
+import showmethe.github.kframework.util.rden.RDEN
 
 /**
  * example.ken.galleymukey.ui.main.repository
@@ -27,9 +29,24 @@ class MainRepository : BaseRepository() {
     val goodDao = DataSourceBuilder.getGoodsList()
     val hashTagDao = DataSourceBuilder.getHashTag()
     val cateDao = DataSourceBuilder.getCateDao()
+    val infoDao = DataSourceBuilder.getUserDao()
+
+
+    fun getCustomBg(result :MutableLiveData<String>){
+        infoDao.getCustom(RDEN.get(RdenConstant.account,"")).observe(owner!!, Observer {
+            it?.apply {
+                result.value = it
+            }
+        })
+    }
+
+
+    fun setCustomBg(newBg : String){
+        infoDao.updateCustom(RDEN.get(RdenConstant.account,""),newBg)
+    }
+
 
     fun getHomePhoto(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
-
         GlobalScope.launch (Dispatchers.Main){
             photoDao.getPhotoBean().observe(owner!!, Observer {
                 it?.apply {

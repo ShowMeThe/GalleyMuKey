@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui.main.vm
 
 import android.app.Application
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -40,15 +41,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val keyword = MutableLiveData<String>()
     val cate = MutableLiveData<ArrayList<CateTagBean>>()
 
+    val customBg = MutableLiveData<String>()
 
-    override fun addObserver(lifecycle: Lifecycle) {
-        lifecycle.addObserver(repository)
-        lifecycle.addObserver(searchRepository)
-    }
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-
-
+        repository.owner = owner
     }
 
     fun searchUser(name:String){
@@ -79,6 +76,14 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     fun getCate(keyword: String){
         repository.getCate(keyword,cate)
+    }
+
+    fun getCustomBg(){
+        repository.getCustomBg(customBg)
+    }
+
+    fun setCustomBg(newBg : String){
+        repository.setCustomBg(newBg)
     }
 
 }

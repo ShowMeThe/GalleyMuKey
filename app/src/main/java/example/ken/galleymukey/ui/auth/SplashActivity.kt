@@ -2,6 +2,7 @@ package example.ken.galleymukey.ui.auth
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
@@ -23,7 +24,6 @@ import kotlin.random.Random
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
-
     val random = Random(System.currentTimeMillis())
     val bannerList = ArrayList<String>()
     val source = Source.get()
@@ -33,10 +33,9 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     override fun initViewModel(): AuthViewModel = createViewModel(AuthViewModel::class.java)
 
     override fun onBundle(bundle: Bundle) {
-
-
     }
-
+    override fun addLifecycle(lifecycle: Lifecycle) {
+    }
     override fun observerUI() {
     }
 

@@ -23,18 +23,11 @@ import showmethe.github.kframework.util.system.DateUtil
 import java.io.File
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.Animation
+import androidx.lifecycle.Lifecycle
 import kotlinx.android.synthetic.main.item_hot.*
-
-
-
-
-
-
-
 
 @ParallaxBack
 class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
-
 
     companion object{
         private val storeDir =
@@ -57,7 +50,9 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     override fun getViewId(): Int = R.layout.activity_image_show
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
+    override fun addLifecycle(lifecycle: Lifecycle) {
 
+    }
     override fun onBundle(bundle: Bundle) {
         url = bundle.getString("photo","")
         id = bundle.getInt("id",-1)

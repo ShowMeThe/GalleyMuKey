@@ -2,6 +2,7 @@ package showmethe.github.kframework.base
 
 import androidx.lifecycle.Lifecycle
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout

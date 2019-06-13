@@ -25,15 +25,10 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
     var updateController = MutableLiveData<Boolean>()
 
 
-    override fun addObserver(lifecycle: Lifecycle) {
-        lifecycle.addObserver(repository)
-    }
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
     }
-
-
 
 
     fun updateInfo(){

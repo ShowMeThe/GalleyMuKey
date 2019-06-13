@@ -8,6 +8,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.appbar.AppBarLayout
@@ -24,12 +25,15 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewModel>() {
 
+
     val list = ObservableArrayList<String>()
     var dto : GoodsListDto? = null
 
     override fun getViewId(): Int = R.layout.activity_goods_detail
     override fun initViewModel(): GoodsViewModel =createViewModel(GoodsViewModel::class.java)
+    override fun addLifecycle(lifecycle: Lifecycle) {
 
+    }
     override fun onBundle(bundle: Bundle) {
         dto = bundle.getSerializable("dto") as GoodsListDto?
         val defaultColor = ContextCompat.getColor(context,R.color.color_ff6e00)
@@ -46,7 +50,6 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
             })
         }
     }
-
     override fun observerUI() {
         binding?.apply {
             bean = dto
@@ -70,9 +73,10 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
         appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset == 0) {
                 //展开
+                ivCover.alpha = 1f
             }else if(Math.abs(verticalOffset) >= appBarLayout.totalScrollRange){
                 //折叠
-
+                ivCover.alpha = 0f
             }else{
                 //中间态
                 val alpha = Math.abs(verticalOffset.toFloat()/appBarLayout.totalScrollRange.toFloat())

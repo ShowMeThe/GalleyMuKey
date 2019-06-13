@@ -1,16 +1,16 @@
 package example.ken.galleymukey.ui
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.picker.MaterialDateRangePickerDialogFragment
@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.LiveHelperConstant
 import example.ken.galleymukey.constant.RdenConstant
+import example.ken.galleymukey.dialog.SelectorDialog
 import example.ken.galleymukey.ui.auth.LoginActivity
 
 import example.ken.galleymukey.ui.cart.fragment.CartFragment
@@ -27,12 +28,16 @@ import example.ken.galleymukey.ui.main.vm.MainViewModel
 import example.ken.galleymukey.ui.mine.ProfileInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.glide.DrawableTarget
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
+
+
+    val dialog = SelectorDialog()
 
 
     override fun getViewId(): Int =R.layout.activity_main
@@ -43,15 +48,30 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     override fun observerUI() {
 
+
+        viewModel.customBg.observe(this, Observer {
+            it?.apply {
+                TGlide.load(this,topBg)
+            }
+        })
     }
+
+
+    override fun addLifecycle(lifecycle: Lifecycle) {
+        lifecycle.addObserver(viewModel.repository)
+        lifecycle.addObserver(viewModel.searchRepository)
+    }
+
+
 
     override fun init(savedInstanceState: Bundle?) {
         StatusBarUtil.fixToolbarScreen(this,toolbar)
         setContainer()
         setSupportActionBar(bottomBar)
-        TGlide.loadCirclePicture( RDEN.get(RdenConstant.avatar,""),ivHead)
+        TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         switchFragment(0)
+        viewModel.getCustomBg()
     }
 
 
@@ -101,6 +121,13 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
             finishAfterTransition()
         }
 
+        ivChange.setOnClickListener {
+            dialog.show(supportFragmentManager,"")
+        }
+
+        dialog.setOnTapImageListner {
+            viewModel.setCustomBg(it)
+        }
 
     }
 

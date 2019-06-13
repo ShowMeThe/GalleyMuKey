@@ -25,9 +25,6 @@ class AuthViewModel(application: Application) : BaseViewModel(application){
     val bannerList = MutableLiveData<ArrayList<String>>()
 
 
-    override fun addObserver(lifecycle: Lifecycle) {
-        lifecycle.addObserver(repository)
-    }
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 

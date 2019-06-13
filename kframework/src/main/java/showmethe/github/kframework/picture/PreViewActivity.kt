@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.load.model.GlideUrl
 import kotlinx.android.synthetic.main.activity_pre_view.*
@@ -16,6 +17,7 @@ import showmethe.github.kframework.picture.luban.LubanZip
 import java.io.File
 
 class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
+
 
     companion object {
         val imgPath = "imgPath"
@@ -51,7 +53,8 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
     override fun getViewId(): Int = R.layout.activity_pre_view
 
     override fun initViewModel(): PictureViewModel = createViewModel(PictureViewModel::class.java)
-
+    override fun addLifecycle(lifecycle: Lifecycle) {
+    }
     override fun onBundle(bundle: Bundle) {
         bundle.apply {
             type  = getInt(mode,PictureSelectorActivity.SINGLE)

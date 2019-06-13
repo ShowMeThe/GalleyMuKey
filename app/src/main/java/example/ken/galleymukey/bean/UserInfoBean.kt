@@ -62,6 +62,13 @@ class UserInfoBean : Observable {
             notifyChange(BR.birthday)
         }
 
+    @get:Bindable
+    var customBg = ""
+        set(customBg) {
+            field = customBg
+            notifyChange(BR.customBg)
+        }
+
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
 

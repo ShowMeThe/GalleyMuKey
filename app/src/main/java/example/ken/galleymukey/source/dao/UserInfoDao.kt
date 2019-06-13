@@ -32,6 +32,10 @@ interface UserInfoDao {
     @Query("Update  UserInfoDto set password=:password where  account = :account  ")
     fun updatePassword(account:String,password: String) : Int
 
+    @Query("Update  UserInfoDto set customBg =:customBg where  account = :account  ")
+    fun updateCustom(account:String,customBg: String) :Int
 
 
+    @Query("select customBg from UserInfoDto where  account = :account  ")
+    fun getCustom(account:String) : LiveData<String>
 }

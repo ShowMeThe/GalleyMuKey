@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.R
 import example.ken.galleymukey.ui.cate.fragment.SearchFragment
@@ -21,10 +22,14 @@ import showmethe.github.kframework.base.BaseActivity
 class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>() {
 
 
-
     override fun getViewId(): Int = R.layout.activity_profile_info
     override fun initViewModel(): ProfileInfoViewModel = createViewModel(ProfileInfoViewModel::class.java)
     override fun onBundle(bundle: Bundle) {
+
+    }
+
+    override fun addLifecycle(lifecycle: Lifecycle) {
+       lifecycle.addObserver( viewModel.repository)
     }
 
     override fun observerUI() {

@@ -28,6 +28,10 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import showmethe.github.kframework.dialog.DialogLoading
 import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.util.ToastFactory
@@ -52,14 +56,16 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(getViewId())
 
         binding = DataBindingUtil.setContentView(this, getViewId())
         root = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0)
 
         context = this
-        binding?.setLifecycleOwner(this)
+        binding?.lifecycleOwner = this
         viewModel = initViewModel()
+        addLifecycle(lifecycle)
         lifecycle.addObserver(viewModel)
 
         if(showCreateReveal()){
@@ -83,9 +89,14 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
         }
 
 
-        observerUI()
-        init(savedInstanceState)
-        initListener()
+        GlobalScope.launch (Dispatchers.Main){
+            delay(10)
+            observerUI()
+            init(savedInstanceState)
+            initListener()
+
+        }
+
     }
 
 
@@ -175,11 +186,14 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
 
 
+
     abstract fun getViewId() : Int
 
     abstract fun initViewModel() : VM
 
     abstract fun onBundle(bundle: Bundle)
+
+    abstract fun addLifecycle(lifecycle: Lifecycle)
 
     abstract fun observerUI()
 

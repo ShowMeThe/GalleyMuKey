@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	
+	
+	<LinearLayout
+		android:layout_centerInParent="true"
+		android:orientation="vertical"
+		android:layout_marginStart="@dimen/px150dp"
+		android:layout_marginEnd="@dimen/px150dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		
+		<showmethe.github.kframework.widget.common.BubbleLayout
+			android:layout_width="@dimen/px450dp"
+			android:layout_height="@dimen/px250dp"
+			app:aroundPadding="@dimen/px15dp"
+			app:backgroundColor="@color/colorAccent"
+			android:layout_marginStart="@dimen/px150dp"
+			android:padding="@dimen/px30dp"
+			>
+			<TextView
+				android:layout_gravity="center"
+				android:text="Click double times to change head background image"
+				android:textColor="@color/white"
+				android:textStyle="bold"
+				android:textSize="@dimen/px35dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		
+		</showmethe.github.kframework.widget.common.BubbleLayout>
+		
+		
+		<com.google.android.material.card.MaterialCardView
+			android:id="@+id/cardView"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px1500dp"
+			android:layout_centerInParent="true"
+			app:cardPreventCornerOverlap="true"
+			app:cardCornerRadius="@dimen/px25dp"
+			>
+			<androidx.viewpager2.widget.ViewPager2
+				android:id="@+id/viewPager"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				>
+			</androidx.viewpager2.widget.ViewPager2>
+		</com.google.android.material.card.MaterialCardView>
+	
+	
+	
+	</LinearLayout>
+	
+
+</RelativeLayout>

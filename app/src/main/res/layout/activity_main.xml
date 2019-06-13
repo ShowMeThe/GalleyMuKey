@@ -7,7 +7,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/white"
-	android:fitsSystemWindows="true"
 	>
 	
 	<androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -90,7 +89,12 @@
 		<RelativeLayout
 			android:background="@color/colorPrimary"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px650dp">
+			android:layout_height="@dimen/px750dp">
+			
+			<ImageView
+				android:id="@+id/topBg"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
 			
 			<ImageView
 				android:id="@+id/ivHead"
@@ -100,6 +104,15 @@
 				android:layout_width="@dimen/px200dp"
 				android:layout_height="@dimen/px200dp" />
 		
+			<ImageView
+				android:id="@+id/ivChange"
+				android:src="@mipmap/part"
+				android:layout_margin="@dimen/px30dp"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentEnd="true"
+				android:layout_width="@dimen/px55dp"
+				android:layout_height="@dimen/px55dp" />
+			
 		
 		</RelativeLayout>
 		

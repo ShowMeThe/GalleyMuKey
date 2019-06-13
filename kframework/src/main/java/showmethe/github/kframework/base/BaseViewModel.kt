@@ -20,11 +20,9 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     override fun onCreate(owner: LifecycleOwner) {
         this.owner = owner
 
-        addObserver(owner.lifecycle)
+
         onViewModelCreated(owner)
     }
-
-    abstract fun addObserver(lifecycle: Lifecycle)
 
     abstract fun onViewModelCreated(owner: LifecycleOwner)
 

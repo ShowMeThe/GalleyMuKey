@@ -82,10 +82,11 @@ abstract class DataBindBaseAdapter<D, V : ViewDataBinding>(var context: Context,
         bindItems(holder.binding, data[position], position)
     }
 
+    abstract fun getItemLayout() : Int
 
     abstract fun bindItems(binding: V?, item: D, position: Int)
 
-    abstract fun getItemLayout() : Int
+
 
     fun inflateItemView(viewGroup: ViewGroup, layoutId: Int): View {
         return LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)

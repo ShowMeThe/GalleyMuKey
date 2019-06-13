@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
@@ -63,11 +64,14 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
     override fun initViewModel(): PictureViewModel = createViewModel(PictureViewModel::class.java)
 
     override fun onBundle(bundle: Bundle) {
-    }
 
+    }
+    override fun addLifecycle(lifecycle: Lifecycle) {
+
+    }
     override fun observerUI() {
-    }
 
+    }
     override fun init(savedInstanceState: Bundle?) {
         initAdapter()
         CheckPermission()

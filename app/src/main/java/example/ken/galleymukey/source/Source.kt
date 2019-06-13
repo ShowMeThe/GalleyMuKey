@@ -12,7 +12,9 @@ class Source{
         private var INSTANT : Source? = null
 
         fun get() : Source{
-            INSTANT = Source()
+            if(INSTANT == null){
+                INSTANT = Source()
+            }
             return   INSTANT!!
         }
     }

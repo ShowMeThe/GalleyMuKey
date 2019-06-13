@@ -40,7 +40,7 @@ object StatusBarUtil {
 
 
     fun fixToolbarScreen(activity: Activity, toolbar: Toolbar) {
-        StatusBarUtil.setFullScreen(activity)
+        setFullScreen(activity)
         val params = toolbar.layoutParams
         params.height = (getStatusBarHeight(activity) * 1).toInt()
         toolbar.layoutParams = params
@@ -67,16 +67,13 @@ object StatusBarUtil {
 
 
     private fun setScreen(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window = activity.window
-            val decorView = window.decorView
-            //两个 flag 要结合使用，表示让应用的主体内容占用系统状态栏的空间
-            val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            decorView.systemUiVisibility = option
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.TRANSPARENT
-        }
-
+        val window = activity.window
+        val decorView = window.decorView
+        //两个 flag 要结合使用，表示让应用的主体内容占用系统状态栏的空间
+        val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        decorView.systemUiVisibility = option
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.TRANSPARENT
     }
 
 

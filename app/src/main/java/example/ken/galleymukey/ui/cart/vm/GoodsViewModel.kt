@@ -11,9 +11,7 @@ import showmethe.github.kframework.base.BaseViewModel
  * 2019/5/27
  **/
 class GoodsViewModel(application: Application) : BaseViewModel(application) {
-    override fun addObserver(lifecycle: Lifecycle) {
 
-    }
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 

@@ -18,6 +18,7 @@ import android.view.ViewAnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
@@ -45,6 +46,10 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     override fun onBundle(bundle: Bundle) {
 
+    }
+
+    override fun addLifecycle(lifecycle: Lifecycle) {
+        lifecycle.addObserver(viewModel.repository)
     }
 
     override fun observerUI() {

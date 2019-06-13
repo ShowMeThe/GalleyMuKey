@@ -12,10 +12,6 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class PictureViewModel(application: Application) : BaseViewModel(application) {
 
-    override fun addObserver(lifecycle: Lifecycle) {
-
-
-    }
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
     }

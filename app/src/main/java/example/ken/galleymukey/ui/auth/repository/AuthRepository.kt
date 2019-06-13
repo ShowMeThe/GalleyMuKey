@@ -36,6 +36,7 @@ class AuthRepository : BaseRepository() {
                     info.account = it.account
                     info.password = MD5.string2MD5(it.password!!)
                     info.avatar = Source.get().getBanner()[4]
+                    info.customBg = Source.get().getBanner()[4]
                     userInfoDao.register(info)
 
                     result.value = true
