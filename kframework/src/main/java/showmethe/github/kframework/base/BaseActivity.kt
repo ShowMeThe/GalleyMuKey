@@ -85,7 +85,11 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
 
         if (isLiveEventBusHere()) {
-            LiveEventBus.get().with("LiveData", LiveBusHelper::class.java).observeForever(observer)
+            LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).observe(this, Observer {
+                it?.apply {
+                    onEventComing(this)
+                }
+            })
         }
 
 
@@ -133,12 +137,12 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
 
     open fun sendEvent(helper: LiveBusHelper) {
-        LiveEventBus.get().with("LiveData").postValue(helper)
+        LiveEventBus.get().with("LiveData").post(helper)
     }
 
 
-    open fun sendEventDelay(helper: LiveBusHelper, delay: Long, unit: TimeUnit) {
-        LiveEventBus.get().with("LiveData").postValueDelay(helper, delay, unit)
+    open fun sendEventDelay(helper: LiveBusHelper, delay: Long) {
+        LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).postDelay(helper, delay)
     }
 
 
