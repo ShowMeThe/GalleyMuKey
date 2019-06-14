@@ -25,6 +25,7 @@ import example.ken.galleymukey.bean.RegisterBean
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.dialog.SignUpDialog
 import example.ken.galleymukey.ui.MainActivity
+import showmethe.github.kframework.util.ClipboardUtil
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.system.KeyBoardUtils
 import java.util.concurrent.ThreadLocalRandom
@@ -49,7 +50,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     override fun addLifecycle(lifecycle: Lifecycle) {
-        lifecycle.addObserver(viewModel.repository)
+        viewModel.repository.init(this)
     }
 
     override fun observerUI() {
@@ -157,9 +158,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             .setTextColor(ContextCompat.getColor(context,R.color.white))
             .setActionTextColor(ContextCompat.getColor(context,R.color.white))
             .setAction("copy") {
-            val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager;
-            val clipData = ClipData.newPlainText("text","${num}")
-            clipboard.primaryClip = clipData
+            ClipboardUtil.copyTextToClipboard(context,"${num}")
             showToast("Copy successfully")
             snackbar!!.dismiss()
         }

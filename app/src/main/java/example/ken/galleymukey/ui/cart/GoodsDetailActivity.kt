@@ -64,7 +64,7 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
             executePendingBindings()
             banner.addList(dto!!.imageList!!)
             banner.setOnImageLoader { url, imageView ->
-                TGlide.loadNoCrop(url, imageView)
+                TGlide.load(url, imageView)
             }
             banner.play()
         }

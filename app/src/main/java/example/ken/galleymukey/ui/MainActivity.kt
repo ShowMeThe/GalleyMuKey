@@ -58,8 +58,8 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     override fun addLifecycle(lifecycle: Lifecycle) {
-        lifecycle.addObserver(viewModel.repository)
-        lifecycle.addObserver(viewModel.searchRepository)
+        viewModel.repository.init(this)
+        viewModel.searchRepository.init(this)
     }
 
 
@@ -74,7 +74,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         switchFragment(0)
-        viewModel.getCustomBg()
+      //  viewModel.getCustomBg()
     }
 
 

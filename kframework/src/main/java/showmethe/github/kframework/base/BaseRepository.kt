@@ -33,22 +33,27 @@ abstract class BaseRepository() :  DefaultLifecycleObserver {
 
     private var currentRetryCount = 0
 
-    var owner:LifecycleOwner? = null
-    var refresh : WeakReference<SwipeRefreshLayout>? = null
+    private  var owner:LifecycleOwner? = null
+    private  var refresh : WeakReference<SwipeRefreshLayout>? = null
 
     companion object {
         private const val maxConnectCount = 15
         private const val waitRetryTime = 3000
     }
 
+
     override fun onCreate(owner: LifecycleOwner) {
         this.owner = owner
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        this.owner = null
+        onClear()
     }
 
+    fun init(owner: LifecycleOwner){
+        this.owner = owner
+        owner.lifecycle.addObserver(this)
+    }
 
     open fun initRefresh(refresh : SwipeRefreshLayout){
         if(this.refresh == null){
@@ -65,8 +70,6 @@ abstract class BaseRepository() :  DefaultLifecycleObserver {
     }
 
 
-
-
         fun showToast(message: String) {
             ToastFactory.createToast(message)
         }
@@ -79,7 +82,6 @@ abstract class BaseRepository() :  DefaultLifecycleObserver {
         fun <T> applySchedulers(event: Lifecycle.Event = Lifecycle.Event.ON_STOP): ObservableTransformer<T, T> {
             val provider : LifecycleProvider<Lifecycle.Event> =
                 AndroidLifecycle.createLifecycleProvider(owner)
-
             return ObservableTransformer {
                 it.retryWhen { throwableObservable ->
                     throwableObservable.flatMap { throwable ->
@@ -118,12 +120,12 @@ abstract class BaseRepository() :  DefaultLifecycleObserver {
         /**
          * 适当使用避免造成内存泄漏
          */
-        fun onClear() {
-
+        private fun onClear() {
             if(refresh!=null){
                 refresh = null
             }
             if(owner!=null){
+                owner?.lifecycle?.removeObserver(this)
                 owner = null
             }
         }

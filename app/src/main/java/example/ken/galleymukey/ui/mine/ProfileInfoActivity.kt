@@ -29,7 +29,7 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
     }
 
     override fun addLifecycle(lifecycle: Lifecycle) {
-       lifecycle.addObserver( viewModel.repository)
+        viewModel.repository.init(this)
     }
 
     override fun observerUI() {
