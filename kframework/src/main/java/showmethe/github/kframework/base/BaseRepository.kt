@@ -33,7 +33,7 @@ abstract class BaseRepository() :  DefaultLifecycleObserver {
 
     private var currentRetryCount = 0
 
-    private  var owner:LifecycleOwner? = null
+    var owner:LifecycleOwner? = null
     private  var refresh : WeakReference<SwipeRefreshLayout>? = null
 
     companion object {
