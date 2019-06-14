@@ -37,7 +37,7 @@ class SelectorDialog : DialogFragment() {
         val view = View.inflate(mContext, R.layout.dialog_selector_img, null)
 
         dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(true)
+        dialog.setCanceledOnTouchOutside(false)
 
 
         if (dialog.window != null) {
@@ -45,7 +45,7 @@ class SelectorDialog : DialogFragment() {
             val dm = DisplayMetrics()
             window?.apply {
                 windowManager.defaultDisplay.getMetrics(dm)
-                setLayout(dm.widthPixels, window.attributes.height)
+                setLayout(dm.widthPixels, dm.heightPixels)
                 setBackgroundDrawable(ColorDrawable(0x00000000))
                 setGravity(Gravity.CENTER)
                 setWindowAnimations(R.style.LeftRightAnim)
@@ -72,7 +72,9 @@ class SelectorDialog : DialogFragment() {
             adapter.setOnTapImageListner {
                 onTapImageListener?.invoke(it)
             }
-
+            ivBack.setOnClickListener {
+                dialog.dismiss()
+            }
 
         }
 

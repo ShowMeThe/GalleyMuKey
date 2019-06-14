@@ -28,7 +28,7 @@ class SelectorAdapter(context: Context, data: ObservableArrayList<String>) :
             val mGestureDetector = GestureDetector(context,object : GestureDetector.SimpleOnGestureListener(){
                 override fun onDoubleTap(e: MotionEvent?): Boolean {
                     onTapImageListener?.invoke(item)
-                   return false
+                    return false
                 }
             })
             ivImg.setOnTouchListener { v, event ->

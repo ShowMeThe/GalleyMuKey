@@ -51,20 +51,23 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
         }
     }
     override fun observerUI() {
+
+    }
+
+    override fun setTheme() {
+        StatusBarUtil.setFullScreen(this)
+    }
+
+    override fun init(savedInstanceState: Bundle?) {
         binding?.apply {
             bean = dto
+            executePendingBindings()
             banner.addList(dto!!.imageList!!)
             banner.setOnImageLoader { url, imageView ->
                 TGlide.loadNoCrop(url, imageView)
             }
             banner.play()
-            executePendingBindings()
         }
-    }
-
-    override fun init(savedInstanceState: Bundle?) {
-        StatusBarUtil.setFullScreen(this)
-
 
     }
 
@@ -73,10 +76,10 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
         appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset == 0) {
                 //展开
-                ivCover.alpha = 1f
+                ivCover.alpha = 0f
             }else if(Math.abs(verticalOffset) >= appBarLayout.totalScrollRange){
                 //折叠
-                ivCover.alpha = 0f
+                ivCover.alpha = 1f
             }else{
                 //中间态
                 val alpha = Math.abs(verticalOffset.toFloat()/appBarLayout.totalScrollRange.toFloat())

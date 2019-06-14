@@ -63,9 +63,12 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     }
 
 
+    override fun setTheme() {
+        StatusBarUtil.fixToolbarScreen(this,toolbar)
+    }
 
     override fun init(savedInstanceState: Bundle?) {
-        StatusBarUtil.fixToolbarScreen(this,toolbar)
+
         setContainer()
         setSupportActionBar(bottomBar)
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
@@ -199,7 +202,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     var fragments: List<Fragment>? = null
-    private fun replaceFragment(tag: String) {
+    private fun replaceFragment(tag: String,id : Int = R.id.frameLayout) {
         var tempFragment = supportFragmentManager.findFragmentByTag(tag)
         val transaction = supportFragmentManager.beginTransaction()
         if (tempFragment == null) {
@@ -210,7 +213,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                     R.anim.slide_left_in,
                     R.anim.slide_right_out)
 
-                transaction.add(R.id.frameLayout, tempFragment, tag)
+                transaction.add(id, tempFragment, tag)
                     .setMaxLifecycle(tempFragment, Lifecycle.State.RESUMED);
 
             } catch (e: Exception) {

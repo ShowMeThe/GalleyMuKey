@@ -92,9 +92,9 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
             })
         }
 
-
+        setTheme()
         GlobalScope.launch (Dispatchers.Main){
-            delay(10)
+            delay(5)
             observerUI()
             init(savedInstanceState)
             initListener()
@@ -188,8 +188,8 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
     }
 
 
-
-
+    open fun setTheme(){
+    }
 
     abstract fun getViewId() : Int
 
