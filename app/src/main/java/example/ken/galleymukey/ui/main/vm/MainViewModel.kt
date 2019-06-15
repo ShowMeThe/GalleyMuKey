@@ -45,8 +45,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-        repository.owner = owner
+
     }
+
+    fun addComment(id:Int,commemnt:String){
+        repository.addComment(id,commemnt)
+    }
+
 
     fun searchUser(name:String){
         searchRepository.searchUser(name,users)

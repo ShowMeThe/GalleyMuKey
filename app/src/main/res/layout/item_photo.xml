@@ -115,9 +115,16 @@
 			
 			
 			<TextView
+				android:id="@+id/tvSee"
+				android:text="See comment"
+				android:textColor="@color/colorPrimaryDark"
+				android:layout_marginTop="@dimen/px30dp"
+				android:layout_marginStart="@dimen/px30dp"
+				android:layout_marginBottom="@dimen/px40dp"
+				android:layout_alignParentStart="true"
 				android:layout_below="@+id/like"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/px200dp" />
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
 			
 			<View style="@style/line_ffab91"
 				android:layout_alignParentBottom="true"

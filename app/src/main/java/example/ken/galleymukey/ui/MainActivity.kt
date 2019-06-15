@@ -140,6 +140,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
             startActivity(bundle,LikeActivity::class.java,it,"title")
         }
 
+
     }
 
 

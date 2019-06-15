@@ -62,16 +62,25 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
                 like.setLike( item.like,true)
                 onLikeClick?.invoke(item.id,item.like)
             }
+
+            tvSee.setOnClickListener {
+                onCommentClick?.invoke(position)
+            }
         }
     }
 
-    var onLikeClick: ((id: Int, like:Boolean)->Unit)? = null
+    private  var onLikeClick: ((id: Int, like:Boolean)->Unit)? = null
 
     fun setOnLikeClickListener(onLikeClick: ((id: Int, like:Boolean)->Unit)){
         this.onLikeClick = onLikeClick
     }
 
 
+    private  var onCommentClick: ((position: Int)->Unit)? = null
+
+    fun setOnCommentClickListener(onCommentClick: ((position: Int)->Unit)){
+        this.onCommentClick = onCommentClick
+    }
 
 
     override fun getItemLayout(): Int = R.layout.item_photo

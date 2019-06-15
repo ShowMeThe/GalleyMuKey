@@ -52,14 +52,14 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
                 list.addAll(this)
             }
         })
+
+
+
     }
-
-
 
 
     override fun init(savedInstanceState: Bundle?) {
         refresh.setColorSchemeResources(R.color.colorPrimaryDark)
-
 
 
         adapter = PhotoAdapter(context,list)
@@ -79,6 +79,10 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
         adapter.setOnLikeClickListener { id, like ->
             viewModel.setLike(id, like)
+        }
+
+        adapter.setOnCommentClickListener {
+
         }
 
     }

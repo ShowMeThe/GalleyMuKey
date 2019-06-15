@@ -5,6 +5,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.adapters.ImageViewBindingAdapter
 import androidx.databinding.adapters.LinearLayoutBindingAdapter
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.dialog.AddCommentDialog
 import example.ken.galleymukey.source.Source
 import example.ken.galleymukey.ui.main.adapter.ImageShowAdapter
 import example.ken.galleymukey.ui.main.adapter.LikeListAdapter
@@ -24,8 +26,10 @@ import showmethe.github.kframework.widget.transformer.CardStackTransformer
 
 class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
+    var dialog:AddCommentDialog? = null
     val list = ObservableArrayList<PhotoWallBean>()
     lateinit var adapter : LikeListAdapter
+
     override fun getViewId(): Int =R.layout.activity_like
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
 
@@ -64,7 +68,28 @@ class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     override fun initListener() {
 
+
+        adapter.setOnAddCommentListener {
+            showCommentDialog(supportFragmentManager,it)
+        }
+
+
+
     }
 
+
+    fun showCommentDialog(fragmentManager: FragmentManager, position: Int){
+        if( dialog == null){
+            dialog = AddCommentDialog()
+        }
+        val bundle = Bundle()
+        bundle.putInt("position",position)
+        dialog?.arguments = bundle
+        dialog?.show(supportFragmentManager,"")
+        dialog?.setOnAddCommentListner { pos, comment ->
+            viewModel.addComment(list[pos].id,comment)
+            dialog?.dismiss()
+        }
+    }
 
 }

@@ -9,6 +9,7 @@ import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
+import example.ken.galleymukey.source.dto.CommentDto
 import example.ken.galleymukey.source.dto.GoodsListDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,7 +31,13 @@ class MainRepository : BaseRepository() {
     val hashTagDao = DataSourceBuilder.getHashTag()
     val cateDao = DataSourceBuilder.getCateDao()
     val infoDao = DataSourceBuilder.getUserDao()
+    val comDao = DataSourceBuilder.getCommentDao()
 
+
+    fun addComment(id:Int,commemnt:String){
+       comDao.addComment(CommentDto(id,commemnt))
+        showToast("Add Successfully")
+    }
 
     fun getCustomBg(result :MutableLiveData<String>){
         infoDao.getCustom(RDEN.get(RdenConstant.account,"")).observe(owner!!, Observer {
@@ -57,6 +64,7 @@ class MainRepository : BaseRepository() {
                     bean.avatar = dto.avatar
                     bean.username = dto.username
                     bean.like = dto.like
+                    bean.count = dto.count
                     list.add(bean)
                 }
                 bean.value = list

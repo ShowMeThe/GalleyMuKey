@@ -68,6 +68,7 @@
 				android:layout_height="wrap_content" />
 			
 			<TextView
+				android:id="@+id/tvComment"
 				android:text="Add Comment"
 				android:textColor="@color/white"
 				android:layout_below="@+id/ivAvatar"

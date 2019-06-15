@@ -28,6 +28,20 @@ class LikeListAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>
             banner.play()
             bean  = item
             executePendingBindings()
+
+            tvComment.setOnClickListener {
+                onAddComment?.invoke(position)
+            }
+
         }
     }
+
+
+    private var onAddComment : ((position : Int )->Unit)?  = null
+
+    fun setOnAddCommentListener(onAddComment : ((position : Int )->Unit)){
+        this.onAddComment = onAddComment
+    }
+
+
 }

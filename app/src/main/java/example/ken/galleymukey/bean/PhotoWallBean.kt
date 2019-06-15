@@ -34,6 +34,13 @@ class PhotoWallBean : Observable {
             notifyChange(BR.username)
         }
 
+    @get:Bindable
+    var count : Int = 0
+        set(count) {
+            field = count
+            notifyChange(BR.count)
+        }
+
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
 

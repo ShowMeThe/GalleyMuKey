@@ -36,7 +36,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     val dialog by lazy {  LoginDialog() }
     val signUpDialog by lazy { SignUpDialog() }
 
-    val random = ThreadLocalRandom.current();
+    val random = ThreadLocalRandom.current()
     var snackbar : Snackbar? = null
     var num = 0
 

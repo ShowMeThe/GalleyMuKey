@@ -38,4 +38,8 @@ interface PhotoWallDao {
 
     @Query("select  * from PhotoWallDto where `like` = :value ")
     fun findAllLike(value: Boolean) : LiveData<List<PhotoWallDto>>
+
+    @Query("update   PhotoWallDto set count = count+1 where id = :id ")
+    fun addCountNumber(id: Int)
+
 }

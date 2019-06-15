@@ -20,5 +20,5 @@ class PhotoWallDto {
     var avatar : String? = null
     var username : String? = null
     var like  : Boolean = false
-
+    var count  : Int = 0
 }

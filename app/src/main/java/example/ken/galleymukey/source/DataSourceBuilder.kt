@@ -54,6 +54,10 @@ class DataSourceBuilder {
             return creator.getCateDao()
         }
 
+        fun getCommentDao() : CommentDao{
+            return creator.getCommentDao()
+        }
+
     }
 
 }
