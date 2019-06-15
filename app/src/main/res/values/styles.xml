@@ -42,6 +42,20 @@
         <item name="android:statusBarColor">@color/transparent</item>
     </style>
     
+   <!-- CardView-->
+    <style name="CutCardViewTheme" parent="MaterialTheme">
+        <item name="materialCardViewStyle">@style/CutCardViewStyle</item>
+    </style>
+    
+    <style name="CutCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/MediumComponent</item>
+    </style>
+    <style name="MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+    
+    
     <!--popMenu的Style-->
     <style name="popMenu" parent="@android:style/Widget.PopupMenu">
         <item name="android:popupBackground">@color/white</item><!-- popMenu的背景色-->

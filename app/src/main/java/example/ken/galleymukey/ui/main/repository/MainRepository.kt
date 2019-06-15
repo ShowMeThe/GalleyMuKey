@@ -47,43 +47,57 @@ class MainRepository : BaseRepository() {
 
 
     fun getHomePhoto(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
-        GlobalScope.launch (Dispatchers.Main){
-            photoDao.getPhotoBean().observe(owner!!, Observer {
-                it?.apply {
-                    val list = ArrayList<PhotoWallBean>()
-                    for(dto  in this){
-                        val bean = PhotoWallBean()
-                        bean.id = dto.id
-                        bean.imagePaths = dto.imageTop
-                        bean.avatar = dto.avatar
-                        bean.username = dto.username
-                        bean.like = dto.like
-                        list.add(bean)
-                    }
-                    bean.value = list
-
-
+        photoDao.getPhotoBean().observe(owner!!, Observer {
+            it?.apply {
+                val list = ArrayList<PhotoWallBean>()
+                for(dto  in this){
+                    val bean = PhotoWallBean()
+                    bean.id = dto.id
+                    bean.imagePaths = dto.imageTop
+                    bean.avatar = dto.avatar
+                    bean.username = dto.username
+                    bean.like = dto.like
+                    list.add(bean)
                 }
-            })
-        }
+                bean.value = list
+
+
+            }
+        })
+    }
+
+    fun findLikeAll(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
+        photoDao.findAllLike(true).observe(owner!!, Observer {
+            it?.apply {
+                val list = ArrayList<PhotoWallBean>()
+                for(dto  in this){
+                    val bean = PhotoWallBean()
+                    bean.id = dto.id
+                    bean.imagePaths = dto.imageTop
+                    bean.avatar = dto.avatar
+                    bean.username = dto.username
+                    bean.like = dto.like
+                    list.add(bean)
+                }
+                bean.value = list
+            }
+        })
     }
 
 
     fun getHotWall(bean  : MutableLiveData<ArrayList<HotWallBean>>){
 
-        GlobalScope.launch (Dispatchers.Main){
-            hotDto.getHotBeanList().observe(owner!!, Observer {
+        hotDto.getHotBeanList().observe(owner!!, Observer {
 
-                it?.apply {
-                    val list = ArrayList<HotWallBean>()
-                    for(beans in this){
-                        val hot = HotWallBean(beans.imageTop,beans.imageBottom,beans.type)
-                        list.add(hot)
-                    }
-                    bean.value = list
+            it?.apply {
+                val list = ArrayList<HotWallBean>()
+                for(beans in this){
+                    val hot = HotWallBean(beans.imageTop,beans.imageBottom,beans.type)
+                    list.add(hot)
                 }
-            })
-        }
+                bean.value = list
+            }
+        })
     }
 
     fun setLike(id :Int,like: Boolean){
@@ -94,14 +108,11 @@ class MainRepository : BaseRepository() {
 
     fun getGoodsList(first:Int,bean: MutableLiveData<List<GoodsListDto>>){
 
-        GlobalScope.launch (Dispatchers.Main){
-            goodDao.findFStAll(first).observe(owner!!, Observer {
-                it?.apply {
-                    bean.value = this
-                }
-            })
-
-        }
+        goodDao.findFStAll(first).observe(owner!!, Observer {
+            it?.apply {
+                bean.value = this
+            }
+        })
     }
 
     fun getHashTag(beans : MutableLiveData<ArrayList<HashTagBean>>){

@@ -86,4 +86,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         repository.setCustomBg(newBg)
     }
 
+    fun findAllLike(){
+        repository.findLikeAll(bean)
+    }
+
 }

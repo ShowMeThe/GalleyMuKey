@@ -31,9 +31,11 @@ object CreateDrawable {
             CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,radius)
         }
         shapeAppearanceModel.setTopLeftCorner(family,radius)
-        val drawable = MaterialShapeDrawable(shapeAppearanceModel)
+        val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,10f)
+        drawable.shapeAppearanceModel = shapeAppearanceModel
         drawable.fillColor = ContextCompat.getColorStateList(context, color)
         return  drawable
     }
+
 
 }

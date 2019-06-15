@@ -10,11 +10,12 @@ import android.view.View
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import example.ken.galleymukey.R
 import example.ken.galleymukey.dialog.adapter.SelectorAdapter
 import example.ken.galleymukey.source.Source
 import kotlinx.android.synthetic.main.dialog_selector_img.view.*
-import showmethe.github.kframework.widget.transformer.CardStackTransformer
+import showmethe.github.kframework.widget.transformer.CardRotateStackTransformer
 
 /**
  * example.ken.galleymukey.dialog
@@ -65,9 +66,9 @@ class SelectorDialog : DialogFragment() {
 
             adapter = SelectorAdapter(context,list)
             viewPager.adapter = adapter
-            viewPager.orientation = RecyclerView.HORIZONTAL
+            viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             viewPager.offscreenPageLimit = 4
-            viewPager.setPageTransformer(CardStackTransformer())
+            viewPager.setPageTransformer(CardRotateStackTransformer())
 
             adapter.setOnTapImageListner {
                 onTapImageListener?.invoke(it)

@@ -11,6 +11,7 @@ import example.ken.galleymukey.source.dto.*
 
 import example.ken.galleymukey.ui.auth.vm.AuthViewModel
 import example.ken.galleymukey.ui.MainActivity
+import example.ken.galleymukey.ui.main.LikeActivity
 import kotlinx.android.synthetic.main.activity_image_show.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -55,13 +56,13 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             }
 
             delay(3000)
-
-              if(!RDEN.get(RdenConstant.hasLogin,false)){
+            startActivity(null,LikeActivity::class.java)
+            /*  if(!RDEN.get(RdenConstant.hasLogin,false)){
                   startActivity(null,LoginActivity::class.java)
 
             }else{
                   startActivity(null, MainActivity::class.java)
-            }
+            }*/
             finish()
         }
 

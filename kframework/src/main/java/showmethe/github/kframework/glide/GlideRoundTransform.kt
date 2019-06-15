@@ -14,9 +14,7 @@ import java.security.MessageDigest
  * Date : 2018/7/2
  * Time : 16:52
  */
-class GlideRoundTransform constructor(dp  : Int)  : BitmapTransformation() {
-
-    constructor() : this(4)
+class GlideRoundTransform @JvmOverloads constructor(dp  : Int = 4)  : BitmapTransformation() {
 
 
     init {

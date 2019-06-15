@@ -1,6 +1,7 @@
 package example.ken.galleymukey.source.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import example.ken.galleymukey.source.dto.ImageUrlDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
@@ -33,4 +34,8 @@ interface PhotoWallDao {
 
     @Query("select  *  from PhotoWallDto where username   like '%'|| :name  || '%' ")
     fun findUser(name:String) : LiveData<List<PhotoWallDto>>
+
+
+    @Query("select  * from PhotoWallDto where `like` = :value ")
+    fun findAllLike(value: Boolean) : LiveData<List<PhotoWallDto>>
 }

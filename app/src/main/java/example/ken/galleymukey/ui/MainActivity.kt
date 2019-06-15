@@ -23,10 +23,12 @@ import example.ken.galleymukey.ui.auth.LoginActivity
 
 import example.ken.galleymukey.ui.cart.fragment.CartFragment
 import example.ken.galleymukey.ui.cate.fragment.CateFragment
+import example.ken.galleymukey.ui.main.LikeActivity
 import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import example.ken.galleymukey.ui.mine.ProfileInfoActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.include_drawer_item.*
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.DrawableTarget
 import showmethe.github.kframework.glide.TGlide
@@ -74,7 +76,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         switchFragment(0)
-      //  viewModel.getCustomBg()
+        viewModel.getCustomBg()
     }
 
 
@@ -130,6 +132,12 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
         dialog.setOnTapImageListner {
             viewModel.setCustomBg(it)
+        }
+
+        tvAddLike.setOnClickListener {
+            val bundle  = Bundle()
+            bundle.putString("title",tvAddLike.text.toString())
+            startActivity(bundle,LikeActivity::class.java,it,"title")
         }
 
     }
