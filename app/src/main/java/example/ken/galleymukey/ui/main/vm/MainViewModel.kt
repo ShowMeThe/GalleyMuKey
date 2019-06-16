@@ -11,6 +11,7 @@ import example.ken.galleymukey.bean.CateTagBean
 import example.ken.galleymukey.bean.HashTagBean
 import example.ken.galleymukey.bean.HotWallBean
 import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.source.dto.CommentDto
 import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.source.dto.HashTagDto
 import example.ken.galleymukey.source.dto.PhotoWallDto
@@ -43,9 +44,14 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     val customBg = MutableLiveData<String>()
 
+    val commtList = MutableLiveData<List<CommentDto>>()
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
+    }
+
+    fun getCommentById(id:Int){
+        repository.getCommentById(id,commtList)
     }
 
     fun addComment(id:Int,commemnt:String){

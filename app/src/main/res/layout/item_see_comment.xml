@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	<data>
+		<variable
+			name="Bean"
+			type="example.ken.galleymukey.source.dto.CommentDto" />
+	</data>
+	
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<ImageView
+			android:id="@+id/ivAvatar"
+			android:layout_margin="@dimen/px30dp"
+			android:background="@drawable/shape_circle_bg"
+			android:layout_width="@dimen/px150dp"
+			android:layout_height="@dimen/px150dp"/>
+		
+		<TextView
+			android:id="@+id/tvName"
+			android:textColor="@color/colorPrimaryDark"
+			android:layout_toEndOf="@+id/ivAvatar"
+			android:layout_alignTop="@+id/ivAvatar"
+			android:layout_marginStart="@dimen/px30dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		
+		<TextView
+			android:id="@+id/tvComment"
+			android:text="@{Bean.comment}"
+			android:textSize="@dimen/px47dp"
+			android:textColor="@color/colorPrimaryDark"
+			android:layout_below="@+id/ivAvatar"
+			android:layout_margin="@dimen/px30dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+	
+	</RelativeLayout>
+</layout>

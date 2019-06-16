@@ -34,6 +34,15 @@ class MainRepository : BaseRepository() {
     val comDao = DataSourceBuilder.getCommentDao()
 
 
+    fun getCommentById(id:Int,result: MutableLiveData<List<CommentDto>>){
+        comDao.findCommentById(id).observe(owner!!, Observer {
+            it?.apply {
+                result.value = this
+            }
+        })
+    }
+
+
     fun addComment(id:Int,commemnt:String){
        comDao.addComment(CommentDto(id,commemnt))
         showToast("Add Successfully")

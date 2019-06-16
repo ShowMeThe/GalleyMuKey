@@ -21,8 +21,7 @@ import kotlinx.android.synthetic.main.fragment_galley.*
 import kotlinx.android.synthetic.main.fragment_photo.*
 import showmethe.github.kframework.base.BaseFragment
 import androidx.appcompat.app.AppCompatActivity
-
-
+import example.ken.galleymukey.dialog.SeeCommentDialog
 
 
 /**
@@ -36,6 +35,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
 
     val list = ObservableArrayList<PhotoWallBean>()
     lateinit var adapter : PhotoAdapter
+    val dialog  = SeeCommentDialog()
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_photo
 
@@ -52,7 +52,13 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
                 list.addAll(this)
             }
         })
-
+        viewModel.commtList.observe(this, Observer {
+            it?.apply {
+                dialog.list.clear()
+                dialog.list.addAll(this)
+                dialog.show(childFragmentManager,"dialog")
+            }
+        })
 
 
     }
@@ -82,7 +88,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
         }
 
         adapter.setOnCommentClickListener {
-
+            viewModel.getCommentById(list[it].id)
         }
 
     }

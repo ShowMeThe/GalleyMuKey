@@ -39,7 +39,7 @@ class HashTagDialog: BottomSheetDialogFragment() {
         val dialog = BottomSheetDialog(context!!, R.style.FullScreenBottomSheet)
         val view = View.inflate(context, R.layout.dialog_hash_tag, null)
         dialog.setContentView(view)
-        dialog.window!!.findViewById<View>(example.ken.galleymukey.R.id.design_bottom_sheet)
+        dialog.window!!.findViewById<View>(R.id.design_bottom_sheet)
             .setBackgroundResource(android.R.color.transparent);
         mBehavior = BottomSheetBehavior.from<View>(view.parent as View)
         val window = dialog.window

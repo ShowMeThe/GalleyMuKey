@@ -13,7 +13,7 @@ interface CommentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addComment(bean : CommentDto)
 
-    @Query("select * from CommentDto where id =:id")
+    @Query("select * from CommentDto where parentId =:id")
     fun findCommentById(id:Int) : LiveData<List<CommentDto>>
 
 
