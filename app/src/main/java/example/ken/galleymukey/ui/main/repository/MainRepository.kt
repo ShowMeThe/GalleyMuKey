@@ -36,8 +36,10 @@ class MainRepository : BaseRepository() {
 
     fun getCommentById(id:Int,result: MutableLiveData<List<CommentDto>>){
         comDao.findCommentById(id).observe(owner!!, Observer {
-            it?.apply {
-                result.value = this
+            if(it!=null && it.isNotEmpty()){
+                result.value = it
+            }else{
+                showToast("Found No comment")
             }
         })
     }

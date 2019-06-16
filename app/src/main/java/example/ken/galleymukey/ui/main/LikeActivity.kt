@@ -85,7 +85,7 @@ class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         val bundle = Bundle()
         bundle.putInt("position",position)
         dialog?.arguments = bundle
-        dialog?.show(supportFragmentManager,"")
+        dialog?.show(supportFragmentManager,"AddComment")
         dialog?.setOnAddCommentListner { pos, comment ->
             viewModel.addComment(list[pos].id,comment)
             dialog?.dismiss()
