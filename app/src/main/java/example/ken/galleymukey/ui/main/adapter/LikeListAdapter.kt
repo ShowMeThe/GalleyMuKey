@@ -23,12 +23,11 @@ class LikeListAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>
         binding?.apply {
             banner.addList(item.imagePaths!!)
             banner.setOnImageLoader { url, imageView ->
-                TGlide.loadRoundPicture(url, imageView,20)
+                TGlide.load(url, imageView)
             }
             banner.play()
             bean  = item
             executePendingBindings()
-
             tvComment.setOnClickListener {
                 onAddComment?.invoke(position)
             }

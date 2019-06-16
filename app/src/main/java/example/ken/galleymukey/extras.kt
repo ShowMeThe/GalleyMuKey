@@ -10,6 +10,12 @@ import showmethe.github.kframework.glide.TGlide
  * 2019/5/18
  **/
 
+@BindingAdapter("cut")
+fun ImageView.cut(url:String?){
+    url?.apply {
+        TGlide.loadCutPicture(url,this@cut,15)
+    }
+}
 
 @BindingAdapter("imgPath")
 fun ImageView.setUrl(url : String?){

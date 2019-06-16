@@ -73,7 +73,7 @@ class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
             showCommentDialog(supportFragmentManager,it)
         }
 
-
+        ivBack.setOnClickListener { finishAfterTransition() }
 
     }
 

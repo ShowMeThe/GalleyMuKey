@@ -11,6 +11,8 @@ import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
@@ -35,9 +37,9 @@ import java.util.HashMap
 class TGlide private constructor(context: Context){
     private var mRequestManager : RequestManager = GlideApp.with(context.applicationContext)
     private var mContext: Context = context
-    private var options : RequestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+    private var options : RequestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
     private var transitionOptions : DrawableTransitionOptions = DrawableTransitionOptions()
-            .crossFade();
+            .crossFade()
     lateinit var requestOptions: RequestOptions
 
     companion object {
@@ -149,7 +151,7 @@ class TGlide private constructor(context: Context){
         //加载圆角的图片
         fun loadRoundPicture(url: Any, placeholder: Int, error: Int, imageView: ImageView) {
             INSTANT.apply {
-                requestOptions = RequestOptions.bitmapTransform(GlideRoundTransform())
+                requestOptions = RequestOptions.bitmapTransform(RoundedCorners(4))
                 mRequestManager
                         .load(url).apply(requestOptions.placeholder(placeholder).error(error))
                         .into(imageView)
@@ -161,10 +163,19 @@ class TGlide private constructor(context: Context){
         //加载圆角的图片(带半径）
         fun loadRoundPicture(url: Any, imageView: ImageView, radius: Int) {
             INSTANT.apply {
-                requestOptions = RequestOptions.bitmapTransform(GlideRoundTransform(radius))
+                val requestOptions = RequestOptions.bitmapTransform(RoundedCorners(radius))
                 mRequestManager.load(url).apply(requestOptions)
                         .transition(transitionOptions)
                         .into(imageView)
+            }
+        }
+
+
+        fun loadCutPicture(url: Any, imageView: ImageView, radius: Int) {
+            INSTANT.apply {
+                mRequestManager.load(url)
+                    .transform(CenterCrop(),GlideRoundCutTransform(radius.toFloat()))
+                    .into(imageView)
             }
         }
 
