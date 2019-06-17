@@ -1,16 +1,12 @@
 package example.ken.galleymukey.ui.main
 
 import android.animation.Animator
-import android.graphics.Point
 import android.graphics.PointF
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.text.format.DateUtils
-import android.util.Log
 import android.view.*
 import androidx.databinding.ViewDataBinding
-import com.parallaxbacklayout.ParallaxBack
+import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
 import example.ken.galleymukey.R
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.activity_image_show.*
@@ -18,13 +14,9 @@ import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
 import androidx.appcompat.widget.PopupMenu
-import com.parallaxbacklayout.ViewDragHelper
-import showmethe.github.kframework.util.system.DateUtil
 import java.io.File
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
 import androidx.lifecycle.Lifecycle
-import kotlinx.android.synthetic.main.item_hot.*
 
 @ParallaxBack
 class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){

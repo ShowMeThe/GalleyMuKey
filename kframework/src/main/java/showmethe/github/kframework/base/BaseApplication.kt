@@ -7,17 +7,11 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Process
 import android.os.Process.THREAD_PRIORITY_BACKGROUND
-import android.util.Log
-import android.view.View
-import android.view.ViewGroup
-import com.parallaxbacklayout.ParallaxHelper
+import showmethe.github.kframework.parallaxbacklayout.ParallaxHelper
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
-import com.trello.rxlifecycle3.components.support.RxAppCompatDialogFragment
-import showmethe.github.kframework.R
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.http.RetroHttp
 import showmethe.github.kframework.util.rden.RDEN
-import java.lang.ref.SoftReference
 import java.lang.ref.WeakReference
 
 /**
@@ -47,7 +41,7 @@ open class BaseApplication : Application() {
             RetroHttp.get()
             RDEN.build(this)
         }.start()
-        registerActivityLifecycleCallbacks(ParallaxHelper.getInstance())
+        registerActivityLifecycleCallbacks(ParallaxHelper.instance)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks{
             override fun onActivityPaused(activity: Activity?) {
 
