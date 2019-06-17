@@ -116,14 +116,13 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
         adapter.setOnImageLoader(object : BannerViewAdapter.onImageLoader {
             override fun display(url: Any, imageView: ImageView) {
+                imageView.maxHeight = mMaxHeight.toInt()
+                imageView.minimumHeight = mMinHeight.toInt()
+                when(scaleType){
+                    0 -> imageView.scaleType = ImageView.ScaleType.FIT_XY
+                    1 -> imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                }
                 loader?.apply {
-                    imageView.maxHeight = mMaxHeight.toInt()
-                    imageView.minimumHeight = mMinHeight.toInt()
-                    when(scaleType){
-                        0 -> imageView.scaleType = ImageView.ScaleType.FIT_XY
-                        1 -> imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                    }
-
                     invoke(url, imageView)
                 }
             }

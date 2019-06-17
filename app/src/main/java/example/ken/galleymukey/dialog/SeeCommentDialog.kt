@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import androidx.databinding.ObservableArrayList
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import example.ken.galleymukey.dialog.adapter.SeeCommentAdapter
 import example.ken.galleymukey.source.dto.CommentDto
 import kotlinx.android.synthetic.main.dialog_see_comment.view.*
 import kotlinx.android.synthetic.main.fragment_hot.view.*
+import java.lang.Exception
 
 class SeeCommentDialog  : BottomSheetDialogFragment() {
     private var mBehavior: BottomSheetBehavior<*>? = null
@@ -59,7 +61,16 @@ class SeeCommentDialog  : BottomSheetDialogFragment() {
         return  dialog
     }
 
-
+    override fun show(manager: FragmentManager, tag: String?) {
+        try {
+            if(!isAdded){
+                val transaction = manager.beginTransaction()
+                transaction.add(this, tag)
+                transaction.commitAllowingStateLoss()
+                transaction.show(this)
+            }
+        }catch (e: Exception){}
+    }
 
 
 }

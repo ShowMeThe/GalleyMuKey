@@ -31,11 +31,12 @@ class CalendarDialogFragment : DialogFragment() {
 
     lateinit var mContext: Context
     val list = ObservableArrayList<String>()
-    lateinit var adapter: YearAdapter
+    var  adapter: YearAdapter?= null
     val instant = Calendar.getInstance(Locale.CHINA)
     var day = 0
     var month = 0
     var year = 0
+    var currentPos = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,7 +75,10 @@ class CalendarDialogFragment : DialogFragment() {
 
             cardView.background = CreateDrawable.create(context,CornerFamily.CUT,45,R.color.white,CreateDrawable.CornerType.TOPLEFT)
 
-            adapter = YearAdapter(mContext,list)
+            if(adapter == null){
+                adapter = YearAdapter(mContext,list)
+            }
+            adapter?.currentPos = currentPos
             rv.adapter = adapter
             rv.layoutManager = LinearLayoutManager(mContext,RecyclerView.VERTICAL,false)
 
@@ -83,13 +87,13 @@ class CalendarDialogFragment : DialogFragment() {
                     year = getInt("year")
                     month = getInt("month")
                     day = getInt("day")
-                    adapter.currentPos = year - 1990
+                    adapter?.currentPos = year - 1990
                 }
             }else if(year == 0|| day ==0 || month == 0){
                 year = instant.get(Calendar.YEAR)
                 day = instant.get(Calendar.DAY_OF_MONTH)
                 month = instant.get(Calendar.MONTH)+1
-                adapter.currentPos = instant.get(Calendar.YEAR) - 1990
+                adapter?.currentPos = instant.get(Calendar.YEAR) - 1990
             }
 
             instant.set(Calendar.YEAR,year)
@@ -101,8 +105,8 @@ class CalendarDialogFragment : DialogFragment() {
             tvYear.text = year.toString()
             tvDate.text = "$month/${day}"
 
-            adapter.notifyDataSetChanged()
-            rv.smoothScrollToPosition(adapter.currentPos)
+            adapter?.notifyDataSetChanged()
+            rv.smoothScrollToPosition(adapter!!.currentPos)
 
             calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
                 this@CalendarDialogFragment.month  = month+1
@@ -114,22 +118,25 @@ class CalendarDialogFragment : DialogFragment() {
             }
 
 
-            adapter.setOnItemClickListener { view, position ->
-                val pos = adapter.currentPos
-                adapter.currentPos = position
-                adapter.notifyItemChanged(pos)
-                adapter.notifyItemChanged(adapter.currentPos)
+               adapter!!.setOnItemClickListener { view, position ->
+                    val pos = adapter!!.currentPos
+                    currentPos = position
+                   adapter!!.currentPos = position
+                   adapter!!.notifyItemChanged(pos)
+                   adapter!!.notifyItemChanged(adapter!!.currentPos)
 
-                year = list[adapter.currentPos].toInt()
-                tvYear.text = year.toString()
+                    year = list[adapter!!.currentPos].toInt()
+                    tvYear.text = year.toString()
 
-                instant.set(Calendar.YEAR,year)
-                instant.set(Calendar.MONTH,month-1)
-                instant.set(Calendar.DAY_OF_MONTH,day)
-                calendar.date = instant.timeInMillis
+                    instant.set(Calendar.YEAR,year)
+                    instant.set(Calendar.MONTH,month-1)
+                    instant.set(Calendar.DAY_OF_MONTH,day)
+                    calendar.date = instant.timeInMillis
 
-                rv.smoothScrollToPosition(adapter.currentPos)
-            }
+                    rv.smoothScrollToPosition(adapter!!.currentPos)
+
+                }
+
 
             rg.setOnCheckedChangeListener { group, checkedId ->
                 when(checkedId){

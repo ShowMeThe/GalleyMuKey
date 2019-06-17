@@ -89,21 +89,7 @@
         <attr name="innerCircleShrinks" format="float" />
     </declare-styleable>
 
-    <declare-styleable name="PullDragLayout">
-        <attr name="ContentView" format="reference"/>
-        <attr name="BottomView" format="reference"/>
-        <attr name="BottomBorderHeight" format="dimension"/>
-    </declare-styleable>
-
-
-    <declare-styleable name="StringPicker">
-        <attr name="mode" format="enum">
-            <enum name="SINGLE" value="0"/>
-            <enum name="COUPLE" value="1"/>
-        </attr>
-    </declare-styleable>
-
-
+    
     <declare-styleable name="SideIndexBar">
         <attr name="indexBarTextSize" format="reference" />
         <attr name="indexBarNormalTextColor" format="color" />

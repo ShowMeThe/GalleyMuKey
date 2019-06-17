@@ -1,6 +1,7 @@
 package showmethe.github.kframework.util
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.IntDef
 import androidx.core.content.ContextCompat
@@ -23,14 +24,14 @@ object CreateDrawable {
 
    fun create(context: Context, @CornerFamily family: Int, radius :Int,color:Int,type:CornerType = CreateDrawable.CornerType.ALL) : Drawable{
         val shapeAppearanceModel = ShapeAppearanceModel()
+        val rad = (Resources.getSystem().displayMetrics.density * radius).toInt()
         when(type){
-            CreateDrawable.CornerType.TOPLEFT -> shapeAppearanceModel.setTopLeftCorner(family,radius)
-            CreateDrawable.CornerType.TOPRIGHT -> shapeAppearanceModel.setTopRightCorner(family,radius)
-            CreateDrawable.CornerType.BOTTOMLEFT -> shapeAppearanceModel.setBottomLeftCorner(family,radius)
-            CreateDrawable.CornerType.BOTTMRIGHT -> shapeAppearanceModel.setBottomRightCorner(family,radius)
-            CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,radius)
+            CreateDrawable.CornerType.TOPLEFT -> shapeAppearanceModel.setTopLeftCorner(family,rad)
+            CreateDrawable.CornerType.TOPRIGHT -> shapeAppearanceModel.setTopRightCorner(family,rad)
+            CreateDrawable.CornerType.BOTTOMLEFT -> shapeAppearanceModel.setBottomLeftCorner(family,rad)
+            CreateDrawable.CornerType.BOTTMRIGHT -> shapeAppearanceModel.setBottomRightCorner(family,rad)
+            CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,rad)
         }
-        shapeAppearanceModel.setTopLeftCorner(family,radius)
         val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,10f)
         drawable.shapeAppearanceModel = shapeAppearanceModel
         drawable.fillColor = ContextCompat.getColorStateList(context, color)

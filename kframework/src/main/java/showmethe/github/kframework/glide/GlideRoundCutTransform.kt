@@ -47,7 +47,7 @@ class GlideRoundCutTransform @JvmOverloads constructor(var radius  : Float = 4f)
         var width = 0f
         var  height = 0f
 
-        width = source.height.toFloat()
+        width = source.width.toFloat()
         height = source.height.toFloat()
 
         path.moveTo(cut,0f)

@@ -25,22 +25,22 @@
 			android:layout_height="match_parent">
 			
 			
-			<com.google.android.material.card.MaterialCardView
+			<RelativeLayout
 				android:id="@+id/container"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				app:contentPadding="@dimen/px15dp"
-				app:cardPreventCornerOverlap="true"
+				android:padding="@dimen/px10dp"
 				>
 				
 				<showmethe.github.kframework.widget.banner.Banner
 					android:id="@+id/banner"
+					android:layout_margin="@dimen/px20dp"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/px600dp"
 					app:imageScaleType="centerCrop"
 					/>
 				
-			</com.google.android.material.card.MaterialCardView>
+			</RelativeLayout>
 			
 			<ImageView
 				android:id="@+id/ivAvatar"

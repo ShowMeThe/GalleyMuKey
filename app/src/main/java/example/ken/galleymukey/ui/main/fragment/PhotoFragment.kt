@@ -53,10 +53,12 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, MainViewModel>() {
             }
         })
         viewModel.commtList.observe(this, Observer {
-            it?.apply {
-                dialog.list.clear()
-                dialog.list.addAll(this)
-                dialog.show(childFragmentManager,"dialog")
+            if(isVisible){
+                it?.apply {
+                    dialog.list.clear()
+                    dialog.list.addAll(this)
+                    dialog.show(childFragmentManager,"dialog")
+                }
             }
         })
 

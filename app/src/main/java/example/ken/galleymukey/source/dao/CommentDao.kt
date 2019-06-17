@@ -14,7 +14,7 @@ interface CommentDao {
     fun addComment(bean : CommentDto)
 
     @Query("select * from CommentDto where parentId =:id")
-    fun findCommentById(id:Int) : LiveData<List<CommentDto>>
+    suspend fun findCommentById(id:Int) :List<CommentDto>
 
 
 }
