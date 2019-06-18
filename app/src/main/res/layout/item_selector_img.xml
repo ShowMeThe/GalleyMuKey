@@ -14,32 +14,46 @@
 		android:layout_height="match_parent"
 		>
 
-		<RelativeLayout
+
+		<com.google.android.material.card.MaterialCardView
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+			app:cardCornerRadius="@dimen/px15dp"
+			android:layout_marginStart="@dimen/px150dp"
+			android:layout_marginEnd="@dimen/px150dp"
+			>
 			
-			
-			<ImageView
-				android:id="@+id/ivImg"
-				imgPathCrop="@{Beam}"
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent" />
+				android:layout_height="match_parent">
+				
+				
+				<ImageView
+					android:id="@+id/ivImg"
+					imgPathCrop="@{Beam}"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" />
+				
+				
+				<TextView
+					android:id="@+id/tvNum"
+					android:gravity="center"
+					android:text="0"
+					android:textStyle="bold"
+					android:textColor="@color/colorAccent"
+					android:layout_alignParentEnd="true"
+					android:layout_margin="@dimen/px20dp"
+					android:background="@drawable/shape_oval_white"
+					android:layout_width="@dimen/px85dp"
+					android:layout_height="@dimen/px85dp" />
 			
 			
-			<TextView
-				android:id="@+id/tvNum"
-				android:gravity="center"
-				android:text="0"
-				android:textStyle="bold"
-				android:textColor="@color/colorAccent"
-				android:layout_alignParentEnd="true"
-				android:layout_margin="@dimen/px20dp"
-				android:background="@drawable/shape_oval_white"
-				android:layout_width="@dimen/px85dp"
-				android:layout_height="@dimen/px85dp" />
-			
-			
-		</RelativeLayout>
+			</RelativeLayout>
+		
+		
+		
+		</com.google.android.material.card.MaterialCardView>
+		
 	
 	</LinearLayout>
 </layout>

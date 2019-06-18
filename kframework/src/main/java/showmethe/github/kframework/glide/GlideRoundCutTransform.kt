@@ -43,12 +43,22 @@ class GlideRoundCutTransform @JvmOverloads constructor(var radius  : Float = 4f)
         paint.shader = BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
         paint.isAntiAlias = true
         paint.style = Paint.Style.FILL_AND_STROKE
-        val cut = (Math.sqrt(2.0)/2 * radius).toFloat()
+        var cut = (Math.sqrt(2.0)/2 * radius).toFloat()
         var width = 0f
         var  height = 0f
 
         width = source.width.toFloat()
         height = source.height.toFloat()
+
+        if(width/height>=1){
+            if(cut >height/2){
+                cut = height/2
+            }
+        }else {
+            if(cut >width/2){
+                cut = width/2
+            }
+        }
 
         path.moveTo(cut,0f)
         path.lineTo(width-cut,0f)

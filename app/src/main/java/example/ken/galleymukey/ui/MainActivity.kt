@@ -33,8 +33,10 @@ import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.DrawableTarget
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.livebus.LiveBusHelper
+import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
+
 
 class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 

@@ -16,6 +16,7 @@ import example.ken.galleymukey.dialog.adapter.SelectorAdapter
 import example.ken.galleymukey.source.Source
 import kotlinx.android.synthetic.main.dialog_selector_img.view.*
 import showmethe.github.kframework.widget.transformer.CardRotateStackTransformer
+import showmethe.github.kframework.widget.transformer.CardStackTransformer
 
 /**
  * example.ken.galleymukey.dialog
@@ -68,7 +69,7 @@ class SelectorDialog : DialogFragment() {
             viewPager.adapter = adapter
             viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             viewPager.offscreenPageLimit = 4
-            viewPager.setPageTransformer(CardRotateStackTransformer())
+            viewPager.setPageTransformer(CardStackTransformer())
 
             adapter.setOnTapImageListner {
                 onTapImageListener?.invoke(it)

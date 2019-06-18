@@ -15,8 +15,6 @@
 	<LinearLayout
 		android:layout_centerInParent="true"
 		android:orientation="vertical"
-		android:layout_marginStart="@dimen/px150dp"
-		android:layout_marginEnd="@dimen/px150dp"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 		
@@ -40,22 +38,12 @@
 		
 		</showmethe.github.kframework.widget.common.BubbleLayout>
 		
-		
-		<com.google.android.material.card.MaterialCardView
-			android:id="@+id/cardView"
+		<androidx.viewpager2.widget.ViewPager2
+			android:id="@+id/viewPager"
+			android:layout_marginBottom="@dimen/px200dp"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px1500dp"
-			android:layout_centerInParent="true"
-			app:cardPreventCornerOverlap="true"
-			app:cardCornerRadius="@dimen/px25dp"
-			>
-			<androidx.viewpager2.widget.ViewPager2
-				android:id="@+id/viewPager"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				>
-			</androidx.viewpager2.widget.ViewPager2>
-		</com.google.android.material.card.MaterialCardView>
+			android:layout_height="match_parent">
+		</androidx.viewpager2.widget.ViewPager2>
 	
 	
 	
