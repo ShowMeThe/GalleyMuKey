@@ -110,4 +110,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <declare-styleable name="CircleProgressBar">
+        <attr name="defaultColor" format="color|reference"/>
+        <attr name="runningColor" format="color|reference"/>
+        <attr name="strokeWidth" format="dimension"/>
+    </declare-styleable>
+    
+    
 </resources>

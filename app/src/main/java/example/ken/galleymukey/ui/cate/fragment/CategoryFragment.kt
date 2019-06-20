@@ -1,25 +1,21 @@
 package example.ken.galleymukey.ui.cate.fragment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.annotation.RestrictTo
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.CateTagBean
+import example.ken.galleymukey.bean.NewGoodsBean
 import example.ken.galleymukey.databinding.FragmentCategoryBinding
-import example.ken.galleymukey.ui.cate.adapter.CateMenuAdapter
 import example.ken.galleymukey.ui.cate.adapter.CateTagAdapter
 import example.ken.galleymukey.ui.cate.adapter.NewAdapter
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import kotlinx.android.synthetic.main.fragment_category.*
 import kotlinx.android.synthetic.main.fragment_category.smrl
-import kotlinx.android.synthetic.main.fragment_hot.*
 import showmethe.github.kframework.adapter.SpaceItemDecoration
 import showmethe.github.kframework.base.BaseFragment
-import showmethe.github.kframework.http.RetroHttp
 
 /**
  * example.ken.galleymukey.ui.cate.fragment
@@ -31,7 +27,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
     val list = ObservableArrayList<CateTagBean>()
     lateinit var adapter : CateTagAdapter
 
-    val datas = ObservableArrayList<String>()
+    val datas = ObservableArrayList<NewGoodsBean>()
     lateinit var newAdapter: NewAdapter
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
@@ -68,13 +64,14 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
         rvHashTag.addItemDecoration(SpaceItemDecoration(20,10))
 
         for(i in 1..10){
-            datas.add("")
+            datas.add(NewGoodsBean())
         }
 
         newAdapter = NewAdapter(context,datas)
         rvNew.adapter = newAdapter
         rvNew.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         rvNew.addItemDecoration(SpaceItemDecoration(30,20))
+
 
 
         viewModel.getCate("")

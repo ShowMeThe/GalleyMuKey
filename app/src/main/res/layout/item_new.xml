@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-	<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+	
+	
+	<example.ken.galleymukey.widget.CardRotateLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/container"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/px500dp"
-		app:rippleColor="@color/white_85"
-		app:cardBackgroundColor="@color/white"
-		app:cardElevation="@dimen/px5dp"
-		app:cardCornerRadius="@dimen/px20dp"
-		app:cardPreventCornerOverlap="true"
 		>
 		
-		<LinearLayout
+		<RelativeLayout
+			android:id="@+id/firstCard"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="@dimen/px500dp"
+			android:padding="@dimen/px34dp"
+			>
 			
+			<ImageView
+				android:id="@+id/ivLogo"
+				android:layout_width="@dimen/px450dp"
+				android:layout_height="@dimen/px450dp"/>
+			
+			<TextView
+				android:id="@+id/tvName"
+				android:text="New Goods"
+				android:textSize="@dimen/px43dp"
+				android:textColor="@color/white"
+				android:layout_margin="@dimen/px30dp"
+				android:layout_toEndOf="@+id/ivLogo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+			
+		</RelativeLayout>
 		
+		<RelativeLayout
+			android:id="@+id/secondCard"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px500dp"
+			android:background="@color/white"
+			android:padding="@dimen/px34dp"
+			>
+			
+			<example.ken.galleymukey.widget.CircleProgressBar
+				android:id="@+id/progressbar"
+				android:layout_width="@dimen/px250dp"
+				android:layout_height="@dimen/px250dp"
+				app:runningColor="@color/colorPrimaryDark"
+				app:defaultColor="@color/colorPrimary"
+				app:strokeWidth="@dimen/px15dp"
+				/>
 			
 			
-			
-		
-		</LinearLayout>
+		</RelativeLayout>
 	
-	</com.google.android.material.card.MaterialCardView>
+	</example.ken.galleymukey.widget.CardRotateLayout>
 </layout>

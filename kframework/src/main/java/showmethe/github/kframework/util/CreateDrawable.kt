@@ -32,9 +32,48 @@ object CreateDrawable {
             CreateDrawable.CornerType.BOTTMRIGHT -> shapeAppearanceModel.setBottomRightCorner(family,rad)
             CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,rad)
         }
-        val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,10f)
+        val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,15f)
         drawable.shapeAppearanceModel = shapeAppearanceModel
         drawable.fillColor = ContextCompat.getColorStateList(context, color)
+        return  drawable
+    }
+
+
+
+    fun create(context: Context, @CornerFamily family: Int, radius :Int,color:Int,vararg  types:CornerType) : Drawable{
+        val shapeAppearanceModel = ShapeAppearanceModel()
+        val rad = (Resources.getSystem().displayMetrics.density * radius).toInt()
+        for(type in types){
+             when(type){
+           CreateDrawable.CornerType.TOPLEFT -> shapeAppearanceModel.setTopLeftCorner(family,rad)
+           CreateDrawable.CornerType.TOPRIGHT -> shapeAppearanceModel.setTopRightCorner(family,rad)
+           CreateDrawable.CornerType.BOTTOMLEFT -> shapeAppearanceModel.setBottomLeftCorner(family,rad)
+           CreateDrawable.CornerType.BOTTMRIGHT -> shapeAppearanceModel.setBottomRightCorner(family,rad)
+           CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,rad) }
+        }
+        val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,15f)
+        drawable.shapeAppearanceModel = shapeAppearanceModel
+        drawable.fillColor = ContextCompat.getColorStateList(context, color)
+        return  drawable
+    }
+
+
+    fun createWithStroke(context: Context, @CornerFamily family: Int, radius :Int,color:Int,stroke:Int,vararg  types:CornerType) : Drawable{
+        val shapeAppearanceModel = ShapeAppearanceModel()
+        val rad = (Resources.getSystem().displayMetrics.density * radius).toInt()
+        for(type in types){
+            when(type){
+                CreateDrawable.CornerType.TOPLEFT -> shapeAppearanceModel.setTopLeftCorner(family,rad)
+                CreateDrawable.CornerType.TOPRIGHT -> shapeAppearanceModel.setTopRightCorner(family,rad)
+                CreateDrawable.CornerType.BOTTOMLEFT -> shapeAppearanceModel.setBottomLeftCorner(family,rad)
+                CreateDrawable.CornerType.BOTTMRIGHT -> shapeAppearanceModel.setBottomRightCorner(family,rad)
+                CreateDrawable.CornerType.ALL -> shapeAppearanceModel.setAllCorners(family,rad) }
+        }
+        val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,15f)
+        drawable.shapeAppearanceModel = shapeAppearanceModel
+        drawable.fillColor = ContextCompat.getColorStateList(context, color)
+        drawable.strokeColor = ContextCompat.getColorStateList(context, stroke)
+        drawable.strokeWidth = (Resources.getSystem().displayMetrics.density * 1)
         return  drawable
     }
 

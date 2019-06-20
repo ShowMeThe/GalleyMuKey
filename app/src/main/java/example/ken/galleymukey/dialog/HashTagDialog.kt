@@ -17,7 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.HashTagBean
 
-import example.ken.galleymukey.ui.cate.adapter.CateMenuAdapter
+import example.ken.galleymukey.dialog.adapter.CateMenuAdapter
 import kotlinx.android.synthetic.main.dialog_hash_tag.view.*
 import java.lang.StringBuilder
 

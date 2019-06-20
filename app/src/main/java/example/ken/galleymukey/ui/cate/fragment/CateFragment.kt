@@ -4,21 +4,14 @@ import android.animation.Animator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.TextView
-import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import example.ken.galleymukey.R
-import example.ken.galleymukey.bean.HashTagBean
 import example.ken.galleymukey.dialog.HashTagDialog
-import example.ken.galleymukey.ui.cate.adapter.CateMenuAdapter
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 
 import kotlinx.android.synthetic.main.fragment_cate.*

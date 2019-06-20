@@ -1,4 +1,4 @@
-package example.ken.galleymukey.ui.cate.adapter
+package example.ken.galleymukey.dialog.adapter
 
 import android.content.Context
 import androidx.databinding.ObservableArrayList
