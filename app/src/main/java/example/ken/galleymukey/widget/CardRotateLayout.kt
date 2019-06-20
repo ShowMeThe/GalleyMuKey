@@ -63,10 +63,7 @@ class CardRotateLayout @JvmOverloads constructor(
         }
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        onDetachListener?.invoke(hasExpand)
-    }
+
 
 
     /**
@@ -77,9 +74,11 @@ class CardRotateLayout @JvmOverloads constructor(
         if(hasExpand){
             firstView?.alpha = 0f
             secondView?.alpha = 1f
+            secondView?.bringToFront()
         }else{
             firstView?.alpha = 1f
             secondView?.alpha = 0f
+            firstView?.bringToFront()
         }
     }
 
