@@ -12,6 +12,7 @@ import androidx.annotation.FloatRange
 import androidx.core.content.ContextCompat
 import example.ken.galleymukey.R
 import showmethe.github.kframework.util.widget.DisplayUtil
+import java.text.DecimalFormat
 
 class CircleProgressBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -25,6 +26,7 @@ class CircleProgressBar @JvmOverloads constructor(
     private var runningRoundColor = -1
     private  var progressType = Paint.Style.STROKE
     private var progress = 0f
+    private var decimalFormat  = DecimalFormat("#.00")
 
 
     init {
@@ -71,7 +73,7 @@ class CircleProgressBar @JvmOverloads constructor(
         val bottom = textPaint.fontMetrics.bottom
         val baseLine = (rectF.centerY() - top/2 - bottom/2)
         textPaint.textAlign = Paint.Align.CENTER
-        canvas.drawText("${progress/360f*100}%",rectF.centerX(),baseLine,textPaint)
+        canvas.drawText("${decimalFormat.format(progress/360f*100)}%",rectF.centerX(),baseLine,textPaint)
 
     }
 

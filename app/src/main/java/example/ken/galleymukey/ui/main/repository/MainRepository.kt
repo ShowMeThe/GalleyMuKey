@@ -3,10 +3,7 @@ package example.ken.galleymukey.ui.main.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import example.ken.galleymukey.bean.CateTagBean
-import example.ken.galleymukey.bean.HashTagBean
-import example.ken.galleymukey.bean.HotWallBean
-import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.bean.*
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.CommentDto
@@ -32,6 +29,21 @@ class MainRepository : BaseRepository() {
     val cateDao = DataSourceBuilder.getCateDao()
     val infoDao = DataSourceBuilder.getUserDao()
     val comDao = DataSourceBuilder.getCommentDao()
+    val newDao  = DataSourceBuilder.getNewGoodsDao()
+
+
+    fun findGoodsByHashTag(tag:String,data : MutableLiveData<List<NewGoodsBean>>){
+        GlobalScope.launch {
+            val list : List<NewGoodsBean>
+            if(tag.isEmpty()){
+                list =  newDao.findAllGoods()
+
+            }else{
+                list =  newDao.findGoodsByHastTag(tag)
+            }
+           data.postValue(list)
+        }
+    }
 
 
     fun getCommentById(id:Int,result: MutableLiveData<List<CommentDto>>){

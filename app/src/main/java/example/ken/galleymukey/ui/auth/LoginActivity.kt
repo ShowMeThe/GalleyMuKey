@@ -29,6 +29,7 @@ import showmethe.github.kframework.util.ClipboardUtil
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.system.KeyBoardUtils
 import java.util.concurrent.ThreadLocalRandom
+import kotlin.random.Random
 
 
 class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
@@ -36,7 +37,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     val dialog by lazy {  LoginDialog() }
     val signUpDialog by lazy { SignUpDialog() }
 
-    val random = ThreadLocalRandom.current()
+    val random = Random(System.currentTimeMillis())
     var snackbar : Snackbar? = null
     var num = 0
 
@@ -152,7 +153,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     fun showSnack(view : TextView){
         KeyBoardUtils.hideSoftKeyboard(this)
-        num = random.nextInt(1000,9999)
+        num = random.nextInt(200,9999)
         snackbar =  Snackbar.make(view,"${num}",15000)
             .setBackgroundTint(ContextCompat.getColor(context,R.color.color_ff6e00))
             .setTextColor(ContextCompat.getColor(context,R.color.white))

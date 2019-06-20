@@ -24,14 +24,15 @@ class NewAdapter(context: Context, data: ObservableArrayList<NewGoodsBean>) :
             firstCard.background =  CreateDrawable.create(context,CornerFamily.CUT,10,R.color.colorAccent)
             secondCard.background =  CreateDrawable.createWithStroke(context,CornerFamily.ROUNDED,10,R.color.white,
                 R.color.colorPrimaryDark,CreateDrawable.CornerType.TOPLEFT,CreateDrawable.CornerType.BOTTMRIGHT)
-            TGlide.load("http://image2.xyzs.com/upload/fc/6a/1450315960904658/20151219/145046718037409_0.jpg",ivLogo)
+
+            bean = item
+            executePendingBindings()
 
             container.post {
                 container.setCurrentExpand(item.isRotate)
             }
             container.setOnDetachListener { item.isRotate  = it }
-            progressbar.updateProgress(50f)
-
+            progressbar.updateProgress(item.hotSell * 100f)
 
         }
     }

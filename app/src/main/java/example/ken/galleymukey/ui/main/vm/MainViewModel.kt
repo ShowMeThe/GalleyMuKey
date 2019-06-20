@@ -7,10 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import example.ken.galleymukey.bean.CateTagBean
-import example.ken.galleymukey.bean.HashTagBean
-import example.ken.galleymukey.bean.HotWallBean
-import example.ken.galleymukey.bean.PhotoWallBean
+import example.ken.galleymukey.bean.*
 import example.ken.galleymukey.source.dto.CommentDto
 import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.source.dto.HashTagDto
@@ -41,13 +38,18 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     val hashTag = MutableLiveData<ArrayList<HashTagBean>>()
     val keyword = MutableLiveData<String>()
     val cate = MutableLiveData<ArrayList<CateTagBean>>()
+    val newGoods = MutableLiveData<List<NewGoodsBean>>()
 
     val customBg = MutableLiveData<String>()
-
     val commtList = MutableLiveData<List<CommentDto>>()
+
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
+    }
+
+    fun getGoodsByHashTag(tag:String){
+        repository.findGoodsByHashTag(tag,newGoods)
     }
 
     fun getCommentById(id:Int){

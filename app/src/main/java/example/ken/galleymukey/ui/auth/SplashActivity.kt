@@ -146,7 +146,16 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             DataSourceBuilder.getHashTag().insertHash(dto)
         }
 
+        for(i in 10..25){
+            val newGood = NewGoodsDto()
+            newGood.goodsName = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]
+            newGood.keywords = source.getHashTag()[random.nextInt(0,5)]
+            newGood.logo = source.getBanner()[(random.nextInt(0,28))]
+            newGood.hotSell = random.nextInt(20,80)/100f
+            DataSourceBuilder.getNewGoodsDao().addBean(newGood)
+        }
     }
+
 
     fun addCate(){
         for(i in 0..random.nextInt(40,60)){

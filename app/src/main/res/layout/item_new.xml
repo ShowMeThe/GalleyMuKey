@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	
+	<data>
+		<variable
+			name="Bean"
+			type="example.ken.galleymukey.bean.NewGoodsBean" />
+	</data>
 	
 	<example.ken.galleymukey.widget.CardRotateLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,12 +24,13 @@
 			
 			<ImageView
 				android:id="@+id/ivLogo"
+				imgPathCrop="@{Bean.logo}"
 				android:layout_width="@dimen/px450dp"
 				android:layout_height="@dimen/px450dp"/>
 			
 			<TextView
 				android:id="@+id/tvName"
-				android:text="New Goods"
+				android:text="@{Bean.goodsName}"
 				android:textSize="@dimen/px43dp"
 				android:textColor="@color/white"
 				android:layout_margin="@dimen/px30dp"

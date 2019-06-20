@@ -47,11 +47,20 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
             }
         })
 
+        viewModel.newGoods.observe(this, Observer {
+            it?.apply {
+                datas.clear()
+                datas.addAll(this)
+            }
+        })
+
         viewModel.keyword.observe(this, Observer {
             it?.apply {
                 viewModel.getCate(this)
+                viewModel.getGoodsByHashTag(this)
             }
         })
+
 
 
     }
@@ -63,9 +72,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
         rvHashTag.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
         rvHashTag.addItemDecoration(SpaceItemDecoration(20,10))
 
-        for(i in 1..10){
-            datas.add(NewGoodsBean())
-        }
 
         newAdapter = NewAdapter(context,datas)
         rvNew.adapter = newAdapter
@@ -75,7 +81,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
 
 
         viewModel.getCate("")
-
+        viewModel.getGoodsByHashTag("")
     }
 
     override fun initListener() {
