@@ -33,7 +33,7 @@ class MainRepository : BaseRepository() {
 
 
     fun findGoodsByHashTag(tag:String,data : MutableLiveData<List<NewGoodsBean>>){
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
             val list : List<NewGoodsBean>
             if(tag.isEmpty()){
                 list =  newDao.findAllGoods()
@@ -46,7 +46,7 @@ class MainRepository : BaseRepository() {
 
 
     fun getCommentById(id:Int,result: MutableLiveData<List<CommentDto>>){
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO)  {
             val list =  comDao.findCommentById(id)
             list.apply {
                 if(isNotEmpty()){
@@ -81,58 +81,60 @@ class MainRepository : BaseRepository() {
 
 
     fun getHomePhoto(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
-        photoDao.getPhotoBean().observe(owner!!, Observer {
-            it?.apply {
-                val list = ArrayList<PhotoWallBean>()
-                for(dto  in this){
-                    val bean = PhotoWallBean()
-                    bean.id = dto.id
-                    bean.imagePaths = dto.imageTop
-                    bean.avatar = dto.avatar
-                    bean.username = dto.username
-                    bean.like = dto.like
-                    bean.count = dto.count
-                    list.add(bean)
+        GlobalScope.launch(Dispatchers.IO){
+            photoDao.getPhotoBean().observe(owner!!, Observer {
+                it?.apply {
+                    val list = ArrayList<PhotoWallBean>()
+                    for(dto  in this){
+                        val bean = PhotoWallBean()
+                        bean.id = dto.id
+                        bean.imagePaths = dto.imageTop
+                        bean.avatar = dto.avatar
+                        bean.username = dto.username
+                        bean.like = dto.like
+                        bean.count = dto.count
+                        list.add(bean)
+                    }
+                    bean.postValue(list)
                 }
-                bean.value = list
-
-
-            }
-        })
+            })
+        }
     }
 
     fun findLikeAll(bean : MutableLiveData<ArrayList<PhotoWallBean>>){
-        photoDao.findAllLike(true).observe(owner!!, Observer {
-            it?.apply {
-                val list = ArrayList<PhotoWallBean>()
-                for(dto  in this){
-                    val bean = PhotoWallBean()
-                    bean.id = dto.id
-                    bean.imagePaths = dto.imageTop
-                    bean.avatar = dto.avatar
-                    bean.username = dto.username
-                    bean.like = dto.like
-                    list.add(bean)
+        GlobalScope.launch(Dispatchers.IO){
+            photoDao.findAllLike(true).observe(owner!!, Observer {
+                it?.apply {
+                    val list = ArrayList<PhotoWallBean>()
+                    for(dto  in this){
+                        val bean = PhotoWallBean()
+                        bean.id = dto.id
+                        bean.imagePaths = dto.imageTop
+                        bean.avatar = dto.avatar
+                        bean.username = dto.username
+                        bean.like = dto.like
+                        list.add(bean)
+                    }
+                    bean.postValue(list)
                 }
-                bean.value = list
-            }
-        })
+            })
+        }
     }
 
 
     fun getHotWall(bean  : MutableLiveData<ArrayList<HotWallBean>>){
-
-        hotDto.getHotBeanList().observe(owner!!, Observer {
-
-            it?.apply {
-                val list = ArrayList<HotWallBean>()
-                for(beans in this){
-                    val hot = HotWallBean(beans.imageTop,beans.imageBottom,beans.type)
-                    list.add(hot)
+        GlobalScope.launch(Dispatchers.IO){
+            hotDto.getHotBeanList().observe(owner!!, Observer {
+                it?.apply {
+                    val list = ArrayList<HotWallBean>()
+                    for(beans in this){
+                        val hot = HotWallBean(beans.imageTop,beans.imageBottom,beans.type)
+                        list.add(hot)
+                    }
+                    bean.postValue(list)
                 }
-                bean.value = list
-            }
-        })
+            })
+        }
     }
 
     fun setLike(id :Int,like: Boolean){
