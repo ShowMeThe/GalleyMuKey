@@ -19,7 +19,7 @@ import java.io.Serializable
 @Entity(tableName = "GoodsListDto")
 @TypeConverters(ArraysConverters::class)
 class GoodsListDto : Observable,Serializable{
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id :Int = 0
     @get:Bindable
     var goodsName : String = ""
@@ -51,6 +51,14 @@ class GoodsListDto : Observable,Serializable{
             field = price
             notifyChange(BR.price)
         }
+
+
+    @get:Bindable
+    var keyword :String = ""
+    set(keyword) {
+        field = keyword
+        notifyChange(BR.keyword)
+    }
 
     @Ignore
     var vibrantColor:Int = -1

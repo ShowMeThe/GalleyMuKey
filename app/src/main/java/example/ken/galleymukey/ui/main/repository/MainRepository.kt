@@ -37,7 +37,6 @@ class MainRepository : BaseRepository() {
             val list : List<NewGoodsBean>
             if(tag.isEmpty()){
                 list =  newDao.findAllGoods()
-
             }else{
                 list =  newDao.findGoodsByHastTag(tag)
             }

@@ -16,7 +16,7 @@ import example.ken.galleymukey.source.dto.*
     PhotoWallDto::class,
     HotWallDto::class,
     GoodsListDto::class,
-    HashTagDto::class,CateDto::class,CommentDto::class,NewGoodsDto::class),version = 4)
+    HashTagDto::class,CateDto::class,CommentDto::class,NewGoodsSellDto::class),version = 1)
 abstract class AppDataBaseCreator : RoomDatabase() {
 
     abstract fun getUserInfoDto() : UserInfoDao

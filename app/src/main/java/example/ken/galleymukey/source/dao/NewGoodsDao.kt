@@ -5,18 +5,20 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import example.ken.galleymukey.bean.NewGoodsBean
-import example.ken.galleymukey.source.dto.NewGoodsDto
+import example.ken.galleymukey.source.dto.NewGoodsSellDto
 
 @Dao
 interface NewGoodsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addBean(bean : NewGoodsDto)
+    fun addBean(bean : NewGoodsSellDto)
 
 
-    @Query("select goodsName,logo,hotSell from  NewGoodsDto where :hashTag like '%'|| keywords || '%'")
+    @Query("select goodsName,coverImg,hotSell from  GoodsListDto inner join NewGoodsSellDto where :hashTag like '%'|| keyword || '%' and GoodsListDto.id == NewGoodsSellDto.keyId")
     suspend fun findGoodsByHastTag(hashTag:String) : List<NewGoodsBean>
 
-    @Query("select goodsName,logo,hotSell from  NewGoodsDto")
+    @Query("select goodsName,coverImg,hotSell from  GoodsListDto  inner join NewGoodsSellDto where GoodsListDto.id == NewGoodsSellDto.keyId")
     suspend fun findAllGoods() : List<NewGoodsBean>
+
+
 }
