@@ -57,7 +57,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
             delay(3000)
            /* startActivity(null,LikeActivity::class.java)*/
-              if(!RDEN.get(RdenConstant.hasLogin,false)){
+              if(!RDEN.get(RdenConstant.hasLogin,true)){
                   startActivity(null,LoginActivity::class.java)
 
             }else{
@@ -153,7 +153,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     }
 
     fun addCate(){
-        for(i in 0..random.nextInt(40,60)){
+        for(i in 0..random.nextInt(10,15)){
             val dto = CateDto()
             dto.keyword = source.getHashTag()[random.nextInt(0,5)]
             dto.img = source.getBanner()[(random.nextInt(0,28))]
