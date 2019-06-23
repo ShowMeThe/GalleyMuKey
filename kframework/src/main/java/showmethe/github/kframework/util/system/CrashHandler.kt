@@ -1,9 +1,14 @@
 package showmethe.github.kframework.util.system
 
+import android.app.ActivityManager
+import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
+import showmethe.github.kframework.base.AppManager
 
 import java.io.File
 import java.io.FileOutputStream
@@ -12,6 +17,7 @@ import java.io.StringWriter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.HashMap
+import kotlin.system.exitProcess
 
 /**
  * 捕捉异常保存到本地
@@ -29,14 +35,9 @@ private constructor() : Thread.UncaughtExceptionHandler {
     // 用来存储设备信息和异常信息
     private val infos = HashMap<String, String>()
 
-    // 用于格式化日期,作为日志文件名的一部分
-    private val formatter = SimpleDateFormat("yyyy-MM-dd")
-
-
     private val globalpath: String
         get() = (mContext!!.externalCacheDir!!.absolutePath
                 + File.separator + "crash" + File.separator)
-
 
     /**
      * 初始化
@@ -51,19 +52,23 @@ private constructor() : Thread.UncaughtExceptionHandler {
         Thread.setDefaultUncaughtExceptionHandler(this)
     }
 
+
+
     /**
      * 当UncaughtException发生时会转入该函数来处理
      */
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun uncaughtException(thread: Thread, ex: Throwable) {
         if (!handleException(ex) && mDefaultHandler != null) {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler!!.uncaughtException(thread, ex)
         } else {
-            // 退出程序
+            // 退出当前程序
             android.os.Process.killProcess(android.os.Process.myPid())
-            System.exit(1)
+            exitProcess(1)
         }
     }
+
 
     /**
      * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
@@ -71,6 +76,7 @@ private constructor() : Thread.UncaughtExceptionHandler {
      * @param ex
      * @return true:如果处理了该异常信息; 否则返回false.
      */
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun handleException(ex: Throwable?): Boolean {
         if (ex == null)
             return false
@@ -92,6 +98,7 @@ private constructor() : Thread.UncaughtExceptionHandler {
      *
      * @param ctx
      */
+    @RequiresApi(Build.VERSION_CODES.P)
     fun collectDeviceInfo(ctx: Context?) {
         try {
             val pm = ctx!!.packageManager
@@ -131,8 +138,7 @@ private constructor() : Thread.UncaughtExceptionHandler {
     private fun saveCrashInfoFile(ex: Throwable): String? {
         val sb = StringBuffer()
         try {
-            val sDateFormat = SimpleDateFormat(
-                    "yyyy-MM-dd HH:mm:ss")
+            val sDateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.DEFAULT)
             val date = sDateFormat.format(Date())
             sb.append("\r\n" + date + "\n")
             for ((key, value) in infos) {
@@ -183,8 +189,11 @@ private constructor() : Thread.UncaughtExceptionHandler {
     companion object {
         var TAG = "Crash"
 
-        /** 获取CrashHandler实例 ,单例模式  */
-        val instance = CrashHandler()
+        private val instant by lazy { CrashHandler() }
+
+        fun get():CrashHandler{
+            return  instant
+        }
     }
 
 }
