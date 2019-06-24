@@ -3,6 +3,7 @@ package showmethe.github.kframework.widget.common
 import android.content.Context
 import androidx.core.widget.NestedScrollView
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 
 import showmethe.github.kframework.util.widget.ScreenSizeUtil
@@ -36,8 +37,7 @@ class AutoNestedScrollView : NestedScrollView {
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
 
-        if (t >= getChildAt(0).measuredHeight -  measuredHeight  - ScreenSizeUtil.getHeight(context)) {
-
+        if (getChildAt(0).height <=  t  +   height * 1.45) {
             if (!isLoading && canLoadMore) {
                 if (loadingMore != null) {
                     isLoading = true

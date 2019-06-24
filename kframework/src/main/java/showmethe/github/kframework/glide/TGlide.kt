@@ -61,7 +61,7 @@ class TGlide private constructor(context: Context){
                         .load(url)
                         .apply(options.centerCrop()
                                 .placeholder(placeholder)
-                                .error(error))
+                                .error(error)).transition(transitionOptions)
                         .into(imageView)
             }
         }
@@ -72,6 +72,7 @@ class TGlide private constructor(context: Context){
                 mRequestManager
                         .load(url)
                         .apply(options.centerCrop())
+                        .transition(transitionOptions)
                         .into(imageView)
             }
         }
@@ -80,6 +81,7 @@ class TGlide private constructor(context: Context){
             INSTANT.apply {
                 mRequestManager
                         .load(url)
+                        .transition(transitionOptions)
                         .into(imageView)
             }
         }
@@ -228,7 +230,21 @@ class TGlide private constructor(context: Context){
                 })
             }
         }
+
+
+        fun resumeRequests(){
+            INSTANT.apply {
+                mRequestManager.resumeRequests()
+            }
+        }
+
+        fun pauseRequests(){
+            INSTANT.apply {
+                mRequestManager.pauseRequests()
+            }
+        }
     }
+
 
     //储存到本地操作
     @SuppressLint("CheckResult")

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
+import android.util.Log
+import showmethe.github.kframework.glide.TGlide
 
 /**
  * PackageName: example.ken.com.library.widget
@@ -86,6 +88,7 @@ class AutoRecyclerView : RecyclerView {
     override fun onScrollStateChanged(state: Int) {
         super.onScrollStateChanged(state)
 
+
         val layoutManager = layoutManager
         val visibleItemCount = layoutManager!!.childCount
         val totalItemCount = layoutManager.itemCount
@@ -104,7 +107,7 @@ class AutoRecyclerView : RecyclerView {
 
         if (layoutManagerType == TYPE_GRID_LAYOUT || layoutManagerType == TYPE_STAGGERED_GRID_LAYOUT) {
             if (canLoadMore) {
-                if (!isLoading && lastPosition >= itemCount - 1 && visibleItemCount > 0 && state == RecyclerView.SCROLL_STATE_IDLE) {
+                if (!isLoading && lastPosition >= itemCount - 1 && visibleItemCount > 0 && state == SCROLL_STATE_IDLE) {
                     if (loadingMore != null) {
                         isLoading = true
                         loadingMore?.invoke()
