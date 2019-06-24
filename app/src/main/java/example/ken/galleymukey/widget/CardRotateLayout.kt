@@ -49,7 +49,10 @@ class CardRotateLayout @JvmOverloads constructor(
         firstView = getChildAt(0)
         secondView = getChildAt(1)
 
-        firstView?.bringToFront()
+
+        firstView?.alpha  = 1f
+        secondView?.alpha = 0f
+
         createRotateAnim()
         firstView?.setOnClickListener {
             firstView?.isEnabled = false
@@ -74,11 +77,9 @@ class CardRotateLayout @JvmOverloads constructor(
         if(hasExpand){
             firstView?.alpha = 0f
             secondView?.alpha = 1f
-            secondView?.bringToFront()
         }else{
             firstView?.alpha = 1f
             secondView?.alpha = 0f
-            firstView?.bringToFront()
         }
     }
 

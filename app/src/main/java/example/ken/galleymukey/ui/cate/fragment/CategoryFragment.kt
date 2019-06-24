@@ -48,9 +48,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
 
         viewModel.newGoods.observe(this, Observer {
             it?.apply {
-                smrl.showContent()
                 datas.clear()
                 datas.addAll(this)
+                smrl.showContent()
             }
         })
 

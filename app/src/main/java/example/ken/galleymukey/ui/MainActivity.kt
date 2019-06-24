@@ -223,7 +223,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
                     R.anim.slide_right_out)
 
                 transaction.add(id, tempFragment, tag)
-                    .setMaxLifecycle(tempFragment, Lifecycle.State.RESUMED);
+                    .setMaxLifecycle(tempFragment, Lifecycle.State.RESUMED)
 
             } catch (e: Exception) {
                 e.printStackTrace()

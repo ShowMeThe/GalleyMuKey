@@ -9,6 +9,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.EditorInfo
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.R
 import example.ken.galleymukey.dialog.HashTagDialog
@@ -179,8 +180,8 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
                     R.anim.slide_bottom_out,
                     R.anim.slide_left_in,
                     R.anim.slide_left_out)
-                transaction.add(R.id.frameLayout, tempFragment, tag
-                )
+                transaction.add(R.id.frameLayout, tempFragment, tag)
+                    .setMaxLifecycle(tempFragment, Lifecycle.State.RESUMED)
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -199,6 +200,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
                         R.anim.slide_left_in,
                         R.anim.slide_left_out)
                     transaction.show(fragment).addToBackStack(null)
+                        .setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
                 } else {
                     transaction.setCustomAnimations(
                         R.anim.slide_bottom_in,
@@ -206,6 +208,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, MainViewModel>() {
                         R.anim.slide_left_in,
                         R.anim.slide_left_out)
                     transaction.hide(fragment).addToBackStack(null)
+                        .setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
                 }
             }
         }
