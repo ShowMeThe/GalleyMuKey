@@ -128,4 +128,7 @@ dependencies {
 
     //palette
     api 'androidx.palette:palette:1.0.0'
+
+    //paging
+    api "androidx.paging:paging-runtime:2.1.0"
 }

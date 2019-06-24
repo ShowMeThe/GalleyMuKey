@@ -14,11 +14,11 @@ interface NewGoodsDao {
     fun addBean(bean : NewGoodsSellDto)
 
 
-    @Query("select goodsName,coverImg,hotSell from  GoodsListDto inner join NewGoodsSellDto where :hashTag like '%'|| keyword || '%' and GoodsListDto.id == NewGoodsSellDto.keyId limit 10")
-    suspend fun findGoodsByHastTag(hashTag:String) : List<NewGoodsBean>
+    @Query("select goodsName,coverImg,hotSell from  GoodsListDto inner join NewGoodsSellDto where :hashTag like '%'|| keyword || '%' and GoodsListDto.id == NewGoodsSellDto.keyId limit :pagerNumber,10 ")
+    suspend fun findGoodsByHastTag(hashTag:String,pagerNumber:Int) : List<NewGoodsBean>
 
-    @Query("select goodsName,coverImg,hotSell from  GoodsListDto  inner join NewGoodsSellDto where GoodsListDto.id == NewGoodsSellDto.keyId limit 10")
-    suspend fun findAllGoods() : List<NewGoodsBean>
+    @Query("select goodsName,coverImg,hotSell from  GoodsListDto  inner join NewGoodsSellDto where GoodsListDto.id == NewGoodsSellDto.keyId  limit :pagerNumber,10 ")
+    suspend fun findAllGoods(pagerNumber:Int) : List<NewGoodsBean>
 
 
 }

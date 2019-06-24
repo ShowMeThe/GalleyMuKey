@@ -16,7 +16,7 @@ import android.util.AttributeSet
 class AutoRecyclerView : RecyclerView {
 
     private var isLoading: Boolean = false
-    private var loadingMore: OnLoadingMore? = null
+    private var loadingMore: (()->Unit)? = null
     private var canLoadMore = true
     private var layoutManagerType = -1
     private var itemCount: Int = 0
@@ -65,7 +65,7 @@ class AutoRecyclerView : RecyclerView {
                 if (!isLoading && lastPosition >= itemCount - 5 && itemCount > 0 && dy > 0) {
                     if (loadingMore != null) {
                         isLoading = true
-                        loadingMore!!.onLoadMore()
+                        loadingMore?.invoke()
                     }
                 }
             }
@@ -107,7 +107,7 @@ class AutoRecyclerView : RecyclerView {
                 if (!isLoading && lastPosition >= itemCount - 1 && visibleItemCount > 0 && state == RecyclerView.SCROLL_STATE_IDLE) {
                     if (loadingMore != null) {
                         isLoading = true
-                        loadingMore!!.onLoadMore()
+                        loadingMore?.invoke()
                     }
                 }
             }
@@ -117,11 +117,11 @@ class AutoRecyclerView : RecyclerView {
     }
 
 
-    fun setOnLoadMore(loadingMore: OnLoadingMore) {
+    fun setOnLoadMore(loadingMore: ()->Unit) {
         this.loadingMore = loadingMore
     }
 
-    fun finishLoadMore() {
+    fun finishLoading() {
         isLoading = false
     }
 
@@ -129,10 +129,6 @@ class AutoRecyclerView : RecyclerView {
         this.canLoadMore = canLoadMore
     }
 
-    @FunctionalInterface
-    interface OnLoadingMore {
-        fun onLoadMore()
-    }
 
     companion object {
 

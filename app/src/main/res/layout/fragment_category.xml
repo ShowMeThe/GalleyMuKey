@@ -8,7 +8,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<androidx.core.widget.NestedScrollView
+		<showmethe.github.kframework.widget.common.AutoNestedScrollView
+			android:id="@+id/nest"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
@@ -62,6 +63,6 @@
 			
 			
 			</LinearLayout>
-		</androidx.core.widget.NestedScrollView>
+		</showmethe.github.kframework.widget.common.AutoNestedScrollView>
 	</showmethe.github.kframework.widget.common.SmartRelativeLayout>
 </layout>

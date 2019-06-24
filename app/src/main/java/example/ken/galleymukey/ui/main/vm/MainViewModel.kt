@@ -48,8 +48,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    fun getGoodsByHashTag(tag:String){
-        repository.findGoodsByHashTag(tag,newGoods)
+    fun getGoodsByHashTag(tag:String,pagerNumber : Int){
+        repository.findGoodsByHashTag(tag,pagerNumber,newGoods)
     }
 
     fun getCommentById(id:Int){

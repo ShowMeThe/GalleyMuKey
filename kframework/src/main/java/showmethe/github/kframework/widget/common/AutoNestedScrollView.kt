@@ -18,7 +18,7 @@ class AutoNestedScrollView : NestedScrollView {
 
 
     private var isLoading: Boolean = false
-    private var loadingMore: OnLoadingMore? = null
+    private var loadingMore: (()->Unit)? = null
     private var canLoadMore = true
 
     constructor(context: Context) : super(context) {}
@@ -36,23 +36,23 @@ class AutoNestedScrollView : NestedScrollView {
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
 
-        if (t >= getChildAt(0).measuredHeight - measuredHeight - ScreenSizeUtil.getHeight(context)) {
+        if (t >= getChildAt(0).measuredHeight -  measuredHeight  - ScreenSizeUtil.getHeight(context)) {
 
             if (!isLoading && canLoadMore) {
                 if (loadingMore != null) {
                     isLoading = true
-                    loadingMore!!.onLoadMore()
+                    loadingMore?.invoke()
                 }
             }
         }
     }
 
 
-    fun setOnLoadMore(loadingMore: OnLoadingMore) {
+    fun setOnLoadMore(loadingMore: ()->Unit) {
         this.loadingMore = loadingMore
     }
 
-    fun finishLoadMore() {
+    fun finishLoading() {
         isLoading = false
     }
 
@@ -60,10 +60,7 @@ class AutoNestedScrollView : NestedScrollView {
         this.canLoadMore = canLoadMore
     }
 
-    @FunctionalInterface
-    interface OnLoadingMore {
-        fun onLoadMore()
-    }
+
 
 
 }

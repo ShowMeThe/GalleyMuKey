@@ -1,8 +1,11 @@
 package example.ken.galleymukey.ui.cate.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
+import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import example.ken.galleymukey.R
@@ -26,9 +29,10 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
 
     val list = ObservableArrayList<CateTagBean>()
     lateinit var adapter : CateTagAdapter
-
     val datas = ObservableArrayList<NewGoodsBean>()
     lateinit var newAdapter: NewAdapter
+
+    var  pagerNumber = 1
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_category
@@ -48,19 +52,27 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
 
         viewModel.newGoods.observe(this, Observer {
             it?.apply {
-                datas.clear()
-                datas.addAll(this)
                 smrl.showContent()
+                takeIf { pagerNumber == 1 }?.apply {
+                    datas.clear()
+                }
+                if(this.isEmpty()){
+                    nest.setEnableLoadMore(false)
+                }else{
+                    nest.setEnableLoadMore(true)
+                }
+                datas.addAll(this)
+                nest.finishLoading()
             }
         })
 
         viewModel.keyword.observe(this, Observer {
             it?.apply {
+                pagerNumber = 1
                 viewModel.getCate(this)
-                viewModel.getGoodsByHashTag(this)
+                viewModel.getGoodsByHashTag(this,pagerNumber)
             }
         })
-
 
 
     }
@@ -79,12 +91,17 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding, MainViewModel>() 
         rvNew.addItemDecoration(SpaceItemDecoration(30,20))
 
 
+        viewModel.keyword.value = ""
 
-        viewModel.getCate("")
-        viewModel.getGoodsByHashTag("")
+
     }
 
     override fun initListener() {
+
+        nest.setOnLoadMore{
+            pagerNumber++
+            viewModel.getGoodsByHashTag(viewModel.keyword.value!!,pagerNumber)
+        }
 
 
     }

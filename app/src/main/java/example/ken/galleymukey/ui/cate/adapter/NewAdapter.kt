@@ -2,13 +2,20 @@ package example.ken.galleymukey.ui.cate.adapter
 
 import android.content.Context
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.CornerFamily
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.NewGoodsBean
 import example.ken.galleymukey.databinding.ItemNewBinding
 import example.ken.galleymukey.source.Source
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
+import showmethe.github.kframework.base.BaseApplication.Companion.context
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.CreateDrawable
 
@@ -19,6 +26,8 @@ import showmethe.github.kframework.util.CreateDrawable
  **/
 class NewAdapter(context: Context, data: ObservableArrayList<NewGoodsBean>) :
     DataBindBaseAdapter<NewGoodsBean, ItemNewBinding>(context, data) {
+    override fun getItemLayout(): Int = R.layout.item_new
+
     override fun bindItems(binding: ItemNewBinding?, item: NewGoodsBean, position: Int) {
         binding?.apply {
             firstCard.background =  CreateDrawable.create(context,CornerFamily.CUT,10,R.color.colorAccent)
@@ -36,7 +45,5 @@ class NewAdapter(context: Context, data: ObservableArrayList<NewGoodsBean>) :
 
         }
     }
-
-    override fun getItemLayout(): Int = R.layout.item_new
 
 }

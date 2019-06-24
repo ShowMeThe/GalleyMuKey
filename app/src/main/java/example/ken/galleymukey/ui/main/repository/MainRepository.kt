@@ -32,13 +32,14 @@ class MainRepository : BaseRepository() {
     val newDao  = DataSourceBuilder.getNewGoodsDao()
 
 
-    fun findGoodsByHashTag(tag:String,data : MutableLiveData<List<NewGoodsBean>>){
+    fun findGoodsByHashTag(tag:String, pagerNumber : Int ,data : MutableLiveData<List<NewGoodsBean>>){
         GlobalScope.launch(Dispatchers.IO) {
             val list  = if(tag.isEmpty()){
-                newDao.findAllGoods()
+                newDao.findAllGoods((pagerNumber-1)*10)
             }else{
-                newDao.findGoodsByHastTag(tag)
+                newDao.findGoodsByHastTag(tag,(pagerNumber-1)*10)
             }
+           Log.e("222222222","${list.size}")
             data.postValue(list)
         }
     }
