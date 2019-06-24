@@ -118,7 +118,7 @@ class AutoRecyclerView : RecyclerView {
                 countWidth = firstView.measuredWidth * 0.5
             }
 
-            if(itemDecorationCount>0 && itemCount>1){
+            if(itemDecorationCount>0 && itemCount>1 && itemDecoration == 0 ){
                 itemDecoration = if(layoutManager.orientation == VERTICAL){
                     (layoutManager.findViewByPosition(firstPos+1)!!.top -
                             layoutManager.findViewByPosition(firstPos)!!.bottom )
