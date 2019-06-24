@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

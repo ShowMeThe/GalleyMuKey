@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.CornerFamily

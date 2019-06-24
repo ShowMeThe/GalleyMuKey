@@ -39,7 +39,6 @@ class MainRepository : BaseRepository() {
             }else{
                 newDao.findGoodsByHastTag(tag,(pagerNumber-1)*10)
             }
-           Log.e("222222222","${list.size}")
             data.postValue(list)
         }
     }
