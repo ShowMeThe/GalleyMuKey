@@ -226,8 +226,12 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         },{
             inner.visibility = View.GONE
             layout.setBackgroundColor(colors[position])
-            bottomBar.backgroundTintList = ColorStateList.valueOf(colors[position])
+            val colors = ColorStateList.valueOf(colors[position])
+            bottomBar.backgroundTintList = colors
+            btnLogOut.iconTint = colors
+            btnLogOut.setTextColor(colors)
         })
+        CircularRevealUtils.revealCenter(bottomBar,colors[position],{},{})
     }
 
 

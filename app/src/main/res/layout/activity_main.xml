@@ -156,7 +156,7 @@
 		</androidx.core.widget.NestedScrollView>
 		
 		<LinearLayout
-			android:background="@color/colorAccent"
+			android:background="@color/white"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/px200dp">
 			
@@ -169,18 +169,18 @@
 				android:gravity="center"
 				android:layout_height="match_parent">
 				
-				<ImageView
-					android:src="@mipmap/logout"
-					android:layout_width="@dimen/px75dp"
-					android:layout_height="@dimen/px75dp" />
-				
-				<TextView
-					android:layout_marginStart="@dimen/px20dp"
-					android:text="Logout"
-					android:textColor="@color/colorPrimaryDark"
-					android:textSize="@dimen/px43dp"
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/btnLogOut"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
+					android:layout_height="wrap_content"
+					app:icon="@mipmap/logout"
+					android:gravity="center"
+					android:textSize="@dimen/px43dp"
+					app:iconTint="@color/colorAccent"
+					android:textColor="@color/colorAccent"
+					app:backgroundTint="@color/white"
+					android:text="Logout"
+					/>
 			</LinearLayout>
 			
 			
