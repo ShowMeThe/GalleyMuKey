@@ -1,14 +1,15 @@
-package showmethe.github.kframework.util.system
+package showmethe.github.kframework.util.system.crash
 
-import android.app.ActivityManager
-import android.app.usage.UsageStatsManager
+import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
-import showmethe.github.kframework.base.AppManager
+import showmethe.github.kframework.base.BaseApplication.Companion.context
 
 import java.io.File
 import java.io.FileOutputStream
@@ -19,21 +20,57 @@ import java.util.Date
 import java.util.HashMap
 import kotlin.system.exitProcess
 
+
 /**
  * 捕捉异常保存到本地
- *
- *
  * 2019/1/4
  */
-class CrashHandler
-/** 保证只有一个CrashHandler实例  */
-private constructor() : Thread.UncaughtExceptionHandler {
+
+class CrashHandler /** 保证只有一个CrashHandler实例  */
+private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLifecycleCallbacks {
+
+    override fun onActivityPaused(activity: Activity?) {
+
+    }
+
+    override fun onActivityResumed(activity: Activity?) {
+    }
+
+    override fun onActivityStarted(activity: Activity?) {
+        currentActivity = activity
+    }
+
+    override fun onActivityDestroyed(activity: Activity?) {
+        currentActivity = activity
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+    }
+
+    override fun onActivityStopped(activity: Activity?) {
+
+
+    }
+
+    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+        currentActivity = activity
+    }
+
+    //收集错误次数
+    private var repeatTime = 0
+
+
+
     // 系统默认的UncaughtException处理类
     private var mDefaultHandler: Thread.UncaughtExceptionHandler? = null
     private var mContext: Context? = null
+    var  lifecycleCallbacks : Application.ActivityLifecycleCallbacks? = null
 
     // 用来存储设备信息和异常信息
     private val infos = HashMap<String, String>()
+
+    //currentActivity
+    private var currentActivity: Activity? = null
 
     private val globalpath: String
         get() = (mContext!!.externalCacheDir!!.absolutePath
@@ -54,6 +91,76 @@ private constructor() : Thread.UncaughtExceptionHandler {
 
 
 
+    private fun getActivityPair(): Pair<Activity?, Intent?> {
+        val activity = currentActivity
+        val intent = if (activity?.intent?.action == "android.intent.action.MAIN")
+            Intent(activity, activity.javaClass)
+        else
+            activity?.intent
+
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        return Pair(activity, intent)
+    }
+
+    /**
+     * 通过包名拉起app
+     */
+    private fun restartApp(activityPair: Pair<Activity?, Intent?>) {
+        val packageName = activityPair.first?.baseContext?.packageName
+        if (packageName != null) {
+            val intent = activityPair.first?.baseContext?.packageManager?.getLaunchIntentForPackage(packageName)
+            if (intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                activityPair.first?.startActivity(intent)
+            }
+            activityPair.first?.overridePendingTransition(0, 0)
+            activityPair.first?.finish()
+            activityPair.first?.overridePendingTransition(0, 0)
+        }
+        repeatTime = 0
+    }
+
+
+    /**
+     * 重启activity 拉起的activity 不能为singleTask
+     */
+    private fun restartActivity(activityPair: Pair<Activity?, Intent?>){
+        val restartClass = guessRestartActivityClass()
+        val intent = Intent(activityPair.first,restartClass)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        activityPair.first?.startActivity(intent)
+        activityPair.first?.overridePendingTransition(0, 0)
+        activityPair.first?.finish()
+        activityPair.first?.overridePendingTransition(0, 0)
+    }
+
+
+    private fun guessRestartActivityClass(): Class<out Activity>? {
+        return getRestartActivityClassWithIntentFilter()
+    }
+
+
+    /**
+     * 通过filter从包里拉起actitvity
+     */
+    private  fun  getRestartActivityClassWithIntentFilter() : Class<out Activity>?{
+        val searchedIntent = Intent().setAction(restartAction).setPackage(context.packageName)
+        val resolveInfos = context.packageManager.queryIntentActivities(searchedIntent,
+            PackageManager.MATCH_DEFAULT_ONLY)
+        if (resolveInfos != null && resolveInfos.size > 0) {
+            val resolveInfo = resolveInfos[0]
+            try {
+                return Class.forName(resolveInfo.activityInfo.name) as Class<out Activity>
+            } catch (e: ClassNotFoundException) {
+                Log.e(TAG,
+                    "Failed when resolving the restart activity class via intent filter, stack trace follows!", e)
+            }
+
+        }
+        return null
+    }
+
+
     /**
      * 当UncaughtException发生时会转入该函数来处理
      */
@@ -63,12 +170,16 @@ private constructor() : Thread.UncaughtExceptionHandler {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler!!.uncaughtException(thread, ex)
         } else {
+            val activityPair = getActivityPair()
+            restartActivity(activityPair)
+
+
+
             // 退出当前程序
             android.os.Process.killProcess(android.os.Process.myPid())
-            exitProcess(1)
+            exitProcess(10)
         }
     }
-
 
     /**
      * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
@@ -169,7 +280,7 @@ private constructor() : Thread.UncaughtExceptionHandler {
     @Throws(Exception::class)
     private fun writeFile(sb: String): String {
         val time = System.currentTimeMillis().toString() + ""
-        val fileName = "crash-$time.log"
+        val fileName = "crash-$time.txt"
         try {
             val path = globalpath
             val dir = File(path)
@@ -189,10 +300,12 @@ private constructor() : Thread.UncaughtExceptionHandler {
     companion object {
         var TAG = "Crash"
 
+        private var restartAction = "com.crash.restart"
         private val instant by lazy { CrashHandler() }
 
-        fun get():CrashHandler{
-            return  instant
+        fun get(ctx: Context): CrashHandler {
+            instant.init(ctx)
+            return instant
         }
     }
 
