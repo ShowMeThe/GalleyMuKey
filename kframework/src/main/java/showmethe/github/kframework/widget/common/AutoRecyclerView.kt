@@ -11,6 +11,7 @@ import android.view.animation.AnticipateInterpolator
 import android.widget.RelativeLayout
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import showmethe.github.kframework.R
 
 /**
  * PackageName: example.ken.com.library.widget
@@ -18,7 +19,9 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
  * Date : 2018/10/23
  * Time : 9:50
  */
-class AutoRecyclerView : RecyclerView {
+class AutoRecyclerView @JvmOverloads constructor(
+    context: Context,var  attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : RecyclerView(context, attrs, defStyleAttr) {
 
     private var isLoading: Boolean = false
     private var loadingMore: (()->Unit)? = null
@@ -31,18 +34,41 @@ class AutoRecyclerView : RecyclerView {
     private var findFirstVisibleItemPosition = 0
     private var previousTotal: Int = 0
     private var scrollOffset = 0
+    /**
+     * 防止多次执行滑动
+     */
     private var hasRunning = false
+    /**
+     * 滑动距离 里完整区域 剩余距离
+     */
     private var leftHeight = 0
+    /**
+     * 整体宽度或高度
+     */
     private var countWidth = 0.0
+
     private var interpolator = FastOutLinearInInterpolator()
     private var interpolator2 = FastOutSlowInInterpolator()
+    /**
+     * 间距
+     */
     private var itemDecoration = 0
+    /**
+     * 当layoutManager为LinearLayoutManager 时候触发自动寻找临近position
+     */
+    private var autoFix = true
 
-    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    init {
+        initType()
+    }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+    private fun initType(){
+        val array = context.obtainStyledAttributes(attrs,R.styleable.AutoRecyclerView)
+        autoFix = array.getBoolean(R.styleable.AutoRecyclerView_autoFix,true)
+        array.recycle()
+    }
+
 
     override fun onScrolled(dx: Int, dy: Int) {
         super.onScrolled(dx, dy)
@@ -101,12 +127,15 @@ class AutoRecyclerView : RecyclerView {
         val layoutManager = layoutManager
         val visibleItemCount = layoutManager!!.childCount
         val totalItemCount = layoutManager.itemCount
-        if(state == SCROLL_STATE_IDLE){
 
+
+        /**
+         * 滑动停止后还能继续滚动时候，寻找临近位置自动移动到最近的position
+         */
+        if(state == SCROLL_STATE_IDLE && autoFix){
             val linearLayoutManager = (layoutManager as LinearLayoutManager)
             val firstPos = linearLayoutManager.findFirstVisibleItemPosition()
             val firstView = linearLayoutManager.findViewByPosition(firstPos)
-
 
             if(linearLayoutManager.orientation == VERTICAL){
                 scrollOffset = firstPos * firstView!!.height - firstView.top
@@ -117,7 +146,9 @@ class AutoRecyclerView : RecyclerView {
                 leftHeight = scrollOffset % firstView.measuredWidth
                 countWidth = firstView.measuredWidth * 0.5
             }
-
+            /**
+             * 计算间距
+             */
             if(itemDecorationCount>0 && itemCount>1 && itemDecoration == 0 ){
                 itemDecoration = if(layoutManager.orientation == VERTICAL){
                     (layoutManager.findViewByPosition(firstPos+1)!!.top -
@@ -169,7 +200,7 @@ class AutoRecyclerView : RecyclerView {
 
         if (layoutManagerType == TYPE_GRID_LAYOUT || layoutManagerType == TYPE_STAGGERED_GRID_LAYOUT) {
             if (canLoadMore) {
-                if (!isLoading && lastPosition >= itemCount - 1 && visibleItemCount > 0 && state == RecyclerView.SCROLL_STATE_IDLE) {
+                if (!isLoading && lastPosition >= itemCount - 1 && visibleItemCount > 0 && state == SCROLL_STATE_IDLE) {
                     if (loadingMore != null) {
                         isLoading = true
                         loadingMore?.invoke()

@@ -124,18 +124,10 @@
             <enum name="bottom" value="4" />
         </attr>
     </declare-styleable>
-
-
-    <style name="tab">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textColor">@color/text_333333</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:visibility">visible</item>
-    </style>
+    
+    <declare-styleable name="AutoRecyclerView">
+        <attr name="autoFix" format="boolean"/>
+    </declare-styleable>
 
 
    <declare-styleable name="TextViewFlipper">
