@@ -19,29 +19,41 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			>
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:background="@color/colorPrimary"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-			</androidx.appcompat.widget.Toolbar>
 			
-			<com.google.android.material.tabs.TabLayout
-				android:id="@+id/tab"
-				android:background="@color/colorPrimary"
+			
+			<RelativeLayout
+				android:id="@+id/layout"
+				android:background="@color/colorAccent"
+				android:orientation="vertical"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/px140dp"
-				app:tabIndicatorColor="@color/white"
-				app:tabGravity="fill"
-				app:tabRippleColor="@color/white_85"
-				app:tabInlineLabel="true"
-				app:layout_collapseMode="pin"
-				app:tabIndicatorHeight="@dimen/px7dp"
-				app:tabIndicatorFullWidth="false"
-				app:tabIconTintMode="src_in"
-				app:tabIconTint="@color/white"
+				android:layout_height="wrap_content"
 				>
-			</com.google.android.material.tabs.TabLayout>
+				<androidx.appcompat.widget.Toolbar
+					android:id="@+id/toolbar"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				</androidx.appcompat.widget.Toolbar>
+				
+				<com.google.android.material.tabs.TabLayout
+					android:id="@+id/tab"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/px140dp"
+					app:tabIndicatorColor="@color/white"
+					app:tabGravity="fill"
+					android:layout_below="@+id/toolbar"
+					app:tabRippleColor="@color/white_85"
+					app:tabInlineLabel="true"
+					app:layout_collapseMode="pin"
+					app:tabIndicatorHeight="@dimen/px7dp"
+					app:tabIndicatorFullWidth="false"
+					app:tabIconTintMode="src_in"
+					app:tabIconTint="@color/white"
+					>
+				</com.google.android.material.tabs.TabLayout>
+			
+			
+			</RelativeLayout>
+			
 			
 			<FrameLayout
 				android:id="@+id/frameLayout"

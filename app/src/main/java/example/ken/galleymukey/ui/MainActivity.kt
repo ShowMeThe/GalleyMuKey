@@ -1,9 +1,12 @@
 package example.ken.galleymukey.ui
 
+import android.animation.Animator
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
@@ -81,6 +84,8 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         switchFragment(0)
 
     }
+
+
 
 
     override fun isLiveEventBusHere(): Boolean = true
