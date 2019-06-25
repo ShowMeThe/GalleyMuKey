@@ -16,7 +16,7 @@ import showmethe.github.kframework.base.BaseViewModel
 class ProfileInfoViewModel(application: Application) : BaseViewModel(application) {
 
 
-    val repository = ProfileRepository()
+    private val repository = ProfileRepository()
     val switchToReset = MutableLiveData<Boolean>()
     var currentType = true //true info //false reset
     var updateInfo = MutableLiveData<Int>()
