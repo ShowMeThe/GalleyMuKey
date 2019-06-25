@@ -1,6 +1,7 @@
 package example.ken.galleymukey.ui
 
 import android.animation.Animator
+import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.circularreveal.CircularRevealHelper
 import com.google.android.material.picker.MaterialDateRangePickerDialogFragment
 import com.google.android.material.tabs.TabLayout
 import example.ken.galleymukey.R
@@ -31,6 +33,8 @@ import example.ken.galleymukey.ui.main.LikeActivity
 import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import example.ken.galleymukey.ui.mine.ProfileInfoActivity
+import example.ken.galleymukey.util.CircularRevealUtils
+import kotlinx.android.synthetic.main.activity_goods_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_drawer_item.*
 import showmethe.github.kframework.base.BaseActivity
@@ -46,6 +50,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     val dialog = SelectorDialog()
+    val colors = IntArray(3)
 
     override fun getViewId(): Int =R.layout.activity_main
     override fun initViewModel(): MainViewModel =createViewModel(MainViewModel::class.java)
@@ -82,6 +87,13 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         switchFragment(0)
+
+
+        colors[0] = ContextCompat.getColor(context,R.color.colorPrimary)
+        colors[1] = ContextCompat.getColor(context,R.color.colorPrimaryDark)
+        colors[2] = ContextCompat.getColor(context,R.color.color_0288d1)
+
+
 
     }
 
@@ -160,12 +172,14 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     fun initTab(){
+
         tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.photo)))
         tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.category)))
         tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.shopping)))
 
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab?) {
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -174,18 +188,25 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val pos = tab!!.position
+
                 switchFragment(pos)
+
             }
         })
     }
 
+
+
+
     fun switchFragment(position:Int){
+        switchColor(position)
         when(position){
             0 ->  {
                 replaceFragment(GalleyFragment::class.java.name)
                 fab.show()
                 bottomBar.visibility = View.VISIBLE
             }
+
             1 ->  {
                 replaceFragment(CateFragment::class.java.name)
                 fab.hide()
@@ -197,6 +218,18 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
             }
         }
     }
+
+
+    fun switchColor(position : Int ){
+        CircularRevealUtils.circularRevealCenter(inner,colors[position],{
+            inner.visibility = View.VISIBLE
+        },{
+            inner.visibility = View.GONE
+            layout.setBackgroundColor(colors[position])
+            bottomBar.backgroundTintList = ColorStateList.valueOf(colors[position])
+        })
+    }
+
 
     override fun onBackPressed() {
         if(!drawer.isDrawerOpen(Gravity.LEFT)){
