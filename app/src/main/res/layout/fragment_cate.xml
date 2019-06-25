@@ -10,7 +10,7 @@
 			android:transitionName="search"
 			android:background="@drawable/shape_search_bar"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/px180dp">
+			android:layout_height="@dimen/px140dp">
 			
 			<ImageView
 				android:id="@+id/ivSearch"
@@ -42,6 +42,8 @@
 				android:layout_width="0dp"
 				android:inputType="text"
 				android:maxLines="1"
+				android:hint="Search"
+				android:textColorHint="@color/white"
 				android:imeOptions="actionSearch"
 				android:layout_gravity="center"
 				android:background="@drawable/shape_rect_raidus_white_85"

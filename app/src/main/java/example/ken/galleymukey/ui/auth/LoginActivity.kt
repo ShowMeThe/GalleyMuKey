@@ -19,6 +19,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.snackbar.Snackbar
 import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
@@ -33,6 +34,7 @@ import kotlin.random.Random
 
 
 class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
+
 
     val dialog by lazy {  LoginDialog() }
     val signUpDialog by lazy { SignUpDialog() }
@@ -49,10 +51,11 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     override fun onBundle(bundle: Bundle) {
 
     }
+    override fun onLifeCreated(owner: LifecycleOwner) {
 
-    override fun addLifecycle(lifecycle: Lifecycle) {
-        viewModel.repository.init(this)
+
     }
+
 
     override fun observerUI() {
 

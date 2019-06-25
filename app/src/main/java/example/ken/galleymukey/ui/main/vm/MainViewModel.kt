@@ -45,8 +45,11 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-
+        repository.init(owner)
+        searchRepository.init(owner)
     }
+
+
 
     fun getGoodsByHashTag(tag:String,pagerNumber : Int){
         repository.findGoodsByHashTag(tag,pagerNumber,newGoods)

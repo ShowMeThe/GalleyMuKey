@@ -7,6 +7,7 @@ import androidx.databinding.adapters.ImageViewBindingAdapter
 import androidx.databinding.adapters.LinearLayoutBindingAdapter
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ import showmethe.github.kframework.widget.transformer.CardStackTransformer
 
 class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
+
     var dialog:AddCommentDialog? = null
     val list = ObservableArrayList<PhotoWallBean>()
     lateinit var adapter : LikeListAdapter
@@ -40,8 +42,9 @@ class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     }
 
-    override fun addLifecycle(lifecycle: Lifecycle) {
-        viewModel.repository.init(this)
+
+    override fun onLifeCreated(owner: LifecycleOwner) {
+
     }
 
     override fun observerUI() {

@@ -17,9 +17,11 @@ import androidx.appcompat.widget.PopupMenu
 import java.io.File
 import android.view.animation.AccelerateInterpolator
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 
 @ParallaxBack
 class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
+
 
     companion object{
         private val storeDir =
@@ -42,7 +44,10 @@ class ImageShowActivity : BaseActivity<ViewDataBinding,MainViewModel>(){
     override fun getViewId(): Int = R.layout.activity_image_show
 
     override fun initViewModel(): MainViewModel = createViewModel(MainViewModel::class.java)
-    override fun addLifecycle(lifecycle: Lifecycle) {
+
+
+    override fun onLifeCreated(owner: LifecycleOwner) {
+
 
     }
     override fun onBundle(bundle: Bundle) {

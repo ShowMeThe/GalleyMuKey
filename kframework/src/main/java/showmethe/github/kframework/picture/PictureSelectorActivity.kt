@@ -15,6 +15,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
@@ -36,6 +37,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
+
 
 
     companion object {
@@ -66,9 +68,13 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
     override fun onBundle(bundle: Bundle) {
 
     }
-    override fun addLifecycle(lifecycle: Lifecycle) {
+
+
+    override fun onLifeCreated(owner: LifecycleOwner) {
 
     }
+
+
     override fun observerUI() {
 
     }

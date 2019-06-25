@@ -14,19 +14,26 @@ import showmethe.github.kframework.util.ToastFactory
  *
  * 2019/1/10
  **/
-abstract class BaseViewModel(application: Application) : AndroidViewModel(application),DefaultLifecycleObserver{
+abstract class BaseViewModel    (application: Application) : AndroidViewModel(application),DefaultLifecycleObserver{
 
 
     lateinit var owner: LifecycleOwner
+    private var onInit : ((owner: LifecycleOwner)->Unit )? = null
 
     override fun onCreate(owner: LifecycleOwner) {
         this.owner = owner
 
-
         onViewModelCreated(owner)
+        onInit?.invoke(owner)
+
     }
 
     abstract fun onViewModelCreated(owner: LifecycleOwner)
+
+
+    fun LifecyclerCreated(onInit : (owner: LifecycleOwner)->Unit){
+        this.onInit = onInit
+    }
 
 
 

@@ -133,10 +133,10 @@ class AutoRecyclerView : RecyclerView {
 
                     if(layoutManager.orientation == VERTICAL){
                         smoothScrollBy(0,linearLayoutManager.findViewByPosition(firstPos+1)!!.top
-                                - itemDecoration  - (firstView.layoutParams as LayoutParams).topMargin,interpolator)
+                                - itemDecoration,interpolator)
                     }else{
                         smoothScrollBy(linearLayoutManager.findViewByPosition(firstPos+1)!!.left
-                                - itemDecoration  - (firstView.layoutParams as LayoutParams).leftMargin,0,interpolator)
+                                - itemDecoration,0,interpolator)
                     }
                     hasRunning = true
                 }

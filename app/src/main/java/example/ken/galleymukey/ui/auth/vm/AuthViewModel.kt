@@ -27,6 +27,7 @@ class AuthViewModel(application: Application) : BaseViewModel(application){
 
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
+        repository.init(owner)
 
     }
 

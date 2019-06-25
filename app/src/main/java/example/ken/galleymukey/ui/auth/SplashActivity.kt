@@ -3,6 +3,7 @@ package example.ken.galleymukey.ui.auth
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import example.ken.galleymukey.R
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
@@ -23,6 +24,9 @@ import showmethe.github.kframework.util.rden.RDEN
 import kotlin.random.Random
 
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
+    override fun onLifeCreated(owner: LifecycleOwner) {
+
+    }
 
 
     val random = Random(System.currentTimeMillis())
@@ -35,8 +39,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     override fun onBundle(bundle: Bundle) {
     }
-    override fun addLifecycle(lifecycle: Lifecycle) {
-    }
+
     override fun observerUI() {
     }
 

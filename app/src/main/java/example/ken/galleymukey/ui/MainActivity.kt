@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.badge.BadgeDrawable
@@ -40,6 +41,7 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
+
     val dialog = SelectorDialog()
 
     override fun getViewId(): Int =R.layout.activity_main
@@ -50,20 +52,21 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
     override fun observerUI() {
 
-
         viewModel.customBg.observe(this, Observer {
             it?.apply {
                 TGlide.load(this,topBg)
             }
         })
+
+
     }
 
 
-    override fun addLifecycle(lifecycle: Lifecycle) {
-        viewModel.repository.init(this)
-        viewModel.searchRepository.init(this)
-    }
+    override fun onLifeCreated(owner: LifecycleOwner) {
 
+           viewModel.getCustomBg()
+
+    }
 
     override fun setTheme() {
         StatusBarUtil.fixToolbarScreen(this,toolbar)
@@ -76,7 +79,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         switchFragment(0)
-        viewModel.getCustomBg()
+
     }
 
 

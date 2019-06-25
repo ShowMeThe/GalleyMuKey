@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.appbar.AppBarLayout
@@ -25,15 +26,11 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 
 class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewModel>() {
 
-
     val list = ObservableArrayList<String>()
     var dto : GoodsListDto? = null
 
     override fun getViewId(): Int = R.layout.activity_goods_detail
     override fun initViewModel(): GoodsViewModel =createViewModel(GoodsViewModel::class.java)
-    override fun addLifecycle(lifecycle: Lifecycle) {
-
-    }
     override fun onBundle(bundle: Bundle) {
         dto = bundle.getSerializable("dto") as GoodsListDto?
         val defaultColor = ContextCompat.getColor(context,R.color.color_ff6e00)
@@ -50,6 +47,11 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
             })
         }
     }
+
+    override fun onLifeCreated(owner: LifecycleOwner) {
+
+    }
+
     override fun observerUI() {
 
     }

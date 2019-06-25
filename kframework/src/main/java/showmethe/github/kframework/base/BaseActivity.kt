@@ -65,8 +65,11 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
         context = this
         binding?.lifecycleOwner = this
         viewModel = initViewModel()
-        addLifecycle(lifecycle)
         lifecycle.addObserver(viewModel)
+        viewModel.LifecyclerCreated {
+            onLifeCreated(it)
+        }
+
 
         if(showCreateReveal()){
             setUpReveal(savedInstanceState)
@@ -193,7 +196,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
     abstract fun onBundle(bundle: Bundle)
 
-    abstract fun addLifecycle(lifecycle: Lifecycle)
+    abstract fun onLifeCreated(owner: LifecycleOwner)
 
     abstract fun observerUI()
 
