@@ -4,7 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import example.ken.galleymukey.bean.CartListBean
 import example.ken.galleymukey.bean.NewGoodsBean
+import example.ken.galleymukey.source.dto.CartListDto
 import example.ken.galleymukey.source.dto.NewGoodsSellDto
 
 @Dao
@@ -20,5 +22,11 @@ interface NewGoodsDao {
     @Query("select goodsName,coverImg,hotSell from  GoodsListDto  inner join NewGoodsSellDto where GoodsListDto.id == NewGoodsSellDto.keyId  limit :pagerNumber,10 ")
     suspend fun findAllGoods(pagerNumber:Int) : List<NewGoodsBean>
 
+
+    @Query("select cardId,goodsId,count,goodsName,coverImg,goodsDes from GoodsListDto inner join CartListDto where GoodsListDto.id == CartListDto.goodsId")
+    suspend fun findCartList() : List<CartListBean>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addCartBean(bean : CartListDto)
 
 }

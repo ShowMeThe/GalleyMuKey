@@ -17,7 +17,7 @@
 	<TextView
 		android:id="@+id/tvTitle"
 		android:transitionName="title"
-		android:textSize="@dimen/px47dp"
+		android:textSize="@dimen/px49dp"
 		android:textColor="@color/white"
 		android:layout_centerInParent="true"
 		android:layout_width="wrap_content"

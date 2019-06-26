@@ -20,7 +20,7 @@
 			android:clickable="true"
 			android:focusable="true"
 			app:cardCornerRadius="@dimen/px30dp"
-			app:rippleColor="@color/color_85ff6e00"
+			app:rippleColor="@color/color_ffab91"
 			app:cardBackgroundColor="@color/colorPrimary"
 			app:cardElevation="@dimen/px14dp"
 			app:cardPreventCornerOverlap="true"

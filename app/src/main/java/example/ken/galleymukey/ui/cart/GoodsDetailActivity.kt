@@ -15,6 +15,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.appbar.AppBarLayout
 import example.ken.galleymukey.R
 import example.ken.galleymukey.databinding.ActivityGoodsDetailBinding
+import example.ken.galleymukey.source.dto.CartListDto
 import example.ken.galleymukey.source.dto.GoodsListDto
 import example.ken.galleymukey.ui.cart.vm.GoodsViewModel
 import kotlinx.android.synthetic.main.activity_goods_detail.*
@@ -23,6 +24,7 @@ import showmethe.github.kframework.base.BaseViewModel
 import showmethe.github.kframework.glide.BitmapTarget
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
+import kotlin.math.abs
 
 class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewModel>() {
 
@@ -79,12 +81,12 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
             if (verticalOffset == 0) {
                 //展开
                 ivCover.alpha = 0f
-            }else if(Math.abs(verticalOffset) >= appBarLayout.totalScrollRange){
+            }else if(abs(verticalOffset) >= appBarLayout.totalScrollRange){
                 //折叠
                 ivCover.alpha = 1f
             }else{
                 //中间态
-                val alpha = Math.abs(verticalOffset.toFloat()/appBarLayout.totalScrollRange.toFloat())
+                val alpha = abs(verticalOffset.toFloat()/appBarLayout.totalScrollRange.toFloat())
                 ivCover.alpha  = if(alpha<0.25) 0f else (alpha*1.5).toFloat()
             }
         })
@@ -92,6 +94,12 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
 
         ivBack.setOnClickListener {
             finishAfterTransition()
+        }
+
+        btnBuy.setOnClickListener {
+             val dto = CartListDto()
+             dto.goodsId = this.dto!!.id
+             viewModel.addCartBean(dto)
         }
 
     }

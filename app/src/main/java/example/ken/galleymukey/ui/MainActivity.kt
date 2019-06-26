@@ -26,6 +26,7 @@ import example.ken.galleymukey.constant.LiveHelperConstant
 import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.dialog.SelectorDialog
 import example.ken.galleymukey.ui.auth.LoginActivity
+import example.ken.galleymukey.ui.cart.CartActivity
 
 import example.ken.galleymukey.ui.cart.fragment.CartFragment
 import example.ken.galleymukey.ui.cate.fragment.CateFragment
@@ -121,6 +122,9 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         when(id){
             R.id.home ->{
                 drawer.openDrawer(Gravity.LEFT)
+            }
+            R.id.cart->{
+                startActivity(null,CartActivity::class.java)
             }
         }
         return true
