@@ -220,11 +220,9 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     }
 
 
-    fun switchColor(position : Int ){
+    private fun switchColor(position : Int ){
         CircularRevealUtils.circularRevealCenter(inner,colors[position],{
-            inner.visibility = View.VISIBLE
         },{
-            inner.visibility = View.GONE
             layout.setBackgroundColor(colors[position])
             val colors = ColorStateList.valueOf(colors[position])
             bottomBar.backgroundTintList = colors

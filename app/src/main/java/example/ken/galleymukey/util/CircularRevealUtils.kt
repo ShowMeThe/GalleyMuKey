@@ -44,6 +44,9 @@ object CircularRevealUtils {
 
                 override fun onAnimationEnd(p0: Animator?) {
                     onFinish.invoke()
+                    if(animatorSet.isRunning || animatorSet.isStarted){
+                        animatorSet.cancel()
+                    }
                 }
 
                 override fun onAnimationCancel(p0: Animator?) {
@@ -86,6 +89,9 @@ object CircularRevealUtils {
 
                 override fun onAnimationEnd(p0: Animator?) {
                     onFinish.invoke()
+                    if(animatorSet.isRunning || animatorSet.isStarted){
+                        animatorSet.cancel()
+                    }
                 }
 
                 override fun onAnimationCancel(p0: Animator?) {
