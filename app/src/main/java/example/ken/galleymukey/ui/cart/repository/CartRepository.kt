@@ -1,6 +1,8 @@
 package example.ken.galleymukey.ui.cart.repository
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import example.ken.galleymukey.bean.CartListBean
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.CartListDto
 import kotlinx.coroutines.Dispatchers
@@ -14,10 +16,10 @@ class CartRepository : BaseRepository() {
 
 
 
-    fun findCartList(){
+    fun findCartList(pager:Int, reuslt : MutableLiveData<List<CartListBean>>){
         GlobalScope.launch (Dispatchers.IO){
-          val list =   goodsDao.findCartList()
-            Log.e("2222222222","${list.size}")
+           val list =   goodsDao.findCartList((pager-1)*10)
+            reuslt.postValue(list)
         }
     }
 

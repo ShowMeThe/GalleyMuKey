@@ -31,6 +31,13 @@ fun ImageView.imgPathCrop(url : String?){
     }
 }
 
+@BindingAdapter("imgPathCut")
+fun ImageView.imgPathCut(url : String?){
+    url?.apply {
+        TGlide.loadCutPicture(url,this@imgPathCut,10)
+    }
+}
+
 @BindingAdapter("circle")
 fun ImageView.circle(url : String?){
     url?.apply {

@@ -1,6 +1,7 @@
 package showmethe.github.kframework.util
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.IntDef
@@ -34,7 +35,7 @@ object CreateDrawable {
         }
         val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,15f)
         drawable.shapeAppearanceModel = shapeAppearanceModel
-        drawable.fillColor = ContextCompat.getColorStateList(context, color)
+       drawable.fillColor = ColorStateList.valueOf(color)
         return  drawable
     }
 
@@ -53,7 +54,7 @@ object CreateDrawable {
         }
         val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,15f)
         drawable.shapeAppearanceModel = shapeAppearanceModel
-        drawable.fillColor = ContextCompat.getColorStateList(context, color)
+        drawable.fillColor = ColorStateList.valueOf(color)
         return  drawable
     }
 
@@ -71,8 +72,8 @@ object CreateDrawable {
         }
         val drawable = MaterialShapeDrawable.createWithElevationOverlay(context,15f)
         drawable.shapeAppearanceModel = shapeAppearanceModel
-        drawable.fillColor = ContextCompat.getColorStateList(context, color)
-        drawable.strokeColor = ContextCompat.getColorStateList(context, stroke)
+        drawable.fillColor = ColorStateList.valueOf(color)
+        drawable.strokeColor = ColorStateList.valueOf(stroke)
         drawable.strokeWidth = (Resources.getSystem().displayMetrics.density * 1)
         return  drawable
     }

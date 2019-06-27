@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.AsyncDifferConfig
@@ -27,11 +28,15 @@ class NewAdapter(context: Context, data: ObservableArrayList<NewGoodsBean>) :
     DataBindBaseAdapter<NewGoodsBean, ItemNewBinding>(context, data) {
     override fun getItemLayout(): Int = R.layout.item_new
 
+    val colorAccent = ContextCompat.getColor(context,R.color.colorAccent)
+    val white = ContextCompat.getColor(context,R.color.white)
+    val stroke = ContextCompat.getColor(context,R.color.colorPrimaryDark)
+
     override fun bindItems(binding: ItemNewBinding?, item: NewGoodsBean, position: Int) {
         binding?.apply {
-            firstCard.background =  CreateDrawable.create(context,CornerFamily.CUT,10,R.color.colorAccent)
-            secondCard.background =  CreateDrawable.createWithStroke(context,CornerFamily.ROUNDED,10,R.color.white,
-                R.color.colorPrimaryDark,CreateDrawable.CornerType.TOPLEFT,CreateDrawable.CornerType.BOTTMRIGHT)
+            firstCard.background =  CreateDrawable.create(context,CornerFamily.CUT,10,colorAccent)
+            secondCard.background =  CreateDrawable.createWithStroke(context,CornerFamily.ROUNDED,10,white,
+                stroke,CreateDrawable.CornerType.TOPLEFT,CreateDrawable.CornerType.BOTTMRIGHT)
 
             bean = item
             executePendingBindings()

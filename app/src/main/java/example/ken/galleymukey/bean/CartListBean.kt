@@ -1,9 +1,11 @@
 package example.ken.galleymukey.bean
 
 
+import android.graphics.drawable.Drawable
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
+import androidx.room.Ignore
 import example.ken.galleymukey.BR
 
 class CartListBean : Observable {
@@ -14,6 +16,12 @@ class CartListBean : Observable {
     internal var goodsName = ""
     internal var coverImg = ""
     internal var goodsDes = ""
+
+    @Ignore
+    var vibrantColor = -1
+    @Ignore
+    var drawable : Drawable? = null
+
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
 

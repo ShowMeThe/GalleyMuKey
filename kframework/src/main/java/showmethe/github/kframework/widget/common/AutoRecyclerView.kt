@@ -132,7 +132,7 @@ class AutoRecyclerView @JvmOverloads constructor(
         /**
          * 滑动停止后还能继续滚动时候，寻找临近位置自动移动到最近的position
          */
-        if(state == SCROLL_STATE_IDLE && autoFix){
+        if(itemCount> 1 && state == SCROLL_STATE_IDLE && autoFix){
             val linearLayoutManager = (layoutManager as LinearLayoutManager)
             val firstPos = linearLayoutManager.findFirstVisibleItemPosition()
             val firstView = linearLayoutManager.findViewByPosition(firstPos)
