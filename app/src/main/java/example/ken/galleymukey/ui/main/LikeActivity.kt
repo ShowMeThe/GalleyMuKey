@@ -44,7 +44,7 @@ class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     override fun onLifeCreated(owner: LifecycleOwner) {
-
+        viewModel.findAllLike()
     }
 
     override fun observerUI() {
@@ -64,7 +64,7 @@ class LikeActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         rvLike.adapter = adapter
         rvLike.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
 
-        viewModel.findAllLike()
+
 
 
     }
