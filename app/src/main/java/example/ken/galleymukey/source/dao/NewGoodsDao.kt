@@ -23,8 +23,11 @@ interface NewGoodsDao {
     suspend fun findAllGoods(pagerNumber:Int) : List<NewGoodsBean>
 
 
-    @Query("select cardId,goodsId,count,goodsName,coverImg,goodsDes from GoodsListDto inner join CartListDto where GoodsListDto.id == CartListDto.goodsId limit :pager,10")
+    @Query("select cardId,goodsId,count,goodsName,price,coverImg,goodsDes from GoodsListDto inner join CartListDto where GoodsListDto.id == CartListDto.goodsId limit :pager,10")
     suspend fun findCartList(pager :Int ) : List<CartListBean>
+
+    @Query("select * from CartListDto where goodsId == :goodsId")
+    suspend fun findCart(goodsId :Int ) : List<CartListDto>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCartBean(bean : CartListDto)

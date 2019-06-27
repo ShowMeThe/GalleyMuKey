@@ -10,6 +10,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.appbar.AppBarLayout
@@ -56,6 +57,14 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
 
     override fun observerUI() {
 
+        viewModel.boolean.observe(this, Observer {
+            it?.apply {
+                if(this){
+                    startActivity(null,CartActivity::class.java)
+                }
+            }
+        })
+
     }
 
     override fun setTheme() {
@@ -97,9 +106,7 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
         }
 
         btnBuy.setOnClickListener {
-             val dto = CartListDto()
-             dto.goodsId = this.dto!!.id
-             viewModel.addCartBean(dto)
+             viewModel.addCartBean(this.dto!!.id)
         }
 
     }

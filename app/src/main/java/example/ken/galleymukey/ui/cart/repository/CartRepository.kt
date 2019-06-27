@@ -24,9 +24,20 @@ class CartRepository : BaseRepository() {
     }
 
 
-    fun addCartBean(bean:CartListDto){
+    fun addCartBean(id:Int,boolean: MutableLiveData<Boolean>){
         GlobalScope.launch(Dispatchers.IO) {
-            goodsDao.addCartBean(bean)
+            val result = goodsDao.findCart(id)
+            if (result.isNotEmpty()){
+                val bean = result[0]
+                bean.count += 1
+                goodsDao.addCartBean(bean)
+            }else{
+                val bean = CartListDto()
+                bean.count = 1
+                bean.goodsId = id
+                goodsDao.addCartBean(bean)
+            }
+            boolean.postValue(true)
         }
     }
 

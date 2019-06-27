@@ -18,6 +18,8 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
 
     val repository = CartRepository()
     val reuslt = MutableLiveData<List<CartListBean>>()
+    val boolean = MutableLiveData<Boolean>()
+
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
         repository.init(owner)
@@ -28,8 +30,8 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
         repository.findCartList(pager,reuslt)
     }
 
-    fun addCartBean(bean:CartListDto){
-        repository.addCartBean(bean)
+    fun addCartBean(id:Int){
+        repository.addCartBean(id,boolean)
     }
 
 

@@ -16,7 +16,7 @@ class CartListBean : Observable {
     internal var goodsName = ""
     internal var coverImg = ""
     internal var goodsDes = ""
-
+    internal var price = ""
     @Ignore
     var vibrantColor = -1
     @Ignore
@@ -25,6 +25,15 @@ class CartListBean : Observable {
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
 
+    @Bindable
+    fun getPrice(): String {
+        return price
+    }
+
+    fun setPrice(price: String) {
+        this.price = price
+        notifyChange(example.ken.galleymukey.BR.price)
+    }
 
     @Bindable
     fun getCardId(): Int {

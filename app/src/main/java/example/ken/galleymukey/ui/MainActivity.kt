@@ -87,7 +87,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         setSupportActionBar(bottomBar)
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
-        switchFragment(0)
+        replaceFragment(GalleyFragment::class.java.name)
 
 
         colors[0] = ContextCompat.getColor(context,R.color.colorPrimary)
@@ -225,15 +225,17 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     private fun switchColor(position : Int ){
+        val color = ColorStateList.valueOf(colors[position])
         CircularRevealUtils.circularRevealCenter(inner,colors[position],{
         },{
             layout.setBackgroundColor(colors[position])
-            val colors = ColorStateList.valueOf(colors[position])
-            bottomBar.backgroundTintList = colors
-            btnLogOut.iconTint = colors
-            btnLogOut.setTextColor(colors)
+            btnLogOut.iconTint = color
+            btnLogOut.setTextColor(color)
         })
-        CircularRevealUtils.revealCenter(bottomBar,colors[position],{},{})
+        CircularRevealUtils.revealCenter(bottomBar,colors[position],{
+        },{
+            bottomBar.backgroundTintList = color
+        })
     }
 
 

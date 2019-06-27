@@ -14,6 +14,7 @@ import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.glide.BitmapTarget
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.CreateDrawable
+import showmethe.github.kframework.util.StringUtil
 
 class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>) :
     DataBindBaseAdapter<CartListBean, ItemCartListBinding>(context, data) {
@@ -30,9 +31,11 @@ class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>)
                     override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                         Palette.from(resource).generate {
                             it?.apply {
-                                item.vibrantColor = getLightVibrantColor(defaultColor)
+                                item.vibrantColor = getVibrantColor(defaultColor)
                                 tvDes.setTextColor(item.vibrantColor)
                                 tvName.setTextColor(item.vibrantColor)
+                                tvCount.setTextColor(item.vibrantColor)
+                                tvPrice.setTextColor(item.vibrantColor)
                                 item.drawable =  CreateDrawable.createWithStroke(context,CornerFamily.CUT,10,white,item.vibrantColor,CreateDrawable.CornerType.ALL)
                                 layout.background = item.drawable
                             }
@@ -43,8 +46,11 @@ class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>)
                 tvDes.setTextColor(item.vibrantColor)
                 tvName.setTextColor(item.vibrantColor)
                 layout.background = item.drawable
+                tvCount.setTextColor(item.vibrantColor)
+                tvPrice.setTextColor(item.vibrantColor)
             }
 
+            tvPrice.text = context.getString(R.string.dollars) + StringUtil.double2Decimal(item.count * item.price.toDouble())
             bean = item
             executePendingBindings()
         }

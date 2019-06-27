@@ -171,7 +171,7 @@ private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLif
             mDefaultHandler!!.uncaughtException(thread, ex)
         } else {
             val activityPair = getActivityPair()
-            restartActivity(activityPair)
+          //  restartActivity(activityPair)
 
 
 
