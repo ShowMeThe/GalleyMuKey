@@ -21,4 +21,22 @@
 	<View style="@style/line_7c4dff"/>
 	
 	
+	<TextView
+		android:transitionName="title"
+		android:id="@+id/tvWallet"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/px150dp"
+		android:gravity="center|start"
+		android:paddingStart="@dimen/px30dp"
+		android:paddingEnd="@dimen/px30dp"
+		android:clickable="true"
+		android:focusable="true"
+		android:text="My Wallet"
+		android:textSize="@dimen/px45dp"
+		android:textColor="@color/colorAccent"
+		android:background="?android:attr/selectableItemBackground"
+		/>
+	
+	<View style="@style/line_7c4dff"/>
+	
 </merge>

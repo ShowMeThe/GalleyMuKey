@@ -34,6 +34,7 @@ import example.ken.galleymukey.ui.main.LikeActivity
 import example.ken.galleymukey.ui.main.fragment.GalleyFragment
 import example.ken.galleymukey.ui.main.vm.MainViewModel
 import example.ken.galleymukey.ui.mine.ProfileInfoActivity
+import example.ken.galleymukey.ui.mine.WalletActivity
 import example.ken.galleymukey.util.CircularRevealUtils
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -164,18 +165,22 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
             startActivity(bundle,LikeActivity::class.java,it,"title")
         }
 
+        tvWallet.setOnClickListener {
+            startActivity(null,WalletActivity::class.java)
+        }
+
 
     }
 
 
-    fun setContainer(){
+   private fun setContainer(){
         val layoutParams = container.layoutParams
         layoutParams.width = (screenWidth*0.75).toInt()
         container.layoutParams = layoutParams
     }
 
 
-    fun initTab(){
+    private  fun initTab(){
 
         tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.photo)))
         tab.addTab(tab.newTab().setIcon(ContextCompat.getDrawable(context,R.mipmap.category)))
