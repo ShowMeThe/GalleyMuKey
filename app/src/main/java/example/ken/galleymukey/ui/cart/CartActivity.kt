@@ -1,6 +1,5 @@
 package example.ken.galleymukey.ui.cart
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
@@ -14,7 +13,6 @@ import example.ken.galleymukey.bean.CartListBean
 import example.ken.galleymukey.ui.cart.adapter.CartListAdapter
 import example.ken.galleymukey.ui.cart.vm.GoodsViewModel
 import kotlinx.android.synthetic.main.activity_cart.*
-import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.include_title.*
 import showmethe.github.kframework.base.BaseActivity
 
@@ -45,7 +43,6 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
 
         viewModel.reuslt.observe(this, Observer {
             it?.apply {
-                smrl.showContent()
                 refresh.isRefreshing = false
                 if(pagerNumber.value == 1){
                     list.clear()
@@ -76,6 +73,10 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
             pagerNumber.value  = 1
         }
 
+
+        fab.setOnClickListener {
+
+        }
 
     }
 

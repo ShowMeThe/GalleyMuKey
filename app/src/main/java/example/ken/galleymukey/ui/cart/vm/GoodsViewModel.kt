@@ -1,11 +1,9 @@
 package example.ken.galleymukey.ui.cart.vm
 
 import android.app.Application
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.CartListBean
-import example.ken.galleymukey.source.dto.CartListDto
 import example.ken.galleymukey.ui.cart.repository.CartRepository
 import showmethe.github.kframework.base.BaseViewModel
 
@@ -16,7 +14,7 @@ import showmethe.github.kframework.base.BaseViewModel
  **/
 class GoodsViewModel(application: Application) : BaseViewModel(application) {
 
-    val repository = CartRepository()
+    private val repository = CartRepository()
     val reuslt = MutableLiveData<List<CartListBean>>()
     val boolean = MutableLiveData<Boolean>()
 

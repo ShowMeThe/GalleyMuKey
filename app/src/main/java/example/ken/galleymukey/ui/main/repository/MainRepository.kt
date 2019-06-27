@@ -48,11 +48,7 @@ class MainRepository : BaseRepository() {
         GlobalScope.launch(Dispatchers.IO)  {
             val list =  comDao.findCommentById(id)
             list.apply {
-                if(isNotEmpty()){
-                    result.postValue(this)
-                }else{
-                    showToast("Found No comment")
-                }
+                result.postValue(this)
             }
         }
 
@@ -61,7 +57,7 @@ class MainRepository : BaseRepository() {
 
 
     fun addComment(id:Int,commemnt:String){
-       comDao.addComment(CommentDto(id,commemnt))
+        comDao.addComment(CommentDto(id,commemnt))
         showToast("Add Successfully")
     }
 

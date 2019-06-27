@@ -44,11 +44,13 @@ object ToastFactory {
     private val mHandler = Handler(Looper.getMainLooper())
 
     fun createToast(message: Any) {
+        Looper.prepare()
         if (isNotificationEnabled(BaseApplication.context)) {
             createNormalToast(message)
         } else {
             createViewToast(message)
         }
+        Looper.loop()
     }
 
 

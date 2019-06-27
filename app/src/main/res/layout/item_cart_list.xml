@@ -14,12 +14,23 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 		
+		<CheckBox
+			android:id="@+id/cbSelect"
+			android:layout_marginStart="@dimen/px30dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			android:checked="@{bean.check}"
+			/>
+		
 		<ImageView
 			android:id="@+id/ivLogo"
 			android:layout_margin="@dimen/px30dp"
 			android:layout_width="@dimen/px225dp"
 			android:layout_height="@dimen/px225dp"
-			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/cbSelect"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="@+id/barrier"

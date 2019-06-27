@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:background="@color/color_f7f7f7"
 	tools:context=".ui.mine.WalletActivity">
 	
 	<RelativeLayout
@@ -22,6 +23,7 @@
 			android:layout_width="@dimen/px80dp"
 			android:layout_height="@dimen/px80dp"
 			/>
+		
 		
 		<ImageView
 			android:id="@+id/cartLogo"

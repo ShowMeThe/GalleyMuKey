@@ -17,6 +17,10 @@ class CartListBean : Observable {
     internal var coverImg = ""
     internal var goodsDes = ""
     internal var price = ""
+
+    @Ignore
+    internal  var check =  false
+
     @Ignore
     var vibrantColor = -1
     @Ignore
@@ -24,6 +28,16 @@ class CartListBean : Observable {
 
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
+
+
+    @Bindable
+    fun isCheck(): Boolean {
+        return check
+    }
+    fun setCheck(check: Boolean) {
+        this.check = check
+        notifyChange(example.ken.galleymukey.BR.check)
+    }
 
     @Bindable
     fun getPrice(): String {
