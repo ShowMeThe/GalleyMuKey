@@ -1,4 +1,57 @@
 package example.ken.galleymukey.dialog
 
-class CheckOutDialog {
+import android.app.Dialog
+import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.View
+import android.view.WindowManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import example.ken.galleymukey.R
+import kotlinx.android.synthetic.main.dialog_check_out.view.*
+
+class CheckOutDialog   : BottomSheetDialogFragment(){
+
+    private var mBehavior: BottomSheetBehavior<*>? = null
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        super.onCreate(savedInstanceState)
+        val dialog = BottomSheetDialog(context!!, R.style.FullScreenBottomSheet)
+        val view = View.inflate(context, R.layout.dialog_check_out, null)
+        dialog.setContentView(view)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.window!!.findViewById<View>(R.id.design_bottom_sheet)
+            .setBackgroundResource(android.R.color.transparent);
+        mBehavior = BottomSheetBehavior.from<View>(view.parent as View)
+        val window = dialog.window
+        val dm = DisplayMetrics()
+        window?.apply {
+            setDimAmount(0.0f)
+            setLayout(dm.widthPixels, window.attributes.height)
+            addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            setWindowAnimations(R.style.AnimBottom)
+        }
+
+
+        view.apply {
+
+            btnCheck.setOnClickListener {
+                onButtonCheck?.invoke()
+            }
+
+
+
+        }
+
+        return  dialog
+    }
+
+
+    private var onButtonCheck :(()->Unit)? = null
+
+    fun setOnButtonCheckListener(onButtonCheck :(()->Unit)){
+        this.onButtonCheck = onButtonCheck
+    }
+
 }

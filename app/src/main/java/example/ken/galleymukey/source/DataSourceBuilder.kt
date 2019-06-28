@@ -62,6 +62,9 @@ class DataSourceBuilder {
             return creator.getNewGoodsDao()
         }
 
+        fun getOrderDao() : OrderDao{
+            return creator.getOrderDao()
+        }
 
     }
 

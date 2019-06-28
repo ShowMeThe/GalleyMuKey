@@ -15,6 +15,7 @@ import showmethe.github.kframework.base.BaseViewModel
 class GoodsViewModel(application: Application) : BaseViewModel(application) {
 
     private val repository = CartRepository()
+
     val reuslt = MutableLiveData<List<CartListBean>>()
     val boolean = MutableLiveData<Boolean>()
 

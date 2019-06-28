@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import example.ken.galleymukey.R
 import example.ken.galleymukey.bean.CartListBean
+import example.ken.galleymukey.dialog.CheckOutDialog
 import example.ken.galleymukey.ui.cart.adapter.CartListAdapter
 import example.ken.galleymukey.ui.cart.vm.GoodsViewModel
 import kotlinx.android.synthetic.main.activity_cart.*
@@ -21,6 +22,7 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
     lateinit var adapter : CartListAdapter
     val list = ObservableArrayList<CartListBean>()
     val pagerNumber = MutableLiveData<Int>()
+    private val dialog = CheckOutDialog()
 
     override fun getViewId(): Int = R.layout.activity_cart
     override fun initViewModel(): GoodsViewModel = createViewModel(GoodsViewModel::class.java)
@@ -75,6 +77,10 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
 
 
         fab.setOnClickListener {
+            dialog.show(supportFragmentManager,"")
+        }
+
+        dialog.setOnButtonCheckListener {
 
         }
 

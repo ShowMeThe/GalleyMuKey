@@ -20,7 +20,7 @@ import example.ken.galleymukey.source.dto.*
     CateDto::class,
     CommentDto::class,
     NewGoodsSellDto::class,
-    CartListDto::class),version = 1)
+    CartListDto::class,OrderDto::class),version = 1)
 abstract class AppDataBaseCreator : RoomDatabase() {
 
     abstract fun getUserInfoDto() : UserInfoDao
@@ -40,4 +40,7 @@ abstract class AppDataBaseCreator : RoomDatabase() {
     abstract fun getCommentDao() : CommentDao
 
     abstract fun getNewGoodsDao() : NewGoodsDao
+
+    abstract fun getOrderDao() : OrderDao
+
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.CartListBean
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.CartListDto
+import example.ken.galleymukey.source.dto.OrderDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import showmethe.github.kframework.base.BaseRepository
 class CartRepository : BaseRepository() {
 
     val goodsDao = DataSourceBuilder.getNewGoodsDao()
-
+    val orderDao = DataSourceBuilder.getOrderDao()
 
 
     fun findCartList(pager:Int, reuslt : MutableLiveData<List<CartListBean>>){
@@ -40,5 +41,10 @@ class CartRepository : BaseRepository() {
         }
     }
 
+    fun addOrder(listBean: List<OrderDto>,result:MutableLiveData<Boolean>){
+        GlobalScope.launch (Dispatchers.IO){
+            orderDao.addOrderByBeans(listBean)
+        }
+    }
 
 }
