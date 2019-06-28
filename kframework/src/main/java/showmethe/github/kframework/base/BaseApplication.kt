@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,7 +28,7 @@ open class BaseApplication : Application() {
     companion object {
        @SuppressLint("StaticFieldLeak")
        lateinit var context : Context
-        var ctx: WeakReference<RxAppCompatActivity>? = null
+        var ctx: WeakReference<AppCompatActivity>? = null
     }
 
     override fun onCreate() {
@@ -40,13 +42,18 @@ open class BaseApplication : Application() {
         registerActivityLifecycleCallbacks(ParallaxBackHelper.get())
         registerActivityLifecycleCallbacks(CrashHandler.get(this))
         registerActivityLifecycleCallbacks(object :SimpleLifecyclerCallbacks(){
+            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+                if(activity is AppCompatActivity){
+                    ctx = WeakReference(activity)
+                }
+            }
             override fun onActivityResumed(activity: Activity?) {
-                if(activity is RxAppCompatActivity){
+                if(activity is AppCompatActivity){
                     ctx = WeakReference(activity)
                 }
             }
             override fun onActivityDestroyed(activity: Activity?) {
-                ctx = null
+
             }
         })
     }

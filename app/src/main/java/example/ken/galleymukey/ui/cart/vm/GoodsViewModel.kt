@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import example.ken.galleymukey.bean.CartListBean
+import example.ken.galleymukey.source.dto.OrderDto
 import example.ken.galleymukey.ui.cart.repository.CartRepository
 import showmethe.github.kframework.base.BaseViewModel
 
@@ -25,12 +26,20 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    fun findCartList(pager:Int ){
-        repository.findCartList(pager,reuslt)
+    fun findCartList(){
+        repository.findCartList(reuslt)
     }
 
     fun addCartBean(id:Int){
         repository.addCartBean(id,boolean)
+    }
+
+    fun addOrder(listBean: List<OrderDto>){
+        repository.addOrder(listBean,boolean)
+    }
+
+    fun qureyOrderList(){
+        repository.qureyOrderList()
     }
 
 

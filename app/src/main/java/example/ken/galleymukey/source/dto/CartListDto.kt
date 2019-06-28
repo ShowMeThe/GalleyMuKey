@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(foreignKeys = [ForeignKey(entity = GoodsListDto::class,parentColumns = ["id"],childColumns = ["goodsId"],onDelete = ForeignKey.CASCADE)],
-    indices =[Index(value = ["cardId"],unique = true)])
+    indices =[Index(value = ["goodsId"],unique = true)])
 class CartListDto {
 
     @PrimaryKey(autoGenerate = true)

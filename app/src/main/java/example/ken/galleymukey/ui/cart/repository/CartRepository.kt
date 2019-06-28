@@ -1,6 +1,8 @@
 package example.ken.galleymukey.ui.cart.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import example.ken.galleymukey.bean.CartListBean
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.CartListDto
@@ -9,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseRepository
+import kotlin.math.log
 
 class CartRepository : BaseRepository() {
 
@@ -16,11 +19,12 @@ class CartRepository : BaseRepository() {
     val orderDao = DataSourceBuilder.getOrderDao()
 
 
-    fun findCartList(pager:Int, reuslt : MutableLiveData<List<CartListBean>>){
-        GlobalScope.launch (Dispatchers.IO){
-           val list =   goodsDao.findCartList((pager-1)*10)
-            reuslt.postValue(list)
-        }
+    fun findCartList( reuslt : MutableLiveData<List<CartListBean>>){
+        goodsDao.findCartList().observe(owner!!, Observer {
+            it?.apply {
+                reuslt.value = this
+            }
+        })
     }
 
 
@@ -44,6 +48,17 @@ class CartRepository : BaseRepository() {
     fun addOrder(listBean: List<OrderDto>,result:MutableLiveData<Boolean>){
         GlobalScope.launch (Dispatchers.IO){
             orderDao.addOrderByBeans(listBean)
+            for(bean in listBean){
+                goodsDao.deleteCartById(bean.cardId)
+            }
+            showToast("Check Out Successfully")
+            result.postValue(true)
+        }
+    }
+
+    fun qureyOrderList(){
+        GlobalScope.launch(Dispatchers.IO){
+            val result = orderDao.qureyOrderList(0)
         }
     }
 

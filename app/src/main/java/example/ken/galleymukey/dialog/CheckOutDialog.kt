@@ -9,7 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import example.ken.galleymukey.R
+import example.ken.galleymukey.constant.RdenConstant
 import kotlinx.android.synthetic.main.dialog_check_out.view.*
+import showmethe.github.kframework.util.ToastFactory
+import showmethe.github.kframework.util.match.MD5
+import showmethe.github.kframework.util.rden.RDEN
 
 class CheckOutDialog   : BottomSheetDialogFragment(){
 
@@ -37,9 +41,12 @@ class CheckOutDialog   : BottomSheetDialogFragment(){
         view.apply {
 
             btnCheck.setOnClickListener {
-                onButtonCheck?.invoke()
+               if( edPswd.text.toString() == "123456"){
+                   onButtonCheck?.invoke()
+               }else{
+                   ToastFactory.createToast("Please input correctly password")
+               }
             }
-
 
 
         }

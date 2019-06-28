@@ -14,6 +14,6 @@ interface OrderDao {
     fun addOrderByBeans(list: List<OrderDto>)
 
     @Query("select coverImg, orderId,orderGoodsId ,totalPrice,totalCount,goodsName from GoodsListDto  inner join OrderDto where GoodsListDto.id == OrderDto.orderGoodsId limit :pagerNumber,10")
-    fun qureyOrderList(pagerNumber :Int)
+     suspend fun qureyOrderList(pagerNumber :Int) : List<OrderListBean>
 
 }

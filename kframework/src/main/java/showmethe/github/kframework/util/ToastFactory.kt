@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -43,14 +44,15 @@ object ToastFactory {
 
     private val mHandler = Handler(Looper.getMainLooper())
 
+
     fun createToast(message: Any) {
-        Looper.prepare()
-        if (isNotificationEnabled(BaseApplication.context)) {
-            createNormalToast(message)
-        } else {
-            createViewToast(message)
+        BaseApplication.ctx?.get()?.runOnUiThread {
+            if (isNotificationEnabled(BaseApplication.context)) {
+                createNormalToast(message)
+            } else {
+                createViewToast(message)
+            }
         }
-        Looper.loop()
     }
 
 

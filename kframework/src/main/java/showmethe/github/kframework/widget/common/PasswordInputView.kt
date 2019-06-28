@@ -29,11 +29,7 @@ import showmethe.github.kframework.util.system.KeyBoardUtils
  * Time : 11:30
  */
 @SuppressLint("AppCompatCustomView")
-class PasswordInputView @JvmOverloads constructor(
-        /**
-         * 上下文
-         */
-        private val mContext: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : EditText(mContext, attrs, defStyleAttr), View.OnFocusChangeListener {
+class PasswordInputView @JvmOverloads constructor(private val mContext: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : EditText(mContext, attrs, defStyleAttr), View.OnFocusChangeListener {
 
     /**
      * 间隔
@@ -63,7 +59,7 @@ class PasswordInputView @JvmOverloads constructor(
     /**
      * 密码画笔
      */
-    private val mPwdPaint: Paint
+    private val mPwdPaint = Paint()
 
     /**
      * 密码框画笔
@@ -102,7 +98,6 @@ class PasswordInputView @JvmOverloads constructor(
 
     init {
         // 初始化密码画笔
-        mPwdPaint = Paint()
         mPwdPaint.color = Color.BLACK
         mPwdPaint.style = Paint.Style.FILL
         mPwdPaint.isAntiAlias = true
@@ -111,8 +106,10 @@ class PasswordInputView @JvmOverloads constructor(
         mRectPaint.style = Paint.Style.STROKE
         mRectPaint.color = Color.LTGRAY
         mRectPaint.isAntiAlias = true
-        initType(mContext, attrs)
 
+        paint.color = Color.WHITE
+
+        initType(mContext, attrs)
         for (i in 0 until PWD_LENGTH) {
             rects.add(Rect())
         }
@@ -143,14 +140,15 @@ class PasswordInputView @JvmOverloads constructor(
         isFocusableInTouchMode = true
         isCursorVisible = false
         setTextIsSelectable(false)
+        textSize = mHeight.toFloat()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         //画背景
-        paint.color = Color.WHITE
-        canvas.drawRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), paint)
+
+        //canvas.drawRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), paint)
 
         // 计算每个密码框宽度
         val rectWidth = (mWidth - PWD_SPACING * (PWD_LENGTH - 1)) / PWD_LENGTH
