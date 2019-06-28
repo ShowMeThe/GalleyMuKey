@@ -60,6 +60,8 @@ class ProfileRepository : BaseRepository() {
                 userInfoBean.password = password!!
                 userInfoBean.phone = phone
                 userInfoBean.birthday = birthday
+                userInfoBean.wallet = wallet
+                userInfoBean.totalSpend = totalSpend
                 bean.value = userInfoBean
             }
         })

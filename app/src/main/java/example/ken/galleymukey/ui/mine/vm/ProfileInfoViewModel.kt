@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import example.ken.galleymukey.bean.OrderListBean
 import example.ken.galleymukey.bean.UserInfoBean
+import example.ken.galleymukey.ui.cart.repository.CartRepository
 import example.ken.galleymukey.ui.mine.repository.ProfileRepository
 import showmethe.github.kframework.base.BaseViewModel
 
@@ -17,17 +19,20 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
 
 
     private val repository = ProfileRepository()
+    private val cartRepository = CartRepository()
+
     val switchToReset = MutableLiveData<Boolean>()
     var currentType = true //true info //false reset
     var updateInfo = MutableLiveData<Int>()
     var updatePswd = MutableLiveData<Int>()
     var bean = MutableLiveData<UserInfoBean>()
     var updateController = MutableLiveData<Boolean>()
-
+    var data = MutableLiveData<List<OrderListBean>>()
 
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
         repository.init(owner)
+        cartRepository.init(owner)
     }
 
 
@@ -42,6 +47,10 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
 
     fun queryAccount(account:String){
         repository.queryAccount(account,bean)
+    }
+
+    fun qureyOrderList(pagerNumber:Int){
+        cartRepository.qureyOrderList(pagerNumber,data)
     }
 
 }

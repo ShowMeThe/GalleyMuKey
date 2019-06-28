@@ -38,4 +38,8 @@ interface UserInfoDao {
 
     @Query("select customBg from UserInfoDto where  account = :account  ")
     fun getCustom(account:String) : LiveData<String>
+
+    @Query("update UserInfoDto set  wallet = wallet - :spend ,totalSpend = totalSpend + :spend where account = :account")
+    fun updateWallet(account :String,spend:Double)  : Int
+
 }

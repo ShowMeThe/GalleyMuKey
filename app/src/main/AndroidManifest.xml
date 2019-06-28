@@ -13,7 +13,13 @@
 		android:theme="@style/MaterialTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:theme">
-		<activity android:name=".ui.mine.WalletActivity"></activity>
+		<activity android:name=".ui.mine.WalletActivity"
+			android:configChanges="orientation|keyboardHidden|navigation|locale"
+			android:launchMode="singleTop"
+			android:screenOrientation="portrait"
+			android:theme="@style/CutCardViewTheme"
+			android:windowSoftInputMode="stateAlwaysHidden"
+			/>
 		<activity
 			android:name=".ui.cart.CartActivity"
 			android:configChanges="orientation|keyboardHidden|navigation|locale"

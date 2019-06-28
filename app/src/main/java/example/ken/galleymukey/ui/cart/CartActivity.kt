@@ -62,6 +62,7 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
         viewModel.boolean.observe(this, Observer {
             it?.apply {
 
+
             }
         })
 
@@ -91,7 +92,7 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
 
         fab.setOnClickListener {
             if(list.isNotEmpty())
-            dialog.show(supportFragmentManager,"")
+             dialog.show(supportFragmentManager,"")
         }
 
         dialog.setOnButtonCheckListener {

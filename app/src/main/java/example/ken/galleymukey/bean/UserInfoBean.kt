@@ -69,6 +69,20 @@ class UserInfoBean : Observable {
             notifyChange(BR.customBg)
         }
 
+    @get:Bindable
+    var wallet = 0.0
+        set(wallet) {
+            field = wallet
+            notifyChange(BR.wallet)
+        }
+
+    @get:Bindable
+    var totalSpend = 0.0
+        set(totalSpend) {
+            field = totalSpend
+            notifyChange(BR.totalSpend)
+        }
+
     @Transient
     private var propertyChangeRegistry: PropertyChangeRegistry? = PropertyChangeRegistry()
 

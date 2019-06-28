@@ -38,9 +38,5 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
         repository.addOrder(listBean,boolean)
     }
 
-    fun qureyOrderList(){
-        repository.qureyOrderList()
-    }
-
 
 }

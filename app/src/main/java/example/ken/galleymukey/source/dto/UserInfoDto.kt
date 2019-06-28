@@ -22,4 +22,6 @@ class UserInfoDto {
     var email : String=""
     var birthday : String=""
     var customBg : String=""
+    var wallet  = 10000.0
+    var totalSpend = 0.0
 }

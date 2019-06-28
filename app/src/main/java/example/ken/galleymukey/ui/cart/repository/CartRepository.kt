@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.bean.CartListBean
+import example.ken.galleymukey.bean.OrderListBean
+import example.ken.galleymukey.constant.RdenConstant
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.CartListDto
 import example.ken.galleymukey.source.dto.OrderDto
@@ -11,13 +13,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseRepository
+import showmethe.github.kframework.util.rden.RDEN
 import kotlin.math.log
 
 class CartRepository : BaseRepository() {
 
     val goodsDao = DataSourceBuilder.getNewGoodsDao()
     val orderDao = DataSourceBuilder.getOrderDao()
-
+    val userInfoDto = DataSourceBuilder.getUserDao()
 
     fun findCartList( reuslt : MutableLiveData<List<CartListBean>>){
         goodsDao.findCartList().observe(owner!!, Observer {
@@ -51,14 +54,21 @@ class CartRepository : BaseRepository() {
             for(bean in listBean){
                 goodsDao.deleteCartById(bean.cardId)
             }
+            var price = 0.0
+            listBean.forEach {
+                price  +=  it.totalPrice
+            }
+            val d  = userInfoDto.updateWallet(RDEN.get(RdenConstant.account,""),price)
+            Log.e("2222222","$d")
             showToast("Check Out Successfully")
             result.postValue(true)
         }
     }
 
-    fun qureyOrderList(){
+    fun qureyOrderList(pagerNumber :Int ,data : MutableLiveData<List<OrderListBean>>){
         GlobalScope.launch(Dispatchers.IO){
-            val result = orderDao.qureyOrderList(0)
+            val result = orderDao.qureyOrderList((pagerNumber - 1)*10)
+            data.postValue(result)
         }
     }
 
