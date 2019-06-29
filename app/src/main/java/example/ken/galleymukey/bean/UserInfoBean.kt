@@ -4,6 +4,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import example.ken.galleymukey.BR
+import showmethe.github.kframework.util.StringUtil
 
 /**
  * example.ken.galleymukey.bean
@@ -72,14 +73,14 @@ class UserInfoBean : Observable {
     @get:Bindable
     var wallet = 0.0
         set(wallet) {
-            field = wallet
+            field = StringUtil.double2Decimal(wallet).toDouble()
             notifyChange(BR.wallet)
         }
 
     @get:Bindable
     var totalSpend = 0.0
         set(totalSpend) {
-            field = totalSpend
+            field = StringUtil.double2Decimal(totalSpend).toDouble()
             notifyChange(BR.totalSpend)
         }
 

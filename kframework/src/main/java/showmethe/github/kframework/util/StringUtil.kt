@@ -1,7 +1,9 @@
 package showmethe.github.kframework.util
 
+
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.NumberFormat
 
 /**
  * showmethe.github.kframework.util
@@ -17,10 +19,10 @@ object StringUtil {
      */
     fun double2Decimal(num: Double): String {
         val df = DecimalFormat()
-        df.setMaximumFractionDigits(2)
-        df.setGroupingSize(0)
-        df.setRoundingMode(RoundingMode.FLOOR)
-        val style = "#,##0.00"// 定义要显示的数字的格式
+        df.maximumFractionDigits = 2
+        df.groupingSize = 0
+        df.roundingMode = RoundingMode.FLOOR
+        val style = "###0.00"// 定义要显示的数字的格式
         df.applyPattern(style)
         return df.format(num)
     }
@@ -35,7 +37,7 @@ object StringUtil {
         df.maximumFractionDigits = 2
         df.groupingSize = 0
         df.roundingMode = RoundingMode.FLOOR
-        val style = "#,##0.00"// 定义要显示的数字的格式
+        val style = "###0.00"// 定义要显示的数字的格式
         df.applyPattern(style)
         return df.format(num.toDouble())
     }
