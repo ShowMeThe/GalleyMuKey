@@ -33,7 +33,6 @@ class Source{
             add("http://image2.xyzs.com/upload/fc/6a/1450315960904658/20151219/145046718037409_0.jpg")
             add("http://image4.xyzs.com/upload/03/f7/1449978315650125/20151217/145028981364776_0.jpg")
             add("http://image1.xyzs.com/upload/b2/88/1450055515760915/20151217/145028981024042_0.jpg")
-            add("http://image2.xyzs.com/upload/9f/d5/1450057331616098/20151217/145028980491632_0.jpg")
             add("http://image2.xyzs.com/upload/f9/f0/1450057329342039/20151217/145028980312438_0.jpg")
             add("http://image1.xyzs.com/upload/6d/7a/1450150493535765/20151217/145028979798709_0.jpg")
             add("http://image4.xyzs.com/upload/03/f7/1449978315650125/20151217/145028981364776_0.jpg")
