@@ -1,14 +1,13 @@
-package showmethe.github.kframework.http.Coroutines
+package showmethe.github.kframework.http.coroutines
 
-import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import io.reactivex.annotations.NonNull
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.*
+import retrofit2.Call
 import retrofit2.Response
 import showmethe.github.kframework.http.JsonResult
 import showmethe.github.kframework.http.JsonUtil
-import java.io.IOException
 
 /**
  * showmethe.github.kframework.http.Coroutines
@@ -22,21 +21,23 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
     private lateinit var job :Deferred<Response<JsonResult<T>>>
     private  lateinit var response : Response<JsonResult<T>>
 
-    fun hold(result:()-> Response<JsonResult<T>> ) : CallResult<T>{
+    fun hold(result:()-> Call<JsonResult<T>> ) : CallResult<T>{
         owner?.apply {
-            GlobalScope.launch {
-                launch (Dispatchers.Main){
-                    onLoading?.invoke()
-                }
-                job = async {    result.invoke() }
-                response = job.await()
-                if(lifecycle.currentState != Lifecycle.State.DESTROYED){
-                    launch(Dispatchers.Main) {
-                        build()
+                lifecycleScope.launchWhenStarted{
+                    withContext(Dispatchers.Main){
+                        onLoading?.invoke()
                     }
-                }else{
-                    job.cancel()
-                }
+                    withContext(Dispatchers.IO){
+                        job = async {    result.invoke().execute() }
+                        response = job.await()
+                    }
+                    if(lifecycle.currentState != Lifecycle.State.DESTROYED){
+                        withContext(Dispatchers.Main) {
+                            build()
+                        }
+                    }else{
+                        job.cancel()
+                    }
             }
         }
         return this

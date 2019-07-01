@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import example.ken.galleymukey.bean.OrderListBean
 import example.ken.galleymukey.bean.UserInfoBean
 import example.ken.galleymukey.ui.cart.repository.CartRepository
@@ -33,6 +34,7 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
     override fun onViewModelCreated(owner: LifecycleOwner) {
         repository.init(owner)
         cartRepository.init(owner)
+
     }
 
 
