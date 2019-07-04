@@ -88,11 +88,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
 
         if (isLiveEventBusHere()) {
-            LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).observe(this, Observer {
-                it?.apply {
-                    onEventComing(this)
-                }
-            })
+            LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).observe(this,observer)
         }
 
         setTheme()
@@ -129,8 +125,10 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
         StatusBarUtil.addStatusBarView(this, color, isTxBlack)
     }
 
-    internal var observer: androidx.lifecycle.Observer<LiveBusHelper> = Observer<LiveBusHelper> {
-        liveBusHelper -> onEventComing(liveBusHelper)
+    private var observer: Observer<LiveBusHelper> = Observer {
+        it?.apply {
+            onEventComing(this)
+        }
     }
 
 
@@ -315,6 +313,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
 
     override fun onDestroy() {
         super.onDestroy()
+        lifecycle.removeObserver(viewModel)
         LiveEventBus.get().with("LiveData", LiveBusHelper::class.java).removeObserver(observer)
     }
 

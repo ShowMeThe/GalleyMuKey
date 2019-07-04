@@ -1,6 +1,7 @@
 package showmethe.github.kframework.base
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -41,6 +42,10 @@ abstract class BaseViewModel    (application: Application) : AndroidViewModel(ap
         ToastFactory.createToast(message)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+    }
 
 }
 
