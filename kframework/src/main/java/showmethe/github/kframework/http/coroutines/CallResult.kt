@@ -1,13 +1,17 @@
 package showmethe.github.kframework.http.coroutines
 
+import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
+import io.reactivex.annotations.NonNull
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Response
 import showmethe.github.kframework.http.JsonResult
 import showmethe.github.kframework.http.JsonUtil
+import java.io.IOException
 
 /**
  * showmethe.github.kframework.http.Coroutines
@@ -20,10 +24,11 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
 
     private lateinit var job :Deferred<Response<JsonResult<T>>>
     private  lateinit var response : Response<JsonResult<T>>
+    private var netJob : Job? = null
 
     fun hold(result:()-> Call<JsonResult<T>> ) : CallResult<T>{
         owner?.apply {
-                lifecycleScope.launchWhenStarted{
+            netJob =   lifecycleScope.launchWhenStarted{
                     withContext(Dispatchers.Main){
                         onLoading?.invoke()
                     }
@@ -71,6 +76,7 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
                e.printStackTrace()
            }
        }
+       netJob?.cancel()
     }
 
 

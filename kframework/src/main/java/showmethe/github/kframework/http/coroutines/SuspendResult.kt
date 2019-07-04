@@ -2,6 +2,7 @@ package showmethe.github.kframework.http.coroutines
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import kotlinx.coroutines.*
 import retrofit2.Response
 import showmethe.github.kframework.http.JsonResult
@@ -12,14 +13,14 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
 
 
     private  lateinit var response : Response<JsonResult<T>>
+    private var netJob : Job? = null
+
     fun hold(block: suspend () -> Response<JsonResult<T>>){
         owner?.apply {
-            lifecycleScope.launchWhenStarted{
+            netJob =   lifecycleScope.launchWhenStarted{
                 withContext(Dispatchers.Main){
                     onLoading?.invoke() }
-                withContext(Dispatchers.IO){
-                    response =  block.invoke()
-                }
+                response =  block.invoke()
                 withContext (Dispatchers.Main){
                     build()
                 }
@@ -56,7 +57,7 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
                 e.printStackTrace()
             }
         }
-
+        netJob?.cancel()
     }
 
     private var  onLoading : (() ->Unit)?  = null
