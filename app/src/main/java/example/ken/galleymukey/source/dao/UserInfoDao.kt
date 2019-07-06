@@ -42,4 +42,7 @@ interface UserInfoDao {
     @Query("update UserInfoDto set  wallet = wallet - :spend ,totalSpend = totalSpend + :spend where account = :account")
     fun updateWallet(account :String,spend:Double)  : Int
 
+    @Query("update UserInfoDto set  userId = :userId  where account = :account")
+    fun updateUserId(userId :String,account :String)  : Int
+
 }

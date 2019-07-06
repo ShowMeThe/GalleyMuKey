@@ -14,6 +14,7 @@ class UserInfoDto {
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+    var userId  = ""
     var account : String? = ""
     var password : String? = ""
     var phone :String =""

@@ -14,10 +14,10 @@ import showmethe.github.kframework.util.StringUtil
 class UserInfoBean : Observable {
 
     @get:Bindable
-    var id = 0
-        set(id) {
-            field = id
-            notifyChange(BR.id)
+    var userId = ""
+        set(userId) {
+            field = userId
+            notifyChange(BR.userId)
         }
     @get:Bindable
     var account = ""

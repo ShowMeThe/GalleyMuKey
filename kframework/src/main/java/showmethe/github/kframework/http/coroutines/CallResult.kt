@@ -29,20 +29,20 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
     fun hold(result:()-> Call<JsonResult<T>> ) : CallResult<T>{
         owner?.apply {
             netJob =   lifecycleScope.launchWhenStarted{
-                    withContext(Dispatchers.Main){
-                        onLoading?.invoke()
+                withContext(Dispatchers.Main){
+                    onLoading?.invoke()
+                }
+                withContext(Dispatchers.IO){
+                    job = async {    result.invoke().execute() }
+                    response = job.await()
+                }
+                if(lifecycle.currentState != Lifecycle.State.DESTROYED){
+                    withContext(Dispatchers.Main) {
+                        build()
                     }
-                    withContext(Dispatchers.IO){
-                        job = async {    result.invoke().execute() }
-                        response = job.await()
-                    }
-                    if(lifecycle.currentState != Lifecycle.State.DESTROYED){
-                        withContext(Dispatchers.Main) {
-                            build()
-                        }
-                    }else{
-                        job.cancel()
-                    }
+                }else{
+                    job.cancel()
+                }
             }
         }
         return this

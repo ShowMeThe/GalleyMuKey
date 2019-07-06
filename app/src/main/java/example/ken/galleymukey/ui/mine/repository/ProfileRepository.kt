@@ -3,10 +3,13 @@ package example.ken.galleymukey.ui.mine.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import example.ken.galleymukey.api.mine
 import example.ken.galleymukey.bean.UserInfoBean
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.dto.UserInfoDto
 import showmethe.github.kframework.base.BaseRepository
+import showmethe.github.kframework.http.RetroHttp
+import showmethe.github.kframework.http.coroutines.SuspendResult
 import showmethe.github.kframework.util.match.MD5
 
 /**
@@ -17,11 +20,12 @@ import showmethe.github.kframework.util.match.MD5
 class ProfileRepository : BaseRepository() {
 
     val userInfoDao = DataSourceBuilder.getUserDao()
+    val api = RetroHttp.createApi(mine::class.java)
 
 
     fun updateInfo(bean : UserInfoBean,result : MutableLiveData<Int>){
         val dto  = UserInfoDto()
-        dto.id = bean.id
+        dto.userId = bean.userId
         dto.account = bean.account
         dto.desContent = bean.desContent
         dto.avatar = bean.avatar
@@ -31,6 +35,24 @@ class ProfileRepository : BaseRepository() {
         dto.birthday = bean.birthday
         userInfoDao.updateUserInfo(dto).apply {
             result.value = this
+            snycInfo(dto)
+        }
+    }
+
+
+    private fun snycInfo(dto:UserInfoDto) {
+        val map = HashMap<String,Any>()
+        map["userId"] = dto.userId
+        map["nickName"] = dto.account!!
+        map["phone"] = dto.phone
+        map["birthday"] = dto.birthday
+        map["email"] = dto.email
+        map["introduction"] = dto.desContent
+
+        SuspendResult<String>(owner).success { response, message ->
+            showToast("Snyc successfully")
+        }.hold {
+            api.updateInfo(map)
         }
     }
 
@@ -56,7 +78,7 @@ class ProfileRepository : BaseRepository() {
                 userInfoBean.avatar = avatar
                 userInfoBean.desContent = desContent
                 userInfoBean.email = email
-                userInfoBean.id = id
+                userInfoBean.userId = userId
                 userInfoBean.password = password!!
                 userInfoBean.phone = phone
                 userInfoBean.birthday = birthday

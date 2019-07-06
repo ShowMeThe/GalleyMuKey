@@ -1,12 +1,10 @@
 package example.ken.galleymukey.ui.auth.repository
 
-import android.util.Log
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import example.ken.galleymukey.bean.LoginBean
 import example.ken.galleymukey.bean.RegisterBean
-import example.ken.galleymukey.source.AppDataBaseCreator
+import example.ken.galleymukey.pojo.Userdata
 import example.ken.galleymukey.source.DataSourceBuilder
 import example.ken.galleymukey.source.Source
 import example.ken.galleymukey.source.dto.ImageUrlDto
@@ -14,7 +12,10 @@ import example.ken.galleymukey.source.dto.UserInfoDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import example.ken.galleymukey.api.auth
 import showmethe.github.kframework.base.BaseRepository
+import showmethe.github.kframework.http.RetroHttp
+import showmethe.github.kframework.http.coroutines.SuspendResult
 import showmethe.github.kframework.util.match.MD5
 
 /**
@@ -26,6 +27,7 @@ class AuthRepository : BaseRepository() {
 
     val userInfoDao = DataSourceBuilder.getUserDao()
     val imageUrlDao = DataSourceBuilder.getImageDao()
+    val api  = RetroHttp.createApi(auth::class.java)
 
     fun register(it: RegisterBean,result: MutableLiveData<Boolean>){
 
@@ -38,8 +40,8 @@ class AuthRepository : BaseRepository() {
                     info.avatar = Source.get().getBanner()[4]
                     info.customBg = Source.get().getBanner()[4]
                     userInfoDao.register(info)
-
                     result.value = true
+                    snyRegister(it.account!!,info.password!!)
                 }else{
                     showToast("Account has been signed up")
                     result.value = false
@@ -47,6 +49,23 @@ class AuthRepository : BaseRepository() {
             }
         }
     }
+
+
+    private fun snyRegister(account:String,password:String) {
+        SuspendResult<Userdata>(owner).success { response, message ->
+            val result =  userInfoDao.updateUserId(response!!.userId,account)
+            if(result == 1){
+                showToast("Sync Successfully")
+            }else{
+                showToast("Sync Failed")
+            }
+        }.error { code, message ->
+            showToast("Sync Failed")
+        }.hold{
+            api.register(account, password)
+        }
+    }
+
 
 
     fun login(bean: LoginBean, result: MutableLiveData<UserInfoDto>){

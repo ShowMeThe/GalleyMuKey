@@ -66,11 +66,7 @@ class ProfileInfoActivity : BaseActivity<ViewDataBinding,ProfileInfoViewModel>()
 
 
         ivRight.setOnClickListener {
-            if(viewModel.currentType){
-                viewModel.updateController.value = true
-            }else{
-
-            }
+            viewModel.updateController.value = true
         }
 
 

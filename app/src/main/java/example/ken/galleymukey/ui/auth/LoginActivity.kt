@@ -74,6 +74,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
                 RDEN.put(RdenConstant.account,it.account!!)
                 RDEN.put(RdenConstant.hasLogin,true)
                 RDEN.put(RdenConstant.avatar,avatar)
+                RDEN.put(RdenConstant.userId,userId)
                 dialog.dismiss()
                 startActivity(null,MainActivity::class.java)
                 finishAfterTransition()

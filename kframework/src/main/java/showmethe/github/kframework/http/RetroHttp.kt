@@ -131,7 +131,7 @@ class RetroHttp  private constructor() : SessionObservable{
 
     companion object {
 
-       private var baseUrl = "http://www.loopinmo.com/dzhyk/"
+       private var baseUrl = "http://192.168.42.113:8081/"
 
 
         private val CONNECT_TIMEOUT = 30

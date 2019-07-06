@@ -20,7 +20,9 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
             netJob =   lifecycleScope.launchWhenStarted{
                 withContext(Dispatchers.Main){
                     onLoading?.invoke() }
-                response =  block.invoke()
+                withTimeout(5000){
+                    response =  block.invoke()
+                }
                 withContext (Dispatchers.Main){
                     build()
                 }
