@@ -30,20 +30,11 @@ abstract class CallBack<T> : Observer<JsonResult<T>> {
     }
 
     override fun onNext(t: JsonResult<T>) {
-        try {
-            if (t == null) {
-                fail(-1, "")
-            } else {
-                if (t.code == 2000000) {
-                    success(t.data, t.message!!)
-                } else {
-                    fail(t.code, t.message!!)
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (t.code == 2000000) {
+            success(t.data, t.message!!)
+        } else {
+            fail(t.code, t.message!!)
         }
-
     }
 
     override fun onError(e: Throwable) {
