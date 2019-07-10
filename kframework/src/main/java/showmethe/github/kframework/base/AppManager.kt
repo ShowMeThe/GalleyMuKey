@@ -33,7 +33,15 @@ class AppManager private constructor(){
         }
     }
 
-
+    fun finishTarget(cls : Class<*>){
+        stack?.apply {
+            for(activity in this){
+                if(activity.javaClass.name.equals(cls)){
+                    activity.finishAfterTransition()
+                }
+            }
+        }
+    }
 
     fun finishAllWithoutTarget(cls : Class<*>){
         stack?.apply {

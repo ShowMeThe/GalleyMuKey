@@ -39,7 +39,6 @@ import kotlin.collections.ArrayList
 class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
 
 
-
     companion object {
 
         val SINGLE = 500
@@ -109,7 +108,6 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
             if(adapter.mode == SINGLE){
                 PreViewActivity.startToDetail(context,imgPath[position].path)
             }else{
-
                 PreViewActivity.startToMoreDetail(context,imgStringPath,position)
             }
 
@@ -182,7 +180,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
                 mPermissionList.add(permission)
             }
         }
-        if (!mPermissionList.isEmpty()) {
+        if (mPermissionList.isNotEmpty()) {
             ActivityCompat.requestPermissions(this,
                     mPermissionList.toTypedArray(), PERMISSIONS_REQUEST)
         } else {//未授予的权限为空，表示都授予了

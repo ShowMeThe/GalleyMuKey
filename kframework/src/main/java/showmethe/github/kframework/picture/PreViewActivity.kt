@@ -1,5 +1,7 @@
 package showmethe.github.kframework.picture
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.load.model.GlideUrl
 import kotlinx.android.synthetic.main.activity_pre_view.*
 import showmethe.github.kframework.R
+import showmethe.github.kframework.base.AppManager
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.picture.adapter.PreviewAdapter
@@ -121,17 +124,33 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
     }
 
     fun startZipFiles(){
+
         LubanZip.get().CPRS(context, realList,object : LubanZip.onFilesComPressCallBack{
             override fun onStart() {
+
             }
 
             override fun onSuccess(file: File?) {
+
             }
 
             override fun onError(e: Throwable?) {
+
             }
 
-            override fun onFinish(files: MutableList<File>?) {
+            override fun onFinish(files: MutableList<File>) {
+                val list = ArrayList<PicturesJo>()
+                for((index,bean) in realList.withIndex()){
+                    val jo = PicturesJo()
+                    jo.origin = realList[index]
+                    jo.compress = files[index].path
+                    list.add(jo)
+                }
+                val intent = Intent()
+                intent.putParcelableArrayListExtra("PictureSelector",list)
+                setResult(Activity.RESULT_OK,intent)
+                AppManager.get().finishTarget(PictureSelectorActivity::class.java)
+                finish()
             }
         })
     }
@@ -146,8 +165,17 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
 
             }
 
-            override fun onSuccess(file: File?) {
-
+            override fun onSuccess(file: File) {
+                val list = ArrayList<PicturesJo>()
+                val jo = PicturesJo()
+                jo.origin = realList[positions]
+                jo.compress = file.path
+                list.add(jo)
+                val intent = Intent()
+                intent.putParcelableArrayListExtra("PictureSelector",list)
+                setResult(Activity.RESULT_OK,intent)
+                AppManager.get().finishTarget(PictureSelectorActivity::class.java)
+                finish()
             }
         })
     }
