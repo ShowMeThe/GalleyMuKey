@@ -18,6 +18,7 @@ import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 
 import com.jeremyliao.liveeventbus.LiveEventBus
 import showmethe.github.kframework.util.widget.ScreenSizeUtil
@@ -44,7 +45,7 @@ import showmethe.github.kframework.R
  *
  * 2019/1/10
  **/
-abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompatActivity() {
+abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatActivity() {
 
     val loadingDialog  = DialogLoading()
     var screenWidth = 0
@@ -57,9 +58,8 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : RxAppCompa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(getViewId())
 
-        binding = DataBindingUtil.setContentView(this, getViewId())
+        binding = DataBindingUtil.setContentView(this,getViewId())
         root = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0)
 
         context = this

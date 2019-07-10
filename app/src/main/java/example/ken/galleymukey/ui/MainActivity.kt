@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
@@ -54,6 +56,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     val dialog = SelectorDialog()
     val colors = IntArray(3)
 
+
     override fun getViewId(): Int =R.layout.activity_main
     override fun initViewModel(): MainViewModel =createViewModel(MainViewModel::class.java)
     override fun onBundle(bundle: Bundle) {
@@ -89,6 +92,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
         replaceFragment(GalleyFragment::class.java.name)
+
 
 
         colors[0] = ContextCompat.getColor(context,R.color.colorPrimary)
@@ -212,12 +216,14 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         when(position){
             0 ->  {
                 replaceFragment(GalleyFragment::class.java.name)
+
                 fab.show()
                 bottomBar.visibility = View.VISIBLE
             }
 
             1 ->  {
                 replaceFragment(CateFragment::class.java.name)
+
                 fab.hide()
             }
             2 ->  {

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 
 import com.trello.rxlifecycle3.components.support.RxFragment
@@ -23,7 +24,7 @@ import showmethe.github.kframework.util.ToastFactory
  *
  * 2019/1/10
  **/
-abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : RxFragment() {
+abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment() {
 
 
     val loadingDialog  = DialogLoading()
