@@ -11,9 +11,7 @@ import java.io.IOException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
-import okio.BufferedSink
-import okio.BufferedSource
-import okio.Okio
+import okio.*
 
 /**
  * PackageName: example.ken.com.library.http.DownLoadHelper
@@ -67,11 +65,11 @@ class DownloadHelper private constructor() {
             if (file.exists()) {
                 file.delete()
             }
-            sink = Okio.buffer(Okio.sink(file))
-            val buffer = sink!!.buffer()
+            sink = file.sink().buffer()
+            val buffer = sink.buffer
             source = responseBody.source()
 
-            while (source!!.read(buffer, bufferSize.toLong())
+            while (source.read(buffer, bufferSize.toLong())
                             .also {
                         len = it }!=-1L){
                 sum += len

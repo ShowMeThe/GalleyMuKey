@@ -6,11 +6,7 @@ import java.io.IOException
 
 import okhttp3.MediaType
 import okhttp3.ResponseBody
-import okio.Buffer
-import okio.BufferedSource
-import okio.ForwardingSource
-import okio.Okio
-import okio.Source
+import okio.*
 
 /**
  * PackageName: example.ken.com.library.http.DownLoadHelper
@@ -31,11 +27,11 @@ class DownloadResponseBody(private val responseBody: ResponseBody) : ResponseBod
         return responseBody.contentLength()
     }
 
-    override fun source(): BufferedSource? {
+    override fun source(): BufferedSource{
         if (bufferedSource == null) {
-            bufferedSource = Okio.buffer(source(responseBody.source()))
+            bufferedSource = source(responseBody.source()).buffer()
         }
-        return bufferedSource
+        return bufferedSource!!
     }
 
     /**

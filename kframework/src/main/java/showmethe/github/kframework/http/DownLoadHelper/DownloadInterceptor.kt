@@ -17,7 +17,7 @@ class DownloadInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         return response.newBuilder().body(
-                response.body()?.let { DownloadResponseBody(it) })
+                response.body?.let { DownloadResponseBody(it) })
                 .build()
     }
 }

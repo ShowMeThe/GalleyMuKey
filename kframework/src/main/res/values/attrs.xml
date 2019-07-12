@@ -107,7 +107,17 @@
         <attr name="firstBallColor" format="color"/>
         <attr name="secondBallColor" format="color"/>
     </declare-styleable>
-
+    
+    
+    <declare-styleable name="WheelPicker">
+        <attr name="text_selected_color" format="color|reference"/>
+        <attr name="text_unSelected_color" format="color|reference"/>
+        <attr name="text_shadow" format="boolean"/>
+        <attr name="text_shadow_color" format="color|reference"/>
+        <attr name="text_shadow_radius" format="dimension"/>
+        <attr name="line_start" format="color|reference"/>
+        <attr name="line_end" format="color|reference"/>
+    </declare-styleable>
 
     <declare-styleable name="BubbleLayout">
         <attr name="backgroundColor" format="color"/>

@@ -22,7 +22,7 @@ class ReadWriteCacheInterceptor : Interceptor {
             val response = chain.proceed(request)
             // read from cache for 30 s  有网络不会使用缓存数据
             val maxAge = 30
-            val cacheControl = request.cacheControl().toString()
+            val cacheControl = request.cacheControl.toString()
             return response.newBuilder()
                     .removeHeader("Pragma")
                     .removeHeader("Cache-Control")
