@@ -29,6 +29,8 @@ class RequestHeaderInterceptor : Interceptor, SessionObserver {
            // this.sessionId = Hawk.get(HawkConstant.SESSION, "")
         }
         builder.addHeader("sessionId", sessionId)
+        builder.addHeader("Content-Type","application/json")
+        builder.addHeader("Accept","application/json")
         return chain.proceed(builder.build())
     }
 }

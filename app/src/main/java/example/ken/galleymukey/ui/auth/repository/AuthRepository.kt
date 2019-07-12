@@ -62,7 +62,10 @@ class AuthRepository : BaseRepository() {
         }.error { code, message ->
             showToast("Sync Failed")
         }.hold{
-            api.register(account, password)
+            val loginBean = LoginBean()
+            loginBean.account = account
+            loginBean.password = password
+            api.register(loginBean)
         }
     }
 

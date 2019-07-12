@@ -3,6 +3,7 @@ package example.ken.galleymukey.bean
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
+import com.google.gson.annotations.SerializedName
 import example.ken.galleymukey.BR
 
 /**
@@ -13,12 +14,15 @@ import example.ken.galleymukey.BR
  */
 class LoginBean : Observable {
 
+    @SerializedName("phone")
     @get:Bindable
     var account: String? = null
         set(account) {
             field = account
             notifyChange(BR.account)
         }
+
+    @SerializedName("password")
     @get:Bindable
     var password: String? = null
         set(password) {

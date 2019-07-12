@@ -57,11 +57,11 @@ class RetroHttp  private constructor() : SessionObservable{
                 .cache(cache)
                 .build()
         val gson = GsonBuilder()
-                .registerTypeAdapterFactory(NullStringToEmptyAdapterFactory<Any>())
-                .registerTypeAdapterFactory(NullbooleanTofalseAdapterFactory<Any>())
-                .registerTypeAdapterFactory(NulldoubleTo0AdapterFactory<Any>())
-                .registerTypeAdapterFactory(NullIntTo0AdapterFactory<Any>())
-                .registerTypeAdapterFactory(NullLongTo0AdapterFactory<Any>())
+                .registerTypeAdapter(String::class.java, STRING)
+                .registerTypeAdapter(Long::class.java, LONG)
+                .registerTypeAdapter(Boolean::class.java, BOOLEAN)
+                .registerTypeAdapter(Int::class.java, INT)
+                .registerTypeAdapter(Double::class.java, DOUBLE)
                 .serializeNulls()
                 .create()
         mRetrofit = Retrofit.Builder()
@@ -78,56 +78,7 @@ class RetroHttp  private constructor() : SessionObservable{
     }
 
 
-    //自定义Strig适配器
-    private class NullStringToEmptyAdapterFactory<T> : TypeAdapterFactory {
-        override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
-            val rawType = type.rawType as Class<T>
-            return if (rawType != String::class.java) {
-                null
-            } else STRING as TypeAdapter<T>
-        }
-    }
 
-    //自定义LONG适配器
-    private class NullLongTo0AdapterFactory<T> : TypeAdapterFactory {
-        override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
-            val rawType = type.rawType as Class<T>
-            return if (rawType != Long::class.java) {
-                null
-            } else LONG as TypeAdapter<T>
-        }
-    }
-
-
-    //自定义Int适配器
-    private class NullIntTo0AdapterFactory<T> : TypeAdapterFactory {
-        override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
-            val rawType = type.rawType as Class<T>
-            return if (rawType != Int::class.java) {
-                null
-            } else INT as TypeAdapter<T>
-        }
-    }
-
-    //自定义double适配器
-    private class NulldoubleTo0AdapterFactory<T> : TypeAdapterFactory {
-        override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
-            val rawType = type.rawType as Class<T>
-            return if (rawType != Double::class.java) {
-                null
-            } else DOUBLE as TypeAdapter<T>
-        }
-    }
-
-    //自定义boolean适配器
-    private class NullbooleanTofalseAdapterFactory<T> : TypeAdapterFactory {
-        override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T>? {
-            val rawType = type.rawType as Class<T>
-            return if (rawType != Boolean::class.java) {
-                null
-            } else BOOLEAN as TypeAdapter<T>
-        }
-    }
 
     companion object {
 
