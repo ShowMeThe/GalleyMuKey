@@ -36,12 +36,12 @@ class AuthRepository : BaseRepository() {
                 if(value == null){
                     val info = UserInfoDto()
                     info.account = it.account
-                    info.password = MD5.string2MD5(it.password!!)
+                    info.password = MD5.string2MD5(it.password)
                     info.avatar = Source.get().getBanner()[4]
                     info.customBg = Source.get().getBanner()[4]
                     userInfoDao.register(info)
                     result.value = true
-                    snyRegister(it.account!!,info.password!!)
+                    snyRegister(it.account,info.password!!)
                 }else{
                     showToast("Account has been signed up")
                     result.value = false

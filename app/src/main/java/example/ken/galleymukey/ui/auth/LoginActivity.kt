@@ -139,13 +139,14 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
     fun checkReg(it : RegisterBean) : Boolean{
-        if(it.account!!.isEmpty()){
+
+        if(it.account.isEmpty()){
             showToast("Please input username")
            return false
-        }else if(it.password!!.isEmpty()){
+        }else if(it.password.isEmpty()){
             showToast("Please input password")
             return false
-        } else if(it.code!!.isEmpty() || !it.code!!.equals(num.toString())){
+        } else if(it.code.isEmpty() || it.code != num.toString()){
             showToast("Please input correctly code")
             return false
         }

@@ -96,8 +96,8 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.6.0'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     api 'com.squareup.retrofit2:converter-scalars:2.4.0'
-    api 'com.squareup.okhttp3:okhttp:4.0.0'
-    api 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+    api "com.squareup.okhttp3:okhttp:${LibV.okhttp3}"
+    api "com.squareup.okhttp3:logging-interceptor:${LibV.okhttp3}"
 
     //recycleLife
     api 'androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha02'

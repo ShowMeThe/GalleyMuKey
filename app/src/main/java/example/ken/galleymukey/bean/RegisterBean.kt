@@ -14,19 +14,19 @@ import example.ken.galleymukey.BR
 class RegisterBean : Observable {
 
     @get:Bindable
-    var account: String? = null
+    var account: String = ""
         set(account) {
             field = account
             notifyChange(BR.account)
         }
     @get:Bindable
-    var password: String? = null
+    var password: String = ""
         set(password) {
             field = password
             notifyChange(BR.password)
         }
     @get:Bindable
-    var code: String? = null
+    var code: String = ""
         set(code) {
             field = code
             notifyChange(BR.code)

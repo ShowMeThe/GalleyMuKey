@@ -18,4 +18,5 @@ object LibV{
     val rxandroid = "2.1.1"
     val rxkotlin = "2.4.0-beta.1"
     val glide = "4.9.0"
+    val okhttp3 = "4.0.1"
 }
