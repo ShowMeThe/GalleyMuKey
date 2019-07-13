@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+	
+	<data>
+		<variable
+			name="bean"
+			type="com.example.database.bean.PhotoWallBean" />
+	</data>
+	
+	<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/rlCard"
+		android:layout_margin="@dimen/px30dp"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:elevation="@dimen/px15dp"
+		app:cardBackgroundColor="@color/colorPrimaryDark"
+		app:cardPreventCornerOverlap="true"
+		>
+		
+		
+		<RelativeLayout
+			android:id="@+id/bg"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			
+			<RelativeLayout
+				android:id="@+id/container"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="@dimen/px10dp"
+				>
+				
+				<showmethe.github.kframework.widget.banner.Banner
+					android:id="@+id/banner"
+					android:layout_margin="@dimen/px20dp"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/px600dp"
+					app:imageScaleType="centerCrop"
+					/>
+				
+			</RelativeLayout>
+			
+			<ImageView
+				android:id="@+id/ivAvatar"
+				cut="@{bean.avatar}"
+				android:layout_below="@+id/container"
+				android:layout_marginStart="@dimen/px58dp"
+				android:layout_marginTop="@dimen/px30dp"
+				android:layout_marginBottom="@dimen/px50dp"
+				android:layout_width="@dimen/px150dp"
+				android:layout_height="@dimen/px150dp" />
+			
+			
+			<TextView
+				android:id="@+id/tvName"
+				android:text="@{bean.username}"
+				android:textSize="@dimen/px43dp"
+				android:textStyle="bold"
+				android:layout_alignTop="@+id/ivAvatar"
+				android:layout_toEndOf="@+id/ivAvatar"
+				android:textColor="@color/white"
+				android:layout_marginStart="@dimen/px50dp"
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+			
+			<TextView
+				android:id="@+id/tvComment"
+				android:text="Add Comment"
+				android:textColor="@color/white"
+				android:layout_below="@+id/ivAvatar"
+				android:layout_margin="@dimen/px30dp"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentEnd="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+		
+		
+		</RelativeLayout>
+	
+	
+	</com.google.android.material.card.MaterialCardView>
+
+</layout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="com.example.main.ui.main.ImageShowActivity">
+	
+	<View
+		android:id="@+id/rlBg"
+		android:background="@color/colorPrimary"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+	
+	<ImageView
+		android:id="@+id/image"
+		android:scaleType="fitXY"
+		android:transitionName="photo"
+		android:layout_centerInParent="true"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		/>
+	
+
+	
+	<showmethe.github.kframework.widget.common.LikeView
+		android:id="@+id/ivLike"
+		android:visibility="invisible"
+		android:layout_centerInParent="true"
+		android:layout_width="@dimen/px220dp"
+		android:layout_height="@dimen/px220dp" />
+	
+	
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	</androidx.appcompat.widget.Toolbar>
+	
+	<RelativeLayout
+		android:id="@+id/layout"
+		android:layout_marginTop="@dimen/px25dp"
+		android:layout_below="@id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/px150dp">
+		
+		<ImageView
+			android:id="@+id/ivBack"
+			android:src="@mipmap/back_1"
+			android:layout_alignParentStart="true"
+			android:layout_centerVertical="true"
+			android:layout_marginStart="@dimen/px30dp"
+			android:layout_width="@dimen/px80dp"
+			android:layout_height="@dimen/px80dp" />
+		
+		<ImageView
+			android:id="@+id/ivMenu"
+			android:src="@mipmap/menudots"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_marginEnd="@dimen/px30dp"
+			android:layout_width="@dimen/px80dp"
+			android:layout_height="@dimen/px80dp" />
+	
+	</RelativeLayout>
+
+</RelativeLayout>

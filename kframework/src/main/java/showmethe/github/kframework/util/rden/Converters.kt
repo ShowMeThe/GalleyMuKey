@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 /**
- * example.ken.galleymukey.source.converters
+ * com.example.database.source.converters
  * cuvsu
  * 2019/5/17
  **/

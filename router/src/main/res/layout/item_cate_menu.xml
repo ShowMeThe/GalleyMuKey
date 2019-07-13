@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	<data>
+		
+		<import type="android.view.View" />
+		
+		<variable
+			name="Bean"
+			type="com.example.database.bean.HashTagBean" />
+	</data>
+	
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_width="@dimen/px400dp"
+		android:layout_height="@dimen/px400dp">
+		
+		<com.google.android.material.card.MaterialCardView
+			android:id="@+id/cardView"
+			android:layout_margin="@dimen/px30dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:cardCornerRadius="@dimen/px35dp"
+			app:cardBackgroundColor="@color/color_7986cb"
+			app:rippleColor="@color/color_7986cb"
+			app:strokeColor="@color/color_7986cb"
+			app:cardElevation="@dimen/px5dp"
+			app:cardPreventCornerOverlap="true">
+		
+			
+			<ImageView
+				android:id="@+id/bg"
+				imgPathCrop="@{Bean.imgPath}"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+			
+			<ImageView
+				android:id="@+id/ivSelect"
+				android:layout_gravity="end"
+				android:src="@mipmap/select"
+				android:visibility="@{Bean.active?View.VISIBLE : View.GONE}"
+				android:layout_margin="@dimen/px30dp"
+				android:layout_width="@dimen/px65dp"
+				android:layout_height="@dimen/px65dp" />
+			
+			<showmethe.github.kframework.widget.common.RaceTextView
+				android:id="@+id/tvHashTag"
+				android:layout_gravity="bottom"
+				android:textColor="@color/white"
+				android:textSize="@dimen/px43dp"
+				android:text="@{Bean.hashTag}"
+				android:textStyle="bold"
+				android:gravity="center"
+				android:layout_marginStart="@dimen/px35dp"
+				android:layout_marginEnd="@dimen/px35dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+		
+		</com.google.android.material.card.MaterialCardView>
+	
+	
+	</RelativeLayout>
+</layout>

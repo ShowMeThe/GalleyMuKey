@@ -1,1 +1,1 @@
-include ':app',':kframework'
+include ':app',':kframework', ':main', ':router', ':database', ':home', ':cate', ':cart'

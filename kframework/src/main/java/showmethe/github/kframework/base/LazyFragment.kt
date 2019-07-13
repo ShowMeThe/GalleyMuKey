@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
@@ -38,6 +39,7 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
         if(arguments!=null){
             onBundle(arguments!!)
         }
+        viewModel = initViewModel()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -76,7 +78,11 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = initViewModel()
+
+        observerUI()
+        init()
+        initListener()
+
     }
 
 
@@ -100,9 +106,7 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
     override fun onResume() {//和activity的onResume绑定，Fragment初始化的时候必调用，但切换fragment的hide和visible的时候可能不会调用！
         super.onResume()
         if(firstLoad){
-            observerUI()
-            init()
-            initListener()
+            onLifeCreated(this)
             firstLoad = false
         }
         if (isAdded && !isHidden) {//用isVisible此时为false，因为mView.getWindowToken为null
@@ -146,6 +150,8 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
     abstract fun initViewModel() : VM
 
     abstract fun getViewId() : Int
+
+    abstract fun onLifeCreated(owner: LifecycleOwner)
 
     abstract fun onBundle(bundle: Bundle)
 

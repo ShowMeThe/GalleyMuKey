@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	
+	<data>
+		<variable
+			name="Bean"
+			type="com.example.database.bean.RestPasswordBean" />
+	</data>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_marginTop="@dimen/px20dp"
+			android:layout_marginStart="@dimen/px30dp"
+			android:layout_marginEnd="@dimen/px30dp"
+			android:textColorHint="@color/colorPrimaryDark"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<androidx.appcompat.widget.AppCompatEditText
+				android:id="@+id/edOldPswd"
+				android:hint="Old Password"
+				android:maxLines="1"
+				android:text="@={Bean.oldPassword}"
+				android:inputType="text"
+				android:imeOptions="actionNext"
+				android:textColor="@color/colorPrimaryDark"
+				android:textSize="@dimen/px43dp"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px180dp" />
+		</com.google.android.material.textfield.TextInputLayout>
+		
+		
+		<com.google.android.material.textfield.TextInputLayout
+			android:layout_marginTop="@dimen/px20dp"
+			android:layout_marginStart="@dimen/px30dp"
+			android:layout_marginEnd="@dimen/px30dp"
+			android:textColorHint="@color/colorPrimaryDark"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<androidx.appcompat.widget.AppCompatEditText
+				android:id="@+id/edNewPswd"
+				android:hint="New Password"
+				android:maxLines="1"
+				android:text="@={Bean.newPassword}"
+				android:inputType="text"
+				android:imeOptions="actionNext"
+				android:textColor="@color/colorPrimaryDark"
+				android:textSize="@dimen/px43dp"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/px180dp" />
+		</com.google.android.material.textfield.TextInputLayout>
+		
+		
+		<Button
+			android:id="@+id/btnSubmit"
+			android:text="Submit"
+			android:enabled="@{Bean.enable}"
+			android:textColor="@color/white"
+			android:layout_margin="@dimen/px50dp"
+			android:textSize="@dimen/px43dp"
+			android:background="@drawable/shape_rect_ff6e00"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/px150dp" />
+		
+	</LinearLayout>
+</layout>

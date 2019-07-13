@@ -10,11 +10,16 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/cart" />
+            <option value="$PROJECT_DIR$/cate" />
+            <option value="$PROJECT_DIR$/database" />
+            <option value="$PROJECT_DIR$/home" />
             <option value="$PROJECT_DIR$/kframework" />
+            <option value="$PROJECT_DIR$/main" />
+            <option value="$PROJECT_DIR$/router" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

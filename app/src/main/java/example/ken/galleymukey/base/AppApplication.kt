@@ -1,8 +1,8 @@
 package example.ken.galleymukey.base
 
-import example.ken.galleymukey.source.DataSourceBuilder
+import com.alibaba.android.arouter.launcher.ARouter
+import com.example.database.source.DataSourceBuilder
 import showmethe.github.kframework.base.BaseApplication
-import showmethe.github.kframework.util.system.crash.CrashHandler
 
 /**
  * example.ken.galleymukey.base
@@ -14,5 +14,6 @@ class AppApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         DataSourceBuilder.build(this)
+        ARouter.init(this)
     }
 }

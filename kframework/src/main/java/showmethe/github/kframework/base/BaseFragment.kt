@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 
 import com.trello.rxlifecycle3.components.support.RxFragment
@@ -39,6 +40,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
         if(arguments!=null){
             onBundle(arguments!!)
         }
+        viewModel = initViewModel()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,6 +48,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
         view?.apply {
             binding = DataBindingUtil.bind(view.rootView)
         }
+
         return view
     }
 
@@ -77,11 +80,17 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        viewModel = initViewModel()
         observerUI()
         init(savedInstanceState)
         initListener()
+        if(context.viewModel == viewModel){
+            onLifeCreated(this)
+        }else{
+            lifecycle.addObserver(viewModel)
+            viewModel.LifecyclerCreated {
+                onLifeCreated(it)
+            }
+        }
     }
 
 
@@ -145,6 +154,8 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
     abstract fun getViewId() : Int
 
     abstract fun onBundle(bundle: Bundle)
+
+    abstract fun onLifeCreated(owner: LifecycleOwner)
 
     abstract fun observerUI()
 
