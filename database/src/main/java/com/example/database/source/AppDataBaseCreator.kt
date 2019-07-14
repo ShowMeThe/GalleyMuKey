@@ -20,7 +20,7 @@ import com.example.database.source.dto.*
     CateDto::class,
     CommentDto::class,
     NewGoodsSellDto::class,
-    CartListDto::class,OrderDto::class),version = 1)
+    CartListDto::class,OrderDto::class),version = 2)
 abstract class AppDataBaseCreator : RoomDatabase() {
 
     abstract fun getUserInfoDto() : UserInfoDao

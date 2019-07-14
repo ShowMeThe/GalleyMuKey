@@ -168,8 +168,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
     }
 
     fun dismissLoading(){
-        if(loadingDialog.isAdded)
-        loadingDialog.dismiss()
+        loadingDialog.dismissAllowingStateLoss()
     }
 
     fun showToast(message : String){
@@ -307,6 +306,15 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
         val transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(this, transitionView, transitionName)
         startActivity(intent, transitionActivityOptions.toBundle())
     }
+
+   fun  startForResult(bundle: Bundle?, reuquestCode:Int,target: Class<*>){
+       val intent = Intent(this, target)
+       if (bundle != null) {
+           intent.putExtras(bundle)
+       }
+       startActivityForResult(intent,reuquestCode)
+       overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
+   }
 
 
     override fun onDestroy() {

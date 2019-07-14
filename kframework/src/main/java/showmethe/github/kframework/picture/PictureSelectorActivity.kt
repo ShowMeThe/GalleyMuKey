@@ -1,39 +1,37 @@
 package showmethe.github.kframework.picture
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import showmethe.github.kframework.R
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
-import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Function
-import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_picture_selector.*
+import showmethe.github.kframework.base.AppManager
 
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.picture.adapter.PictureAdapter
-import showmethe.github.kframework.util.widget.StatusBarUtil
+import showmethe.github.kframework.picture.luban.LubanZip
 import java.io.File
+import java.lang.Exception
 
-import java.sql.Array
-import java.util.*
 import kotlin.collections.ArrayList
 
 class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
@@ -53,7 +51,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
         private val PERMISSIONS_REQUEST = 200
     }
 
-    private var count  = 0;
+    private var count  = 0
     val permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     val mPermissionList = ArrayList<String> ()
     val imgPath = ObservableArrayList<LocalMedia>()
@@ -79,7 +77,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
     }
     override fun init(savedInstanceState: Bundle?) {
         initAdapter()
-        CheckPermission()
+        checkPermission()
     }
 
     override fun initListener() {
@@ -90,7 +88,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
 
 
         tvConfirm.setOnClickListener {
-
+            starTozip()
         }
 
 
@@ -106,13 +104,53 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
 
         adapter.setOnItemClickListener { view, position ->
             if(adapter.mode == SINGLE){
-                PreViewActivity.startToDetail(context,imgPath[position].path)
+               // PreViewActivity.startToDetail(context,imgPath[position].path)
             }else{
-                PreViewActivity.startToMoreDetail(context,imgStringPath,position)
+               // PreViewActivity.startToMoreDetail(context,imgStringPath,position)
             }
 
         }
+    }
 
+    /**
+     * 开始压缩
+     */
+    private fun starTozip(){
+         if(count == 0){
+            return
+        }
+          val realList = ArrayList<String>()
+          for(bean in imgPath){
+              if(bean.isCheck){
+                  realList.add(bean.path)
+              }
+          }
+           val temp = ArrayList<File>()
+           LubanZip.get(this).CPRS(context, realList,object : LubanZip.onFilesComPressCallBack{
+            override fun onStart() {
+
+            }
+
+            override fun onSuccess(file: File) {
+                temp.add(file)
+                if(temp.size == realList.size){
+                    val list = ArrayList<PicturesJo>()
+                    for((index,bean) in realList.withIndex()){
+                        val jo = PicturesJo()
+                        jo.origin = realList[index]
+                        jo.compress = temp[index].path
+                        list.add(jo)
+                    }
+                    val intent = Intent()
+                    intent.putParcelableArrayListExtra("PictureSelector",list)
+                    setResult(Activity.RESULT_OK,intent)
+                    finish()
+                }
+            }
+            override fun onError(e: Throwable?) {
+
+            }
+        })
     }
 
 
@@ -172,8 +210,35 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
         })
     }
 
+     fun findAllPic(){
+         var c : Cursor? = null
+         try {
+             c = contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
+             val  calumniatorData  = c!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+             while(c.moveToNext()){
+                 val path = c.getString(calumniatorData)
+                 imgStringPath.add(path)
+             }
+             dismissLoading()
+         }catch (e: Exception){
+             showToast("Found Image error")
+             e.printStackTrace()
+         }finally {
+             c?.close()
+             if(imgStringPath.isNotEmpty()){
+                 for(path in imgStringPath){
+                     imgPath.add(LocalMedia(path))
+                 }
 
-    private fun CheckPermission() {
+             }
+         }
+
+     }
+
+    /**
+     * 检查权限
+     */
+    private fun checkPermission() {
         mPermissionList.clear()
         for (permission in permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -191,12 +256,11 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
 
     private  fun getLocal(){
         showLoading()
-        mapPic(basePath)
-        mapPic(picPath)
-        mapPic(photoPath)
+        findAllPic()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: kotlin.Array<out String>, grantResults: IntArray) {
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         for (i in permissions.indices) {
             if (ContextCompat.checkSelfPermission(this@PictureSelectorActivity, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
                 mPermissionList.add(permissions[i])
@@ -204,7 +268,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
                 ActivityCompat.shouldShowRequestPermissionRationale(this, mPermissionList[i])
             }
         }
-        CheckPermission()
+        checkPermission()
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 

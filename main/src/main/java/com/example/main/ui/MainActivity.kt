@@ -1,7 +1,10 @@
 package com.example.main.ui
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.*
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
@@ -11,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.example.database.source.DataSourceBuilder
+import com.example.database.source.dto.PhotoWallDto
 
 import com.example.main.R
 import com.google.android.material.tabs.TabLayout
@@ -32,6 +37,8 @@ import kotlinx.android.synthetic.main.include_drawer_item.*
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.livebus.LiveBusHelper
+import showmethe.github.kframework.picture.PictureSelector
+import showmethe.github.kframework.picture.PictureSelectorActivity
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
@@ -96,6 +103,7 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
 
 
         viewModel.getCustomBg()
+
 
     }
 
@@ -170,7 +178,29 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
             startActivity(null,WalletActivity::class.java)
         }
 
+        fab.setOnClickListener {
+            startForResult(null,5000,PictureSelectorActivity::class.java)
+        }
 
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        data?.apply {
+            val list = PictureSelector.findLocalPictures(data)
+            val datas = ArrayList<String>()
+            list.forEach {
+                datas.add(it.compress)
+            }
+            val bean = PhotoWallDto()
+            bean.id = System.currentTimeMillis().toInt()
+            bean.imageTop = datas
+            bean.avatar = RDEN.get(RdenConstant.avatar,"")
+            bean.username =RDEN.get(RdenConstant.account,"")
+            bean.like = false
+            DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
+        }
     }
 
 

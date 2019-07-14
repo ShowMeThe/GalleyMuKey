@@ -124,39 +124,37 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
     }
 
     fun startZipFiles(){
-
-        LubanZip.get().CPRS(context, realList,object : LubanZip.onFilesComPressCallBack{
+        val temp = ArrayList<File>()
+        LubanZip.get(this).CPRS(context, realList,object : LubanZip.onFilesComPressCallBack{
             override fun onStart() {
 
             }
 
-            override fun onSuccess(file: File?) {
-
+            override fun onSuccess(file: File) {
+                temp.add(file)
+                if(temp.size == realList.size){
+                    val list = ArrayList<PicturesJo>()
+                    for((index,bean) in realList.withIndex()){
+                        val jo = PicturesJo()
+                        jo.origin = realList[index]
+                        jo.compress = temp[index].path
+                        list.add(jo)
+                    }
+                    val intent = Intent()
+                    intent.putParcelableArrayListExtra("PictureSelector",list)
+                    setResult(Activity.RESULT_OK,intent)
+                    finish()
+                }
             }
 
             override fun onError(e: Throwable?) {
 
             }
-
-            override fun onFinish(files: MutableList<File>) {
-                val list = ArrayList<PicturesJo>()
-                for((index,bean) in realList.withIndex()){
-                    val jo = PicturesJo()
-                    jo.origin = realList[index]
-                    jo.compress = files[index].path
-                    list.add(jo)
-                }
-                val intent = Intent()
-                intent.putParcelableArrayListExtra("PictureSelector",list)
-                setResult(Activity.RESULT_OK,intent)
-                AppManager.get().finishTarget(PictureSelectorActivity::class.java)
-                finish()
-            }
         })
     }
 
     fun startZipFile(){
-        LubanZip.get().CPR(context, realList[positions],object : LubanZip.onComPressCallBack{
+        LubanZip.get(this).CPR(context, realList[positions],object : LubanZip.onComPressCallBack{
             override fun onError(e: Throwable?) {
 
             }

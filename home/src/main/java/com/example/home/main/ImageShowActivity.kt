@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.graphics.PointF
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.*
 import androidx.databinding.ViewDataBinding
 import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
@@ -25,9 +26,10 @@ import com.example.home.main.vm.HomeViewModel
 @ParallaxBack
 class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(){
 
-
-    private val storeDir =
-        getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.path + File.separator
+    /**
+     * 保存路径
+     */
+    private var storeDir = ""
     private  var url = ""
     private var id = -1
     private var dPoint = PointF()
@@ -61,8 +63,13 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        storeDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath
+
         StatusBarUtil.fixToolbarScreen(this,toolbar)
         StatusBarUtil.setTranslucentNavigation(this)
+
+
+
 
     }
 

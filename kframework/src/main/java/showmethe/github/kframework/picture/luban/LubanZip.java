@@ -2,6 +2,7 @@ package showmethe.github.kframework.picture.luban;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,24 +17,20 @@ public class LubanZip  {
 
     private  static LubanZip instant = null;
 
-    private static final String CACHEDIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/";
+    private  String CACHEDIR = "";
 
     private static final int  DEFAULTIGNOR = 100;
 
-    private static final CompressionPredicate predicate = new CompressionPredicate() {
-        @Override
-        public boolean apply(String path) {
-            return !(path.isEmpty() || path.toLowerCase().endsWith(".gif"));
-        }
-    };
+    private static final CompressionPredicate predicate = path -> !(path.isEmpty() || path.toLowerCase().endsWith(".gif"));
 
 
-    private LubanZip(){
+    private LubanZip(Context context){
+        CACHEDIR = context.getExternalCacheDir().getAbsolutePath();
     }
 
-    public static LubanZip get(){
+    public static LubanZip get(Context context){
         if(instant == null){
-            instant = new LubanZip();
+            instant = new LubanZip(context);
         }
         return instant;
     }
@@ -67,7 +64,7 @@ public class LubanZip  {
 
 
     public void CPRS(Context context, List<String> inputPaths, onFilesComPressCallBack onFilesComPressCallBack){
-        List<File> files = new ArrayList<>();
+        ArrayList<File> files = new ArrayList<>();
         Luban.with(context).load(inputPaths).ignoreBy(DEFAULTIGNOR).setTargetDir(CACHEDIR)
                 .filter(predicate).setCompressListener(new OnCompressListener() {
             @Override
@@ -89,7 +86,8 @@ public class LubanZip  {
 
             @Override
             public void onFinish() {
-                onFilesComPressCallBack.onFinish(files);
+                Log.e("LUBAN","" + files.size());
+                //onFilesComPressCallBack.onFinish(files);
             }
         }).launch();
     }
@@ -113,8 +111,6 @@ public class LubanZip  {
         void onSuccess(File file);
 
         void onError(Throwable e);
-
-        void onFinish(List<File> files);
 
     }
 
