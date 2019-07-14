@@ -10,7 +10,7 @@ import com.example.router.databinding.ItemCateMenuBinding
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 
 /**
- * com.example.main.ui.cate
+ * com.example.cate.cate
  * cuvsu
  * 2019/5/21
  **/

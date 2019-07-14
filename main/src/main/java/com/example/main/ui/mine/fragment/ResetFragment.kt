@@ -46,6 +46,12 @@ class ResetFragment  : BaseFragment<FragmentResetBinding, ProfileInfoViewModel>(
 
     }
 
+
+    override fun onLifeCreated(owner: LifecycleOwner) {
+        viewModel.repository.init(this)
+    }
+
+
     override fun init(savedInstanceState: Bundle?) {
 
         binding?.apply {
@@ -56,10 +62,7 @@ class ResetFragment  : BaseFragment<FragmentResetBinding, ProfileInfoViewModel>(
 
     }
 
-    override fun onLifeCreated(owner: LifecycleOwner) {
 
-        
-    }
     override fun initListener() {
 
         btnSubmit.setOnClickListener {

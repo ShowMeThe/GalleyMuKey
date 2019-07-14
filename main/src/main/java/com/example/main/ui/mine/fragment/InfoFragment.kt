@@ -61,14 +61,16 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
     }
 
-    override fun init(savedInstanceState: Bundle?) {
-        TGlide.loadCirclePicture( RDEN.get(RdenConstant.avatar,""),ivHead)
+
+    override fun onLifeCreated(owner: LifecycleOwner) {
+        viewModel.repository.init(this)
     }
 
 
-    override fun onLifeCreated(owner: LifecycleOwner) {
-        viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
+    override fun init(savedInstanceState: Bundle?) {
+        TGlide.loadCirclePicture( RDEN.get(RdenConstant.avatar,""),ivHead)
 
+        viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
     }
 
     override fun initListener() {

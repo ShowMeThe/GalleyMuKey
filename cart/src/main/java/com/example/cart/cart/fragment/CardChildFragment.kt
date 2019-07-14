@@ -67,9 +67,7 @@ class CardChildFragment : LazyFragment<FragmentCartChildBinding, GoodsViewModel>
     }
 
     override fun onLifeCreated(owner: LifecycleOwner) {
-        viewModel.getGoodsList(type,goodsBean)
-
-
+        viewModel.repository.init(this)
     }
 
 
@@ -80,6 +78,7 @@ class CardChildFragment : LazyFragment<FragmentCartChildBinding, GoodsViewModel>
         rvBottom.adapter = homeAdapter
         rvBottom.layoutManager = GridLayoutManager(context,2)
 
+        viewModel.getGoodsList(type,goodsBean)
 
 
     }

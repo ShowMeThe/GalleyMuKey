@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
             onBundle(arguments!!)
         }
         viewModel = initViewModel()
+        onLifeCreated(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -83,14 +85,6 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
         observerUI()
         init(savedInstanceState)
         initListener()
-        if(context.viewModel == viewModel){
-            onLifeCreated(this)
-        }else{
-            lifecycle.addObserver(viewModel)
-            viewModel.LifecyclerCreated {
-                onLifeCreated(it)
-            }
-        }
     }
 
 

@@ -21,13 +21,7 @@
 			android:windowSoftInputMode="stateAlwaysHidden"
 			/>
 		
-		<activity
-			android:name="com.example.main.ui.main.LikeActivity"
-			android:configChanges="orientation|keyboardHidden|navigation|locale"
-			android:launchMode="singleTop"
-			android:screenOrientation="portrait"
-			android:theme="@style/CutCardViewTheme"
-			android:windowSoftInputMode="stateAlwaysHidden" />
+		
 		
 		<activity
 			android:name="com.example.main.ui.mine.ProfileInfoActivity"
@@ -35,13 +29,7 @@
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateAlwaysHidden" />
-		<activity
-			android:name="com.example.main.ui.main.ImageShowActivity"
-			android:configChanges="orientation|keyboardHidden|navigation|locale"
-			android:launchMode="singleTop"
-			android:screenOrientation="portrait"
-			android:theme="@style/TranslucentTheme"
-			android:windowSoftInputMode="stateAlwaysHidden" />
+	
 		<activity
 			android:name=".SplashActivity"
 			android:configChanges="orientation|keyboardHidden|navigation|locale"

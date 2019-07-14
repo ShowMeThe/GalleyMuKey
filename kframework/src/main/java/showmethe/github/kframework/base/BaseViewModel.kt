@@ -19,24 +19,20 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
 
     lateinit var owner: LifecycleOwner
-    private var onInit : ((owner: LifecycleOwner)->Unit )? = null
 
     override fun onCreate(owner: LifecycleOwner) {
         this.owner = owner
 
         onViewModelCreated(owner)
-        onInit?.invoke(owner)
 
     }
 
+    override fun onResume(owner: LifecycleOwner) {
 
+
+    }
 
     abstract fun onViewModelCreated(owner: LifecycleOwner)
-
-
-    fun LifecyclerCreated(onInit : (owner: LifecycleOwner)->Unit){
-        this.onInit = onInit
-    }
 
 
 

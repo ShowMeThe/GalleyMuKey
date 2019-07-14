@@ -66,9 +66,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
         binding?.lifecycleOwner = this
         viewModel = initViewModel()
         lifecycle.addObserver(viewModel)
-        viewModel.LifecyclerCreated {
-            onLifeCreated(it)
-        }
+        onLifeCreated(this)
 
 
         if(showCreateReveal()){

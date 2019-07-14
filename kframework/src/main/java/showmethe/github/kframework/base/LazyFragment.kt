@@ -79,10 +79,6 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        observerUI()
-        init()
-        initListener()
-
     }
 
 
@@ -107,6 +103,9 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
         super.onResume()
         if(firstLoad){
             onLifeCreated(this)
+            observerUI()
+            init()
+            initListener()
             firstLoad = false
         }
         if (isAdded && !isHidden) {//用isVisible此时为false，因为mView.getWindowToken为null

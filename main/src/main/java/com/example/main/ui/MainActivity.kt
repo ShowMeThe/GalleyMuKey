@@ -2,8 +2,8 @@ package com.example.main.ui
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
@@ -19,13 +19,11 @@ import com.example.router.constant.LiveHelperConstant
 import com.example.router.constant.RdenConstant
 import com.example.router.dialog.SelectorDialog
 import com.example.main.ui.auth.LoginActivity
-import com.example.main.ui.cate.fragment.CateFragment
-import com.example.main.ui.main.LikeActivity
-import com.example.main.ui.main.fragment.GalleyFragment
-import com.example.main.ui.main.vm.MainViewModel
+
+
 import com.example.main.ui.mine.ProfileInfoActivity
 import com.example.main.ui.mine.WalletActivity
-import com.example.router.constant.PathConst
+import com.example.main.ui.mine.vm.MainViewModel
 import com.example.router.router.RouteServiceManager
 import com.example.router.router.RouterService
 import com.example.router.util.CircularRevealUtils
@@ -38,12 +36,14 @@ import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
 
-class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
+class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
 
 
     val dialog = SelectorDialog()
     val colors = IntArray(3)
     var cartFragment : Fragment? = null
+    var homeFragment : Fragment? = null
+    var cateFragment : Fragment? = null
     var iProvider : RouterService? =null
 
 
@@ -66,10 +66,7 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
 
 
     override fun onLifeCreated(owner: LifecycleOwner) {
-
-           viewModel.getCustomBg()
-
-
+        viewModel.repository.init(owner)
     }
 
     override fun setTheme() {
@@ -77,12 +74,13 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        iProvider = RouteServiceManager.provide(RouterService::class.java)
 
         setContainer()
         setSupportActionBar(bottomBar)
         TGlide.loadCirclePicture(RDEN.get(RdenConstant.avatar,""),ivHead)
         initTab()
-        replaceFragment(GalleyFragment::class.java.name)
+        replaceFragment(iProvider!!.getHomeFragment().javaClass.name)
 
 
 
@@ -91,10 +89,13 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         colors[2] = ContextCompat.getColor(context,R.color.color_0288d1)
 
 
-        iProvider = RouteServiceManager.provide(RouterService::class.java)
-
         cartFragment = iProvider?.getCartFragment()
+        homeFragment = iProvider?.getHomeFragment()
+        cateFragment = iProvider?.getCateFragment()
 
+
+
+        viewModel.getCustomBg()
 
     }
 
@@ -161,7 +162,8 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         tvAddLike.setOnClickListener {
             val bundle  = Bundle()
             bundle.putString("title",tvAddLike.text.toString())
-            startActivity(bundle,LikeActivity::class.java,it,"title")
+            val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, it, "title")
+            iProvider!!.startLikeActivity(bundle,compat)
         }
 
         tvWallet.setOnClickListener {
@@ -210,14 +212,14 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
         switchColor(position)
         when(position){
             0 ->  {
-                replaceFragment(GalleyFragment::class.java.name)
+                replaceFragment(homeFragment!!.javaClass.name)
 
                 fab.show()
                 bottomBar.visibility = View.VISIBLE
             }
 
             1 ->  {
-                replaceFragment(CateFragment::class.java.name)
+                replaceFragment(cateFragment!!.javaClass.name)
 
                 fab.hide()
             }
@@ -248,14 +250,17 @@ class MainActivity : BaseActivity<ViewDataBinding,MainViewModel>() {
     override fun onBackPressed() {
         if(!drawer.isDrawerOpen(Gravity.LEFT)){
             if(tab.selectedTabPosition == 1){
-                viewModel.cateChildManager?.fragments?.apply {
+                super.onBackPressed()
+           /*     viewModel.cateChildManager?.fragments?.apply {
                     if(size > 1){
                         viewModel.catePopBack.value = true
 
                     }else{
-                        super.onBackPressed()
+
                     }
                 }
+                */
+
             }else{
                 super.onBackPressed()
             }

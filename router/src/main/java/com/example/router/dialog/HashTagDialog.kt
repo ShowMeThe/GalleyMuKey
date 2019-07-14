@@ -24,7 +24,7 @@ import java.lang.StringBuilder
 
 
 /**
- * com.example.main.ui.cate
+ * com.example.cate.cate
  * cuvsu
  * 2019/5/21
  **/

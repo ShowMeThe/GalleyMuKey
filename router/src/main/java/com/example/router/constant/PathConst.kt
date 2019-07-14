@@ -8,4 +8,12 @@ object PathConst {
 
     const val CART_ACTIVITY = "/cart/CartActivity"
 
+
+    const val HOME_FRAGMEMNT = "/home/HomeFragment"
+
+    const val HOME_LIKE_ACTIVITY = "/home/LikeActivity"
+
+
+    const val CATE_FRAGMENT = "/cate/CateFragment"
+
 }

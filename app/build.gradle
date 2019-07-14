@@ -71,4 +71,6 @@ dependencies {
 
     implementation project(':main')
     implementation project(':cart')
+    implementation project(':home')
+    implementation project(':cate')
 }

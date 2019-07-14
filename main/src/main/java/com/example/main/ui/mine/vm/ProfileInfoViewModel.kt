@@ -16,8 +16,8 @@ import showmethe.github.kframework.base.BaseViewModel
 class ProfileInfoViewModel(application: Application) : BaseViewModel(application) {
 
 
-    private val repository = ProfileRepository()
-   /* private val cartRepository = CartRepository()*/
+    val repository = ProfileRepository()
+
 
     val switchToReset = MutableLiveData<Boolean>()
     var currentType = true //true info //false reset
@@ -29,8 +29,6 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
 
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
-        repository.init(owner)
-        /*cartRepository.init(owner)*/
 
     }
 

@@ -40,8 +40,10 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
     }
 
     override fun onLifeCreated(owner: LifecycleOwner) {
-        pagerNumber.value = 1
+      viewModel.repository.init(this)
+
     }
+
 
     override fun observerUI() {
 
@@ -82,7 +84,7 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
         rvCart.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
 
 
-
+        pagerNumber.value = 1
     }
 
     override fun initListener() {
