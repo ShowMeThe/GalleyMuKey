@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.EditorInfo
@@ -56,6 +57,14 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
                 dialog.beanList.value = this
             }
         })
+
+        viewModel. popBack.observe(this, Observer {
+            it?.apply {
+                childFragmentManager.popBackStack()
+            }
+        })
+
+
     }
 
 
@@ -194,7 +203,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
             }
         }
 
-       // viewModel.cateChildManager = childFragmentManager
+        viewModel.updateFragmentManager(childFragmentManager)
         fragments  = childFragmentManager.fragments
         if (fragments != null) {
             for (i in fragments!!.indices) {

@@ -250,17 +250,13 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
     override fun onBackPressed() {
         if(!drawer.isDrawerOpen(Gravity.LEFT)){
             if(tab.selectedTabPosition == 1){
-                super.onBackPressed()
-           /*     viewModel.cateChildManager?.fragments?.apply {
+                viewModel.cateChildManager?.fragments?.apply {
                     if(size > 1){
-                        viewModel.catePopBack.value = true
-
+                        viewModel.catePopBack(true)
                     }else{
-
+                        super.onBackPressed()
                     }
                 }
-                */
-
             }else{
                 super.onBackPressed()
             }

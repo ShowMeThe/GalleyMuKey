@@ -40,6 +40,7 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
             onBundle(arguments!!)
         }
         viewModel = initViewModel()
+        lifecycle.addObserver(viewModel)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

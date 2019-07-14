@@ -1,13 +1,17 @@
 package com.example.main.ui.mine.vm
 
 import android.app.Application
+import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.database.bean.HashTagBean
 import com.example.main.ui.mine.repository.MainRepertory
 
 import com.example.router.constant.PathConst
+import com.example.router.share.Share
+
 import showmethe.github.kframework.base.BaseViewModel
 
 /**
@@ -16,17 +20,26 @@ import showmethe.github.kframework.base.BaseViewModel
  * 2019/5/18
  **/
 
-class MainViewModel(application: Application) : BaseViewModel(application) {
+class MainViewModel(application: Application) : BaseViewModel(application){
 
     val repository = MainRepertory()
-
     val customBg = MutableLiveData<String>()
     val hashTag = MutableLiveData<ArrayList<HashTagBean>>()
+    var  cateChildManager : FragmentManager? = null
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
+        Share.get().onNotifyFragmentManager {
+            cateChildManager = it
+        }
+
+
     }
 
+
+    fun catePopBack(boolean: Boolean){
+        Share.get().popBack(boolean)
+    }
 
     fun getCustomBg(){
         repository.getCustomBg(customBg)
@@ -35,5 +48,6 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     fun setCustomBg(newBg : String){
         repository.setCustomBg(newBg)
     }
+
 
 }

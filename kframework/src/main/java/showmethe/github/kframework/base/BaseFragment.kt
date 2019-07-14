@@ -42,6 +42,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
             onBundle(arguments!!)
         }
         viewModel = initViewModel()
+        lifecycle.addObserver(viewModel)
         onLifeCreated(this)
     }
 

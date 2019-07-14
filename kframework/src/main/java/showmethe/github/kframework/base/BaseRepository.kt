@@ -3,6 +3,7 @@ package showmethe.github.kframework.base
 import androidx.lifecycle.Lifecycle
 import android.content.Context
 import android.util.Log
+import androidx.databinding.Bindable
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -34,8 +35,11 @@ abstract class BaseRepository :  DefaultLifecycleObserver {
 
     private var currentRetryCount = 0
 
-    var owner:LifecycleOwner? = null
+
     private  var refresh : WeakReference<SwipeRefreshLayout>? = null
+
+    private var weakOwner :WeakReference<LifecycleOwner>? = null
+    var owner:LifecycleOwner? = null
 
     companion object {
         private const val maxConnectCount = 15
@@ -52,8 +56,9 @@ abstract class BaseRepository :  DefaultLifecycleObserver {
     }
 
     fun init(owner: LifecycleOwner){
-        this.owner = owner
-        owner.lifecycle.addObserver(this)
+        weakOwner = WeakReference(owner)
+        this.owner = weakOwner?.get()
+        this.owner?.lifecycle?.addObserver(this)
     }
 
     open fun initRefresh(refresh : SwipeRefreshLayout){
@@ -128,6 +133,7 @@ abstract class BaseRepository :  DefaultLifecycleObserver {
             if(owner!=null){
                 owner?.lifecycle?.removeObserver(this)
                 owner = null
+                weakOwner = null
             }
         }
 

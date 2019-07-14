@@ -1,25 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.example.home" >
 	
-	<application
-		android:theme="@style/MaterialTheme"
-		>
-		
-		<activity
-			android:name="com.example.home.main.LikeActivity"
-			android:configChanges="orientation|keyboardHidden|navigation|locale"
-			android:launchMode="singleTop"
-			android:screenOrientation="portrait"
-			android:theme="@style/CutCardViewTheme"
-			android:windowSoftInputMode="stateAlwaysHidden" />
-		
-		<activity
-			android:name="com.example.home.main.ImageShowActivity"
-			android:configChanges="orientation|keyboardHidden|navigation|locale"
-			android:launchMode="singleTop"
-			android:screenOrientation="portrait"
-			android:theme="@style/TranslucentTheme"
-			android:windowSoftInputMode="stateAlwaysHidden" />
-		
-	</application>
+
 </manifest>

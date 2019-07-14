@@ -40,10 +40,6 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         ToastFactory.createToast(message)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-
-    }
 
 }
 
