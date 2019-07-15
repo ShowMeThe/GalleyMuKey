@@ -46,8 +46,8 @@ class ProfileInfoViewModel(application: Application) : BaseViewModel(application
         repository.queryAccount(account,bean)
     }
 
-   /* fun qureyOrderList(pagerNumber:Int){
-        cartRepository.qureyOrderList(pagerNumber,data)
-    }*/
+    fun qureyOrderList(pagerNumber:Int){
+        repository.qureyOrderList(pagerNumber,data)
+    }
 
 }

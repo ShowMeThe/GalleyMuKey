@@ -79,11 +79,6 @@ class CartRepository : BaseRepository() {
         }
     }
 
-    fun qureyOrderList(pagerNumber :Int ,data : MutableLiveData<List<OrderListBean>>){
-        GlobalScope.launch(Dispatchers.IO){
-            val result = orderDao.qureyOrderList((pagerNumber - 1)*10)
-            data.postValue(result)
-        }
-    }
+
 
 }

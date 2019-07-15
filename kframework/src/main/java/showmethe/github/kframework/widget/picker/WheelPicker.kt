@@ -106,6 +106,7 @@ class WheelPicker @JvmOverloads constructor(
     }
 
 
+
     private fun init(){
         initAttr()
     }
@@ -207,7 +208,7 @@ class WheelPicker @JvmOverloads constructor(
 
                     wheelAdapter?.currentPos = firstPos + 1 + 2
                     wheelAdapter?.notifyDataSetChanged()
-
+                    onItemTextChange?.invoke(firstPos + 1 + 2)
                     hasRunning = true
                 }
             }else{
@@ -221,7 +222,7 @@ class WheelPicker @JvmOverloads constructor(
 
                 wheelAdapter?.currentPos = firstPos + 2
                 wheelAdapter?.notifyDataSetChanged()
-
+                onItemTextChange?.invoke(firstPos + 2)
                 hasRunning = true
             }
         }else{
@@ -231,7 +232,11 @@ class WheelPicker @JvmOverloads constructor(
     }
 
 
+    var onItemTextChange : ((position:Int)->Unit)? = null
 
+    fun  setOnItemTextChangeListener(onItemTextChange : ((position:Int)->Unit)){
+        this.onItemTextChange = onItemTextChange
+    }
 
 
     override fun dispatchDraw(canvas: Canvas) {

@@ -89,11 +89,7 @@ import showmethe.github.kframework.R
     abstract fun bindItems(textView: TextView, item: T, position: Int)
 
 
-    var onItemTextChange : onItemTextChange? = null
 
-    fun  setOnItemTextChangeListener(onItemTextChange : onItemTextChange){
-        this.onItemTextChange = onItemTextChange
-    }
 
 }
 

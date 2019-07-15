@@ -26,7 +26,7 @@ class NumberDialog : DialogFragment() {
 
     lateinit var mContext: Context
     lateinit var adapter:NumberAdapter
-    private var num = 0
+    private var num = 1
     var onTextItemChange :((value:Int)->Unit)? = null
 
 
@@ -40,7 +40,7 @@ class NumberDialog : DialogFragment() {
         val dialog = Dialog(mContext)
         val view = View.inflate(mContext, R.layout.dialog_number, null)
         dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCanceledOnTouchOutside(true)
 
 
 
@@ -67,11 +67,9 @@ class NumberDialog : DialogFragment() {
 
             picker.setWheelAdapter(adapter)
 
-            adapter.setOnItemTextChangeListener(object : onItemTextChange{
-                override fun onItemChange(textView: TextView, position: Int) {
-                    num = list[position]
-                }
-            })
+            picker.setOnItemTextChangeListener {
+                num = list[it]
+            }
 
             tvCancel.setOnClickListener {
                 dialog.dismiss()

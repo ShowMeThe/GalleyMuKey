@@ -61,9 +61,7 @@ class WalletActivity : BaseActivity<ActivityWalletBinding,ProfileInfoViewModel>(
 
         pagerNumber.observe(this, Observer {
             it?.apply {
-                //viewModel.qureyOrderList(this)
-
-
+                viewModel.qureyOrderList(this)
             }
         })
 

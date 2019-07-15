@@ -31,6 +31,8 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
     val list = ObservableArrayList<CartListBean>()
     val pagerNumber = MutableLiveData<Int>()
     private val dialog = CheckOutDialog()
+    val data  = ArrayList<OrderDto>()
+
 
     override fun getViewId(): Int = R.layout.activity_cart
     override fun initViewModel(): GoodsViewModel = createViewModel(GoodsViewModel::class.java)
@@ -98,12 +100,7 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
 
 
         fab.setOnClickListener {
-            if(list.isNotEmpty())
-             dialog.show(supportFragmentManager,"")
-        }
-
-        dialog.setOnButtonCheckListener {
-            val data  = ArrayList<OrderDto>()
+           data.clear()
             for(dto in adapter.data){
                 if(dto.isCheck()){
                     val bean = OrderDto()
@@ -114,6 +111,12 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
                     data.add(bean)
                 }
             }
+            if(data.isNotEmpty()){
+                dialog.show(supportFragmentManager,"")
+            }
+        }
+
+        dialog.setOnButtonCheckListener {
             if (data.isNotEmpty()){
                 viewModel.addOrder(data)
             }

@@ -2,10 +2,14 @@ package com.example.main.ui.mine.repository
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.example.database.bean.OrderListBean
 import com.example.main.api.mine
 import com.example.database.bean.UserInfoBean
 import com.example.database.source.DataSourceBuilder
 import com.example.database.source.dto.UserInfoDto
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseRepository
 import showmethe.github.kframework.http.RetroHttp
 import showmethe.github.kframework.http.coroutines.SuspendResult
@@ -19,7 +23,7 @@ class ProfileRepository : BaseRepository() {
 
     val userInfoDao = DataSourceBuilder.getUserDao()
     val api = RetroHttp.createApi(mine::class.java)
-
+    val orderDao = DataSourceBuilder.getOrderDao()
 
     fun updateInfo(bean : UserInfoBean,result : MutableLiveData<Int>){
         val dto  = UserInfoDto()
@@ -87,5 +91,11 @@ class ProfileRepository : BaseRepository() {
         })
     }
 
+    fun qureyOrderList(pagerNumber :Int ,data : MutableLiveData<List<OrderListBean>>){
+        GlobalScope.launch(Dispatchers.IO){
+            val result = orderDao.qureyOrderList((pagerNumber - 1)*10)
+            data.postValue(result)
+        }
+    }
 
 }
