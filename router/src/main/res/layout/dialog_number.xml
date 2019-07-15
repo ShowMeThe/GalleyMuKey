@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:background="@drawable/shape_rect_top_radius"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/px150dp">
+		
+		<TextView
+			android:id="@+id/tvCancel"
+			android:text="Cancel"
+			android:textSize="@dimen/px43dp"
+			android:layout_marginStart="@dimen/px43dp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentStart="true"
+			android:textColor="@color/colorPrimaryDark"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		
+		<TextView
+			android:id="@+id/tvConfirm"
+			android:text="Confirm"
+			android:textSize="@dimen/px43dp"
+			android:layout_marginEnd="@dimen/px43dp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentEnd="true"
+			android:textColor="@color/colorPrimaryDark"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		
+	</RelativeLayout>
+	
+	<View
+		android:background="@color/diver_dcdcdc"
+		android:layout_width="wrap_content"
+		android:layout_height="@dimen/px1dp"/>
+	
+	<showmethe.github.kframework.widget.picker.WheelPicker
+		android:id="@+id/picker"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:line_start="@color/colorPrimaryDark"
+		app:line_end="@color/color_f48fb1"
+		app:text_selected_color="@color/colorPrimaryDark"
+		app:text_unSelected_color="@color/colorAccent"
+		app:text_shadow="true"
+		app:text_shadow_color="@color/colorPrimaryDark"
+		app:text_shadow_radius="@dimen/px10dp"
+		>
+	</showmethe.github.kframework.widget.picker.WheelPicker>
+	
+
+</LinearLayout>

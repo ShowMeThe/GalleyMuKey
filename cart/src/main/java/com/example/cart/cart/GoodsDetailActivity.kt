@@ -15,6 +15,7 @@ import com.example.database.source.dto.GoodsListDto
 
 import com.example.cart.cart.vm.GoodsViewModel
 import com.example.cart.databinding.ActivityGoodsDetailBinding
+import com.example.router.dialog.NumberDialog
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.BitmapTarget
@@ -26,6 +27,8 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
 
     val list = ObservableArrayList<String>()
     var dto : GoodsListDto? = null
+
+    val dialog = NumberDialog()
 
     override fun getViewId(): Int = R.layout.activity_goods_detail
     override fun initViewModel(): GoodsViewModel =createViewModel(GoodsViewModel::class.java)
@@ -101,8 +104,15 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
         }
 
         btnBuy.setOnClickListener {
-             viewModel.addCartBean(this.dto!!.id)
+            dialog.show(supportFragmentManager,"")
+
         }
+
+        dialog.setOnTextItemChangeListemer {
+            viewModel.addCartBean(this.dto!!.id,it)
+        }
+
+
 
     }
 

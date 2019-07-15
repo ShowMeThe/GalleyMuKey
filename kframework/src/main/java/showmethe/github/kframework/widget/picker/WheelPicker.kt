@@ -1,6 +1,7 @@
 package showmethe.github.kframework.widget.picker
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import showmethe.github.kframework.util.widget.DisplayUtil
 import android.graphics.Shader
 import android.graphics.LinearGradient
+import android.util.Log
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.item_wheel.view.*
 import showmethe.github.kframework.R
 
 
@@ -25,7 +29,7 @@ import showmethe.github.kframework.R
  **/
 class WheelPicker @JvmOverloads constructor(
         context: Context, var attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : RecyclerView(context, attrs, defStyleAttr), onItemTextChange {
+) : RecyclerView(context, attrs, defStyleAttr){
 
 
     /**
@@ -68,6 +72,7 @@ class WheelPicker @JvmOverloads constructor(
     private var textSelectColor = -1
     private var textUnSelectColor = -1
 
+
     /**
      * 选择指示条颜色
      */
@@ -91,13 +96,18 @@ class WheelPicker @JvmOverloads constructor(
         this.wheelAdapter = wheelAdapter
         adapter = wheelAdapter
         itemCount = wheelAdapter.itemCount
-        this.wheelAdapter?.setOnItemTextChangeListener(this)
+        this.wheelAdapter?.textSelectColor = textSelectColor
+        this.wheelAdapter?.textUnSelectColor = textUnSelectColor
+        this.wheelAdapter?.shadow = shadow
+        this.wheelAdapter?.shadowRadius = shadowRadius
+        this.wheelAdapter?.shadowColor = shadowColor
+
+        layoutManager = LinearLayoutManager(context,VERTICAL,false)
     }
 
 
     private fun init(){
         initAttr()
-        layoutManager = LinearLayoutManager(context,VERTICAL,false)
     }
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {
@@ -108,30 +118,17 @@ class WheelPicker @JvmOverloads constructor(
 
     private fun initAttr(){
         val attay = context.obtainStyledAttributes(attrs, R.styleable.WheelPicker)
-        textSelectColor = attay.getColor(R.styleable.WheelPicker_text_selected_color,Color.parseColor("#333333"))
-        textUnSelectColor = attay.getColor(R.styleable.WheelPicker_text_unSelected_color,Color.parseColor("#333333"))
+        textSelectColor = attay.getResourceId(R.styleable.WheelPicker_text_selected_color,R.color.colorAccent)
+        textUnSelectColor = attay.getResourceId(R.styleable.WheelPicker_text_unSelected_color,R.color.colorAccent)
+        textSelectColor = ContextCompat.getColor(context,textSelectColor)
+        textUnSelectColor = ContextCompat.getColor(context,textUnSelectColor)
+
         lineStart = attay.getColor(R.styleable.WheelPicker_line_start,Color.BLUE)
         lineEnd = attay.getColor(R.styleable.WheelPicker_line_end,Color.RED)
         shadow = attay.getBoolean(R.styleable.WheelPicker_text_shadow,true)
         shadowRadius = attay.getDimension(R.styleable.WheelPicker_text_shadow_radius,5f)
-        shadowColor = attay.getColor(R.styleable.WheelPicker_text_shadow_color,Color.parseColor("#666666"))
+        shadowColor = attay.getColor(R.styleable.WheelPicker_text_shadow_color,ContextCompat.getColor(context,R.color.text_666666))
         attay.recycle()
-    }
-
-    override fun onItemChange(textView: TextView,position: Int) {
-        wheelAdapter?.apply {
-            if(shadow){
-                textView.setShadowLayer(shadowRadius,4f,4f,shadowColor)
-            }
-            if(currentPos == position){
-                textView.textSize = 20f
-                textView.setTextColor(textSelectColor)
-            }else{
-                textView.textSize = 14f
-                textView.setTextColor(textUnSelectColor)
-            }
-        }
-
     }
 
     private fun setMaxShowSize(maxShowSize: Int) {

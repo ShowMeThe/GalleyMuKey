@@ -1,6 +1,7 @@
 package showmethe.github.kframework.widget.picker
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,18 @@ import showmethe.github.kframework.R
     private var headOrFooter = 2
     private var itemHeight = 120
     var currentPos = 2
+    /**
+     * 字体颜色
+     */
+     var textSelectColor = -1
+     var textUnSelectColor = -1
 
+    /**
+     * 阴影
+     */
+     var shadow =  true
+     var shadowRadius  = 5f
+     var shadowColor  = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WheelViewHolder {
         return if(viewType == footer || viewType == head){
@@ -39,10 +51,19 @@ import showmethe.github.kframework.R
 
     override fun onBindViewHolder(holder: WheelViewHolder, position: Int) {
         if(getItemViewType(position) != footer && getItemViewType(position)!= head){
+
             bindItems(holder.itemView.tvWheelTx,list[getRealPos(position)],getRealPos(position))
 
-            onItemTextChange?.onItemChange(holder.itemView.tvWheelTx,position)
-
+            if(shadow){
+                holder.itemView.tvWheelTx.setShadowLayer(shadowRadius,4f,4f,shadowColor)
+            }
+            if(currentPos == position){
+                holder.itemView.tvWheelTx.textSize = 20f
+                holder.itemView.tvWheelTx.setTextColor(textSelectColor)
+            }else{
+                holder.itemView.tvWheelTx.textSize = 14f
+                holder.itemView.tvWheelTx.setTextColor(textUnSelectColor)
+            }
         }
     }
 
@@ -76,7 +97,7 @@ import showmethe.github.kframework.R
 
 }
 
-
+@FunctionalInterface
 interface  onItemTextChange{
 
     fun onItemChange(textView: TextView, position: Int)

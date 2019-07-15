@@ -33,8 +33,8 @@ class GoodsViewModel(application: Application) : BaseViewModel(application) {
         repository.findCartList(reuslt)
     }
 
-    fun addCartBean(id:Int){
-        repository.addCartBean(id,boolean)
+    fun addCartBean(id:Int,count:Int){
+        repository.addCartBean(id,count,boolean)
     }
 
     fun addOrder(listBean: List<OrderDto>){

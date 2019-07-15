@@ -41,9 +41,11 @@ class WalletActivity : BaseActivity<ActivityWalletBinding,ProfileInfoViewModel>(
 
     }
 
+
+
     override fun onLifeCreated(owner: LifecycleOwner) {
-        viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
-        pagerNumber.value = 1
+       viewModel.repository.init(owner)
+
     }
 
     override fun observerUI() {
@@ -94,6 +96,12 @@ class WalletActivity : BaseActivity<ActivityWalletBinding,ProfileInfoViewModel>(
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         rv.addItemDecoration(SpaceItemDecoration(30,20))
+
+
+
+        viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
+        pagerNumber.value = 1
+
     }
 
     override fun initListener() {
