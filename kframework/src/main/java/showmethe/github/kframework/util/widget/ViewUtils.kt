@@ -64,54 +64,7 @@ object ViewUtils {
 
         }
     }
-    /**
-     * 用于修改tabLayout下Indicator的宽度
-     * @param tabs
-     */
-    fun setTabIndicator(tabs: TabLayout, padding: Int) {
 
-        tabs.post {
-            try {
-                //拿到tabLayout的mTabStrip属性
-                val mTabStrip = tabs.getChildAt(0) as LinearLayout
-
-                for (i in 0 until mTabStrip.childCount) {
-                    val tabView = mTabStrip.getChildAt(i)
-                    //拿到tabView的mTextView属性  tab的字数不固定一定用反射取mTextView
-
-                    val mTextViewField: Field
-                    if (Build.VERSION.SDK_INT < 28) {
-                        mTextViewField = tabView.javaClass.getDeclaredField("mTextView")
-                    } else {
-                        mTextViewField = tabView.javaClass.getDeclaredField("textView")
-                    }
-                    mTextViewField.isAccessible = true
-                    val mTextView = mTextViewField.get(tabView) as TextView
-                    tabView.setPadding(0, 0, 0, 0)
-
-                    //测量mTextView的宽度
-                    var width = 0
-                    width = mTextView.width
-                    if (width == 0) {
-                        mTextView.measure(0, 0)
-                        width = mTextView.measuredWidth
-                    }
-
-                    //设置tab左右间距 注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
-                    val params = tabView.layoutParams as LinearLayout.LayoutParams
-                    params.width = width
-                    params.leftMargin = padding
-                    params.rightMargin = padding
-                    tabView.layoutParams = params
-                    tabView.invalidate()
-                }
-            } catch (e: NoSuchFieldException) {
-                e.printStackTrace()
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            }
-        }
-    }
 
 
     fun getDisplayMetrics(context: Context): DisplayMetrics {
