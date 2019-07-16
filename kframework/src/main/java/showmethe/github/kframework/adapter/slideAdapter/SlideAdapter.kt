@@ -123,7 +123,7 @@ abstract class SlideAdapter<D, V : androidx.recyclerview.widget.RecyclerView.Vie
         val linearLayout = itemView.findViewById<LinearLayout>(R.id.slideLayout_ll_container)
         val content: View
 
-        var rightMenu: View? = null
+        var rightMenu: View?
         content = LayoutInflater.from(context).inflate(slideItem.itemLayoutId, linearLayout, false)
         linearLayout.addView(content)
         this.contentView = content

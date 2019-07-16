@@ -7,6 +7,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 
 import java.security.MessageDigest
+import kotlin.math.sqrt
 
 /**
  * PackageName: com.library.utils.glide
@@ -43,12 +44,9 @@ class GlideRoundCutTransform @JvmOverloads constructor(var radius  : Float = 4f)
         paint.shader = BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
         paint.isAntiAlias = true
         paint.style = Paint.Style.FILL_AND_STROKE
-        var cut = (Math.sqrt(2.0)/2 * radius).toFloat()
-        var width = 0f
-        var  height = 0f
-
-        width = source.width.toFloat()
-        height = source.height.toFloat()
+        var cut = (sqrt(2.0) /2 * radius).toFloat()
+        val width: Float = source.width.toFloat()
+        val height: Float = source.height.toFloat()
 
         if(width/height>=1){
             if(cut >height/2){
@@ -62,7 +60,7 @@ class GlideRoundCutTransform @JvmOverloads constructor(var radius  : Float = 4f)
 
         path.moveTo(cut,0f)
         path.lineTo(width-cut,0f)
-        path.lineTo(width.toFloat(),cut)
+        path.lineTo(width,cut)
         path.lineTo(source.width.toFloat(),height-cut)
         path.lineTo(width-cut,height)
         path.lineTo(cut,height)

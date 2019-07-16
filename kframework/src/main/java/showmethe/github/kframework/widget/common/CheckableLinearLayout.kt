@@ -27,14 +27,14 @@ class CheckableLinearLayout @JvmOverloads constructor(context: Context, attrs: A
     }
 
 
-    override fun setOnClickListener(l: View.OnClickListener?) {
+    override fun setOnClickListener(l: OnClickListener?) {
         super.setOnClickListener { v ->
             isChecked = !checked
             l?.onClick(v)
         }
     }
 
-    override fun setOnLongClickListener(l: View.OnLongClickListener?) {
+    override fun setOnLongClickListener(l: OnLongClickListener?) {
         super.setOnLongClickListener { v ->
             isChecked = !checked
             l?.onLongClick(v) ?: false
@@ -87,11 +87,11 @@ class CheckableLinearLayout @JvmOverloads constructor(context: Context, attrs: A
     }
 
 
-    private class SavedState : View.BaseSavedState {
+    private class SavedState : BaseSavedState {
 
         internal var checked: Boolean = false
 
-        internal constructor(superState: Parcelable) : super(superState) {}
+        internal constructor(superState: Parcelable) : super(superState)
 
         private constructor(`in`: Parcel) : super(`in`) {
             checked = `in`.readValue(null) as Boolean
@@ -103,7 +103,7 @@ class CheckableLinearLayout @JvmOverloads constructor(context: Context, attrs: A
         }
 
         init {
-            val CREATOR: Parcelable.Creator<SavedState> = object : Parcelable.Creator<SavedState> {
+            object : Parcelable.Creator<SavedState> {
                 override fun createFromParcel(`in`: Parcel): SavedState {
                     return SavedState(`in`)
                 }

@@ -15,9 +15,8 @@ import java.io.*
  * Date : 2018/9/28
  * Time : 11:56
  */
-class AssetFile(assetPath: String) {
+class AssetFile(private val assetPath: String) {
 
-    val assetPath: String = assetPath ?: ""
     private val fileName: String
     private val manager: AssetManager
     private var isDirectory: Boolean = false

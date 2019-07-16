@@ -15,14 +15,14 @@ class HotWallBean(pathTop: String?, pathBottom: String?,type: Int) : Observable 
 
     @get:Bindable
     var pathBottom: String? = pathBottom
-        set(path) {
+        set(pathBottom) {
             field = pathBottom
             notifyChange(BR.pathBottom)
         }
 
     @get:Bindable
     var pathTop: String? = pathTop
-        set(path) {
+        set(pathTop) {
             field = pathTop
             notifyChange(BR.pathTop)
         }

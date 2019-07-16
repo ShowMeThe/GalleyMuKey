@@ -48,7 +48,7 @@ class ParallaxBackHelper private constructor(): SimpleLifecyclerCallbacks(){
         var mc: Class<*> = c
         var parallaxBack: ParallaxBack?
         while (Activity::class.java.isAssignableFrom(mc)) {
-            parallaxBack = mc.getAnnotation(ParallaxBack::class.java) as ParallaxBack?
+            parallaxBack = mc.getAnnotation(ParallaxBack::class.java)
             if (parallaxBack != null)
                 return parallaxBack
             mc = mc.superclass

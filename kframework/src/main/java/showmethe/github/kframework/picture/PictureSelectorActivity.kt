@@ -135,7 +135,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
                 temp.add(file)
                 if(temp.size == realList.size){
                     val list = ArrayList<PicturesJo>()
-                    for((index,bean) in realList.withIndex()){
+                    for((index, _) in realList.withIndex()){
                         val jo = PicturesJo()
                         jo.origin = realList[index]
                         jo.compress = temp[index].path

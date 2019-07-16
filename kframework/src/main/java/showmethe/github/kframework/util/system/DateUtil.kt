@@ -26,14 +26,14 @@ object DateUtil {
             style = yyyy_MMddHHmm
         }
         val sdf = SimpleDateFormat(format, Locale.CHINESE)
-        sdf.timeZone = TimeZone.getTimeZone("GMT+8:00");
+        sdf.timeZone = TimeZone.getTimeZone("GMT+8:00")
         var date : Date? = null
         try {
-            date = sdf.parse(time);
+            date = sdf.parse(time)
         } catch (e : Exception ) {
             e.printStackTrace()
         }
-        return date;
+        return date
     }
 
 
@@ -66,17 +66,16 @@ object DateUtil {
             ret = ""
         } else {
             if (offset > 0) {
-                var day: Long = 0
-                var hour: Long = 0
-                var min: Long = 0
-                var sec: Long = 0
-                day = offset / (24 * 60 * 60 * 1000)
+                val day: Long = offset / (24 * 60 * 60 * 1000)
+                val hour: Long
+                val min: Long
+                val sec: Long
                 hour = offset / (60 * 60 * 1000) - day * 24
                 min = offset / (60 * 1000) - day * 24 * 60 - hour * 60
                 sec = offset / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60
                 if (day != 0L) return (day * 24 + hour).toString() + ":" + min + ":" + sec + ""
-                if (hour != 0L) return hour.toString() + ":" + min + ":" + sec + ""
-                if (min != 0L) return min.toString() + ":" + sec + ""
+                if (hour != 0L) return "$hour:$min:$sec"
+                if (min != 0L) return "$min:$sec"
                 return if (sec != 0L) sec.toString() + "" else "00:00:00"
             } else {
                 ret = "00:00:00"

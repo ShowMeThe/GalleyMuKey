@@ -119,16 +119,15 @@ object ToastFactory {
 
     fun createImgToast(isTrue: Boolean, message: Any) {
         val title: TextView
-        val imageView: ImageView
-        val layout: View
-        if (imgToast == null) {
-            layout = View.inflate(BaseApplication.context, R.layout.view_img_toast, null)
+
+        val layout: View = if (imgToast == null) {
+            View.inflate(BaseApplication.context, R.layout.view_img_toast, null)
         } else {
             imgToast?.cancel()
-            layout = imgToast!!.view
+            imgToast!!.view
         }
         title = layout.findViewById(R.id.text)
-        imageView = layout.findViewById(R.id.image)
+        val imageView: ImageView = layout.findViewById(R.id.image)
         if (isTrue) {
             title.setTextColor(Color.parseColor("#3F75FF"))
 

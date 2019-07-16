@@ -9,6 +9,7 @@ import java.nio.charset.Charset
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
 
 
@@ -31,8 +32,7 @@ class RequestLogInterceptor : Interceptor {
         }
         Log.e("RequestLogInterceptor", requestMessage)
         Log.e("RequestLogInterceptor", request.method + ' '.toString() + request.url + ' '.toString() + responseBodyString)
-        return response.newBuilder().body(ResponseBody.create(responseBody.contentType(),
-                responseBodyString.toByteArray())).build()
+        return response.newBuilder().body(responseBodyString.toByteArray().toResponseBody(responseBody.contentType())).build()
     }
 
     companion object {

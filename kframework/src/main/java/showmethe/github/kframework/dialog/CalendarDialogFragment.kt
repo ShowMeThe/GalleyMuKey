@@ -30,13 +30,13 @@ import java.util.*
 class CalendarDialogFragment : DialogFragment() {
 
     lateinit var mContext: Context
-    val list = ObservableArrayList<String>()
-    var  adapter: YearAdapter?= null
-    val instant = Calendar.getInstance(Locale.CHINA)
-    var day = 0
-    var month = 0
-    var year = 0
-    var currentPos = 0
+    private val list = ObservableArrayList<String>()
+    private var  adapter: YearAdapter?= null
+    private val instant = Calendar.getInstance(Locale.CHINA)
+    private  var day = 0
+    private  var month = 0
+    private  var year = 0
+    private  var currentPos = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,7 +68,7 @@ class CalendarDialogFragment : DialogFragment() {
 
         list.clear()
         for(i in 1990..2100){
-            list.add("${i}")
+            list.add("$i")
         }
 
         view?.apply {
@@ -104,12 +104,12 @@ class CalendarDialogFragment : DialogFragment() {
 
 
             tvYear.text = year.toString()
-            tvDate.text = "$month/${day}"
+            tvDate.text = "$month/$day"
 
             adapter?.notifyDataSetChanged()
             rv.smoothScrollToPosition(adapter!!.currentPos)
 
-            calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 this@CalendarDialogFragment.month  = month+1
                 this@CalendarDialogFragment.day = dayOfMonth
                 this@CalendarDialogFragment.year = year

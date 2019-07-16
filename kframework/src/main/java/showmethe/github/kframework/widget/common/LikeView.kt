@@ -16,8 +16,8 @@ import android.util.Log
 import android.view.animation.*
 import androidx.core.content.ContextCompat
 import showmethe.github.kframework.R
-
-
+import kotlin.math.cos
+import kotlin.math.sin
 
 
 /**
@@ -107,9 +107,9 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             (mHeight/2 + heightDis*percentage).toInt()
         )
         if(isLike){
-            canvas.drawBitmap(like,null,rect,bitmapPaint)
+            canvas.drawBitmap(like!!,null,rect,bitmapPaint)
         }else{
-            canvas.drawBitmap(unlike,null,rect,bitmapPaint)
+            canvas.drawBitmap(unlike!!,null,rect,bitmapPaint)
         }
     }
 
@@ -128,8 +128,8 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     private fun drawOuterDotsFrame(canvas: Canvas) {
         for (i in 0 until DOTS_COUNT) { //小红点会绕中心旋转
-            val cX = (centerX + currentRadius * Math.cos((i+1*percentage*1.5) * DOTS_POSITION_ANGLE * Math.PI / 180)) .toFloat()
-            val cY = (centerY + currentRadius * Math.sin((i+1*percentage*1.5)* DOTS_POSITION_ANGLE * Math.PI / 180)).toFloat()
+            val cX = (centerX + currentRadius * cos((i+1*percentage*1.5) * DOTS_POSITION_ANGLE * Math.PI / 180)) .toFloat()
+            val cY = (centerY + currentRadius * sin((i+1*percentage*1.5)* DOTS_POSITION_ANGLE * Math.PI / 180)).toFloat()
             circlePaint.color = colors!![0] //固定了一个颜色
             if(i%2 == 0){ //奇偶大小变化
                 canvas.drawCircle(cX, cY, currentDotSize, circlePaint)
@@ -154,14 +154,15 @@ class LikeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     private fun updateOuterDotsPosition() {
         if (currentProgress < 0.3f) {
-            this.currentRadius = mapValueFromRangeToRange(currentProgress, 0.0f, 0.3f, 0.0f, maxDotsRadius * 0.8f).toFloat()
+            this.currentRadius = mapValueFromRangeToRange(currentProgress, 0.0f, 0.3f, 0.0f, maxDotsRadius * 0.8f)
         } else {
-            this.currentRadius = mapValueFromRangeToRange(currentProgress, 0.3f, 1.0f, 0.8f * maxDotsRadius, maxDotsRadius).toFloat()
+            this.currentRadius =
+                mapValueFromRangeToRange(currentProgress, 0.3f, 1.0f, 0.8f * maxDotsRadius, maxDotsRadius)
         }
         if (currentProgress < 0.7) {
             this.currentDotSize = maxDotSize
         } else {
-            this.currentDotSize = mapValueFromRangeToRange(currentProgress, 0.7f, 1.0f, maxDotSize, 0.0f).toFloat()
+            this.currentDotSize = mapValueFromRangeToRange(currentProgress, 0.7f, 1.0f, maxDotSize, 0.0f)
         }
     }
 

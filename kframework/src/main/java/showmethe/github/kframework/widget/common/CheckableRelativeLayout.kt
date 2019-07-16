@@ -26,14 +26,14 @@ class CheckableRelativeLayout @JvmOverloads constructor(context: Context, attrs:
         isLongClickable = true
     }
 
-    override fun setOnClickListener(l: View.OnClickListener?) {
+    override fun setOnClickListener(l: OnClickListener?) {
         super.setOnClickListener { v ->
             isChecked = !checked
             l?.onClick(v)
         }
     }
 
-    override fun setOnLongClickListener(l: View.OnLongClickListener?) {
+    override fun setOnLongClickListener(l: OnLongClickListener?) {
         super.setOnLongClickListener { v ->
             isChecked = !checked
             l?.onLongClick(v) ?: false
@@ -92,7 +92,7 @@ class CheckableRelativeLayout @JvmOverloads constructor(context: Context, attrs:
     }
 
 
-    private class SavedState : View.BaseSavedState {
+    private class SavedState : BaseSavedState {
         internal var checked: Boolean = false
 
         internal constructor(superState: Parcelable) : super(superState) {}
@@ -107,7 +107,7 @@ class CheckableRelativeLayout @JvmOverloads constructor(context: Context, attrs:
         }
 
        init {
-           val CREATOR: Parcelable.Creator<SavedState> = object : Parcelable.Creator<SavedState> {
+           object : Parcelable.Creator<SavedState> {
                override fun createFromParcel(`in`: Parcel): SavedState {
                    return SavedState(`in`)
                }

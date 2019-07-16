@@ -307,7 +307,7 @@ class TGlide private constructor(context: Context){
         Observable.create(ObservableOnSubscribe<Bitmap> { e ->
             val map = HashMap<String, String>()
             val retriever = MediaMetadataRetriever()
-            var bitmap: Bitmap? = null
+            val bitmap: Bitmap?
             try {
                 //根据url获取缩略图
                 retriever.setDataSource(videoUrl, map)

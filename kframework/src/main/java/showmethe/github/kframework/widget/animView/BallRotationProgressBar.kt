@@ -82,10 +82,9 @@ class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs:
 
         mCenterX = (width / 2).toFloat()
         mCenterY = (height / 2).toFloat()
-        val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
-        val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
-        val widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
-        val heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
+
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         val mWidth = measuredWidth / 3
         val mHeight = 150
@@ -181,7 +180,7 @@ class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs:
     override fun setVisibility(v: Int) {
         if (visibility != v) {
             super.setVisibility(v)
-            if (v == View.GONE || v == View.INVISIBLE) {
+            if (v == GONE || v == INVISIBLE) {
                 stopAnimator()
             } else {
                 startAnimator()
@@ -191,7 +190,7 @@ class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs:
 
     override fun onVisibilityChanged(changedView: View, v: Int) {
         super.onVisibilityChanged(changedView, v)
-        if (v == View.GONE || v == View.INVISIBLE) {
+        if (v == GONE || v == INVISIBLE) {
             stopAnimator()
         } else {
             startAnimator()
@@ -265,8 +264,8 @@ class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs:
     /**
      * 开始动画
      */
-    fun startAnimator() {
-        if (visibility != View.VISIBLE) return
+    private fun startAnimator() {
+        if (visibility != VISIBLE) return
 
         if (animatorSet!!.isRunning) return
 
@@ -287,11 +286,11 @@ class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs:
     companion object {
 
         //默认小球最大半径
-        private val DEFAULT_MAX_RADIUS = 25
+        private const val DEFAULT_MAX_RADIUS = 25
         //默认小球最小半径
-        private val DEFAULT_MIN_RADIUS = 3
+        private const val DEFAULT_MIN_RADIUS = 3
         //默认两个小球运行轨迹直径距离
-        private val DEFAULT_DISTANCE = 40
+        private const val DEFAULT_DISTANCE = 40
 
         //默认第一个小球颜色
         private val DEFAULT_ONE_BALL_COLOR = Color.parseColor("#40df73")
@@ -299,6 +298,6 @@ class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs:
         private val DEFAULT_TWO_BALL_COLOR = Color.parseColor("#ffdf3e")
 
         //默认动画执行时间
-        private val DEFAULT_ANIMATOR_DURATION = 1200
+        private const val DEFAULT_ANIMATOR_DURATION = 1200
     }
 }

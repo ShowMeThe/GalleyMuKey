@@ -38,17 +38,17 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
 
     private var footerView : View? = null
     private var lastPosition = 0
-    private var rv : androidx.recyclerview.widget.RecyclerView? = null
+    private var rv : RecyclerView? = null
     private lateinit var lastPositions : IntArray
     private var staggeredGridLayoutManager : androidx.recyclerview.widget.StaggeredGridLayoutManager? = null
     private var gridManager : androidx.recyclerview.widget.GridLayoutManager? = null
 
-    private val handle = Handler(WeakReference<Handler.Callback>(Handler.Callback {
+    private val handle = Handler(WeakReference(Handler.Callback {
         when(it.what){
             0 ->{
                 footerView?.apply {
                     loadState.text = context.getString(R.string.loadingSucceed)
-                    rlLoading.postDelayed(Runnable {
+                    rlLoading.postDelayed({
                         isLoading = false
                         rlLoading.visibility = View.GONE
                     },300)
@@ -59,7 +59,7 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
             1 ->{
                 footerView?.apply {
                     loadState.text = context.getString(R.string.loadingFailed)
-                    rlLoading.postDelayed(Runnable {
+                    rlLoading.postDelayed({
                         isLoading = false
                         rlLoading.visibility = View.GONE
                     },300)
@@ -68,7 +68,7 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
 
             2 ->{
                 footerView?.apply {
-                    rlLoading.postDelayed(Runnable {
+                    rlLoading.postDelayed({
                         rlLoading.visibility = View.VISIBLE
                         loadState.text = context.getString(R.string.no_more_data_to_read)
                         progressbar.visibility = View.GONE
@@ -126,8 +126,8 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
     }
 
 
-    private val listener  = object  : androidx.recyclerview.widget.RecyclerView.OnScrollListener(){
-        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+    private val listener  = object  : RecyclerView.OnScrollListener(){
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             findLastPosition(recyclerView,dy)
             super.onScrolled(recyclerView, dx, dy)
         }
@@ -137,9 +137,9 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
     private val sizeLookup = object : androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup(){
         override fun getSpanSize(p0: Int): Int {
             if (getItemViewType(p0) == TYPE_FOOTER_VIEW) {
-                return gridManager!!.spanCount;
+                return gridManager!!.spanCount
             }
-            return 1;
+            return 1
         }
     }
 
@@ -156,7 +156,7 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
     }
 
 
-    override fun onAttachedToRecyclerView(recyclerView: androidx.recyclerview.widget.RecyclerView) {
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
 
         recyclerView.apply {
@@ -170,26 +170,23 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
         handle.removeCallbacksAndMessages(null)
     }
 
-    private fun findLastPosition(recyclerView : androidx.recyclerview.widget.RecyclerView, dy : Int){
-        val layoutManager = recyclerView.layoutManager
-        if (layoutManager is androidx.recyclerview.widget.GridLayoutManager) {
-            lastPosition = (layoutManager as androidx.recyclerview.widget.GridLayoutManager).findLastVisibleItemPosition()
-            gridManager  = layoutManager as androidx.recyclerview.widget.GridLayoutManager
-            gridManager?.apply {
-                spanSizeLookup = sizeLookup
+    private fun findLastPosition(recyclerView : RecyclerView, dy : Int){
+        when (val layoutManager = recyclerView.layoutManager) {
+            is androidx.recyclerview.widget.GridLayoutManager -> {
+                lastPosition = layoutManager.findLastVisibleItemPosition()
+                gridManager  = layoutManager
+                gridManager?.apply {
+                    spanSizeLookup = sizeLookup
+                }
             }
-        } else if (layoutManager is androidx.recyclerview.widget.LinearLayoutManager) {
-            lastPosition = (layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findLastVisibleItemPosition()
-        } else if (layoutManager is androidx.recyclerview.widget.StaggeredGridLayoutManager) {
-            staggeredGridLayoutManager = layoutManager as androidx.recyclerview.widget.StaggeredGridLayoutManager
-            if (lastPositions == null) {
-                lastPositions = IntArray(staggeredGridLayoutManager!!.spanCount)
-            }
-            staggeredGridLayoutManager!!.findLastVisibleItemPositions(lastPositions)
-            lastPosition = findMax(lastPositions)
+            is androidx.recyclerview.widget.LinearLayoutManager -> lastPosition = layoutManager.findLastVisibleItemPosition()
+            is androidx.recyclerview.widget.StaggeredGridLayoutManager -> {
+                staggeredGridLayoutManager = layoutManager
+                staggeredGridLayoutManager!!.findLastVisibleItemPositions(lastPositions)
+                lastPosition = findMax(lastPositions)
 
-        } else {
-            throw RuntimeException("layoutManager not support")
+            }
+            else -> throw RuntimeException("layoutManager not support")
         }
 
 
@@ -241,7 +238,7 @@ abstract class AutoLoadAdapter<D, V : ViewDataBinding>(var context: Context,
 
     abstract fun getItemLayout() : Int
 
-    fun inflateItemView(viewGroup: ViewGroup, layoutId: Int): View {
+   private fun inflateItemView(viewGroup: ViewGroup, layoutId: Int): View {
         return LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
     }
 

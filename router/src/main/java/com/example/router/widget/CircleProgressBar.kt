@@ -10,8 +10,9 @@ import android.view.View
 import androidx.annotation.FloatRange
 import androidx.core.content.ContextCompat
 import com.example.router.R
+import showmethe.github.kframework.util.widget.dp2px
 
-import showmethe.github.kframework.util.widget.DisplayUtil
+
 import java.text.DecimalFormat
 
 class CircleProgressBar @JvmOverloads constructor(
@@ -40,7 +41,7 @@ class CircleProgressBar @JvmOverloads constructor(
         mPaint.style = progressType
         mPaint.strokeWidth = strokeWidth
 
-        textPaint.textSize = DisplayUtil.dp2px(context,strokeWidth).toFloat()
+        textPaint.textSize = dp2px(context,strokeWidth).toFloat()
         textPaint.color = defaultRoundColor
         textPaint.isAntiAlias = true
     }

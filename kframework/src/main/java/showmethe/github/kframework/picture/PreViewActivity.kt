@@ -25,10 +25,10 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
 
 
     companion object {
-        val imgPath = "imgPath"
-        val imgPaths = "imgPaths"
-        val mode = "mode"
-        val curPos = "curPos"
+        private const val imgPath = "imgPath"
+        private const val imgPaths = "imgPaths"
+        private const val mode = "mode"
+        private const val curPos = "curPos"
 
         fun  startToDetail(context : BaseActivity<*,*>,path:String){
             val bundle  = Bundle()
@@ -88,7 +88,7 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
     }
 
 
-    fun initAdapter(){
+    private  fun initAdapter(){
         adapter = PreviewAdapter(context,realList)
         vp.adapter = adapter
         vp.setCurrentItem(positions,true)
@@ -123,7 +123,7 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
 
     }
 
-    fun startZipFiles(){
+    private fun startZipFiles(){
         val temp = ArrayList<File>()
         LubanZip.get(this).CPRS(context, realList,object : LubanZip.onFilesComPressCallBack{
             override fun onStart() {
@@ -134,7 +134,7 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
                 temp.add(file)
                 if(temp.size == realList.size){
                     val list = ArrayList<PicturesJo>()
-                    for((index,bean) in realList.withIndex()){
+                    for(index in realList.indices){
                         val jo = PicturesJo()
                         jo.origin = realList[index]
                         jo.compress = temp[index].path
@@ -153,7 +153,7 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
         })
     }
 
-    fun startZipFile(){
+    private fun startZipFile(){
         LubanZip.get(this).CPR(context, realList[positions],object : LubanZip.onComPressCallBack{
             override fun onError(e: Throwable?) {
 
