@@ -6,9 +6,12 @@ import android.os.Build
 import com.google.android.material.tabs.TabLayout
 import android.util.DisplayMetrics
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import showmethe.github.kframework.glide.TGlide
 
 import java.lang.reflect.Field
 
@@ -33,10 +36,13 @@ fun View.setOnSingleClickListner(onSingleClick : (it:View)->Unit){
     }
 }
 
+fun ImageView.load(resource:Any){
+    TGlide.load(resource,this)
+}
 
-
-
-
+fun ImageView.loadBackground(resource:Any){
+    TGlide.loadInBackground(resource,this)
+}
 
 
 object ViewUtils {

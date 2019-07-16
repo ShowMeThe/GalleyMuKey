@@ -43,6 +43,8 @@ class TGlide private constructor(context: Context){
             .crossFade()
     lateinit var requestOptions: RequestOptions
 
+
+
     companion object {
 
         @SuppressLint("StaticFieldLeak")
