@@ -16,8 +16,8 @@ import android.widget.FrameLayout
 import java.util.ArrayList
 import androidx.core.content.ContextCompat
 import showmethe.github.kframework.R
-import showmethe.github.kframework.util.widget.DisplayUtil
-import showmethe.github.kframework.util.widget.ViewUtils
+import showmethe.github.kframework.util.widget.dip2px
+
 
 /**
  * showmethe.github.kframework.widget.common
@@ -88,8 +88,8 @@ class BubbleLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
         val array = context.obtainStyledAttributes(attrs, R.styleable.BubbleLayout)
         background = array.getColor(R.styleable.BubbleLayout_backgroundColor, Color.WHITE)
         shadowColor = array.getColor(R.styleable.BubbleLayout_shadowColor, Color.parseColor("#999999"))
-        shadowWidth = array.getDimension(R.styleable.BubbleLayout_shadow, DisplayUtil.dip2px(context, 4f).toFloat()).toInt()
-        val defaultValue = DisplayUtil.dip2px(context, 10f)
+        shadowWidth = array.getDimension(R.styleable.BubbleLayout_shadow, dip2px(context, 4f).toFloat()).toInt()
+        val defaultValue = dip2px(context, 10f)
         radius = array.getDimension(R.styleable.BubbleLayout_radius, defaultValue.toFloat()).toInt()
         distance = array.getDimension(R.styleable.BubbleLayout_distance, defaultValue.toFloat())
         defaultPadding = array.getDimension(R.styleable.BubbleLayout_aroundPadding, defaultValue.toFloat())

@@ -17,7 +17,8 @@ import java.util.ArrayList
 import androidx.annotation.AnimRes
 import androidx.core.content.ContextCompat
 import showmethe.github.kframework.R
-import showmethe.github.kframework.util.widget.DisplayUtil
+
+import showmethe.github.kframework.util.widget.dip2px
 
 /**
  *
@@ -55,7 +56,7 @@ class TextViewFlipper @JvmOverloads constructor(context: Context, attrs: Attribu
         val a = context.obtainStyledAttributes(attrs, R.styleable.TextViewFlipper)
         mInterval = a.getInt(R.styleable.TextViewFlipper_interval, 3000)
         mTextColor = a.getColor(R.styleable.TextViewFlipper_textColor, ContextCompat.getColor(context, R.color.text_333333))
-        mTextSize = a.getDimension(R.styleable.TextViewFlipper_textSize, DisplayUtil.dip2px(context, 15f).toFloat()).toInt()
+        mTextSize = a.getDimension(R.styleable.TextViewFlipper_textSize, dip2px(context, 15f).toFloat()).toInt()
         animDuration = a.getInt(R.styleable.TextViewFlipper_duration, 1500)
         val gravity = a.getInt(R.styleable.TextViewFlipper_textGravity, CENTER)
         when (gravity) {

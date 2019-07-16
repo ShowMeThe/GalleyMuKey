@@ -45,32 +45,24 @@ fun ImageView.loadBackground(resource:Any){
 }
 
 
-object ViewUtils {
-    /**
-     * 反射获取mLayoutScreen 设置对象为true,全屏效果，覆盖状态栏
-     * @param needFullScreen
-     */
-    fun fitPWOverStatusBar(mPopupWindow: PopupWindow?, needFullScreen: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            try {
-                val mLayoutInScreen = PopupWindow::class.java.getDeclaredField("mLayoutInScreen")
-                mLayoutInScreen.isAccessible = true
-                mLayoutInScreen.set(mPopupWindow, needFullScreen)
-            } catch (e: NoSuchFieldException) {
-                e.printStackTrace()
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            }
-
-        }
+/**
+ * 反射获取mLayoutScreen 设置对象为true,全屏效果，覆盖状态栏
+ * @param needFullScreen
+ */
+fun fitPopWindowOverStatusBar(mPopupWindow: PopupWindow?, needFullScreen: Boolean) {
+    try {
+        val mLayoutInScreen = PopupWindow::class.java.getDeclaredField("mLayoutInScreen")
+        mLayoutInScreen.isAccessible = true
+        mLayoutInScreen.set(mPopupWindow, needFullScreen)
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
+}
 
 
 
-    fun getDisplayMetrics(context: Context): DisplayMetrics {
-        val metric = DisplayMetrics()
-        (context as Activity).windowManager.defaultDisplay.getMetrics(metric)
-        return metric
-    }
-
+fun getDisplayMetrics(context: Context): DisplayMetrics {
+    val metric = DisplayMetrics()
+    (context as Activity).windowManager.defaultDisplay.getMetrics(metric)
+    return metric
 }

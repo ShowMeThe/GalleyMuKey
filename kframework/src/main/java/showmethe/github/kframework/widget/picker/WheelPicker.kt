@@ -12,7 +12,7 @@ import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import showmethe.github.kframework.util.widget.DisplayUtil
+
 import android.graphics.Shader
 import android.graphics.LinearGradient
 import android.util.Log
@@ -20,6 +20,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.item_wheel.view.*
 import showmethe.github.kframework.R
+import showmethe.github.kframework.util.widget.dp2px
 
 
 /**
@@ -249,7 +250,7 @@ class WheelPicker @JvmOverloads constructor(
         if (paint == null) {
             paint = Paint()
             paint!!.isAntiAlias = true
-            paint!!.strokeWidth = DisplayUtil.dp2px(context, 0.3f).toFloat()
+            paint!!.strokeWidth = dp2px(context, 0.3f).toFloat()
             paint!!.style = Paint.Style.STROKE
             val lg = LinearGradient(0f, 0f, 100f, 100f, lineStart, lineEnd, Shader.TileMode.MIRROR)
             paint!!.shader = lg

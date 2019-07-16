@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import showmethe.github.kframework.R
-import showmethe.github.kframework.util.widget.DisplayUtil
+import showmethe.github.kframework.util.widget.dip2px
 
 
 /**
@@ -95,10 +95,10 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
 
     private fun createView(tabCount: Int, dWidth: Int, selectColor: Int, unSelectColor: Int) {
 
-        if (dWidth <= 0) {
-            divideWidth = DisplayUtil.dip2px(mContext, 10f)
+        divideWidth = if (dWidth <= 0) {
+            dip2px(mContext, 10f)
         } else {
-            divideWidth = DisplayUtil.dip2px(mContext, dWidth.toFloat())
+            dip2px(mContext, dWidth.toFloat())
         }
         removeAllViews()
         init(mContext, tabCount, unSelectColor)
