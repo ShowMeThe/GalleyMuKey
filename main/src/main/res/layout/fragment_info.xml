@@ -148,6 +148,38 @@
 						android:layout_height="match_parent" />
 				</LinearLayout>
 				
+				<View style="@style/line_7c4dff"
+					android:layout_marginStart="@dimen/px30dp"
+					android:layout_marginEnd="@dimen/px30dp"
+					android:layout_height="@dimen/px3dp"
+					/>
+				
+				<LinearLayout
+					android:id="@+id/llAddress"
+					android:layout_marginTop="@dimen/px20dp"
+					android:layout_marginStart="@dimen/px30dp"
+					android:layout_marginEnd="@dimen/px30dp"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/px180dp">
+					
+					<TextView
+						android:text="Address"
+						android:gravity="center"
+						android:textColor="@color/colorPrimaryDark"
+						android:textSize="@dimen/px43dp"
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent" />
+					
+					<TextView
+						android:id="@+id/tvAddress"
+						android:gravity="center|end"
+						android:text="@{Bean.address}"
+						android:textColor="@color/colorPrimaryDark"
+						android:textSize="@dimen/px43dp"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent" />
+				</LinearLayout>
+				
 				
 				<View style="@style/line_7c4dff"
 					android:layout_marginStart="@dimen/px30dp"

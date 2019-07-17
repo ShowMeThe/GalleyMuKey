@@ -198,14 +198,17 @@ public class CityPicker extends DialogFragment {
         rb1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rv.setAdapter(mProvinceAdapter);
+                if(mProvinceAdapter != null){
+                    rv.setAdapter(mProvinceAdapter);
+                    rv.smoothScrollToPosition(mProvinceAdapter.getSelectedPosition() == -1? 0 :mProvinceAdapter.getSelectedPosition() );
+                }
+
                 if(mAreaAdapter!=null){
                     mAreaAdapter.updateSelectedPosition(-1);
                 }
                if(mCityAdapter!=null){
                    mCityAdapter.updateSelectedPosition(-1);
                }
-                rv.smoothScrollToPosition(mProvinceAdapter.getSelectedPosition());
                 clearTab(0);
             }
         });
@@ -216,11 +219,14 @@ public class CityPicker extends DialogFragment {
         rb2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rv.setAdapter(mCityAdapter);
+                if(mCityAdapter != null){
+                    rv.setAdapter(mCityAdapter);
+                    rv.smoothScrollToPosition(mCityAdapter.getSelectedPosition()== -1? 0 : mCityAdapter.getSelectedPosition() );
+                }
                 if(mAreaAdapter!=null){
                     mAreaAdapter.updateSelectedPosition(-1);
                 }
-                rv.smoothScrollToPosition(mCityAdapter.getSelectedPosition());
+
                 clearTab(1);
             }
         });
@@ -228,8 +234,10 @@ public class CityPicker extends DialogFragment {
         rb3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rv.setAdapter(mAreaAdapter);
-                rv.smoothScrollToPosition(mAreaAdapter.getSelectedPosition());
+                if(mAreaAdapter != null){
+                    rv.setAdapter(mAreaAdapter);
+                    rv.smoothScrollToPosition(mAreaAdapter.getSelectedPosition() == -1? 0 : mAreaAdapter.getSelectedPosition()  );
+                }
             }
         });
 

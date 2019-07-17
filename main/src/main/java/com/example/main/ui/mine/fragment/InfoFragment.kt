@@ -1,6 +1,7 @@
 package com.example.main.ui.mine.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.main.R
@@ -16,6 +17,7 @@ import showmethe.github.kframework.base.BaseFragment
 import showmethe.github.kframework.dialog.CalendarDialogFragment
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.rden.RDEN
+import showmethe.github.kframework.widget.citypicker.picker.CityPicker
 
 /**
  * com.example.main.ui.mine.fragment
@@ -26,6 +28,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
 
     val dialog = CalendarDialogFragment()
+    val picker = CityPicker()
 
     override fun initViewModel(): ProfileInfoViewModel = createViewModel(ProfileInfoViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_info
@@ -86,6 +89,14 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
         dialog.setOnDatePickDialogListener { day, month, year ->
             viewModel.bean.value?.birthday =  "$year-$month-$day"
+        }
+
+        llAddress.setOnClickListener {
+            picker.show(context.supportFragmentManager,"picker")
+        }
+
+        picker.setOnCityPickListener { provinceBean, cityBean, districtBean ->
+            viewModel.bean.value?.address =  "${provinceBean.name}-${cityBean.name}-${districtBean.name}"
         }
 
     }

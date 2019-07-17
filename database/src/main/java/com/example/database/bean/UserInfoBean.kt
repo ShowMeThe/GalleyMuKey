@@ -13,6 +13,8 @@ import showmethe.github.kframework.util.StringUtil
  */
 class UserInfoBean : Observable {
 
+    var id = 0
+
     @get:Bindable
     var userId = ""
         set(userId) {
@@ -61,6 +63,13 @@ class UserInfoBean : Observable {
         set(birthday) {
             field = birthday
             notifyChange(BR.birthday)
+        }
+
+    @get:Bindable
+    var address = ""
+        set(address) {
+            field = address
+            notifyChange(BR.address)
         }
 
     @get:Bindable

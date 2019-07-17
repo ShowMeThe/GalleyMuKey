@@ -27,6 +27,7 @@ class ProfileRepository : BaseRepository() {
 
     fun updateInfo(bean : UserInfoBean,result : MutableLiveData<Int>){
         val dto  = UserInfoDto()
+        dto.id = bean.id
         dto.userId = bean.userId
         dto.account = bean.account
         dto.desContent = bean.desContent
@@ -35,6 +36,7 @@ class ProfileRepository : BaseRepository() {
         dto.password = bean.password
         dto.email = bean.email
         dto.birthday = bean.birthday
+        dto.address = bean.address
         userInfoDao.updateUserInfo(dto).apply {
             result.value = this
             snycInfo(dto)
@@ -76,6 +78,7 @@ class ProfileRepository : BaseRepository() {
         userInfoDao.queryAccount(account).observe(owner!!, Observer {
             it?.apply {
                 val userInfoBean = UserInfoBean()
+                userInfoBean.id = id
                 userInfoBean.account = account
                 userInfoBean.avatar = avatar
                 userInfoBean.desContent = desContent
@@ -86,6 +89,7 @@ class ProfileRepository : BaseRepository() {
                 userInfoBean.birthday = birthday
                 userInfoBean.wallet = wallet
                 userInfoBean.totalSpend = totalSpend
+                userInfoBean.address = address
                 bean.value = userInfoBean
             }
         })
