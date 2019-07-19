@@ -23,7 +23,10 @@ import kotlinx.android.synthetic.main.include_title.*
 
 
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
+import showmethe.github.kframework.util.widget.StatusBarUtil
 
+@ParallaxBack
 @Route(path = PathConst.CART_ACTIVITY)
 class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
 
@@ -40,6 +43,7 @@ class CartActivity : BaseActivity<ViewDataBinding, GoodsViewModel>() {
     override fun onBundle(bundle: Bundle) {
 
     }
+
 
     override fun onLifeCreated(owner: LifecycleOwner) {
       viewModel.repository.init(this)

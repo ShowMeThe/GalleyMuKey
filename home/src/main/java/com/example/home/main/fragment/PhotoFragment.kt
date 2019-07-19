@@ -1,6 +1,7 @@
 package com.example.home.main.fragment
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LifecycleOwner
@@ -18,7 +19,7 @@ import com.example.home.main.vm.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_photo.*
 import showmethe.github.kframework.base.BaseFragment
 import com.example.router.dialog.SeeCommentDialog
-
+import showmethe.github.kframework.divider.RecycleViewDivider
 
 
 /**
@@ -79,7 +80,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, HomeViewModel>() {
         adapter = PhotoAdapter(context,list)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-
+        rv.addItemDecoration(RecycleViewDivider(context,RecyclerView.VERTICAL,1,ContextCompat.getColor(context,R.color.colorPrimaryDark)))
 
         viewModel.getHomePhoto()
     }

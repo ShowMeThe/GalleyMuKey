@@ -116,6 +116,9 @@ object StatusBarUtil {
         val statusBarView = View(activity)
         val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 getStatusBarHeight(activity))
+        if (contentView.childCount > 1) {
+            contentView.removeViewAt(1)
+        }
         statusBarView.setBackgroundColor(ContextCompat.getColor(activity, color))
         contentView.addView(statusBarView, lp)
         if (isBlack) {
@@ -125,7 +128,7 @@ object StatusBarUtil {
 
 
     fun addTranslucentStatusBarView(activity: Activity, color: Int, isBlack: Boolean) {
-        setScreen(activity)
+        setFullScreen(activity)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

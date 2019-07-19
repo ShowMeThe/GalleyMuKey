@@ -35,11 +35,7 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
     private var divideWidth: Int = 0
     private var selectRadius = default_radius
     private var unSelectRadius = default_select_radius
-    private val selectDot: ImageView
-
-    init {
-        selectDot = ImageView(mContext)
-    }
+    private val selectDot: ImageView = ImageView(mContext)
 
     fun setViewPager2(viewPager: ViewPager2?, tabCount: Int, dWidth: Int, selectColor: Int, unSelectColor: Int) {
         if (viewPager == null) return
@@ -65,7 +61,7 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
 
     fun calculate(position: Int, positionOffset: Float){
         val params = selectDot
-            .layoutParams as RelativeLayout.LayoutParams
+            .layoutParams as LayoutParams
         params.leftMargin = (mDotDis * positionOffset).toInt() + position * mDotDis
         selectDot.layoutParams = params
     }
@@ -109,8 +105,8 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
         val select = ContextCompat.getDrawable(context, R.drawable.banner_selet)
         select!!.setColorFilter(selectColor, PorterDuff.Mode.SRC_ATOP)
         selectDot.setImageDrawable(select)
-        val param = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+        val param = LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
 
         selectDot.layoutParams = param
 
@@ -141,8 +137,8 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
             unSelectDot.setImageDrawable(unselect)
             unSelectDot.minimumHeight = unSelectRadius
             unSelectDot.minimumWidth = unSelectRadius
-            val params = RelativeLayout.LayoutParams(LinearLayout
-                    .LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+            val params = LayoutParams(LinearLayout
+                    .LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             if (i > 0) {
                 params.leftMargin = divideWidth + (i - 1) * divideWidth//设置圆点边距
             }
@@ -152,8 +148,8 @@ class DotTabView @JvmOverloads constructor(private val mContext: Context, attrs:
     }
 
     companion object {
-        private val default_radius = 15
-        private val default_select_radius = 16
+        private const val default_radius = 15
+        private const val default_select_radius = 16
     }
 
 }

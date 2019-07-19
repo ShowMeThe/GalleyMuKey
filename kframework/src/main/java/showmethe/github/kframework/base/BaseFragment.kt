@@ -1,5 +1,6 @@
 package showmethe.github.kframework.base
 
+import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +19,7 @@ import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import showmethe.github.kframework.R
 import showmethe.github.kframework.dialog.DialogLoading
 import showmethe.github.kframework.util.ToastFactory
 
@@ -102,6 +104,18 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
      */
     open fun onHidden() {
 
+    }
+
+    /**
+     * startActivity，加入切换动画
+     */
+    fun startActivity(bundle: Bundle?, target: Class<*>) {
+        val intent = Intent(context, target)
+        if (bundle != null) {
+            intent.putExtras(bundle)
+        }
+        startActivity(intent)
+        context.overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
     }
 
     override fun onResume() {//和activity的onResume绑定，Fragment初始化的时候必调用，但切换fragment的hide和visible的时候可能不会调用！

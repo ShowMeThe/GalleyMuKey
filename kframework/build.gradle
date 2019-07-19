@@ -55,7 +55,7 @@ dependencies {
     api "androidx.cardview:cardview:1.0.0"
     api "androidx.legacy:legacy-support-v4:1.0.0"
     api 'androidx.recyclerview:recyclerview:1.1.0-beta01'
-    api 'com.google.android.material:material:1.1.0-alpha07'
+    api 'com.google.android.material:material:1.1.0-alpha08'
     api 'androidx.multidex:multidex:2.0.1'
     api 'androidx.gridlayout:gridlayout:1.0.0'
     api 'androidx.annotation:annotation:1.1.0'
@@ -136,6 +136,6 @@ dependencies {
     api "androidx.paging:paging-runtime:2.1.0"
 
       //navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
-    implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-beta01"
+    implementation "androidx.navigation:navigation-ui-ktx:2.1.0-beta01"
 }

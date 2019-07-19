@@ -47,7 +47,7 @@ import showmethe.github.kframework.R
  **/
 abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatActivity() {
 
-    val loadingDialog  = DialogLoading()
+    private val loadingDialog  = DialogLoading()
     var screenWidth = 0
     var screenHeight = 0
     lateinit var context: BaseActivity<*,*>
@@ -57,9 +57,8 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         binding = DataBindingUtil.setContentView(this,getViewId())
+        setTheme()
         root = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0)
 
         context = this
@@ -89,7 +88,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
             LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).observe(this,observer)
         }
 
-        setTheme()
+
         observerUI()
         init(savedInstanceState)
         initListener()
@@ -284,16 +283,6 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
         overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
     }
 
-    /**
-     * startActivity，加入切换动画
-     */
-    fun startActivity(bundleName: String, bundle: Bundle?, target: Class<*>) {
-        val intent = Intent(this, target)
-        if (bundle != null) {
-            intent.putExtra(bundleName, bundle)
-        }
-        startActivity(intent)
-    }
 
     /**
      * startActivity，加入切换动画
@@ -307,12 +296,12 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
         startActivity(intent, transitionActivityOptions.toBundle())
     }
 
-   fun  startForResult(bundle: Bundle?, reuquestCode:Int,target: Class<*>){
+   fun  startForResult(bundle: Bundle?, requestCode:Int,target: Class<*>){
        val intent = Intent(this, target)
        if (bundle != null) {
            intent.putExtras(bundle)
        }
-       startActivityForResult(intent,reuquestCode)
+       startActivityForResult(intent,requestCode)
        overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
    }
 

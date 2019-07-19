@@ -35,6 +35,7 @@ import com.example.router.util.CircularRevealUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_drawer_item.*
 import showmethe.github.kframework.base.BaseActivity
+
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.picture.PictureSelector
@@ -52,6 +53,8 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
     var homeFragment : Fragment? = null
     var cateFragment : Fragment? = null
     var iProvider : RouterService? =null
+
+
 
 
     override fun getViewId(): Int = R.layout.activity_main
@@ -103,6 +106,7 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
 
 
         viewModel.getCustomBg()
+
 
 
     }

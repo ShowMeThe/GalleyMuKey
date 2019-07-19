@@ -23,9 +23,11 @@ import kotlinx.android.synthetic.main.activity_wallet.rv
 import kotlinx.android.synthetic.main.include_title_bar.ivBack
 import showmethe.github.kframework.adapter.SpaceItemDecoration
 import showmethe.github.kframework.base.BaseActivity
+import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
 import showmethe.github.kframework.util.CreateDrawable
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
+
 
 class WalletActivity : BaseActivity<ActivityWalletBinding,ProfileInfoViewModel>() {
 

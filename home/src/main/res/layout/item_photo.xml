@@ -126,9 +126,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content" />
 			
-			<View style="@style/line_ffab91"
+			<!--<View style="@style/line_ffab91"
 				android:layout_alignParentBottom="true"
-				/>
+				/>-->
 			
 		</RelativeLayout>
 		
