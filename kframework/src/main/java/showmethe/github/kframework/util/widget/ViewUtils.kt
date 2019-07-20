@@ -22,7 +22,6 @@ import java.lang.reflect.Field
  * Time : 15:35
  */
 
-
 fun View.setOnSingleClickListner(onSingleClick : (it:View)->Unit){
     var lastClickTime = 0L
     val lastLongTime = 2000L

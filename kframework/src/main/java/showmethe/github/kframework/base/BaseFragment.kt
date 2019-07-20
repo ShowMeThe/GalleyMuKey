@@ -118,6 +118,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
         context.overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
     }
 
+
     override fun onResume() {//和activity的onResume绑定，Fragment初始化的时候必调用，但切换fragment的hide和visible的时候可能不会调用！
         super.onResume()
         if (isAdded && !isHidden) {//用isVisible此时为false，因为mView.getWindowToken为null
@@ -140,6 +141,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
             onHidden()
         }
     }
+
 
 
 
@@ -170,7 +172,7 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
 
     abstract fun init(savedInstanceState: Bundle?)
 
-     abstract fun initListener()
+    abstract fun initListener()
 
 
 

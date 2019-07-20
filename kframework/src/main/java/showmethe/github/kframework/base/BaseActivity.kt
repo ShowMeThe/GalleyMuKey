@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.transition.Explode
 import android.transition.TransitionInflater
+import android.util.SparseArray
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
@@ -54,6 +55,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
     var  binding : V? = null
     lateinit var viewModel : VM
     lateinit var root : View
+    private val resultMap = SparseArray<(((requestCode: Int, resultCode: Int, data: Intent?)->Unit))>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -296,14 +298,25 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
         startActivity(intent, transitionActivityOptions.toBundle())
     }
 
-   fun  startForResult(bundle: Bundle?, requestCode:Int,target: Class<*>){
+   fun  startForResult(bundle: Bundle?, requestCode:Int,target: Class<*>,onResult :(((requestCode: Int, resultCode: Int, data: Intent?)->Unit))){
        val intent = Intent(this, target)
        if (bundle != null) {
            intent.putExtras(bundle)
        }
+       resultMap.append(requestCode,onResult)
        startActivityForResult(intent,requestCode)
        overridePendingTransition(R.anim.alpha_in,R.anim.alpha_out)
    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        data?.apply {
+            resultMap.get(requestCode)?.apply {
+                invoke(requestCode, resultCode, data)
+                resultMap.remove(requestCode)
+            }
+        }
+    }
 
 
     override fun onDestroy() {

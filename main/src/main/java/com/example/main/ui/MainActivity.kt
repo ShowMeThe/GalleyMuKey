@@ -183,30 +183,32 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
         }
 
         fab.setOnClickListener {
-            startForResult(null,5000,PictureSelectorActivity::class.java)
-        }
-
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        data?.apply {
-            val list = PictureSelector.findLocalPictures(data)
-            val datas = ArrayList<String>()
-            list.forEach {
-                datas.add(it.compress)
+            startForResult(null,5000,PictureSelectorActivity::class.java){ _ ,_ ,data  ->
+                data?.apply {
+                    val list = PictureSelector.findLocalPictures(data)
+                    val datas = ArrayList<String>()
+                    list.forEach {
+                        datas.add(it.compress)
+                    }
+                    val bean = PhotoWallDto()
+                    bean.id = System.currentTimeMillis().toInt()
+                    bean.imageTop = datas
+                    bean.avatar = RDEN.get(RdenConstant.avatar,"")
+                    bean.username = RDEN.get(RdenConstant.account,"")
+                    bean.like = false
+                    DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
+                }
             }
-            val bean = PhotoWallDto()
-            bean.id = System.currentTimeMillis().toInt()
-            bean.imageTop = datas
-            bean.avatar = RDEN.get(RdenConstant.avatar,"")
-            bean.username =RDEN.get(RdenConstant.account,"")
-            bean.like = false
-            DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
         }
+
     }
 
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+    }
+*/
 
    private fun setContainer(){
         val layoutParams = container.layoutParams
