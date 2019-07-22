@@ -12,10 +12,10 @@ import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import android.graphics.Shader
 import android.graphics.LinearGradient
 import android.util.Log
+import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.item_wheel.view.*
@@ -59,7 +59,7 @@ class WheelPicker @JvmOverloads constructor(
     private var countWidth = 0.0
 
     private var interpolator = FastOutLinearInInterpolator()
-    private var interpolator2 = FastOutSlowInInterpolator()
+    private var interpolator2 = FastOutLinearInInterpolator()
     /**
      * 间距
      */
@@ -93,7 +93,7 @@ class WheelPicker @JvmOverloads constructor(
 
     private var wheelAdapter : WheelAdapter<*>? = null
 
-    fun setWheelAdapter(wheelAdapter : WheelAdapter<*>){
+    fun setWheelAdapter(wheelAdapter : WheelAdapter<*>,defaultPos :Int = 0){
         this.wheelAdapter = wheelAdapter
         adapter = wheelAdapter
         itemCount = wheelAdapter.itemCount
@@ -102,10 +102,25 @@ class WheelPicker @JvmOverloads constructor(
         this.wheelAdapter?.shadow = shadow
         this.wheelAdapter?.shadowRadius = shadowRadius
         this.wheelAdapter?.shadowColor = shadowColor
-
         layoutManager = LinearLayoutManager(context,VERTICAL,false)
+
+
+        smoothScrollBy(0,selectedaHeight * defaultPos,interpolator,50)
+        this.wheelAdapter?.currentPos = defaultPos + 2
+        this.wheelAdapter?.notifyDataSetChanged()
+
     }
 
+
+
+    fun scrollToReal(position: Int){
+        if( this.wheelAdapter == null || this.wheelAdapter?.itemCount!! <=4){
+            return
+        }
+        smoothScrollBy(0,selectedaHeight * position,interpolator,50)
+        this.wheelAdapter?.currentPos = position + 2
+        this.wheelAdapter?.notifyDataSetChanged()
+    }
 
 
     private fun init(){
@@ -209,7 +224,7 @@ class WheelPicker @JvmOverloads constructor(
 
                     wheelAdapter?.currentPos = firstPos + 1 + 2
                     wheelAdapter?.notifyDataSetChanged()
-                    onItemTextChange?.invoke(firstPos + 1 + 2)
+                    onItemTextChange?.invoke(firstPos + 1)
                     hasRunning = true
                 }
             }else{
@@ -223,7 +238,7 @@ class WheelPicker @JvmOverloads constructor(
 
                 wheelAdapter?.currentPos = firstPos + 2
                 wheelAdapter?.notifyDataSetChanged()
-                onItemTextChange?.invoke(firstPos + 2)
+                onItemTextChange?.invoke(firstPos)
                 hasRunning = true
             }
         }else{
