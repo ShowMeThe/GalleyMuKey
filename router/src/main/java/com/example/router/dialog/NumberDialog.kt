@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
@@ -69,8 +68,7 @@ class NumberDialog : DialogFragment() {
             picker.setWheelAdapter(adapter)
 
             picker.setOnItemTextChangeListener {
-                Log.e("222222222222","$it")
-                //num = list[it]
+                num = list[it]
             }
 
             tvCancel.setOnClickListener {
