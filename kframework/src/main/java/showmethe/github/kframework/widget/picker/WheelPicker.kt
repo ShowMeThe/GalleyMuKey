@@ -105,7 +105,7 @@ class WheelPicker @JvmOverloads constructor(
         layoutManager = LinearLayoutManager(context,VERTICAL,false)
 
 
-        smoothScrollBy(0,selectedaHeight * defaultPos,interpolator,50)
+        smoothScrollBy(0,selectedaHeight * defaultPos,interpolator,50) //会触发滚动事件
         this.wheelAdapter?.currentPos = defaultPos + 2
         this.wheelAdapter?.notifyDataSetChanged()
 
