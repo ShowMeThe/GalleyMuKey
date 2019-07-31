@@ -1,4 +1,4 @@
-package showmethe.github.kframework.http.Interceptor
+package showmethe.github.kframework.http.interceptor
 
 import android.util.Log
 
@@ -8,7 +8,6 @@ import java.nio.charset.Charset
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
 

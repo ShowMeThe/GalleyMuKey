@@ -15,6 +15,8 @@ import java.util.Properties
  * Time : 16:07
  */
 object GetSystemUtils {
+
+
     val SYS_EMUI = "sys_emui"
     val SYS_MIUI = "sys_miui"
     val SYS_FLYME = "sys_flyme"

@@ -2,8 +2,6 @@ package com.example.main.ui.auth
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
-
-import com.example.router.dialog.LoginDialog
 import com.example.main.ui.auth.vm.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import showmethe.github.kframework.base.BaseActivity
@@ -19,9 +17,12 @@ import com.example.main.R
 import com.example.router.constant.RdenConstant
 import com.example.router.dialog.SignUpDialog
 import com.example.main.ui.MainActivity
-import showmethe.github.kframework.util.ClipboardUtil
+import com.example.router.dialog.LoginDialog
+import showmethe.github.kframework.util.copyTextToClipboard
+
 import showmethe.github.kframework.util.rden.RDEN
-import showmethe.github.kframework.util.system.KeyBoardUtils
+
+import showmethe.github.kframework.util.system.hideSoftKeyboard
 import kotlin.random.Random
 
 
@@ -99,7 +100,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
         btnReg.setOnClickListener { showSignUpDialog() }
 
         signUpDialog.setOnCodeGetListener {
-            KeyBoardUtils.hideSoftKeyboard(this)
+            hideSoftKeyboard()
             showSnack(it)
         }
 
@@ -149,14 +150,14 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
 
     fun showSnack(view : TextView){
-        KeyBoardUtils.hideSoftKeyboard(this)
+        hideSoftKeyboard()
         num = random.nextInt(200,9999)
         snackbar =  Snackbar.make(view,"${num}",15000)
             .setBackgroundTint(ContextCompat.getColor(context,R.color.color_ff6e00))
             .setTextColor(ContextCompat.getColor(context,R.color.white))
             .setActionTextColor(ContextCompat.getColor(context,R.color.white))
             .setAction("copy") {
-            ClipboardUtil.copyTextToClipboard(context,"${num}")
+            copyTextToClipboard(context,"${num}")
             showToast("Copy successfully")
             snackbar!!.dismiss()
         }

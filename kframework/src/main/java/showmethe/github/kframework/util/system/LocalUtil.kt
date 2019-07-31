@@ -5,12 +5,16 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.LocaleList
 import android.util.DisplayMetrics
+import androidx.annotation.IntDef
+import showmethe.github.kframework.util.CornerType
 
 import java.util.Locale
 
 /**
  * Created by Ken on 2018/10/10.
  */
+
+
 object LocalUtil {
 
     /**
@@ -24,7 +28,6 @@ object LocalUtil {
 
 
     fun updateLocale(context: Context, locale: Locale): Context {
-
         val configuration = context.resources.configuration
         configuration.setLocale(locale)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

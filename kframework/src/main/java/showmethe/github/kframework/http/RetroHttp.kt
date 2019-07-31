@@ -1,10 +1,7 @@
 package showmethe.github.kframework.http
 
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
-import com.google.gson.TypeAdapterFactory
-import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
@@ -20,9 +17,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import showmethe.github.kframework.base.BaseApplication
-import showmethe.github.kframework.http.Interceptor.ReadWriteCacheInterceptor
-import showmethe.github.kframework.http.Interceptor.RequestHeaderInterceptor
-import showmethe.github.kframework.http.Interceptor.RequestLogInterceptor
+import showmethe.github.kframework.http.interceptor.ReadWriteCacheInterceptor
+import showmethe.github.kframework.http.interceptor.RequestHeaderInterceptor
+import showmethe.github.kframework.http.interceptor.RequestLogInterceptor
 
 /**
  *

@@ -1,4 +1,4 @@
-package showmethe.github.kframework.http.Interceptor
+package showmethe.github.kframework.http.interceptor
 
 
 import java.io.IOException

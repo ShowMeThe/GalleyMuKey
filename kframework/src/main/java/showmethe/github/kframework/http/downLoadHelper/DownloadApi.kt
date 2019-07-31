@@ -1,4 +1,4 @@
-package showmethe.github.kframework.http.DownLoadHelper
+package showmethe.github.kframework.http.downLoadHelper
 
 import io.reactivex.Observable
 import okhttp3.ResponseBody

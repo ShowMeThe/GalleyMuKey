@@ -23,7 +23,8 @@ import kotlinx.android.synthetic.main.activity_wallet.rv
 import kotlinx.android.synthetic.main.include_title_bar.ivBack
 import showmethe.github.kframework.adapter.SpaceItemDecoration
 import showmethe.github.kframework.base.BaseActivity
-import showmethe.github.kframework.util.CreateDrawable
+import showmethe.github.kframework.util.CornerType
+import showmethe.github.kframework.util.createDrawable
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
@@ -86,8 +87,9 @@ class WalletActivity : BaseActivity<ActivityWalletBinding,ProfileInfoViewModel>(
     override fun init(savedInstanceState: Bundle?) {
         StatusBarUtil.setStatusColor(context,R.color.colorPrimaryDark)
 
-        topBg.background = CreateDrawable.create(context,CornerFamily.ROUNDED,15,ContextCompat.getColor(context,R.color.colorPrimaryDark) ,
-            CreateDrawable.CornerType.BOTTOMLEFT,CreateDrawable.CornerType.BOTTMRIGHT)
+
+        topBg.background = createDrawable(context,CornerFamily.ROUNDED,15,ContextCompat.getColor(context,R.color.colorPrimaryDark) ,
+            CornerType.BOTTOMLEFT,CornerType.BOTTMRIGHT)
 
         refresh.setColorSchemeResources(R.color.colorPrimaryDark)
 

@@ -24,7 +24,8 @@ import showmethe.github.kframework.R
  * Date : 2018/10/31
  * Time : 13:45
  */
-class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class BallRotationProgressBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : View(context, attrs, defStyleAttr) {
 
 
     //画笔

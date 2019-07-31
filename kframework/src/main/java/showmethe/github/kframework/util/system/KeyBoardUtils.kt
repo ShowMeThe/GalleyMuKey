@@ -13,44 +13,31 @@ import android.os.IBinder
 /**
  * 软键盘工具类
  */
-object KeyBoardUtils {
 
-    /**
-     * 打开软键盘
-     *
-     * @param mEditText 输入框
-     * @param mContext  上下文
-     */
-    fun openKeyboard(mContext: Context, mEditText: EditText) {
-        val imm = mContext
-                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN)
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
-
-
-    /**
-     * 关闭软键盘
-     *
-     * @param mEditText 输入框
-     * @param mContext  上下文
-     */
-    fun closeKeyboard(mContext: Context, mEditText: EditText): Boolean {
-        val imm = mContext
-                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        return imm.hideSoftInputFromWindow(mEditText.windowToken, 0)
-    }
-
-
-    fun hideSoftKeyboard(mContext: Context) {
-        val activity = mContext as Activity
-        val view = activity.currentFocus
-        if (view != null) {
-            val inputMethodManager = mContext.getSystemService(
-                    Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
-
-
+/**
+ * 关闭软键盘
+ *
+ * @param editText 输入框
+ *
+ */
+fun Context.closeKeyboard(editText: EditText): Boolean {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    return imm.hideSoftInputFromWindow(editText.windowToken, 0)
 }
+
+fun Context.hideSoftKeyboard() {
+    val activity = this as Activity
+    val view = activity.currentFocus
+    if (view != null) {
+        val inputMethodManager = getSystemService(
+            Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+}
+
+fun Context.openKeyboard( editText: EditText) {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(editText, InputMethodManager.RESULT_SHOWN)
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+}
+

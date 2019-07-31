@@ -8,21 +8,17 @@ import android.net.ConnectivityManager
  *
  * 2019/1/11
  **/
-class NetworkUtil {
-    companion object {
 
 
-        /**
-         * 网络连接状态
-         *
-         * @param context
-         * @return
-         */
-        fun checkConnection(context: Context): Boolean {
-            val cm = context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val networkInfo = cm.activeNetworkInfo
-            return !(networkInfo == null || !networkInfo.isConnected)
-        }
-    }
+/**
+ * 网络连接状态
+ *
+ * @param context
+ * @return
+ */
+fun checkConnection(context: Context): Boolean {
+    val cm = context
+        .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo = cm.activeNetworkInfo
+    return !(networkInfo == null || !networkInfo.isConnected)
 }

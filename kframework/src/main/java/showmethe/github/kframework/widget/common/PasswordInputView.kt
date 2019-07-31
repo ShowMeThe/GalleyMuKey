@@ -20,7 +20,7 @@ import android.widget.EditText
 import java.util.ArrayList
 
 import showmethe.github.kframework.R
-import showmethe.github.kframework.util.system.KeyBoardUtils
+
 
 /**
  * PackageName: com.example.ken.hokogo.widget

@@ -1,5 +1,6 @@
 package showmethe.github.kframework.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AppOpsManager
 import android.app.NotificationManager
@@ -152,6 +153,7 @@ object ToastFactory {
      * 检查通知栏权限有没有开启
      *
      */
+    @SuppressLint("ObsoleteSdkInt")
     fun isNotificationEnabled(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).areNotificationsEnabled()

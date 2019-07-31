@@ -37,10 +37,11 @@ import kotlinx.coroutines.launch
 import showmethe.github.kframework.dialog.DialogLoading
 import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.util.ToastFactory
-import showmethe.github.kframework.util.system.KeyBoardUtils
 import showmethe.github.kframework.util.widget.StatusBarUtil
 import java.util.concurrent.TimeUnit
 import showmethe.github.kframework.R
+import showmethe.github.kframework.util.system.hideSoftKeyboard
+
 /**
  * showmethe.github.kframework.base
  *
@@ -237,7 +238,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
         if (ev.action == MotionEvent.ACTION_DOWN) {
             val v = currentFocus
             if (isShouldHideKeyboard(v, ev)) {
-                KeyBoardUtils.hideSoftKeyboard(context)
+                hideSoftKeyboard()
             }
         }
         return super.dispatchTouchEvent(ev)

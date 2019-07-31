@@ -21,7 +21,8 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.dialog_sign_up.view.*
-import showmethe.github.kframework.util.system.KeyBoardUtils
+import showmethe.github.kframework.util.system.closeKeyboard
+
 import java.util.concurrent.TimeUnit
 
 
@@ -69,7 +70,7 @@ class SignUpDialog   : BottomSheetDialogFragment() {
 
             tvCode.setOnClickListener {
                 start(tvCode,30,1)
-                KeyBoardUtils.closeKeyboard(context,edCode)
+                context.closeKeyboard(edCode)
             }
 
             btnReg.setOnClickListener {

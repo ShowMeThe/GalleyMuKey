@@ -1,11 +1,11 @@
-package showmethe.github.kframework.http.Interceptor
+package showmethe.github.kframework.http.interceptor
 
 import showmethe.github.kframework.base.BaseApplication.Companion.context
-import showmethe.github.kframework.util.system.NetworkUtil
 import java.io.IOException
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
+import showmethe.github.kframework.util.system.checkConnection
 
 /**
  * example.ken.com.library.http
@@ -18,7 +18,7 @@ class ReadWriteCacheInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
 
-        if (NetworkUtil.checkConnection(context)) {
+        if (checkConnection(context)) {
             val response = chain.proceed(request)
             // read from cache for 30 s  有网络不会使用缓存数据
             val maxAge = 30

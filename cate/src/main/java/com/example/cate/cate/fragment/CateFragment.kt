@@ -24,7 +24,8 @@ import com.example.router.dialog.HashTagDialog
 
 import kotlinx.android.synthetic.main.fragment_cate.*
 import showmethe.github.kframework.base.BaseFragment
-import showmethe.github.kframework.util.system.KeyBoardUtils
+import showmethe.github.kframework.util.system.closeKeyboard
+import showmethe.github.kframework.util.system.hideSoftKeyboard
 import java.lang.StringBuilder
 
 /**
@@ -87,7 +88,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
     override fun initListener() {
 
         ivHashTag.setOnClickListener {
-            KeyBoardUtils.hideSoftKeyboard(context)
+            context.hideSoftKeyboard()
             dialog.show(childFragmentManager,"")
         }
 
@@ -122,7 +123,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
 
         edSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                KeyBoardUtils.closeKeyboard(context,edSearch)
+                context.closeKeyboard(edSearch)
             }
             false
         }

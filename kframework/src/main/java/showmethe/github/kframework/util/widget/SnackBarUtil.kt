@@ -25,7 +25,6 @@ class SnackBarUtil(activity: Activity) {
 
     private val reference: SoftReference<Activity> = SoftReference(activity)
 
-
     private var parent: SoftReference<Snackbar.SnackbarLayout>? = null
     var snackbar: Snackbar? = null
     private var textView: SoftReference<TextView>? = null
