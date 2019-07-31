@@ -1,4 +1,4 @@
-package showmethe.github.kframework.parallaxbacklayout.widget
+package showmethe.github.kframework.parallaxback.widget
 
 import android.graphics.drawable.GradientDrawable
 

@@ -1,13 +1,13 @@
-package showmethe.github.kframework.parallaxbacklayout.transform
+package showmethe.github.kframework.parallaxback.transform
 
 import android.graphics.Canvas
 import android.view.View
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_BOTTOM
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_LEFT
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_RIGHT
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_TOP
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_BOTTOM
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_LEFT
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_RIGHT
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_TOP
 
-import showmethe.github.kframework.parallaxbacklayout.widget.ParallaxBackLayout
+import showmethe.github.kframework.parallaxback.widget.ParallaxBackLayout
 
 
 

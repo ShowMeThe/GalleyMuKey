@@ -1,8 +1,7 @@
-package showmethe.github.kframework.parallaxbacklayout
+package showmethe.github.kframework.parallaxback
 
 
-import showmethe.github.kframework.parallaxbacklayout.widget.ParallaxBackLayout
-import java.lang.annotation.RetentionPolicy
+import showmethe.github.kframework.parallaxback.widget.ParallaxBackLayout
 import kotlin.annotation.Retention
 
 

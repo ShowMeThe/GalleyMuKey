@@ -4,10 +4,8 @@ import android.animation.Animator
 import android.graphics.PointF
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.*
-import androidx.databinding.ViewDataBinding
-import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
+import showmethe.github.kframework.parallaxback.ParallaxBack
 
 
 import kotlinx.android.synthetic.main.activity_image_show.*
@@ -15,7 +13,6 @@ import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
 import androidx.appcompat.widget.PopupMenu
-import java.io.File
 import android.view.animation.AccelerateInterpolator
 import androidx.lifecycle.LifecycleOwner
 import com.example.home.R

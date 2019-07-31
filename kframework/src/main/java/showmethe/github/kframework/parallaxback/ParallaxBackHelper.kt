@@ -1,18 +1,19 @@
-package showmethe.github.kframework.parallaxbacklayout
+package showmethe.github.kframework.parallaxback
 
 import android.app.Activity
 import android.graphics.Canvas
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
 import showmethe.github.kframework.R
 import showmethe.github.kframework.base.SimpleLifecyclerCallbacks
-import showmethe.github.kframework.parallaxbacklayout.widget.ParallaxBackLayout
+import showmethe.github.kframework.parallaxback.widget.ParallaxBackLayout
+import java.lang.ref.SoftReference
 
 
 class ParallaxBackHelper private constructor(): SimpleLifecyclerCallbacks(){
 
-    val mLinkedStack = LinkedStack<Activity?, TraceInfo>()
+    private val linkedStack = SoftReference(LinkedStack<Activity?, TraceInfo>())
+    val mLinkedStack = linkedStack.get()!!
 
     companion object{
         private val  instant : ParallaxBackHelper by  lazy{  ParallaxBackHelper() }

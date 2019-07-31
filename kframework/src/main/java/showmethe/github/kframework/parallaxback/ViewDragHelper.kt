@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package showmethe.github.kframework.parallaxbacklayout
+package showmethe.github.kframework.parallaxback
 
 import android.content.Context
 import android.view.MotionEvent

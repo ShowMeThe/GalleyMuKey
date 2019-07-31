@@ -23,8 +23,7 @@ import kotlinx.android.synthetic.main.include_title.*
 
 
 import showmethe.github.kframework.base.BaseActivity
-import showmethe.github.kframework.parallaxbacklayout.ParallaxBack
-import showmethe.github.kframework.util.widget.StatusBarUtil
+import showmethe.github.kframework.parallaxback.ParallaxBack
 
 @ParallaxBack
 @Route(path = PathConst.CART_ACTIVITY)

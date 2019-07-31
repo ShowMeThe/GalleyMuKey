@@ -1,4 +1,4 @@
-package showmethe.github.kframework.parallaxbacklayout.widget
+package showmethe.github.kframework.parallaxback.widget
 
 import android.annotation.TargetApi
 import android.app.Activity
@@ -17,14 +17,14 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.FrameLayout
 
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_BOTTOM
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_RIGHT
-import showmethe.github.kframework.parallaxbacklayout.ViewDragHelper.Companion.EDGE_TOP
-import showmethe.github.kframework.parallaxbacklayout.transform.CoverTransform
-import showmethe.github.kframework.parallaxbacklayout.transform.ITransform
-import showmethe.github.kframework.parallaxbacklayout.transform.ParallaxTransform
-import showmethe.github.kframework.parallaxbacklayout.transform.SlideTransform
+import showmethe.github.kframework.parallaxback.ViewDragHelper
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_BOTTOM
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_RIGHT
+import showmethe.github.kframework.parallaxback.ViewDragHelper.Companion.EDGE_TOP
+import showmethe.github.kframework.parallaxback.transform.CoverTransform
+import showmethe.github.kframework.parallaxback.transform.ITransform
+import showmethe.github.kframework.parallaxback.transform.ParallaxTransform
+import showmethe.github.kframework.parallaxback.transform.SlideTransform
 import kotlin.annotation.Retention
 
 

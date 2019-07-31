@@ -1,4 +1,4 @@
-package showmethe.github.kframework.parallaxbacklayout
+package showmethe.github.kframework.parallaxback
 
 import java.util.LinkedHashMap
 import java.util.LinkedList

@@ -6,14 +6,12 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.http.RetroHttp
-import showmethe.github.kframework.parallaxbacklayout.ParallaxBackHelper
+import showmethe.github.kframework.parallaxback.ParallaxBackHelper
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.util.system.crash.CrashHandler
 import java.lang.ref.WeakReference
