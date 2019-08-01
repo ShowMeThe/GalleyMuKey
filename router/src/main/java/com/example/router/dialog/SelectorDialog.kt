@@ -15,6 +15,8 @@ import com.example.router.dialog.adapter.SelectorAdapter
 import com.example.database.source.Source
 import com.example.router.R
 import kotlinx.android.synthetic.main.dialog_selector_img.view.*
+import showmethe.github.kframework.dialog.SimpleDialogFragment
+import showmethe.github.kframework.dialog.WindowParam
 import showmethe.github.kframework.widget.transformer.CardStackTransformer
 
 /**
@@ -22,65 +24,44 @@ import showmethe.github.kframework.widget.transformer.CardStackTransformer
  * cuvsu
  * 2019/6/12
  **/
-class SelectorDialog : DialogFragment() {
+@WindowParam(gravity = Gravity.CENTER)
+class SelectorDialog : SimpleDialogFragment() {
 
-    lateinit var mContext: Context
     lateinit var adapter: SelectorAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mContext = context
-    }
+    override fun build(savedInstanceState: Bundle?) {
+        buildDialog {
+            R.layout.dialog_selector_img
+        }.onView {
+            it.apply {
+                val list = ObservableArrayList<String>()
+                list.add(Source.get().getBanner()[2])
+                list.add(Source.get().getBanner()[4])
+                list.add(Source.get().getBanner()[10])
+                list.add(Source.get().getBanner()[7])
+                list.add(Source.get().getBanner()[11])
+                list.add(Source.get().getBanner()[21])
+                list.add(Source.get().getBanner()[18])
 
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(mContext)
-        val view = View.inflate(mContext, R.layout.dialog_selector_img, null)
+                adapter = SelectorAdapter(context,list)
+                viewPager.adapter = adapter
+                viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                viewPager.offscreenPageLimit = 4
+                viewPager.setPageTransformer(CardStackTransformer())
 
-        dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(false)
+                adapter.setOnTapImageListner {
+                    onTapImageListener?.invoke(it)
+                }
 
+                ivBack.setOnClickListener {
+                    dialog?.dismiss()
+                }
 
-        if (dialog.window != null) {
-            val window = dialog.window
-            val dm = DisplayMetrics()
-            window?.apply {
-                windowManager.defaultDisplay.getMetrics(dm)
-                setLayout(dm.widthPixels, dm.heightPixels)
-                setBackgroundDrawable(ColorDrawable(0x00000000))
-                setGravity(Gravity.CENTER)
-                setWindowAnimations(R.style.LeftRightAnim)
             }
         }
-
-        view?.apply {
-            val list = ObservableArrayList<String>()
-            list.add(Source.get().getBanner()[2])
-            list.add(Source.get().getBanner()[4])
-            list.add(Source.get().getBanner()[10])
-            list.add(Source.get().getBanner()[7])
-            list.add(Source.get().getBanner()[11])
-            list.add(Source.get().getBanner()[21])
-            list.add(Source.get().getBanner()[18])
-
-
-            adapter = SelectorAdapter(context,list)
-            viewPager.adapter = adapter
-            viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            viewPager.offscreenPageLimit = 4
-            viewPager.setPageTransformer(CardStackTransformer())
-
-            adapter.setOnTapImageListner {
-                onTapImageListener?.invoke(it)
-            }
-            ivBack.setOnClickListener {
-                dialog.dismiss()
-            }
-
-        }
-
-        return dialog
     }
+
 
     var onTapImageListener:((url:String)->Unit)? = null
 

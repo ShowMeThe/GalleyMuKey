@@ -8,9 +8,10 @@ import com.example.router.constant.RdenConstant
 import com.example.router.databinding.DialogLoginBinding
 import kotlinx.android.synthetic.main.dialog_login.view.*
 import showmethe.github.kframework.dialog.SimpleDialogFragment
+import showmethe.github.kframework.dialog.WindowParam
 import showmethe.github.kframework.util.rden.RDEN
 
-@SimpleDialogFragment.WindowParam(gravity = Gravity.CENTER,canceled = true,outSideCanceled = true,dimAmount = 0.0f)
+@WindowParam(gravity = Gravity.CENTER,canceled = true,outSideCanceled = true,dimAmount = 0.0f)
 class LoginDialog : SimpleDialogFragment() {
     
     override fun build(savedInstanceState: Bundle?) {

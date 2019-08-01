@@ -17,57 +17,26 @@ import com.example.router.dialog.adapter.SeeCommentAdapter
 import com.example.database.source.dto.CommentDto
 import com.example.router.R
 import kotlinx.android.synthetic.main.dialog_see_comment.view.*
+import showmethe.github.kframework.dialog.SimpleBSheetDialogFragment
+import showmethe.github.kframework.dialog.WindowParam
 import java.lang.Exception
 
-class SeeCommentDialog  : BottomSheetDialogFragment() {
-    private var mBehavior: BottomSheetBehavior<*>? = null
+@WindowParam(dimAmount = 0.0f)
+class SeeCommentDialog  : SimpleBSheetDialogFragment() {
+
     lateinit var adapter : SeeCommentAdapter
     val list = ObservableArrayList<CommentDto>()
 
+    override fun build(savedInstanceState: Bundle?) {
+        buildDialog {
+            R.layout.dialog_see_comment
+        }.onView {
+            it.apply {
+                adapter = SeeCommentAdapter(context,list)
+                rvComment.adapter = adapter
+                rvComment.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        super.onCreate(savedInstanceState)
-        val dialog = BottomSheetDialog(context!!, R.style.FullScreenBottomSheet)
-        val view = View.inflate(context, R.layout.dialog_see_comment, null)
-        dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.window!!.findViewById<View>(R.id.design_bottom_sheet)
-            .setBackgroundResource(android.R.color.transparent);
-        mBehavior = BottomSheetBehavior.from<View>(view.parent as View)
-        val window = dialog.window
-        val dm = DisplayMetrics()
-        window?.apply {
-            setDimAmount(0.0f)
-            setLayout(dm.widthPixels, window.attributes.height)
-            addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            setWindowAnimations(R.style.AnimBottom)
-        }
-
-
-        view.apply {
-
-            adapter = SeeCommentAdapter(context,list)
-            rvComment.adapter = adapter
-            rvComment.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-
-
-
-
-        }
-
-        return  dialog
-    }
-
-    override fun show(manager: FragmentManager, tag: String?) {
-        try {
-            if(!isAdded){
-                val transaction = manager.beginTransaction()
-                transaction.add(this, tag)
-                transaction.commitAllowingStateLoss()
-                transaction.show(this)
             }
-        }catch (e: Exception){}
+        }
     }
-
-
 }

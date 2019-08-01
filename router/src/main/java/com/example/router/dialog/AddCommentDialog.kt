@@ -10,51 +10,33 @@ import android.view.View
 import com.example.router.R
 
 import kotlinx.android.synthetic.main.dialog_add_comment.view.*
-import showmethe.github.kframework.dialog.BaseDialogFragment
 
-class AddCommentDialog : BaseDialogFragment() {
+import showmethe.github.kframework.dialog.SimpleDialogFragment
+import showmethe.github.kframework.dialog.WindowParam
 
-    lateinit var mContext: Context
+@WindowParam(gravity = Gravity.BOTTOM,outSideCanceled = true)
+class AddCommentDialog : SimpleDialogFragment() {
+
     private var comPosition  = 0
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-    }
+    override fun build(savedInstanceState: Bundle?) {
+        buildDialog {
+            R.layout.dialog_add_comment
+        }.onWindow {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(mContext)
-        val view = View.inflate(mContext, R.layout.dialog_add_comment, null)
+        }.onView {
+            if(arguments!=null){
+                comPosition = arguments!!.getInt("position",0)
+            }
 
-        dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(true)
+            it.apply {
 
-        if(arguments!=null){
-            comPosition = arguments!!.getInt("position",0)
-        }
-
-        if (dialog.window != null) {
-            val window = dialog.window
-            val dm = DisplayMetrics()
-            window?.apply {
-                windowManager.defaultDisplay.getMetrics(dm)
-                setLayout(dm.widthPixels, window.attributes.height)
-                setBackgroundDrawable(ColorDrawable(0x00000000))
-                setGravity(Gravity.BOTTOM)
-                setWindowAnimations(R.style.LeftRightAnim)
+                btnSend.setOnClickListener {
+                    onAddComment?.invoke(comPosition,edText.text.toString())
+                }
             }
         }
-
-        view?.apply {
-
-            btnSend.setOnClickListener {
-                onAddComment?.invoke(comPosition,edText.text.toString())
-            }
-        }
-
-        return dialog
     }
-
 
     private var onAddComment : ((position:Int,comment:String)->Unit)? = null
 

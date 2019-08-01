@@ -216,7 +216,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
                         R.anim.slide_left_in,
                         R.anim.slide_left_out)
                     transaction.show(fragment).addToBackStack(null)
-                        .setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
+
                 } else {
                     transaction.setCustomAnimations(
                         R.anim.slide_bottom_in,
@@ -224,7 +224,6 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
                         R.anim.slide_left_in,
                         R.anim.slide_left_out)
                     transaction.hide(fragment).addToBackStack(null)
-                        .setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
                 }
             }
         }

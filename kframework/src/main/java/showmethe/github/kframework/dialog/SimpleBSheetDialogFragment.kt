@@ -8,37 +8,37 @@ import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
 import android.view.Window
-import androidx.annotation.IntDef
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import showmethe.github.kframework.R
-import showmethe.github.kframework.util.CornerType
 import java.lang.Exception
 
-abstract class SimpleDialogFragment  : DialogFragment() {
+abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() {
 
+    var mBehavior: BottomSheetBehavior<*>? = null
 
     private lateinit var activity : Context
 
     private var onCreate :(()->Int)? = null
 
-    private var onWindow :((window:Window)->Unit)? = null
+    private var onWindow :((window: Window)->Unit)? = null
 
-    private var onView :((view:View)->Unit)? = null
+    private var onView :((view: View)->Unit)? = null
 
     abstract fun build(savedInstanceState: Bundle?)
 
-    fun buildDialog(onCreate :(()->Int)) : SimpleDialogFragment{
+    fun buildDialog(onCreate :(()->Int)) : SimpleBSheetDialogFragment{
         this.onCreate = onCreate
         return this
     }
 
 
-    fun onWindow(onWindow :((window:Window)->Unit)) : SimpleDialogFragment{
+    fun onWindow(onWindow :((window: Window)->Unit)) : SimpleBSheetDialogFragment{
         this.onWindow = onWindow
         return this
     }
@@ -48,7 +48,7 @@ abstract class SimpleDialogFragment  : DialogFragment() {
     }
 
 
-    fun onView(onView :((view:View)->Unit)) : SimpleDialogFragment{
+    fun onView(onView :((view: View)->Unit)) : SimpleBSheetDialogFragment{
         this.onView = onView
         return this
     }
@@ -63,8 +63,6 @@ abstract class SimpleDialogFragment  : DialogFragment() {
         build(savedInstanceState)
         val viewId = onCreate?.invoke()
         if(viewId!= null){
-            val view = View.inflate(activity, viewId, null)
-
 
             val param = javaClass.getAnnotation(WindowParam::class.java)
             val gravity  = param.gravity
@@ -73,12 +71,16 @@ abstract class SimpleDialogFragment  : DialogFragment() {
             val dimAmount = param.dimAmount
             val noAnim  = param.noAnim
 
-
-            val dialog = Dialog(activity)
+            val view = View.inflate(activity, viewId, null)
+            val dialog = BottomSheetDialog(context!!, R.style.FullScreenBottomSheet)
             dialog.setContentView(view)
+            dialog.window!!.findViewById<View>(R.id.design_bottom_sheet)
+                .setBackgroundResource(android.R.color.transparent);
+            mBehavior = BottomSheetBehavior.from<View>(view.parent as View)
+
+
             dialog.setCanceledOnTouchOutside(outSideCanceled)
             dialog.setCancelable(canceled)
-
 
             val window = dialog.window
             val dm = DisplayMetrics()
@@ -86,9 +88,10 @@ abstract class SimpleDialogFragment  : DialogFragment() {
                 windowManager.defaultDisplay.getMetrics(dm)
                 setLayout(dm.widthPixels, window.attributes.height)
                 setBackgroundDrawable(ColorDrawable(0x00000000))
+                addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 setGravity(gravity)
                 if(!noAnim){
-                    setWindowAnimations(R.style.LeftRightAnim)
+                    setWindowAnimations(R.style.AnimBottom)
                 }
                 if(dimAmount!=-1f){
                     setDimAmount(dimAmount)
@@ -103,8 +106,6 @@ abstract class SimpleDialogFragment  : DialogFragment() {
         }
         return super.onCreateDialog(savedInstanceState)
     }
-
-
 
 
 

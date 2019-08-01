@@ -1,17 +1,13 @@
 package com.example.router.dialog
 
-import android.app.Dialog
+
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.View
-import android.view.WindowManager
+
 import android.widget.TextView
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import androidx.annotation.Nullable
-import androidx.databinding.DataBindingUtil
+
 
 import com.example.database.bean.RegisterBean
 import com.example.router.R
@@ -20,7 +16,9 @@ import com.example.router.databinding.DialogSignUpBinding
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.dialog_sign_up.view.*
+import kotlinx.android.synthetic.main.dialog_sign_up.*
+import showmethe.github.kframework.dialog.SimpleBSheetDialogFragment
+import showmethe.github.kframework.dialog.WindowParam
 import showmethe.github.kframework.util.system.closeKeyboard
 
 import java.util.concurrent.TimeUnit
@@ -32,56 +30,40 @@ import java.util.concurrent.TimeUnit
  *
  * 2019/5/17
  **/
-class SignUpDialog   : BottomSheetDialogFragment() {
+
+@WindowParam
+class SignUpDialog   : SimpleBSheetDialogFragment() {
 
 
     private var mdDisposable: Disposable? = null
-    private var mBehavior: BottomSheetBehavior<*>? = null
-    private var binding : DialogSignUpBinding? = null
+
+    override fun build(savedInstanceState: Bundle?) {
+        buildDialog {
+            R.layout.dialog_sign_up
+        }.onView {
+            it.onBindingView<DialogSignUpBinding> { binding ->
+                binding?.apply {
+                    val registerBean = RegisterBean()
+                    bean = registerBean
+                    executePendingBindings()
 
 
-    override fun onCreateDialog(@Nullable savedInstanceState: Bundle?): Dialog {
-        super.onCreate(savedInstanceState)
-        val dialog = BottomSheetDialog(context!!, R.style.FullScreenBottomSheet)
-        val view = View.inflate(context, R.layout.dialog_sign_up, null)
-        binding = DataBindingUtil.bind<DialogSignUpBinding>(view)
-        dialog.setContentView(view)
-        dialog.window!!.findViewById<View>(R.id.design_bottom_sheet)
-            .setBackgroundResource(android.R.color.transparent);
-        mBehavior = BottomSheetBehavior.from<View>(view.parent as View)
-        dialog.setCanceledOnTouchOutside(true)
-        val window = dialog.window
-        val dm = DisplayMetrics()
-        window?.apply {
-            setDimAmount(0.0f)
-            setLayout(dm.widthPixels, window.attributes.height)
-            addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            setWindowAnimations(R.style.AnimBottom)
+                    ivBack.setOnClickListener { hidden() }
+
+                    tvCode.setOnClickListener {
+                        start(tvCode,30,1)
+                        context?.closeKeyboard(edCode)
+                    }
+
+                    btnReg.setOnClickListener {
+                        onRegisterGet?.invoke(registerBean)
+                    }
+
+
+                }
+            }
         }
-
-        view?.apply {
-            val registerBean = RegisterBean()
-            binding?.apply {
-                bean = registerBean
-                executePendingBindings()
-            }
-
-            ivBack.setOnClickListener { hidden() }
-
-            tvCode.setOnClickListener {
-                start(tvCode,30,1)
-                context.closeKeyboard(edCode)
-            }
-
-            btnReg.setOnClickListener {
-                onRegisterGet?.invoke(registerBean)
-            }
-
-        }
-        return dialog
-
     }
-
 
     fun start(tv: TextView,time: Int, interval: Int) {
         tv.isEnabled = false
@@ -96,11 +78,6 @@ class SignUpDialog   : BottomSheetDialogFragment() {
                     mdDisposable!!.dispose()
                 }
             }.subscribe()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
 
@@ -127,15 +104,9 @@ class SignUpDialog   : BottomSheetDialogFragment() {
         super.onDestroyView()
     }
 
-    override fun onStart() {
-        super.onStart()
-        mBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-
 
     fun hidden(){
-        mBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+        mBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
 

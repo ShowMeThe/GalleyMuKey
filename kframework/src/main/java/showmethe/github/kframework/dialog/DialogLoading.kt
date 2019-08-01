@@ -16,40 +16,13 @@ import showmethe.github.kframework.R
 import showmethe.github.kframework.widget.animView.BallRotationProgressBar
 import showmethe.github.kframework.widget.animView.RectScaleAnim
 
+@WindowParam(gravity = Gravity.CENTER,noAnim = true)
+class DialogLoading : SimpleDialogFragment() {
 
-class DialogLoading : BaseDialogFragment() {
-
-    lateinit var mContext: Context
     internal var progressbar: BallRotationProgressBar? = null
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mContext = context
-    }
-
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(mContext)
-        val view = View.inflate(mContext, R.layout.dialog_loading_layout, null)
-        dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(false)
-        progressbar = view.findViewById(R.id.progressbar)
-
-        if (dialog.window != null) {
-            val window = dialog.window
-            val dm = DisplayMetrics()
-            window?.apply {
-               attributes.dimAmount = 0f  //底层不变暗
-               windowManager.defaultDisplay.getMetrics(dm)
-               setLayout(dm.widthPixels, window.attributes.height)
-               setBackgroundDrawable(ColorDrawable(0x00000000))
-               setGravity(Gravity.CENTER)
-            }
-
+    override fun build(savedInstanceState: Bundle?) {
+        buildDialog {
+            R.layout.dialog_loading_layout
         }
-
-        return dialog
     }
-
 }

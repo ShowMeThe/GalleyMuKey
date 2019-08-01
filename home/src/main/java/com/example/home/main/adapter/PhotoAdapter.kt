@@ -35,7 +35,8 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
 
             banner.addList(item.imagePaths!!)
 
-            banner.setCurrentPosition(item.currentPos)
+            banner.setCurrentPosition(0,false)
+            banner.setCurrentPosition(item.currentPos,true)
             banner.setOnImageLoader { url, imageView -> TGlide.loadNoCrop(url, imageView) }
             banner.setOnPagerLisnener {
                 data[position].currentPos = it

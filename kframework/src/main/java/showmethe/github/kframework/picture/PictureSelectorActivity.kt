@@ -104,9 +104,9 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
 
         adapter.setOnItemClickListener { view, position ->
             if(adapter.mode == SINGLE){
-               // PreViewActivity.startToDetail(context,imgPath[position].path)
+                PreViewActivity.startToDetail(context,imgPath[position].path)
             }else{
-               // PreViewActivity.startToMoreDetail(context,imgStringPath,position)
+                PreViewActivity.startToMoreDetail(context,imgStringPath,position)
             }
 
         }

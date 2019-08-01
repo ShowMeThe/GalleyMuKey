@@ -1,6 +1,7 @@
 package com.example.home.main.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 
 import androidx.databinding.ObservableArrayList
@@ -64,9 +65,8 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, HomeViewModel>() {
                 }
             }
         })
-
-
     }
+
 
 
     override fun onLifeCreated(owner: LifecycleOwner) {

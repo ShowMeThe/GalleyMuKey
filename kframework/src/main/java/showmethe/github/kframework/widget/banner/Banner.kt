@@ -171,11 +171,11 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
 
-    fun setCurrentPosition(position : Int){
+    fun setCurrentPosition(position : Int,smooth:Boolean){
         if(position<=imageList.size-1){
             currentItem = position.toLong()
             viewPager?.post {
-                viewPager!!.setCurrentItem(position,true)
+                viewPager!!.setCurrentItem(position,smooth)
             }
         }
     }

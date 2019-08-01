@@ -331,14 +331,13 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
                         R.anim.slide_left_out,
                         R.anim.slide_left_in,
                         R.anim.slide_right_out)
-                    transaction.show(fragment).setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
+                    transaction.show(fragment)
                 } else {
                     transaction.setCustomAnimations(R.anim.slide_right_in,
                         R.anim.slide_left_out,
                         R.anim.slide_left_in,
                         R.anim.slide_right_out)
-
-                    transaction.hide(fragment).setMaxLifecycle(fragment, Lifecycle.State.STARTED)
+                    transaction.hide(fragment)
                 }
             }
         }

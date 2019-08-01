@@ -17,71 +17,53 @@ import com.example.router.constant.RdenConstant
 import com.example.router.dialog.adapter.NumberAdapter
 
 import kotlinx.android.synthetic.main.dialog_number.view.*
+import showmethe.github.kframework.dialog.SimpleDialogFragment
+import showmethe.github.kframework.dialog.WindowParam
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.widget.picker.WheelAdapter
 import showmethe.github.kframework.widget.picker.onItemTextChange
 
-class NumberDialog : DialogFragment() {
+@WindowParam(gravity = Gravity.BOTTOM)
+class NumberDialog : SimpleDialogFragment() {
 
 
-    lateinit var mContext: Context
+
+
     lateinit var adapter:NumberAdapter
     private var num = 1
     var onTextItemChange :((value:Int)->Unit)? = null
 
 
+    override fun build(savedInstanceState: Bundle?) {
+        buildDialog {
+            R.layout.dialog_number
+        }.onView { view ->
+            view.apply {
+                val list = ArrayList<Int>()
+                for(i in 1..20){
+                    list.add(i)
+                }
+                adapter = NumberAdapter(context,list)
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mContext = context
-    }
+                picker.setWheelAdapter(adapter)
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(mContext)
-        val view = View.inflate(mContext, R.layout.dialog_number, null)
-        dialog.setContentView(view)
-        dialog.setCanceledOnTouchOutside(true)
+                picker.setOnItemTextChangeListener {
+                    num = list[it]
+                }
 
+                tvCancel.setOnClickListener {
+                    dialog?.dismiss()
+                }
 
+                tvConfirm.setOnClickListener {
+                    onTextItemChange?.invoke(num)
+                }
 
-        if (dialog.window != null) {
-            val window = dialog.window
-            val dm = DisplayMetrics()
-            window?.apply {
-                windowManager.defaultDisplay.getMetrics(dm)
-                setLayout(dm.widthPixels, window.attributes.height)
-                setBackgroundDrawable(ColorDrawable(0x00000000))
-                setGravity(Gravity.BOTTOM)
-                setWindowAnimations(R.style.LeftRightAnim)
             }
         }
 
-
-        view?.apply {
-
-            val list = ArrayList<Int>()
-            for(i in 1..20){
-                list.add(i)
-            }
-            adapter = NumberAdapter(mContext,list)
-
-            picker.setWheelAdapter(adapter)
-
-            picker.setOnItemTextChangeListener {
-                num = list[it]
-            }
-
-            tvCancel.setOnClickListener {
-                dialog.dismiss()
-            }
-
-            tvConfirm.setOnClickListener {
-                onTextItemChange?.invoke(num)
-            }
-
-        }
-        return dialog
     }
+
 
 
     fun setOnTextItemChangeListemer(onTextItemChange :((value:Int)->Unit)){
