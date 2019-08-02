@@ -47,7 +47,6 @@
 					app:showIndicator="false"
 					app:imageMaxHeight="@dimen/px1600dp"
 					app:imageMinHeight="@dimen/px800dp"
-					app:transformer="Parallax"
 					>
 				</showmethe.github.kframework.widget.banner.Banner>
 				

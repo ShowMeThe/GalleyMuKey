@@ -14,11 +14,7 @@ class ParallaxTransformer : ViewPager2.PageTransformer {
         if (position < -1) {
             page.scrollX = (width.toDouble() * 0.75 * -1.0).toInt()
         } else if (position <= 1) {
-            if (position < 0) {
-                page.scrollX = (width.toDouble() * 0.75 * position.toDouble()).toInt()
-            } else {
-                page.scrollX = (width.toDouble() * 0.75 * position.toDouble()).toInt()
-            }
+            page.scrollX = (width.toDouble() * 0.75 * position.toDouble()).toInt()
         } else {
             page.scrollX = (width * 0.75).toInt()
         }

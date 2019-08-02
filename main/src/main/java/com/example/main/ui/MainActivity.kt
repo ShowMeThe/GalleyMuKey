@@ -183,6 +183,8 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
             startActivity(null,WalletActivity::class.java)
         }
 
+
+
         fab.setOnClickListener {
             startForResult(null,5000,PictureSelectorActivity::class.java){ _ ,_ ,data  ->
                 data?.apply {

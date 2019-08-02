@@ -177,7 +177,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
         val temp = ObservableArrayList<LocalMedia>()
         val root = File(rootPath)
         if(root.exists() && root.isDirectory)
-        Observable.fromArray(*root.listFiles()).flatMap({ file -> MapFile.list(file) }).filter { o ->
+        Observable.fromArray(*root.listFiles()).flatMap { file -> MapFile.list(file) }.filter { o ->
             (((!o.absolutePath.contains("emoji"))
                     && (!o.absolutePath.contains("thumbnails") )
                     && (o.absolutePath.substringAfter(basePath).length<50)

@@ -1,6 +1,7 @@
 package com.example.main.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import com.example.main.ui.auth.vm.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -76,8 +77,12 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
         viewModel.bannerList.observe(this,androidx.lifecycle.Observer {
             it?.apply {
+
                 banner.addList(it)
-                banner.setOnImageLoader { url, imageView -> TGlide.load(url, imageView) }
+                banner.setOnImageLoader { url, imageView ->
+                  /*  Log.e("Banner", url.toString())*/
+                    TGlide.load(url, imageView)
+                }
                 banner.play()
             }
         })

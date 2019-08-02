@@ -172,11 +172,9 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
 
     fun setCurrentPosition(position : Int,smooth:Boolean){
-        if(position<=imageList.size-1){
-            currentItem = position.toLong()
-            viewPager?.post {
-                viewPager!!.setCurrentItem(position,smooth)
-            }
+        currentItem = position.toLong()
+        viewPager?.post {
+            viewPager!!.setCurrentItem(position,smooth)
         }
     }
 
@@ -269,8 +267,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     companion object {
 
         private val layoutId = R.layout.banner_layout
-        private val DEFAULT_LAYOUT_PARAMS = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.MATCH_PARENT)
+        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT)
         val TIME = 3000
     }
 
