@@ -32,6 +32,7 @@ import com.example.main.ui.mine.vm.MainViewModel
 import com.example.router.router.RouteServiceManager
 import com.example.router.router.RouterService
 import com.example.router.util.CircularRevealUtils
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_drawer_item.*
 import showmethe.github.kframework.base.BaseActivity
@@ -199,16 +200,10 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
                     DataSourceBuilder.getPhotoWall().addPhotoBean(bean)
                 }
             }
+
         }
 
     }
-
-
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-    }
-*/
 
    private fun setContainer(){
         val layoutParams = container.layoutParams

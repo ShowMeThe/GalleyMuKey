@@ -96,7 +96,7 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
         }
 
         picker.setOnCityPickListener { provinceBean, cityBean, districtBean ->
-            viewModel.bean.value?.address =  "${provinceBean.name}-${cityBean.name}-${districtBean.name}"
+            viewModel.bean.value?.address =  "${provinceBean?.name}-${cityBean?.name}-${districtBean?.name}"
         }
 
     }

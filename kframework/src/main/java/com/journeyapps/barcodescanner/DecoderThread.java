@@ -15,6 +15,9 @@ import com.journeyapps.barcodescanner.camera.CameraInstance;
 import com.journeyapps.barcodescanner.camera.PreviewCallback;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import showmethe.github.kframework.R;
 
@@ -25,18 +28,19 @@ public class DecoderThread {
     private static final String TAG = DecoderThread.class.getSimpleName();
 
     private CameraInstance cameraInstance;
-    private HandlerThread thread;
     private Handler handler;
     private Decoder decoder;
     private Handler resultHandler;
     private Rect cropRect;
     private boolean running = false;
     private final Object LOCK = new Object();
+    private  ExecutorService fixedThreadPool = Executors.newFixedThreadPool(8);
 
     private final Handler.Callback callback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
             if (message.what == R.id.zxing_decode) {
+                requestNextPreview();
                 decode((SourceData) message.obj);
             } else if(message.what == R.id.zxing_preview_failed) {
                 // Error already logged. Try again.
@@ -78,12 +82,16 @@ public class DecoderThread {
     public void start() {
         Util.validateMainThread();
 
-        thread = new HandlerThread(TAG);
-        thread.start();
-        handler = new Handler(thread.getLooper(), callback);
+        handler = new Handler(callback);
         running = true;
+
         requestNextPreview();
+
+       /* thread = new HandlerThread(TAG);
+        thread.start();*/
+
     }
+
 
     /**
      * Stop decoding.
@@ -96,7 +104,7 @@ public class DecoderThread {
         synchronized (LOCK) {
             running = false;
             handler.removeCallbacksAndMessages(null);
-            thread.quit();
+           // thread.quit();
         }
     }
 
@@ -127,7 +135,15 @@ public class DecoderThread {
     };
 
     private void requestNextPreview() {
-        cameraInstance.requestPreview(previewCallback);
+        for(int i= 0;i<4;i++){
+            fixedThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e(TAG,Thread.currentThread().getName());
+                    cameraInstance.requestPreview(previewCallback);
+                }
+            });
+        }
     }
 
     protected LuminanceSource createSource(SourceData sourceData) {
@@ -158,6 +174,7 @@ public class DecoderThread {
                 Bundle bundle = new Bundle();
                 message.setData(bundle);
                 message.sendToTarget();
+                fixedThreadPool.shutdown();
             }
         } else {
             if (resultHandler != null) {
@@ -170,6 +187,6 @@ public class DecoderThread {
             Message message = Message.obtain(resultHandler, R.id.zxing_possible_result_points, resultPoints);
             message.sendToTarget();
         }
-        requestNextPreview();
+
     }
 }
