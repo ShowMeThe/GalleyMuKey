@@ -27,6 +27,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import com.google.zxing.ResultPoint;
 
 
@@ -60,6 +61,14 @@ public class ViewfinderView extends View {
     protected List<ResultPoint> possibleResultPoints;
     protected List<ResultPoint> lastPossibleResultPoints;
     protected CameraPreview cameraPreview;
+    //四个绿色边角对应的长度
+    private static final int ScreenRate  = 100;
+    //四个绿色边角对应的宽度
+    private static final int CORNER_WIDTH = 10 ;
+    private Paint cutPaint = new Paint();
+    private int rate = 2;//移动的比率;
+    private int moveOffset = 3;//移动距离;
+    private  int middle = 0;//红线移动距离;
 
     // Cache the framingRect and previewFramingRect, so that we can still draw it after the preview
     // stopped.
@@ -73,25 +82,26 @@ public class ViewfinderView extends View {
         // Initialize these once for performance rather than calling them every time in onDraw().
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        Resources resources = getResources();
 
         // Get setted attributes on view
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.zxing_finder);
 
         this.maskColor = attributes.getColor(R.styleable.zxing_finder_zxing_viewfinder_mask,
-                resources.getColor(R.color.zxing_viewfinder_mask));
+                ContextCompat.getColor(context,R.color.zxing_viewfinder_mask));
         this.resultColor = attributes.getColor(R.styleable.zxing_finder_zxing_result_view,
-                resources.getColor(R.color.zxing_result_view));
+                ContextCompat.getColor(context,R.color.zxing_result_view));
         this.laserColor = attributes.getColor(R.styleable.zxing_finder_zxing_viewfinder_laser,
-                resources.getColor(R.color.zxing_viewfinder_laser));
+                ContextCompat.getColor(context,R.color.colorAccent));
         this.resultPointColor = attributes.getColor(R.styleable.zxing_finder_zxing_possible_result_points,
-                resources.getColor(R.color.zxing_possible_result_points));
+                ContextCompat.getColor(context,R.color.zxing_possible_result_points));
 
         attributes.recycle();
 
         scannerAlpha = 0;
         possibleResultPoints = new ArrayList<>(MAX_RESULT_POINTS);
         lastPossibleResultPoints = new ArrayList<>(MAX_RESULT_POINTS);
+
+        cutPaint.setColor(ContextCompat.getColor(context,R.color.colorAccent));
     }
 
     public void setCameraPreview(CameraPreview view) {
@@ -147,8 +157,8 @@ public class ViewfinderView extends View {
         final Rect frame = framingRect;
         final Rect previewFrame = previewFramingRect;
 
-        final int width = canvas.getWidth();
-        final int height = canvas.getHeight();
+        final int width = getWidth();
+        final int height = getHeight();
 
         // Draw the exterior (i.e. outside the framing rect) darkened
         paint.setColor(resultBitmap != null ? resultColor : maskColor);
@@ -156,6 +166,26 @@ public class ViewfinderView extends View {
         canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
         canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);
         canvas.drawRect(0, frame.bottom + 1, width, height, paint);
+
+        canvas.drawRect(frame.left, frame.top, frame.left + ScreenRate,
+                frame.top + CORNER_WIDTH, cutPaint);
+        canvas.drawRect(frame.left, frame.top, frame.left + CORNER_WIDTH, frame.top
+                + ScreenRate, cutPaint);
+        canvas.drawRect(frame.right - ScreenRate, frame.top, frame.right,
+                frame.top + CORNER_WIDTH, cutPaint);
+        canvas.drawRect(frame.right - CORNER_WIDTH, frame.top, frame.right, frame.top
+                + ScreenRate, cutPaint);
+        canvas.drawRect(frame.left, frame.bottom - CORNER_WIDTH, frame.left
+                + ScreenRate, frame.bottom, cutPaint);
+        canvas.drawRect(frame.left, frame.bottom - ScreenRate,
+                frame.left + CORNER_WIDTH, frame.bottom, cutPaint);
+        canvas.drawRect(frame.right - ScreenRate, frame.bottom - CORNER_WIDTH,
+                frame.right, frame.bottom, cutPaint);
+        canvas.drawRect(frame.right - CORNER_WIDTH, frame.bottom - ScreenRate,
+                frame.right, frame.bottom, cutPaint);
+
+
+
 
         if (resultBitmap != null) {
             // Draw the opaque result bitmap over the scanning rectangle

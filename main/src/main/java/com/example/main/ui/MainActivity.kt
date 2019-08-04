@@ -27,6 +27,7 @@ import com.example.main.ui.auth.LoginActivity
 
 
 import com.example.main.ui.mine.ProfileInfoActivity
+import com.example.main.ui.mine.ScanQrActivity
 import com.example.main.ui.mine.WalletActivity
 import com.example.main.ui.mine.vm.MainViewModel
 import com.example.router.router.RouteServiceManager
@@ -175,14 +176,17 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
         tvAddLike.setOnClickListener {
             val bundle  = Bundle()
             bundle.putString("title",tvAddLike.text.toString())
-            val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, it, "title")
-            iProvider!!.startLikeActivity(bundle,compat)
+            iProvider!!.startLikeActivity(bundle)
         }
 
         tvWallet.setOnClickListener {
             startActivity(null,WalletActivity::class.java)
         }
 
+
+        tvScan.setOnClickListener {
+            startActivity(null,ScanQrActivity::class.java)
+        }
 
 
         fab.setOnClickListener {

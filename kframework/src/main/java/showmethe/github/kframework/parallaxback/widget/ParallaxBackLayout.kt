@@ -1,5 +1,6 @@
 package showmethe.github.kframework.parallaxback.widget
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
@@ -26,6 +27,9 @@ import showmethe.github.kframework.parallaxback.transform.ITransform
 import showmethe.github.kframework.parallaxback.transform.ParallaxTransform
 import showmethe.github.kframework.parallaxback.transform.SlideTransform
 import kotlin.annotation.Retention
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 
 /**
@@ -98,14 +102,12 @@ class ParallaxBackLayout
             field = edgeFlag
             mDragHelper.setEdgeTrackingEnabled(edgeFlag)
             var orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT
-            if (edgeFlag == EDGE_LEFT)
-                orientation = GradientDrawable.Orientation.RIGHT_LEFT
-            else if (edgeFlag == EDGE_TOP) {
-                orientation = GradientDrawable.Orientation.BOTTOM_TOP
-            } else if (edgeFlag == EDGE_RIGHT)
-                orientation = GradientDrawable.Orientation.LEFT_RIGHT
-            else if (edgeFlag == EDGE_BOTTOM)
-                orientation = GradientDrawable.Orientation.TOP_BOTTOM
+            when (edgeFlag) {
+                EDGE_LEFT -> orientation = GradientDrawable.Orientation.RIGHT_LEFT
+                EDGE_TOP -> orientation = GradientDrawable.Orientation.BOTTOM_TOP
+                EDGE_RIGHT -> orientation = GradientDrawable.Orientation.LEFT_RIGHT
+                EDGE_BOTTOM -> orientation = GradientDrawable.Orientation.TOP_BOTTOM
+            }
             if (mShadowLeft == null) {
                 val colors = intArrayOf(0x66000000, 0x11000000, 0x00000000)
                 val drawable = ShadowDrawable(orientation, colors)
@@ -145,8 +147,8 @@ class ParallaxBackLayout
     @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
         val top = insets.systemWindowInsetTop
-        if (mContentView!!.layoutParams is ViewGroup.MarginLayoutParams) {
-            val params = mContentView!!.layoutParams as ViewGroup.MarginLayoutParams
+        if (mContentView!!.layoutParams is MarginLayoutParams) {
+            val params = mContentView!!.layoutParams as MarginLayoutParams
             mInsets.set(params.leftMargin, params.topMargin + top, params.rightMargin, params.bottomMargin)
         }
         applyWindowInset()
@@ -158,14 +160,15 @@ class ParallaxBackLayout
         if (!mEnable || !mBackgroundView!!.canGoBack()) {
             return false
         }
-        try {
-            return mDragHelper.shouldInterceptTouchEvent(event)
+        return try {
+            mDragHelper.shouldInterceptTouchEvent(event)
         } catch (e: ArrayIndexOutOfBoundsException) {
-            return false
+            false
         }
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (!mEnable || !mBackgroundView!!.canGoBack()) {
             return false
@@ -181,7 +184,7 @@ class ParallaxBackLayout
             var cleft = mContentLeft
             var ctop = mContentTop
             val params = mContentView!!.layoutParams
-            if (params is ViewGroup.MarginLayoutParams) {
+            if (params is MarginLayoutParams) {
                 cleft += params.leftMargin
                 ctop += params.topMargin
             }
@@ -233,18 +236,13 @@ class ParallaxBackLayout
     }
 
     private fun applyWindowInset() {
-        if (mInsets == null)
-            return
-        if (mEdgeMode == EDGE_MODE_FULL) {
-            mDragHelper.edgeSize = Math.max(width, height)
-        } else if (edgeFlag == EDGE_TOP)
-            mDragHelper.edgeSize = mInsets.top + mDragHelper.edgeSizeDefault
-        else if (edgeFlag == EDGE_BOTTOM) {
-            mDragHelper.edgeSize = mInsets.bottom + mDragHelper.edgeSizeDefault
-        } else if (edgeFlag == ViewDragHelper.EDGE_LEFT) {
-            mDragHelper.edgeSize = mDragHelper.edgeSizeDefault + mInsets.left
-        } else
-            mDragHelper.edgeSize = mDragHelper.edgeSizeDefault + mInsets.right
+        when {
+            mEdgeMode == EDGE_MODE_FULL -> mDragHelper.edgeSize = max(width, height)
+            edgeFlag == EDGE_TOP -> mDragHelper.edgeSize = mInsets.top + mDragHelper.edgeSizeDefault
+            edgeFlag == EDGE_BOTTOM -> mDragHelper.edgeSize = mInsets.bottom + mDragHelper.edgeSizeDefault
+            edgeFlag == ViewDragHelper.EDGE_LEFT -> mDragHelper.edgeSize = mDragHelper.edgeSizeDefault + mInsets.left
+            else -> mDragHelper.edgeSize = mDragHelper.edgeSizeDefault + mInsets.right
+        }
     }
 
 
@@ -269,31 +267,36 @@ class ParallaxBackLayout
             return
         if (mShadowLeft == null)
             return
-        if (edgeFlag == EDGE_LEFT) {
-            mShadowLeft!!.setBounds(
-                child.left - mShadowLeft!!.intrinsicWidth, child.top,
-                child.left, child.bottom
-            )
-            mShadowLeft!!.alpha = (width - child.left) * 255 / width
-        } else if (edgeFlag == EDGE_RIGHT) {
-            mShadowLeft!!.setBounds(
-                child.right, child.top,
-                child.right + mShadowLeft!!.intrinsicWidth, child.bottom
-            )
-            mShadowLeft!!.alpha = child.right * 255 / width
-        } else if (edgeFlag == EDGE_BOTTOM) {
-            mShadowLeft!!.setBounds(
-                child.left, child.bottom,
-                child.right, child.bottom + mShadowLeft!!.intrinsicHeight
-            )
+        when (edgeFlag) {
+            EDGE_LEFT -> {
+                mShadowLeft!!.setBounds(
+                    child.left - mShadowLeft!!.intrinsicWidth, child.top,
+                    child.left, child.bottom
+                )
+                mShadowLeft!!.alpha = (width - child.left) * 255 / width
+            }
+            EDGE_RIGHT -> {
+                mShadowLeft!!.setBounds(
+                    child.right, child.top,
+                    child.right + mShadowLeft!!.intrinsicWidth, child.bottom
+                )
+                mShadowLeft!!.alpha = child.right * 255 / width
+            }
+            EDGE_BOTTOM -> {
+                mShadowLeft!!.setBounds(
+                    child.left, child.bottom,
+                    child.right, child.bottom + mShadowLeft!!.intrinsicHeight
+                )
 
-            mShadowLeft!!.alpha = child.bottom * 255 / height
-        } else if (edgeFlag == EDGE_TOP) {
-            mShadowLeft!!.setBounds(
-                child.left, child.top - mShadowLeft!!.intrinsicHeight + systemTop,
-                child.right, child.top + systemTop
-            )
-            mShadowLeft!!.alpha = (height - child.top) * 255 / height
+                mShadowLeft!!.alpha = child.bottom * 255 / height
+            }
+            EDGE_TOP -> {
+                mShadowLeft!!.setBounds(
+                    child.left, child.top - mShadowLeft!!.intrinsicHeight + systemTop,
+                    child.right, child.top + systemTop
+                )
+                mShadowLeft!!.alpha = (height - child.top) * 255 / height
+            }
         }
         mShadowLeft!!.draw(canvas)
     }
@@ -441,7 +444,7 @@ class ParallaxBackLayout
 
         private var mScrollPercent: Float = 0.toFloat()
 
-        override fun tryCaptureView(view: View, pointerId: Int): Boolean {
+        override fun tryCaptureView(child: View, pointerId: Int): Boolean {
             val ret = mDragHelper.isEdgeTouched(edgeFlag, pointerId)
             if (ret) {
                 mTrackingEdge = edgeFlag
@@ -467,16 +470,16 @@ class ParallaxBackLayout
         override fun onViewPositionChanged(changedView: View?, left: Int, top: Int, dx: Int, dy: Int) {
             super.onViewPositionChanged(changedView, left, top, dx, dy)
             if (mTrackingEdge and EDGE_LEFT != 0) {
-                mScrollPercent = Math.abs((left - mInsets.left).toFloat() / mContentView!!.width)
+                mScrollPercent = abs((left - mInsets.left).toFloat() / mContentView!!.width)
             }
             if (mTrackingEdge and EDGE_RIGHT != 0) {
-                mScrollPercent = Math.abs((left - mInsets.left).toFloat() / mContentView!!.width)
+                mScrollPercent = abs((left - mInsets.left).toFloat() / mContentView!!.width)
             }
             if (mTrackingEdge and EDGE_BOTTOM != 0) {
-                mScrollPercent = Math.abs((top - systemTop).toFloat() / mContentView!!.height)
+                mScrollPercent = abs((top - systemTop).toFloat() / mContentView!!.height)
             }
             if (mTrackingEdge and EDGE_TOP != 0) {
-                mScrollPercent = Math.abs(top.toFloat() / mContentView!!.height)
+                mScrollPercent = abs(top.toFloat() / mContentView!!.height)
             }
             mContentLeft = left
             mContentTop = top
@@ -499,7 +502,7 @@ class ParallaxBackLayout
             var left = mInsets.left
             var top = 0
             if (mTrackingEdge and EDGE_LEFT != 0) {
-                if (Math.abs(xvel) > mFlingVelocity) {
+                if (abs(xvel) > mFlingVelocity) {
                     fling = true
                 }
                 left = if (xvel >= 0 && (fling || mScrollPercent > mScrollThreshold))
@@ -508,7 +511,7 @@ class ParallaxBackLayout
                     mInsets.left
             }
             if (mTrackingEdge and EDGE_RIGHT != 0) {
-                if (Math.abs(xvel) > mFlingVelocity) {
+                if (abs(xvel) > mFlingVelocity) {
                     fling = true
                 }
                 left = if (xvel <= 0 && (fling || mScrollPercent > mScrollThreshold))
@@ -517,7 +520,7 @@ class ParallaxBackLayout
                     mInsets.left
             }
             if (mTrackingEdge and EDGE_TOP != 0) {
-                if (Math.abs(yvel) > mFlingVelocity) {
+                if (abs(yvel) > mFlingVelocity) {
                     fling = true
                 }
                 top = if (yvel >= 0 && (fling || mScrollPercent > mScrollThreshold))
@@ -526,7 +529,7 @@ class ParallaxBackLayout
                     0
             }
             if (mTrackingEdge and EDGE_BOTTOM != 0) {
-                if (Math.abs(yvel) > mFlingVelocity) {
+                if (abs(yvel) > mFlingVelocity) {
                     fling = true
                 }
                 top = if (yvel <= 0 && (fling || mScrollPercent > mScrollThreshold))
@@ -547,9 +550,9 @@ class ParallaxBackLayout
         override fun clampViewPositionHorizontal(child: View, left: Int, dx: Int): Int {
             var ret = mInsets.left
             if (mTrackingEdge and EDGE_LEFT != 0) {
-                ret = Math.min(child.width, Math.max(left, 0))
+                ret = min(child.width, max(left, 0))
             } else if (mTrackingEdge and EDGE_RIGHT != 0) {
-                ret = Math.min(mInsets.left, Math.max(left, -child.width))
+                ret = min(mInsets.left, max(left, -child.width))
             }
             return ret
         }
@@ -557,9 +560,9 @@ class ParallaxBackLayout
         override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
             var ret = mContentView!!.top
             if (mTrackingEdge and EDGE_BOTTOM != 0) {
-                ret = Math.min(0, Math.max(top, -child.height))
+                ret = min(0, max(top, -child.height))
             } else if (mTrackingEdge and EDGE_TOP != 0) {
-                ret = Math.min(child.height, Math.max(top, 0))
+                ret = min(child.height, max(top, 0))
             }
             return ret
         }

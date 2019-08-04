@@ -2,6 +2,7 @@ package showmethe.github.kframework.widget.citypicker.helper
 
 import android.content.Context
 import android.util.ArrayMap
+import android.util.Log
 import android.util.SparseArray
 
 import com.google.gson.Gson
@@ -37,7 +38,7 @@ class CityParseHelper {
      */
     var districtBeanArrayList: ObservableArrayList<ObservableArrayList<ObservableArrayList<DistrictBean>>>? = null
 
-    var provinceBeenArray: ArrayList<ProvinceBean>? = null
+    var provinceBeenArray: Array<ProvinceBean?>?= null
 
     var provinceBean: ProvinceBean? = null
 
@@ -48,12 +49,12 @@ class CityParseHelper {
     /**
      * key - 省 value - 市
      */
-    private val mPro_CityMap = ArrayMap<String,ArrayList<CityBean>>()
+    private val mPro_CityMap = ArrayMap<String,Array<CityBean?>>()
 
     /**
      * key - 市 values - 区
      */
-    private val mCity_DisMap = ArrayMap<String,ArrayList<DistrictBean>>()
+    private val mCity_DisMap = ArrayMap<String,Array<DistrictBean?>>()
     /**
      * key - 区 values
      */
@@ -87,7 +88,7 @@ class CityParseHelper {
         }
 
         //省份数据
-        provinceBeenArray = ArrayList(provinceBeanArrayList.size)
+        provinceBeenArray = arrayOfNulls(provinceBeanArrayList.size)
 
         for (p in provinceBeanArrayList.indices) {
 
@@ -98,7 +99,7 @@ class CityParseHelper {
             val cityList = itemProvince.cityList
 
             //当前省份下面的所有城市
-            val cityNames = ArrayList<CityBean>(cityList.size)
+            val cityNames = arrayOfNulls<CityBean>(cityList.size)
 
             //遍历当前省份下面城市的所有数据
             for (j in cityList.indices) {
@@ -106,8 +107,8 @@ class CityParseHelper {
                 cityNames[j] = cityList[j]
 
                 //当前省份下面每个城市下面再次对应的区或者县
-                val districtList = cityList[j].cityList ?: break
-                val distrinctArray = ArrayList<DistrictBean>(districtList.size)
+                val districtList = cityList[j].cityList
+                val distrinctArray = arrayOfNulls<DistrictBean>(districtList.size)
 
                 for (k in districtList.indices) {
 
@@ -115,13 +116,13 @@ class CityParseHelper {
                     val districtModel = districtList[k]
 
                     //存放 省市区-区 数据
-                    mDisMap[itemProvince.name + cityNames[j].name + districtList[k].name] = districtModel
+                    mDisMap[itemProvince.name + cityNames[j]!!.name + districtList[k].name] = districtModel
 
                     distrinctArray[k] = districtModel
 
                 }
                 // 市-区/县的数据，保存到mDistrictDatasMap
-                mCity_DisMap[itemProvince.name + cityNames[j].name] = distrinctArray
+                mCity_DisMap[itemProvince.name + cityNames[j]!!.name] = distrinctArray
 
             }
 

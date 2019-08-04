@@ -32,7 +32,6 @@ import showmethe.github.kframework.R;
 public class DecoratedBarcodeView extends FrameLayout {
     private BarcodeView barcodeView;
     private ViewfinderView viewFinder;
-    private TextView statusView;
 
     /**
      * The instance of @link TorchListener to send events callback.
@@ -113,8 +112,6 @@ public class DecoratedBarcodeView extends FrameLayout {
 
         viewFinder.setCameraPreview(barcodeView);
 
-        // statusView is optional
-        statusView = (TextView) findViewById(R.id.zxing_status_view);
     }
 
     /**
@@ -150,9 +147,6 @@ public class DecoratedBarcodeView extends FrameLayout {
         }
 
         String customPromptMessage = intent.getStringExtra(Intents.Scan.PROMPT_MESSAGE);
-        if (customPromptMessage != null) {
-            setStatusText(customPromptMessage);
-        }
 
         // Check what type of scan. Default: normal scan
         int scanType = intent.getIntExtra(Intents.Scan.SCAN_TYPE, 0);
@@ -166,12 +160,6 @@ public class DecoratedBarcodeView extends FrameLayout {
         barcodeView.setDecoderFactory(new DefaultDecoderFactory(decodeFormats, decodeHints, characterSet, scanType));
     }
 
-    public void setStatusText(String text) {
-        // statusView is optional when using a custom layout
-        if(statusView != null) {
-            statusView.setText(text);
-        }
-    }
 
     /**
      * @see BarcodeView#pause()
@@ -202,9 +190,6 @@ public class DecoratedBarcodeView extends FrameLayout {
         return viewFinder;
     }
 
-    public TextView getStatusView() {
-        return statusView;
-    }
 
     /**
      * @see BarcodeView#decodeSingle(BarcodeCallback)

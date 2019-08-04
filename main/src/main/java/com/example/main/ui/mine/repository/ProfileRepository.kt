@@ -37,6 +37,7 @@ class ProfileRepository : BaseRepository() {
         dto.email = bean.email
         dto.birthday = bean.birthday
         dto.address = bean.address
+        dto.customBg = bean.customBg
         userInfoDao.updateUserInfo(dto).apply {
             result.value = this
             snycInfo(dto)

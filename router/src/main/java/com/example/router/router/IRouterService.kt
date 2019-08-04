@@ -18,7 +18,7 @@ class IRouterService : RouterService {
         return ARouter.getInstance().build(PathConst.CATE_FRAGMENT).navigation() as Fragment
     }
 
-    override fun startLikeActivity(bundle: Bundle,compat : ActivityOptionsCompat){
+    override fun startLikeActivity(bundle: Bundle){
         ARouter.getInstance().build(PathConst.HOME_LIKE_ACTIVITY)
             .with(bundle).navigation()
     }

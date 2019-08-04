@@ -20,7 +20,7 @@ interface RouterService : IProvider {
 
     fun getHomeFragment() : Fragment
 
-    fun startLikeActivity(bundle: Bundle, compat : ActivityOptionsCompat)
+    fun startLikeActivity(bundle: Bundle)
 
     fun getCartFragment() : Fragment
 
