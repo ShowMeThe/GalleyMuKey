@@ -4,8 +4,9 @@ import android.os.Handler
 import android.os.Message
 import java.lang.ref.WeakReference
 
-
-
+/**
+ * 过滤频繁切换后需要静止后才执行对应方法 例如 vp切换页面时候调用了网络请求
+ */
 class Interval(private var delay:Long,private var filter:Long = 250L) {
 
     private var handler : WeakReference<Handler>? = null
