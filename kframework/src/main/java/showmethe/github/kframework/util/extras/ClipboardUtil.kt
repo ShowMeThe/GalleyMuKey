@@ -1,4 +1,4 @@
-package showmethe.github.kframework.util
+package showmethe.github.kframework.util.extras
 
 import android.content.ClipData
 import android.content.ClipboardManager

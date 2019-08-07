@@ -1,19 +1,15 @@
 package com.example.main.ui.mine
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import com.example.main.R
 import com.example.main.ui.mine.vm.MainViewModel
-import com.google.zxing.ResultPoint
-import com.journeyapps.barcodescanner.BarcodeCallback
-import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.ScanCameraManager
 import kotlinx.android.synthetic.main.activity_scan_qr.*
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.parallaxback.ParallaxBack
-import showmethe.github.kframework.util.ToastFactory
+import showmethe.github.kframework.util.toast.ToastFactory
 import showmethe.github.kframework.util.widget.StatusBarUtil
 
 @ParallaxBack

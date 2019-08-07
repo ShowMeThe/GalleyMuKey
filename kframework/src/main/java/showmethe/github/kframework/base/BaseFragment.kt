@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 
-import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import showmethe.github.kframework.R
 import showmethe.github.kframework.dialog.DialogLoading
-import showmethe.github.kframework.util.ToastFactory
+import showmethe.github.kframework.util.toast.ToastFactory
 
 /**
  * showmethe.github.kframework.base

@@ -1,7 +1,6 @@
 package com.example.main.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.ViewDataBinding
 import com.example.main.ui.auth.vm.AuthViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -19,7 +18,7 @@ import com.example.router.constant.RdenConstant
 import com.example.router.dialog.SignUpDialog
 import com.example.main.ui.MainActivity
 import com.example.router.dialog.LoginDialog
-import showmethe.github.kframework.util.copyTextToClipboard
+import showmethe.github.kframework.util.extras.copyTextToClipboard
 
 import showmethe.github.kframework.util.rden.RDEN
 
@@ -162,7 +161,7 @@ class LoginActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             .setTextColor(ContextCompat.getColor(context,R.color.white))
             .setActionTextColor(ContextCompat.getColor(context,R.color.white))
             .setAction("copy") {
-            copyTextToClipboard(context,"${num}")
+            copyTextToClipboard(context, "${num}")
             showToast("Copy successfully")
             snackbar!!.dismiss()
         }

@@ -16,7 +16,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseActivity
-import showmethe.github.kframework.util.double2Decimal
+import showmethe.github.kframework.util.extras.double2Decimal
 import showmethe.github.kframework.util.rden.RDEN
 import kotlin.random.Random
 
@@ -131,7 +131,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             bean.goodsDes = source.getContent()[random.nextInt(0,2)]
             bean.goodsName = source.getUserName()[(random.nextInt(0,13))] + source.getUserName()[(random.nextInt(6,13))]
             bean.firstType = random.nextInt(0,4)
-            bean.price = double2Decimal( random.nextDouble(10.0,30.0))
+            bean.price = double2Decimal(random.nextDouble(10.0, 30.0))
             bean.keyword = source.getHashTag()[random.nextInt(0,5)]
             DataSourceBuilder.getGoodsList().insertGoods(bean)
 

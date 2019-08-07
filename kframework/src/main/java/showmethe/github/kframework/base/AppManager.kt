@@ -36,7 +36,7 @@ class AppManager private constructor(){
     fun finishTarget(cls : Class<*>){
         stack?.apply {
             for(activity in this){
-                if(activity.javaClass.name.equals(cls)){
+                if(activity.javaClass == cls){
                     activity.finishAfterTransition()
                 }
             }
@@ -46,7 +46,7 @@ class AppManager private constructor(){
     fun finishAllWithoutTarget(cls : Class<*>){
         stack?.apply {
             for(activity in this){
-                if(!activity.javaClass.name.equals(cls)){
+                if(activity.javaClass != cls){
                     activity.finishAfterTransition()
                 }
             }
@@ -56,7 +56,7 @@ class AppManager private constructor(){
     fun finishWithoutParams(cls : Class<*>,cls2 : Class<*>){
         stack?.apply {
             for(activity in this){
-                if(!activity.javaClass.name.equals(cls) and !activity.javaClass.name.equals(cls2)){
+                if((activity.javaClass != cls) and (activity.javaClass != cls2)){
                     activity.finishAfterTransition()
                 }
             }

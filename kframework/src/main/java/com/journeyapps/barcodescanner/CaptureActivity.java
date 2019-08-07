@@ -1,17 +1,15 @@
 package com.journeyapps.barcodescanner;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.KeyEvent;
 
-import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentResult;
 
 import androidx.annotation.NonNull;
 import showmethe.github.kframework.R;
-import showmethe.github.kframework.util.ToastFactory;
+import showmethe.github.kframework.util.toast.ToastFactory;
 
 
 /**

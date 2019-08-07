@@ -11,9 +11,9 @@ import com.example.database.bean.NewGoodsBean
 
 
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
-import showmethe.github.kframework.util.CornerType
-import showmethe.github.kframework.util.createDrawable
-import showmethe.github.kframework.util.createWithStroke
+import showmethe.github.kframework.util.extras.CornerType
+import showmethe.github.kframework.util.extras.createDrawable
+import showmethe.github.kframework.util.extras.createWithStroke
 
 /**
  * com.example.cate.cate.adapter
@@ -30,9 +30,17 @@ class NewAdapter(context: Context, data: ObservableArrayList<NewGoodsBean>) :
 
     override fun bindItems(binding: ItemNewBinding?, item: NewGoodsBean, position: Int) {
         binding?.apply {
-            firstCard.background =  createDrawable(context,CornerFamily.CUT,10,colorAccent)
-            secondCard.background =  createWithStroke(context,CornerFamily.ROUNDED,10,white,
-                stroke, CornerType.TOPLEFT,CornerType.BOTTMRIGHT)
+            firstCard.background =
+                createDrawable(context, CornerFamily.CUT, 10, colorAccent)
+            secondCard.background = createWithStroke(
+                context,
+                CornerFamily.ROUNDED,
+                10,
+                white,
+                stroke,
+                CornerType.TOPLEFT,
+                CornerType.BOTTMRIGHT
+            )
 
             bean = item
             executePendingBindings()

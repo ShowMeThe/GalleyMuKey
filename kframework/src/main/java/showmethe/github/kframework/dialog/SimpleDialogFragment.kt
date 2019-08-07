@@ -5,18 +5,13 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.Gravity
 import android.view.View
 import android.view.Window
-import androidx.annotation.IntDef
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import showmethe.github.kframework.R
-import showmethe.github.kframework.util.CornerType
 import java.lang.Exception
 
 abstract class SimpleDialogFragment  : DialogFragment() {

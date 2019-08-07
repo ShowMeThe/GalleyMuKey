@@ -16,7 +16,7 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import showmethe.github.kframework.dialog.DialogLoading
-import showmethe.github.kframework.util.ToastFactory
+import showmethe.github.kframework.util.toast.ToastFactory
 
 /**
  * showmethe.github.kframework.base

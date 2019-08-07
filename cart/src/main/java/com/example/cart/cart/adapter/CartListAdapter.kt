@@ -16,9 +16,9 @@ import com.example.database.bean.CartListBean
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.glide.BitmapTarget
 import showmethe.github.kframework.glide.TGlide
-import showmethe.github.kframework.util.CornerType
-import showmethe.github.kframework.util.createWithStroke
-import showmethe.github.kframework.util.double2Decimal
+import showmethe.github.kframework.util.extras.CornerType
+import showmethe.github.kframework.util.extras.createWithStroke
+import showmethe.github.kframework.util.extras.double2Decimal
 
 
 class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>) :
@@ -41,8 +41,10 @@ class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>)
                                 tvName.setTextColor(item.vibrantColor)
                                 tvCount.setTextColor(item.vibrantColor)
                                 tvPrice.setTextColor(item.vibrantColor)
-                                item.drawable =  createWithStroke(context,CornerFamily.CUT,10,white,item.vibrantColor,
-                                    CornerType.ALL)
+                                item.drawable = createWithStroke(
+                                    context, CornerFamily.CUT, 10, white, item.vibrantColor,
+                                    CornerType.ALL
+                                )
                                 layout.background = item.drawable
                             }
                         }
@@ -56,7 +58,9 @@ class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>)
                 tvPrice.setTextColor(item.vibrantColor)
             }
 
-            tvPrice.text = context.getString(R.string.dollars) + double2Decimal(item.getCount() * item.getPrice().toDouble())
+            tvPrice.text = context.getString(R.string.dollars) + double2Decimal(
+                item.getCount() * item.getPrice().toDouble()
+            )
             bean = item
             executePendingBindings()
         }

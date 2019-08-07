@@ -4,7 +4,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import showmethe.github.kframework.BR
-import showmethe.github.kframework.util.double2Decimal
+import showmethe.github.kframework.util.extras.double2Decimal
 
 /**
  * com.example.database.bean

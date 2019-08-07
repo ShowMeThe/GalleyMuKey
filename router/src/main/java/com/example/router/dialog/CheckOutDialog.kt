@@ -1,20 +1,13 @@
 package com.example.router.dialog
 
-import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.Gravity
-import android.view.View
-import android.view.WindowManager
 import com.example.router.R
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 import kotlinx.android.synthetic.main.dialog_check_out.view.*
 import showmethe.github.kframework.dialog.SimpleBSheetDialogFragment
 import showmethe.github.kframework.dialog.WindowParam
-import showmethe.github.kframework.util.ToastFactory
+import showmethe.github.kframework.util.toast.ToastFactory
 
 @WindowParam(gravity = Gravity.BOTTOM,outSideCanceled = true,dimAmount = 0.0f)
 class CheckOutDialog   : SimpleBSheetDialogFragment(){

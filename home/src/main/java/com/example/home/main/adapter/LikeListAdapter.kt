@@ -11,7 +11,7 @@ import com.example.home.databinding.ItemLikeListBinding
 
 import showmethe.github.kframework.adapter.DataBindBaseAdapter
 import showmethe.github.kframework.glide.TGlide
-import showmethe.github.kframework.util.createDrawable
+import showmethe.github.kframework.util.extras.createDrawable
 
 class LikeListAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
     DataBindBaseAdapter<PhotoWallBean, ItemLikeListBinding>(context, data) {
@@ -26,7 +26,12 @@ class LikeListAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>
             banner.play()
             bean  = item
             executePendingBindings()
-            container.background  = createDrawable(context,CornerFamily.CUT,15,R.color.colorAccent)
+            container.background  = createDrawable(
+                context,
+                CornerFamily.CUT,
+                15,
+                R.color.colorAccent
+            )
             tvComment.setOnClickListener {
                 onAddComment?.invoke(position)
             }

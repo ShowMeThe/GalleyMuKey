@@ -1,35 +1,25 @@
-package showmethe.github.kframework.util
+package showmethe.github.kframework.util.toast
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AppOpsManager
 import android.app.NotificationManager
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import android.graphics.Color
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-
-import java.lang.reflect.Field
-import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
 
 
 import showmethe.github.kframework.R
 import showmethe.github.kframework.base.BaseApplication
-
-import android.view.FrameMetrics.ANIMATION_DURATION
 
 /**
  * PackageName: example.ken.com.library.utils

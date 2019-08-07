@@ -1,24 +1,16 @@
 package showmethe.github.kframework.base
 
 import androidx.lifecycle.Lifecycle
-import android.content.Context
-import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
-import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
-import showmethe.github.kframework.dialog.DialogLoading
-import showmethe.github.kframework.util.ToastFactory
+import showmethe.github.kframework.util.toast.ToastFactory
 import java.io.IOException
 import java.lang.ref.WeakReference
 import java.util.concurrent.TimeUnit
@@ -71,6 +63,22 @@ abstract class BaseRepository :  DefaultLifecycleObserver {
         refresh?.apply {
             get()?.apply {
                 isRefreshing = isLoading
+            }
+        }
+    }
+
+    fun showLoading(){
+        BaseApplication.ctx?.get()?.apply {
+            if(this is BaseActivity<*,*>){
+                this.showLoading()
+            }
+        }
+    }
+
+    fun dismissLoading(){
+        BaseApplication.ctx?.get()?.apply {
+            if(this is BaseActivity<*,*>){
+                this.dismissLoading()
             }
         }
     }

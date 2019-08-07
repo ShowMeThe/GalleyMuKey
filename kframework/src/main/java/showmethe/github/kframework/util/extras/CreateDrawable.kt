@@ -1,12 +1,10 @@
-package showmethe.github.kframework.util
+package showmethe.github.kframework.util.extras
 
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.IntDef
-import androidx.core.content.ContextCompat
-import androidx.media.VolumeProviderCompat
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -19,7 +17,13 @@ import com.google.android.material.shape.ShapeAppearanceModel
 
 
 @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-@IntDef(CornerType.TOPLEFT, CornerType.TOPRIGHT,CornerType. BOTTMRIGHT,CornerType. BOTTOMLEFT, CornerType.ALL)
+@IntDef(
+    CornerType.TOPLEFT,
+    CornerType.TOPRIGHT,
+    CornerType.BOTTMRIGHT,
+    CornerType.BOTTOMLEFT,
+    CornerType.ALL
+)
 annotation class  CornerType{
     companion object{
         const val TOPLEFT = 0x0001

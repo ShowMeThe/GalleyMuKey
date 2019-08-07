@@ -1,12 +1,8 @@
 package showmethe.github.kframework.util.system
 
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Build
 import android.os.LocaleList
-import android.util.DisplayMetrics
-import androidx.annotation.IntDef
-import showmethe.github.kframework.util.CornerType
 
 import java.util.Locale
 
