@@ -2,6 +2,7 @@ package com.example.database.source.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 /**
  * com.example.database.source.dto
@@ -15,9 +16,11 @@ class UserInfoDto {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var userId  = ""
+    @SerializedName("nickName")
     var account : String? = ""
     var password : String? = ""
     var phone :String =""
+    @SerializedName("introduction")
     var desContent : String = ""
     var avatar : String=""
     var email : String=""

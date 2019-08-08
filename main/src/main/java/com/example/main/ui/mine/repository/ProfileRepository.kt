@@ -38,6 +38,7 @@ class ProfileRepository : BaseRepository() {
         dto.birthday = bean.birthday
         dto.address = bean.address
         dto.customBg = bean.customBg
+
         userInfoDao.updateUserInfo(dto).apply {
             result.value = this
             snycInfo(dto)
@@ -57,14 +58,14 @@ class ProfileRepository : BaseRepository() {
         SuspendResult<String>(owner).success { response, message ->
             showToast("Snyc successfully")
         }.hold {
-            api.updateInfo(map)
+            api.updateInfo(dto)
         }
     }
 
 
     fun updatePassword(bean  : UserInfoBean,password: String,result: MutableLiveData<Int>){
         userInfoDao.queryUserInfo(bean.account).apply {
-            if(password.equals(this?.password)){
+            if(password == this?.password){
                 showToast("New Password should not equals Old Password")
             }else{
                 userInfoDao.updatePassword(bean.account,password).apply {

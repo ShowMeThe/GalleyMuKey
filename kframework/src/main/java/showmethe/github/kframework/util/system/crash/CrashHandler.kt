@@ -194,6 +194,7 @@ private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLif
             collectDeviceInfo(mContext)
             // 保存日志文件
             saveCrashInfoFile(ex)
+            Log.e(TAG,ex.message)
         } catch (e: Exception) {
             e.printStackTrace()
         }
