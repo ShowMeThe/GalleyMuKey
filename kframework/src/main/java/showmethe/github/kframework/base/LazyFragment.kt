@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import showmethe.github.kframework.dialog.DialogLoading
+import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.util.toast.ToastFactory
 
 /**
@@ -103,6 +102,9 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
     override fun onResume() {//和activity的onResume绑定，Fragment初始化的时候必调用，但切换fragment的hide和visible的时候可能不会调用！
         super.onResume()
         if(firstLoad){
+            if (isLiveEventBusHere()) {
+                LiveEventBus.get().with("LiveData", LiveBusHelper::class.java).observe(this,observer)
+            }
             onLifeCreated(this)
             observerUI()
             init()
@@ -114,11 +116,37 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
         }
     }
 
+
+    private var observer: Observer<LiveBusHelper> = Observer {
+        it?.apply {
+            onEventComing(this)
+        }
+    }
+
+    open fun onEventComing(helper : LiveBusHelper) {
+
+    }
+
+    open fun sendEvent(helper: LiveBusHelper) {
+        LiveEventBus.get().with("LiveData").post(helper)
+    }
+
+
+    open fun sendEventDelay(helper: LiveBusHelper, delay: Long) {
+        LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).postDelay(helper, delay)
+    }
+
+
+    open fun isLiveEventBusHere(): Boolean {
+        return false
+    }
+
     override fun onPause() {
         if (isVisible)
             onHidden()
         super.onPause()
     }
+
 
     //默认fragment创建的时候是可见的，但是不会调用该方法！切换可见状态的时候会调用，但是调用onResume，onPause的时候却不会调用
     override fun onHiddenChanged(hidden: Boolean) {
@@ -129,8 +157,6 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
             onHidden()
         }
     }
-
-
 
 
     fun setContentView(inflater: LayoutInflater, resId: Int): View? {

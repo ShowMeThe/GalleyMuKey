@@ -1,9 +1,6 @@
 package showmethe.github.kframework.base
 
 import android.content.Intent
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import android.os.Bundle
@@ -11,7 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.*
+import com.jeremyliao.liveeventbus.LiveEventBus
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle
 
 import io.reactivex.ObservableTransformer
@@ -19,6 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import showmethe.github.kframework.R
 import showmethe.github.kframework.dialog.DialogLoading
+import showmethe.github.kframework.livebus.LiveBusHelper
 import showmethe.github.kframework.util.toast.ToastFactory
 
 /**
@@ -41,6 +40,9 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
         if(arguments!=null){
             onBundle(arguments!!)
         }
+        if (isLiveEventBusHere()) {
+            LiveEventBus.get().with("LiveData",LiveBusHelper::class.java).observe(this,observer)
+        }
         viewModel = initViewModel()
         lifecycle.addObserver(viewModel)
         onLifeCreated(this)
@@ -54,6 +56,32 @@ abstract class BaseFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment()
 
         return view
     }
+
+
+    private var observer: Observer<LiveBusHelper> = Observer {
+        it?.apply {
+            onEventComing(this)
+        }
+    }
+
+    open fun onEventComing(helper : LiveBusHelper) {
+
+    }
+
+    open fun sendEvent(helper: LiveBusHelper) {
+        LiveEventBus.get().with("LiveData").post(helper)
+    }
+
+
+    open fun sendEventDelay(helper: LiveBusHelper, delay: Long) {
+        LiveEventBus.get().with("LiveData", LiveBusHelper::class.java).postDelay(helper, delay)
+    }
+
+
+    open fun isLiveEventBusHere(): Boolean {
+        return false
+    }
+
 
     fun showLoading(){
         loadingDialog.show(context.supportFragmentManager,"")
