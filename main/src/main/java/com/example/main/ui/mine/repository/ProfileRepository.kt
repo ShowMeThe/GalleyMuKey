@@ -91,6 +91,7 @@ class ProfileRepository : BaseRepository() {
                 userInfoBean.wallet = wallet
                 userInfoBean.totalSpend = totalSpend
                 userInfoBean.address = address
+                userInfoBean.customBg = customBg
                 bean.value = userInfoBean
             }
         })
