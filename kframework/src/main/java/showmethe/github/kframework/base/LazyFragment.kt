@@ -64,7 +64,7 @@ abstract class LazyFragment <V : ViewDataBinding,VM : BaseViewModel> : RxFragmen
 
 
     fun createViewModel(aClass : Class<VM>) : VM{
-        return  ViewModelProviders.of(activity!!, ViewModelProvider.AndroidViewModelFactory(activity!!.application)).get(aClass)
+        return  ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory(activity!!.application)).get(aClass)
     }
 
     fun <T> applySchedulers(): ObservableTransformer<T, T> {

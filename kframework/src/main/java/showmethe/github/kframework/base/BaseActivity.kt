@@ -167,7 +167,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
 
 
     fun createViewModel(aClass : Class<VM>) : VM{
-        return  ViewModelProviders.of(this,ViewModelProvider.AndroidViewModelFactory(application)).get(aClass)
+        return  ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(application)).get(aClass)
     }
 
 
