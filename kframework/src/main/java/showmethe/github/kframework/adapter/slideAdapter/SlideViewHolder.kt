@@ -16,20 +16,15 @@ import showmethe.github.kframework.R
  * Date : 2018/9/30
  * Time : 17:00
  */
-class SlideItemView(private val mItemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mItemView) {
-    private val mViews: SparseArray<View>
-
-
-    init {
-        mViews = SparseArray()
-    }
+class SlideViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mItemView) {
+    private val views: SparseArray<View> = SparseArray()
 
 
     fun <T : View> getView(viewId: Int): T? {
-        var view: View? = mViews.get(viewId)
+        var view: View? = views.get(viewId)
         if (view == null) {
             view = mItemView.findViewById(viewId)
-            mViews.put(viewId, view)
+            views.put(viewId, view)
         }
         return view as T?
     }
@@ -67,7 +62,7 @@ class SlideItemView(private val mItemView: View) : androidx.recyclerview.widget.
     }
 
 
-    fun closeMenu(): SlideItemView {
+    fun closeMenu(): SlideViewHolder {
         (getView<View>(R.id.slideLayout) as SlideLayout).adapter.closeOpenItem()
         return this
     }

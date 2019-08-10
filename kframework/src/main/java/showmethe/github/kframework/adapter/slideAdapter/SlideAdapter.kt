@@ -19,12 +19,12 @@ import showmethe.github.kframework.util.widget.ScreenSizeUtil
  * Author : jiaqi Ye
  * Date : 2018/9/30
  * Time : 16:58
- *
+ *c
  */
-abstract class SlideAdapter<D, V : androidx.recyclerview.widget.RecyclerView.ViewHolder>(var mContext: Context,
-                                                                                         var mData: ObservableArrayList<D>) : androidx.recyclerview.widget.RecyclerView.Adapter<V>() {
+abstract class SlideAdapter<D, V : RecyclerView.ViewHolder>(var context: Context,
+                                                            var mData: ObservableArrayList<D>) : RecyclerView.Adapter<V>() {
     private var mSlideItems: SlideItem? = null
-    private var mRecycleView: androidx.recyclerview.widget.RecyclerView? = null
+    private var mRecycleView: RecyclerView? = null
     private var mItemViewWidth: Int = 0
     private var contentView: View? = null
     private var rightMenu: List<View>? = null
@@ -36,7 +36,7 @@ abstract class SlideAdapter<D, V : androidx.recyclerview.widget.RecyclerView.Vie
     abstract val viewId: Int
 
 
-    private var click: onSlideClickListener? = null
+    private var click: OnSlideClickListener? = null
 
     init {
         mData.addOnListChangedCallback(object : ObservableList.OnListChangedCallback<ObservableArrayList<D>>(){
@@ -96,7 +96,7 @@ abstract class SlideAdapter<D, V : androidx.recyclerview.widget.RecyclerView.Vie
 
 
     override fun onBindViewHolder(viewHolder: V, position: Int) {
-        val holder = viewHolder as SlideItemView
+        val holder = viewHolder as SlideViewHolder
 
         val contentView = contentView
 
@@ -150,55 +150,53 @@ abstract class SlideAdapter<D, V : androidx.recyclerview.widget.RecyclerView.Vie
     }
 
 
-    private fun initRightMenu(holder: SlideItemView) {
+    private fun initRightMenu(holder: SlideViewHolder) {
         val item = mSlideItems
 
         for (i in 0 until rightMenu!!.size) {
             val rightMenu = rightMenu!![i]
-            if (rightMenu != null) {
-                val rightMenuParams = rightMenu.layoutParams as LinearLayout.LayoutParams
-                rightMenuParams.width = (ScreenSizeUtil.getWidth(holder.itemView.context) * item!!.rightMenuRatio).toInt()
-                rightMenu.layoutParams = rightMenuParams
+            val rightMenuParams = rightMenu.layoutParams as LinearLayout.LayoutParams
+            rightMenuParams.width = (ScreenSizeUtil.getWidth(holder.itemView.context) * item!!.rightMenuRatio).toInt()
+            rightMenu.layoutParams = rightMenuParams
 
-                rightMenu.setOnClickListener {
-                    if (click != null) {
-                        closeOpenItem()
-                        click!!.onMenuItemClick(i)
-                    }
+            rightMenu.setOnClickListener {
+                if (click != null) {
+                    closeOpenItem()
+                    click!!.onMenuItemClick(i)
                 }
-
-                when (mSlideItems!!.menuItemList[i].type) {
-                    MenuType.IMAGE -> {
-                        holder.setImageRes(mSlideItems!!.menuItemList[i].resId)
-                        if (mSlideItems!!.menuItemList[i].backgroundColor != 0) {
-                            holder.setBackgroundColor(mContext, mSlideItems!!.menuItemList[i].backgroundColor, MenuType.IMAGE)
-                        }
-                    }
-                    MenuType.TEXT -> {
-                        holder.setText(mSlideItems!!.menuItemList[i].stringText)
-                        if (mSlideItems!!.menuItemList[i].parseTextColor != 0) {
-                            holder.setTextColor(mContext, mSlideItems!!.menuItemList[i].parseTextColor)
-                        }
-
-                        if (mSlideItems!!.menuItemList[i].backgroundColor != 0) {
-                            holder.setBackgroundColor(mContext, mSlideItems!!.menuItemList[i].backgroundColor, MenuType.TEXT)
-                        }
-                    }
-                }
-
-                (holder.getView<View>(R.id.slideLayout) as SlideLayout).setRightMenuWidth(rightMenuParams.width)
             }
+
+            when (mSlideItems!!.menuItemList[i].type) {
+                MenuType.IMAGE -> {
+                    holder.setImageRes(mSlideItems!!.menuItemList[i].resId)
+                    if (mSlideItems!!.menuItemList[i].backgroundColor != 0) {
+                        holder.setBackgroundColor(context, mSlideItems!!.menuItemList[i].backgroundColor, MenuType.IMAGE)
+                    }
+                }
+                MenuType.TEXT -> {
+                    holder.setText(mSlideItems!!.menuItemList[i].stringText)
+                    if (mSlideItems!!.menuItemList[i].parseTextColor != 0) {
+                        holder.setTextColor(context, mSlideItems!!.menuItemList[i].parseTextColor)
+                    }
+
+                    if (mSlideItems!!.menuItemList[i].backgroundColor != 0) {
+                        holder.setBackgroundColor(context, mSlideItems!!.menuItemList[i].backgroundColor, MenuType.TEXT)
+                    }
+                }
+            }
+
+            (holder.getView<View>(R.id.slideLayout) as SlideLayout).setRightMenuWidth(rightMenuParams.width)
 
         }
 
 
     }
 
-    fun setSlideClickListener(clickListener: onSlideClickListener) {
+    fun setSlideClickListener(clickListener: OnSlideClickListener) {
         this.click = clickListener
     }
 
-    interface onSlideClickListener {
+    interface OnSlideClickListener {
         fun onContentItemClick(position: Int)
 
 
@@ -212,10 +210,10 @@ abstract class SlideAdapter<D, V : androidx.recyclerview.widget.RecyclerView.Vie
         this.mSlideItems = creator.slideItems
         this.mRecycleView = creator.recyclerView
 
-        mRecycleView!!.adapter = this
-        mItemViewWidth = ScreenSizeUtil.getWidth(mRecycleView!!.context)
-        mRecycleView!!.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
+        mRecycleView?.adapter = this
+        mItemViewWidth = ScreenSizeUtil.getWidth(context)
+        mRecycleView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 scrollingItem = null
                 closeOpenItem()
