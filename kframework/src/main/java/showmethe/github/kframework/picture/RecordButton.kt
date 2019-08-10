@@ -206,7 +206,7 @@ class RecordButton @JvmOverloads constructor(context: Context, attrs: AttributeS
         mHeight = View.MeasureSpec.getSize(heightMeasureSpec)
 
         if (mExCircleRadius * 2f * excicleMagnification > min(mWidth, mHeight)) {
-            mInnerCircleRadius = mExCircleRadius
+            mExCircleRadius = mInnerCircleRadius
         }
         if (mInnerCircleRadius > mExCircleRadius) {
             mInnerCircleRadius = mExCircleRadius
