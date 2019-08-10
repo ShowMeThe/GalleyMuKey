@@ -6,13 +6,31 @@
 	<application
 		android:name=".base.AppApplication"
 		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
+		android:icon="@mipmap/ic_launcher2"
 		android:label="@string/app_name"
-		android:roundIcon="@mipmap/ic_launcher"
+		android:roundIcon="@mipmap/ic_launcher2"
 		android:supportsRtl="true"
 		android:theme="@style/MaterialTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:theme">
+		
+		
+		
+		<activity
+			android:name="com.example.main.ui.MainActivity"
+			android:configChanges="orientation|keyboardHidden|navigation|locale"
+			android:launchMode="singleTop"
+			android:screenOrientation="portrait"
+			android:exported="true"
+			android:windowSoftInputMode="stateAlwaysHidden">
+			<intent-filter>
+				<action android:name="com.crash.restart" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		
+		
 		<activity android:name="com.example.main.ui.mine.WalletActivity"
 			android:configChanges="orientation|keyboardHidden|navigation|locale"
 			android:launchMode="singleTop"
@@ -77,18 +95,8 @@
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateAlwaysHidden" />
-		<activity
-			android:name="com.example.main.ui.MainActivity"
-			android:configChanges="orientation|keyboardHidden|navigation|locale"
-			android:launchMode="singleTop"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="stateAlwaysHidden">
-			<intent-filter>
-				<action android:name="com.crash.restart" />
-				
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
+	
+		
 	</application>
 
 </manifest>

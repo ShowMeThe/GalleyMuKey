@@ -171,7 +171,7 @@ private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLif
             mDefaultHandler!!.uncaughtException(thread, ex)
         } else {
             val activityPair = getActivityPair()
-                // restartActivity(activityPair)
+           // restartActivity(activityPair)
             // 退出当前程序
             android.os.Process.killProcess(android.os.Process.myPid())
             exitProcess(10)

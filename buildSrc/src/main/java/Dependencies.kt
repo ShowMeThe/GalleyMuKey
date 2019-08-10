@@ -14,9 +14,9 @@ object LibV{
 
 
     val rxlifecycle3 ="3.0.0"
-    val rxjava = "2.2.10"
+    val rxjava = "2.2.11"
     val rxandroid = "2.1.1"
-    val rxkotlin = "2.4.0-beta.1"
+    val rxkotlin = "2.4.0"
     val glide = "4.9.0"
     val okhttp3 = "4.0.1"
 }
