@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:background="@color/black"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".picture.VideoRecordActivity">
+	
+	
+	<androidx.camera.view.CameraView
+		android:id="@+id/cameraView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:lensFacing="back"
+		app:pinchToZoomEnabled="true"
+		app:captureMode="mixed"
+	>
+	</androidx.camera.view.CameraView>
+	
+	
+	<ImageView
+		android:id="@+id/ivChange"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentEnd="true"
+		android:layout_margin="@dimen/px30dp"
+		android:background="@drawable/back"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	
+	
+	<showmethe.github.kframework.picture.RecordButton
+		android:id="@+id/capture"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		app:excircleRadius="@dimen/px120dp"
+		app:innerCircleRadius="@dimen/px80dp"
+		app:maxTime="15"
+		app:minTime="1"
+		app:progressColor="@color/colorAccent"
+		android:layout_marginBottom="@dimen/px30dp"
+		android:layout_width="@dimen/px300dp"
+		android:layout_height="@dimen/px300dp" />
+
+</RelativeLayout>

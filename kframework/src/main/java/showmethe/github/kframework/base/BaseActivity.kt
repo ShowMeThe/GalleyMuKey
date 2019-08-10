@@ -28,6 +28,7 @@ import showmethe.github.kframework.util.widget.StatusBarUtil
 import java.util.concurrent.TimeUnit
 import showmethe.github.kframework.R
 import showmethe.github.kframework.util.system.hideSoftKeyboard
+import kotlin.math.max
 
 /**
  * showmethe.github.kframework.base
@@ -320,7 +321,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
      * @param rootLayout
      */
     private fun circularReveal(rootLayout: View) {
-        val finalRadius = Math.max(rootLayout.width, rootLayout.height).toFloat()
+        val finalRadius = max(rootLayout.width, rootLayout.height).toFloat()
         val circularReveal = ViewAnimationUtils.createCircularReveal(
             rootLayout,
             (rootLayout.width * 0.5).toInt(),
@@ -338,7 +339,7 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
      * @param rootLayout
      */
     private fun circularFinishReveal(rootLayout: View,call : ()->Unit) {
-        val finalRadius = Math.max(rootLayout.width, rootLayout.height).toFloat()
+        val finalRadius = max(rootLayout.width, rootLayout.height).toFloat()
         val circularReveal = ViewAnimationUtils.createCircularReveal(
             rootLayout,
             (rootLayout.width * 0.5).toInt(),

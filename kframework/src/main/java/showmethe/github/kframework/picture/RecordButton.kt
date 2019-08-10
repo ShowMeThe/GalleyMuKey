@@ -30,6 +30,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import showmethe.github.kframework.R
+import kotlin.math.min
 
 
 /**
@@ -204,11 +205,11 @@ class RecordButton @JvmOverloads constructor(context: Context, attrs: AttributeS
         mWidth = View.MeasureSpec.getSize(widthMeasureSpec)
         mHeight = View.MeasureSpec.getSize(heightMeasureSpec)
 
-        if (mExCircleRadius * 2f * excicleMagnification > Math.min(mWidth, mHeight)) {
-            throw RuntimeException("设置的半径的2 * " + excicleMagnification + "倍要小于宽和高中的最小值的")
+        if (mExCircleRadius * 2f * excicleMagnification > min(mWidth, mHeight)) {
+            mInnerCircleRadius = mExCircleRadius
         }
         if (mInnerCircleRadius > mExCircleRadius) {
-            throw RuntimeException("设置的内圆半径要小于外圆半径")
+            mInnerCircleRadius = mExCircleRadius
         } else if (mInnerCircleRadius == mExCircleRadius) {
             Log.e(TAG, "mInnerCircleRadius == mExCircleRadius 你将看不到进度条")
         }

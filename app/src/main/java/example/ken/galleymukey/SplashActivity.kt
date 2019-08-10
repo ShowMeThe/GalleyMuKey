@@ -1,5 +1,7 @@
 package example.ken.galleymukey
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
@@ -18,13 +20,17 @@ import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.util.extras.double2Decimal
 import showmethe.github.kframework.util.rden.RDEN
+import showmethe.github.kframework.util.system.RxPermissionUtil
+import java.security.Permission
 import kotlin.random.Random
 
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
+
+    val rxPer = RxPermissionUtil()
+
     override fun onLifeCreated(owner: LifecycleOwner) {
 
     }
-
 
     val random = Random(System.currentTimeMillis())
     val bannerList = ArrayList<String>()
@@ -40,7 +46,18 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     override fun observerUI() {
     }
 
+    @SuppressLint("CheckResult")
     override fun init(savedInstanceState: Bundle?) {
+        rxPer.with(this)
+            .request(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO)
+            .subscribe {
+                if(it){
+                    startToMain()
+                }
+            }
+    }
+
+    private fun startToMain(){
         random.nextInt(0,10)
         source.init()
 
@@ -56,15 +73,14 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             }
 
             delay(3000)
-           /* startActivity(null,LikeActivity::class.java)*/
-              if(!RDEN.get(RdenConstant.hasLogin,false)){
-                  startActivity(null, LoginActivity::class.java)
+            /* startActivity(null,LikeActivity::class.java)*/
+            if(!RDEN.get(RdenConstant.hasLogin,false)){
+                startActivity(null, LoginActivity::class.java)
             }else{
-                  startActivity(null, MainActivity::class.java)
+                startActivity(null, MainActivity::class.java)
             }
             finish()
         }
-
 
     }
 

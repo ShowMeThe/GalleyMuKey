@@ -17,7 +17,7 @@ import java.lang.Exception
 abstract class SimpleDialogFragment  : DialogFragment() {
 
 
-    private lateinit var activity : Context
+    lateinit var activity : Context
 
     private var onCreate :(()->Int)? = null
 

@@ -1197,7 +1197,7 @@ public class VideoRecordActivity extends AppCompatActivity {
             }
         }
         if(needPermissions.size()>0){
-            ActivityCompat.requestPermissions(this,needPermissions.toArray(new String[needPermissions.size()]),PERMISSION_CODE);
+            ActivityCompat.requestPermissions(this,needPermissions.toArray(new String[0]),PERMISSION_CODE);
         }
     }
 
