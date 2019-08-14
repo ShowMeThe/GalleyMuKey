@@ -1,9 +1,11 @@
 package com.example.home.main
 
 import android.animation.Animator
+import android.graphics.Matrix
 import android.graphics.PointF
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.*
 import showmethe.github.kframework.parallaxback.ParallaxBack
 
@@ -18,6 +20,8 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.home.R
 import com.example.home.databinding.ActivityImageShowBinding
 import com.example.home.main.vm.HomeViewModel
+import kotlin.math.abs
+import kotlin.math.sqrt
 
 
 @ParallaxBack
@@ -38,6 +42,7 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
     private var firstClick: Long = 0//第一次点击时间
     private var secondClick: Long = 0//第二次点击时间
     private var count = 0
+
 
     override fun getViewId(): Int = R.layout.activity_image_show
 
@@ -96,8 +101,7 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
         }
 
 
-        image.setOnTouchListener { v, event ->
-
+        /*image.setOnTouchListener { v, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN ->{
                     if(event.pointerCount == 1){
@@ -106,17 +110,19 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
                             firstClick = System.currentTimeMillis()
                         }else if(count == 2){
                             secondClick = System.currentTimeMillis()
-                            if(secondClick - firstClick <400){
-                                if(id!=-1){
-                                    showLike()
-                                    viewModel.setLike(id,true)
+                            count = when {
+                                secondClick - firstClick <400 -> {
+                                    if(id!=-1){
+                                        showLike()
+                                        viewModel.setLike(id,true)
+                                    }
+                                    0
                                 }
-                                count = 0
-                            } else if(secondClick - firstClick in 401..1200){
-                                finishAfterTransition()
-                                count = 0
-                            } else{
-                                count = 0
+                                secondClick - firstClick in 401..1200 -> {
+                                    finishAfterTransition()
+                                    0
+                                }
+                                else -> 0
                             }
                         }
                         layoutY = layout.y
@@ -130,7 +136,7 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
                 MotionEvent.ACTION_MOVE ->{
                     val y = event.rawY
                     offsetY =  y - dPoint.y
-                    if(Math.abs(offsetY)>screenHeight/2){
+                    if(abs(offsetY) >screenHeight/2){
                         return@setOnTouchListener true
                     }
                     //移动
@@ -138,15 +144,15 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
                     image.translationX = event.rawX - dPoint.x
 
                     //缩放
-                    image.scaleX = 1  - Math.abs(offsetY/screenHeight)
-                    image.scaleY = 1  - Math.abs(offsetY/screenHeight)
+                    image.scaleX = 1  - abs(offsetY/screenHeight)
+                    image.scaleY = 1  - abs(offsetY/screenHeight)
 
                     //alpha
-                    layout.translationY = -Math.abs(offsetY)
-                    rlBg.alpha = 1- Math.abs(offsetY)/screenHeight
+                    layout.translationY = -abs(offsetY)
+                    rlBg.alpha = 1- abs(offsetY) /screenHeight
                 }
                 MotionEvent.ACTION_CANCEL,MotionEvent.ACTION_UP->{
-                    if(Math.abs(offsetY)>screenHeight/8){
+                    if(abs(offsetY) >screenHeight/8){
                         finishAfterTransition()
                     }else{
                         //恢复原位
@@ -159,18 +165,13 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
                 }
             }
             true
-        }
+        }*/
+
+
+
+
     }
 
-    fun spacing(event: MotionEvent): Double{
-        if(event.pointerCount ==  2){
-            val x : Float = event.getX(0) - event.getX(1)
-            val y : Float  = event.getY(0) - event.getY(1)
-            return Math.sqrt((x * x + y * y).toDouble())
-        }else{
-            return 0.0
-        }
-    }
 
 
     fun showLike(){

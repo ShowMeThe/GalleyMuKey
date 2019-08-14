@@ -14,15 +14,13 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"/>
 		
-		<ImageView
+		<showmethe.github.kframework.widget.common.ZoomImageView
 			android:id="@+id/image"
 			android:scaleType="fitXY"
 			android:transitionName="photo"
 			android:layout_centerInParent="true"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			/>
-		
+			android:layout_height="match_parent"/>
 		
 		
 		<showmethe.github.kframework.widget.common.LikeView
