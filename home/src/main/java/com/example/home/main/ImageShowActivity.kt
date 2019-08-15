@@ -100,6 +100,16 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
             popup.show()
         }
 
+        
+        image.setOnDownProgressListener { offsetY, onComplete ->
+            //alpha
+            layout.translationY = -abs(offsetY)
+            rlBg.alpha = 1- abs(offsetY) /screenHeight
+            if(onComplete){
+                finishAfterTransition()
+            }
+        }
+
 
         /*image.setOnTouchListener { v, event ->
             when(event.action){

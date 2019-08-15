@@ -1,13 +1,12 @@
 package showmethe.github.kframework.widget.common
 
+import android.R.attr.*
 import android.content.Context
 import android.graphics.Matrix
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.ImageView
 import kotlin.math.min
-import android.R.attr.bottom
-import android.R.attr.top
 import android.graphics.PointF
 import android.graphics.RectF
 import android.view.*
@@ -60,6 +59,10 @@ class ZoomImageView @JvmOverloads constructor(
     private var imageX = 0f
     private var imageY = 0f
 
+    private val scaleNormal = 0x1242
+    private val scaleLarge = 0x1242
+    private val scaleSmall = 0x1342
+    private var mode = scaleNormal
 
 
     /**
@@ -112,8 +115,7 @@ class ZoomImageView @JvmOverloads constructor(
                 Log.e("222222222222","放大到了边界")
             }
 
-
-
+            mode = scaleLarge
             //设置缩放比例
             scaleMatrix.postScale(scaleFactor, scaleFactor, detector.focusX, detector.focusY)
             checkBorderAndCenterWhenScale()
@@ -209,6 +211,8 @@ class ZoomImageView @JvmOverloads constructor(
 
 
                 if(pointerCount == 1){
+                    imageX = x
+                    imageY = y
                     dPoint.set(event.rawX,event.rawY)
                 }
 
@@ -247,21 +251,19 @@ class ZoomImageView @JvmOverloads constructor(
 
                 if(pointerCount == 1){
 
-                    if(getScale() in 0.65f..1.00f){
+                    if(getScale()  ==  1.00f){
 
                         offsetY =  event.rawY - dPoint.y
-                        Log.e("2222222222","${1  - abs(offsetY/ScreenSizeUtil.height)}")
+                        translationY = offsetY
+                        translationX = event.rawX - dPoint.x
 
-                        scaleMatrix.postTranslate(event.x - dPoint.x ,  event.y - dPoint.y)
+                        scaleX = 1  - abs(offsetY/ScreenSizeUtil.height)
+                        scaleY = 1  - abs(offsetY/ScreenSizeUtil.height)
 
-                        /*scaleMatrix.postScale(1  - abs(offsetY/ScreenSizeUtil.height),
-                            1  - abs(offsetY/ScreenSizeUtil.height),(event.x - dPoint.x),(event.y - dPoint.y))*/
+                        mode = scaleSmall
 
-
-                        imageMatrix = scaleMatrix
+                        onDownProgress?.invoke(offsetY,false)
                     }
-
-
                 }
 
             }
@@ -276,10 +278,21 @@ class ZoomImageView @JvmOverloads constructor(
                     val y = event.y
                     postDelayed(SlowlyScaleRunnable(initScale, x, y), 5)
                 }
+                if(mode == scaleSmall && scaleX <1.0f){
+                    onDownProgress?.invoke(0f,true)
+                    animate().scaleX(1.0f).scaleY(1.0f).translationX(imageX).translationY(imageY).setDuration(300).start()
+                }
+                mode = scaleNormal
             }
         }
 
         return true
+    }
+
+
+    private var onDownProgress : ((offsetY :Float,onComplete:Boolean)->Unit)? = null
+    fun setOnDownProgressListener( onDownProgress : ((offsetY :Float,onComplete:Boolean)->Unit)){
+        this.onDownProgress = onDownProgress
     }
 
 
@@ -305,14 +318,11 @@ class ZoomImageView @JvmOverloads constructor(
             checkBorderAndCenterWhenScale()
             imageMatrix = scaleMatrix
             val currentScale = getScale()
-            if (tmpScale > 1.0f && currentScale < mTargetScale || tmpScale < 1.0f && currentScale > mTargetScale) {
-                postDelayed(this, 14)
-            } else {
-                val scale = mTargetScale / currentScale
-                scaleMatrix.postScale(scale, scale, x, y)
-                checkBorderAndCenterWhenScale()
-                imageMatrix = scaleMatrix
-            }
+
+            val scale = mTargetScale / currentScale
+            scaleMatrix.postScale(scale, scale, x, y)
+            checkBorderAndCenterWhenScale()
+            imageMatrix = scaleMatrix
         }
 
     }
