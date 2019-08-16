@@ -69,6 +69,8 @@ dependencies {
     kapt 'com.alibaba:arouter-compiler:1.2.2'
     kapt "androidx.room:room-compiler:2.1.0"
 
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-2'
+
     implementation project(':main')
     implementation project(':cart')
     implementation project(':home')

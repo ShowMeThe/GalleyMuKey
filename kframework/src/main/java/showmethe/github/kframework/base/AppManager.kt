@@ -33,11 +33,20 @@ class AppManager private constructor(){
         }
     }
 
+    fun removeActivity(target: Activity){
+        stack?.apply {
+            stack?.remove(target)
+        }
+    }
+
+
     fun finishTarget(cls : Class<*>){
         stack?.apply {
             for(activity in this){
                 if(activity.javaClass == cls){
                     activity.finishAfterTransition()
+                    stack?.remove(activity)
+                    break
                 }
             }
         }
@@ -48,6 +57,7 @@ class AppManager private constructor(){
             for(activity in this){
                 if(activity.javaClass != cls){
                     activity.finishAfterTransition()
+                    stack?.remove(activity)
                 }
             }
         }
@@ -58,6 +68,7 @@ class AppManager private constructor(){
             for(activity in this){
                 if((activity.javaClass != cls) and (activity.javaClass != cls2)){
                     activity.finishAfterTransition()
+                    stack?.remove(activity)
                 }
             }
         }

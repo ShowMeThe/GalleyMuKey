@@ -59,6 +59,7 @@ abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() {
     }
 
 
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         build(savedInstanceState)
         val viewId = onCreate?.invoke()
@@ -107,7 +108,15 @@ abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() {
         return super.onCreateDialog(savedInstanceState)
     }
 
-
+    override fun dismiss() {
+        dialog?.apply {
+            if(isShowing){
+                if(getActivity()!=null){
+                    super.dismiss()
+                }
+            }
+        }
+    }
 
     override fun show(manager: FragmentManager, tag: String?) {
         try {

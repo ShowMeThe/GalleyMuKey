@@ -6,12 +6,10 @@ class Share : ShareObservable {
 
 
     companion object{
-        private var instant : Share? = null
+        private val  instant : Share by lazy { Share() }
+
         fun get() : Share{
-            if(instant == null){
-                instant = Share()
-            }
-            return instant!!
+            return instant
         }
     }
 

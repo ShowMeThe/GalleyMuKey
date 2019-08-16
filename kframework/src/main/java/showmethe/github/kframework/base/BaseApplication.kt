@@ -38,7 +38,7 @@ open class BaseApplication : Application() {
             RDEN.build(this@BaseApplication)
         }
         registerActivityLifecycleCallbacks(ParallaxBackHelper.get())
-        registerActivityLifecycleCallbacks(CrashHandler.get(this))
+        CrashHandler.get(this)
         registerActivityLifecycleCallbacks(object :SimpleLifecyclerCallbacks(){
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
                 if(activity is AppCompatActivity){

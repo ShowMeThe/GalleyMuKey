@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -34,6 +35,7 @@ import com.example.main.ui.mine.vm.MainViewModel
 import com.example.router.dialog.CameraAlbumDialog
 import com.example.router.router.RouteServiceManager
 import com.example.router.router.RouterService
+import com.example.router.share.Share
 import com.example.router.util.CircularRevealUtils
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,7 +60,7 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
     private var homeFragment: Fragment? = null
     private var cateFragment: Fragment? = null
     private var iProvider: RouterService? = null
-
+    var  cateChildManager : FragmentManager? = null
 
     private val pickDialog = CameraAlbumDialog()
 
@@ -75,6 +77,10 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
                 TGlide.load(this, topBg)
             }
         })
+
+        Share.get().onNotifyFragmentManager {
+            cateChildManager = it
+        }
 
 
     }
@@ -298,13 +304,15 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
         })
     }
 
-
+    fun catePopBack(boolean: Boolean){
+        Share.get().popBack(boolean)
+    }
     override fun onBackPressed() {
         if (!drawer.isDrawerOpen(GravityCompat.START)) {
             if (tab.selectedTabPosition == 1) {
-                viewModel.cateChildManager?.fragments?.apply {
+                cateChildManager?.fragments?.apply {
                     if (size > 1) {
-                        viewModel.catePopBack(true)
+                        catePopBack(true)
                     } else {
                         super.onBackPressed()
                     }

@@ -79,7 +79,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
             }else{
                 startActivity(null, MainActivity::class.java)
             }
-            finish()
+            finishAfterTransition()
         }
 
     }

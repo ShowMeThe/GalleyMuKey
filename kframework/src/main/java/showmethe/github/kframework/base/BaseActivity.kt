@@ -310,6 +310,8 @@ abstract class BaseActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatA
 
     override fun onDestroy() {
         super.onDestroy()
+        AppManager.get().removeActivity(this)
+        loadingDialog.dismiss()
         lifecycle.removeObserver(viewModel)
         LiveEventBus.get().with("LiveData", LiveBusHelper::class.java).removeObserver(observer)
     }

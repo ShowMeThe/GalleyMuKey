@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.databinding.DataBindingUtil
@@ -100,7 +101,15 @@ abstract class SimpleDialogFragment  : DialogFragment() {
     }
 
 
-
+    override fun dismiss() {
+        dialog?.apply {
+            if(isShowing){
+                if(getActivity()!=null){
+                    super.dismiss()
+                }
+            }
+        }
+    }
 
 
     override fun show(manager: FragmentManager, tag: String?) {
@@ -111,7 +120,9 @@ abstract class SimpleDialogFragment  : DialogFragment() {
                 transaction.commitAllowingStateLoss()
                 transaction.show(this)
             }
-        }catch (e: Exception){}
+        }catch (e: Exception){
+            Log.e("DialogFragment","${e.message}")
+        }
     }
 
 }

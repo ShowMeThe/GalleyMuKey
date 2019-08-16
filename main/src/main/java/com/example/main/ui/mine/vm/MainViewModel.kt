@@ -25,21 +25,16 @@ class MainViewModel(application: Application) : BaseViewModel(application){
     val repository = MainRepertory()
     val customBg = MutableLiveData<String>()
     val hashTag = MutableLiveData<ArrayList<HashTagBean>>()
-    var  cateChildManager : FragmentManager? = null
+
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
-        Share.get().onNotifyFragmentManager {
-            cateChildManager = it
-        }
 
 
     }
 
 
-    fun catePopBack(boolean: Boolean){
-        Share.get().popBack(boolean)
-    }
+
 
     fun getCustomBg(){
         repository.getCustomBg(customBg)

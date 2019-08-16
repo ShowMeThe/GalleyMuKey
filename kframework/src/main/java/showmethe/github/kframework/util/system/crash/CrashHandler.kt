@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
+import showmethe.github.kframework.base.BaseApplication
 import showmethe.github.kframework.base.BaseApplication.Companion.context
 
 import java.io.File
@@ -27,34 +28,8 @@ import kotlin.system.exitProcess
  */
 
 class CrashHandler /** 保证只有一个CrashHandler实例  */
-private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLifecycleCallbacks {
+private constructor() : Thread.UncaughtExceptionHandler {
 
-    override fun onActivityPaused(activity: Activity?) {
-
-    }
-
-    override fun onActivityResumed(activity: Activity?) {
-    }
-
-    override fun onActivityStarted(activity: Activity?) {
-        currentActivity = activity
-    }
-
-    override fun onActivityDestroyed(activity: Activity?) {
-        currentActivity = activity
-    }
-
-    override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-    }
-
-    override fun onActivityStopped(activity: Activity?) {
-
-
-    }
-
-    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-        currentActivity = activity
-    }
 
     //收集错误次数
     private var repeatTime = 0
@@ -64,13 +39,12 @@ private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLif
     // 系统默认的UncaughtException处理类
     private var mDefaultHandler: Thread.UncaughtExceptionHandler? = null
     private var mContext: Context? = null
-    var  lifecycleCallbacks : Application.ActivityLifecycleCallbacks? = null
+
 
     // 用来存储设备信息和异常信息
     private val infos = HashMap<String, String>()
 
-    //currentActivity
-    private var currentActivity: Activity? = null
+
 
     private val globalpath: String
         get() = (mContext!!.externalCacheDir!!.absolutePath
@@ -92,7 +66,7 @@ private constructor() : Thread.UncaughtExceptionHandler ,Application.ActivityLif
 
 
     private fun getActivityPair(): Pair<Activity?, Intent?> {
-        val activity = currentActivity
+        val activity = BaseApplication.ctx?.get()
         val intent = if (activity?.intent?.action == "android.intent.action.MAIN")
             Intent(activity, activity.javaClass)
         else

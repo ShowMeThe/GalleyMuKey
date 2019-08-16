@@ -101,7 +101,7 @@ class SmartLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        val childCount = childCount
+
         addViewInLayout(loadingView, -1, DEFAULT_LAYOUT_PARAMS, true)
         addViewInLayout(emptyView, -1, DEFAULT_LAYOUT_PARAMS, true)
         addViewInLayout(errorView, -1, DEFAULT_LAYOUT_PARAMS, true)
@@ -109,12 +109,7 @@ class SmartLinearLayout @JvmOverloads constructor(context: Context, attrs: Attri
         setViewState(contentState)
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        for (view in views) {
-            removeView(view)
-        }
-    }
+
 
     fun showLoading() {
         handler.sendEmptyMessageDelayed(0, 200)

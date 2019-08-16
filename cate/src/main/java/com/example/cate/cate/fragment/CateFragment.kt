@@ -10,8 +10,10 @@ import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.EditorInfo
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.cate.R
@@ -20,6 +22,7 @@ import com.example.router.constant.PathConst
 
 
 import com.example.router.dialog.HashTagDialog
+import com.example.router.share.Share
 
 
 import kotlinx.android.synthetic.main.fragment_cate.*
@@ -39,11 +42,10 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
 
     var fragments: List<Fragment>? = null
 
-    var temp = ""//初始对比
-    var sb = StringBuilder()
-
     val dialog = HashTagDialog()
 
+    val share = Share.get()
+    val popBack = MutableLiveData<Boolean>()
 
     override fun initViewModel(): CateViewModel = createViewModel(CateViewModel::class.java)
     override fun getViewId(): Int = R.layout.fragment_cate
@@ -59,7 +61,11 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
             }
         })
 
-        viewModel. popBack.observe(this, Observer {
+
+        share.onPopBack {
+            popBack.value = true
+        }
+        popBack.observe(this, Observer {
             it?.apply {
                 childFragmentManager.popBackStack()
             }
@@ -81,6 +87,8 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
         replaceFragment(CategoryFragment::class.java.name)
 
         viewModel.getHashTag()
+
+
 
     }
 
@@ -183,8 +191,9 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
         }).start()
     }
 
-
-
+    fun updateFragmentManager(fragmentManager: FragmentManager){
+        share.updateFragmentManager(fragmentManager)
+    }
     private fun replaceFragment(tag: String) {
         var tempFragment = childFragmentManager.findFragmentByTag(tag)
         val transaction = childFragmentManager.beginTransaction()
@@ -204,7 +213,7 @@ class CateFragment  : BaseFragment<ViewDataBinding, CateViewModel>() {
             }
         }
 
-        viewModel.updateFragmentManager(childFragmentManager)
+        updateFragmentManager(childFragmentManager)
         fragments  = childFragmentManager.fragments
         if (fragments != null) {
             for (i in fragments!!.indices) {

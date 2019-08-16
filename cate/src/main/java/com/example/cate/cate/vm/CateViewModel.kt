@@ -25,23 +25,19 @@ class CateViewModel(application: Application) : BaseViewModel(application) {
     val newGoods = MutableLiveData<List<NewGoodsBean>>()
     val hashTag = MutableLiveData<ArrayList<HashTagBean>>()
     val searchContent = MutableLiveData<String>()
-    val popBack = MutableLiveData<Boolean>()
-    val share = Share.get()
+
+
 
     override fun onViewModelCreated(owner: LifecycleOwner) {
 
 
-        share.onPopBack {
-            popBack.value = true
-        }
+
 
 
     }
 
 
-    fun updateFragmentManager(fragmentManager: FragmentManager){
-        share.updateFragmentManager(fragmentManager)
-    }
+
 
     fun getGoodsByHashTag(tag:String,pagerNumber : Int){
         repository.findGoodsByHashTag(tag,pagerNumber,newGoods)

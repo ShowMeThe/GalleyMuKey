@@ -97,7 +97,6 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
-
         addViewInLayout(errorView, -1, DEFAULT_LAYOUT_PARAMS, true)
         addViewInLayout(emptyView, -1, DEFAULT_LAYOUT_PARAMS, true)
         addViewInLayout(loadingView, -1, DEFAULT_LAYOUT_PARAMS, true)
@@ -106,12 +105,6 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
     }
 
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        for (view in views) {
-            removeView(view)
-        }
-    }
 
     fun showLoading() {
         mHandler.sendEmptyMessageDelayed(0, 200)
