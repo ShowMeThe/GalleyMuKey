@@ -13,6 +13,7 @@ import com.example.database.source.dto.*
 import com.example.main.ui.auth.vm.AuthViewModel
 import com.example.main.ui.MainActivity
 import com.example.main.ui.auth.LoginActivity
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -20,13 +21,10 @@ import kotlinx.coroutines.launch
 import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.util.extras.double2Decimal
 import showmethe.github.kframework.util.rden.RDEN
-import showmethe.github.kframework.util.system.RxPermissionUtil
-import java.security.Permission
 import kotlin.random.Random
 
 class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
-    val rxPer = RxPermissionUtil()
 
     override fun onLifeCreated(owner: LifecycleOwner) {
 
@@ -48,7 +46,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
 
     @SuppressLint("CheckResult")
     override fun init(savedInstanceState: Bundle?) {
-        rxPer.with(this)
+        RxPermissions(this)
             .request(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO)
             .subscribe {
                 if(it){

@@ -77,51 +77,105 @@ class RDEN private constructor(){
            getRoomDao().put(bean)
        }
 
+       fun deleteString(@NotNull key: String){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.stringValue = null
+           getRoomDao().put(bean)
+       }
+
+       fun deleteBoolean(@NotNull key: String){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.booleanValue = null
+           getRoomDao().put(bean)
+       }
+
+       fun deleteInt(@NotNull key: String){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.integerValue = null
+           getRoomDao().put(bean)
+       }
+
+       fun deleteLone(@NotNull key: String){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.longValue = null
+           getRoomDao().put(bean)
+       }
+
+       fun deleteByteArray(@NotNull key: String){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.bytesValue = null
+           getRoomDao().put(bean)
+       }
+
+       fun deleteArrayList(@NotNull key: String){
+           val bean = RoomBean()
+           bean.storeKey = key
+           bean.listValue = null
+           getRoomDao().put(bean)
+       }
+
+
+       fun deleteAll(@NotNull key: String){
+           getRoomDao().delete(key)
+       }
+
 
        inline fun <reified T>get(key : String,default: T) : T {
            try {
                val clazz = T::class.java
-               if(clazz.name == String :: class.java.name){
-                   val bean =  getRoomDao().get(key)
-                   return if(bean?.stringValue.isNullOrEmpty()){
-                       default
-                   }else{
-                       bean?.stringValue as T
+               when {
+                   clazz.name == String :: class.java.name -> {
+                       val bean =  getRoomDao().get(key)
+                       return if(bean?.stringValue.isNullOrEmpty()){
+                           default
+                       }else{
+                           bean?.stringValue as T
+                       }
                    }
-               }else  if(clazz.name == "java.lang.Boolean"){
-                   val bean =  getRoomDao().get(key)
-                   return if(bean?.booleanValue == null){
-                       default
-                   }else{
-                       bean.booleanValue as T
+                   clazz.name == "java.lang.Boolean" -> {
+                       val bean =  getRoomDao().get(key)
+                       return if(bean?.booleanValue == null){
+                           default
+                       }else{
+                           bean.booleanValue as T
+                       }
                    }
-               } else if(clazz.name == "java.lang.Integer"){
-                   val bean =  getRoomDao().get(key)
-                   return if(bean?.integerValue == null){
-                       default
-                   }else{
-                       bean.integerValue as T
+                   clazz.name == "java.lang.Integer" -> {
+                       val bean =  getRoomDao().get(key)
+                       return if(bean?.integerValue == null){
+                           default
+                       }else{
+                           bean.integerValue as T
+                       }
                    }
-               }else if(clazz.name == "java.lang.Long"){
-                   val bean =  getRoomDao().get(key)
-                   return if(bean?.longValue == null){
-                       default
-                   }else{
-                       bean.longValue as T
+                   clazz.name == "java.lang.Long" -> {
+                       val bean =  getRoomDao().get(key)
+                       return if(bean?.longValue == null){
+                           default
+                       }else{
+                           bean.longValue as T
+                       }
                    }
-               }else if(clazz.name == ByteArray :: class.java.name){
-                   val bean =  getRoomDao().get(key)
-                   return if(bean?.bytesValue == null){
-                       default
-                   }else{
-                       bean.bytesValue as T
+                   clazz.name == ByteArray :: class.java.name -> {
+                       val bean =  getRoomDao().get(key)
+                       return if(bean?.bytesValue == null){
+                           default
+                       }else{
+                           bean.bytesValue as T
+                       }
                    }
-               }else if(clazz.name == "java.util.ArrayList"){
-                   val bean =  getRoomDao().get(key)
-                   return if(bean?.listValue == null){
-                       default
-                   }else{
-                       bean.listValue as T
+                   clazz.name == "java.util.ArrayList" -> {
+                       val bean =  getRoomDao().get(key)
+                       return if(bean?.listValue == null){
+                           default
+                       }else{
+                           bean.listValue as T
+                       }
                    }
                }
            }catch (e : Exception){
@@ -129,19 +183,5 @@ class RDEN private constructor(){
            }
            return default
        }
-
-
-      private fun stringToObject(value: String): ArrayList<String>{
-           val listType = object : TypeToken<ArrayList<String>>() {
-           }.type
-           return  Gson().fromJson(value, listType)
-       }
-
-
-       private fun objectToString(list: ArrayList<String>): String {
-           val gson = Gson()
-           return gson.toJson(list)
-       }
-
    }
 }

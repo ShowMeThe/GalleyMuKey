@@ -1,9 +1,6 @@
 package showmethe.github.kframework.util.rden
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 /**
  * com.example.ken.kmvvm
@@ -21,4 +18,7 @@ interface RoomDao{
     @Query("select * from RoomBean where storeKey  = (:key)")
     fun get(key :String ) : RoomBean?
 
+
+    @Query("delete from RoomBean  where storeKey = (:key)")
+    fun delete(key :String )
 }

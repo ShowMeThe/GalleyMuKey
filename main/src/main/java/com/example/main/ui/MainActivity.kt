@@ -119,6 +119,10 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
         viewModel.getCustomBg()
 
 
+        if( RDEN.get("Drawer",false)){
+            drawer.openDrawer(GravityCompat.START)
+        }
+
     }
 
 
@@ -156,7 +160,11 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
         drawer.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerOpened(drawerView: View) {
                 drawerView.isClickable = true
+                RDEN.put("Drawer",true)
+            }
 
+            override fun onDrawerClosed(drawerView: View) {
+                RDEN.put("Drawer",false)
             }
         })
 

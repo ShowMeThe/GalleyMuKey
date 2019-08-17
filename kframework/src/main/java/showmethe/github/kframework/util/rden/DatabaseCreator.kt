@@ -10,7 +10,7 @@ import showmethe.github.kframework.util.rden.RoomDao
  *
  * 2019/5/13
  **/
-@Database(entities = arrayOf(RoomBean::class),version = 1)
+@Database(entities = [RoomBean::class],version = 1)
 abstract class DatabaseCreator : RoomDatabase() {
 
    abstract fun roomDao() : RoomDao
