@@ -17,8 +17,12 @@ import android.net.ConnectivityManager
  * @return
  */
 fun checkConnection(context: Context): Boolean {
-    val cm = context
-        .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val networkInfo = cm.activeNetworkInfo
-    return !(networkInfo == null || !networkInfo.isConnected)
+   return try {
+      val cm = context
+         .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+      val networkInfo = cm.activeNetworkInfo
+      !(networkInfo == null || !networkInfo.isConnected)
+   }catch (e:Exception){
+      false
+   }
 }
