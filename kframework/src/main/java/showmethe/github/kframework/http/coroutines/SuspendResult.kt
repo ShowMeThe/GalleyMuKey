@@ -1,5 +1,6 @@
 package showmethe.github.kframework.http.coroutines
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
@@ -12,7 +13,7 @@ import showmethe.github.kframework.http.JsonUtil
 class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
 
 
-    private  lateinit var response : Response<JsonResult<T>>
+    private  var response : Response<JsonResult<T>>? = null
     private var netJob : Job? = null
 
     fun hold(block: suspend () -> Response<JsonResult<T>>){
@@ -21,10 +22,16 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
                 withContext(Dispatchers.Main){
                     onLoading?.invoke() }
                 withTimeout(5000){
-                    response =  block.invoke()
+                    try {
+                        response =  block.invoke()
+                    } catch (e: Exception) {
+                        Log.e("SuspendResult", "${e.message}")
+                    }
                 }
                 withContext (Dispatchers.Main){
-                    build()
+                     if(response!=null){
+                         build()
+                     }
                 }
             }
         }
@@ -32,34 +39,36 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
 
 
     private fun build(){
-        if(!response.isSuccessful){
-            try {
-                val result = JsonUtil.fromJson(response.errorBody().toString(), JsonResult::class.java)
-                if (result != null) {
-                    val errorMessage = result.message!!
-                    onError?.invoke(-1,errorMessage)
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                onError?.invoke(-1,e.message.toString())
-            }
-        }else{
-            try {
-                if (response.body() == null) {
-                    onError?.invoke(-1, "")
-                } else {
-                    if (response.body()?.code == 2000000) {
-                        onSuccess?.invoke(response.body()?.data, response.body()?.message!!)
-                    } else {
-                        onError?.invoke(response.body()?.code!!, response.body()?.message!!)
+        response?.apply {
+            if(!isSuccessful){
+                try {
+                    val result = JsonUtil.fromJson(errorBody().toString(), JsonResult::class.java)
+                    if (result != null) {
+                        val errorMessage = result.message!!
+                        onError?.invoke(-1,errorMessage)
                     }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    onError?.invoke(-1,e.message.toString())
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
+            }else{
+                try {
+                    if (body() == null) {
+                        onError?.invoke(-1, "")
+                    } else {
+                        if (body()?.resultCode == 1) {
+                            onSuccess?.invoke(body()?.data, body()?.message!!)
+                        } else {
+                            onError?.invoke(body()?.resultCode!!, body()?.message!!)
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
+            netJob?.cancel()
         }
-        netJob?.cancel()
     }
 
     private var  onLoading : (() ->Unit)?  = null
