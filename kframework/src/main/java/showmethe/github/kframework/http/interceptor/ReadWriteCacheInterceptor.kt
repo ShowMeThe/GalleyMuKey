@@ -14,7 +14,7 @@ import showmethe.github.kframework.util.system.checkConnection
  */
 class ReadWriteCacheInterceptor : Interceptor {
 
-    @Throws(IOException::class)
+
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
 

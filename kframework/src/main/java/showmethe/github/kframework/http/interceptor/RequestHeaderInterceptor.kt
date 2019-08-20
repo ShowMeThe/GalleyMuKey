@@ -14,7 +14,6 @@ class RequestHeaderInterceptor : Interceptor, SessionObserver {
 
 
     var sessionId = ""
-    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         val request = chain.request()
         val originalHttpUrl = request.url

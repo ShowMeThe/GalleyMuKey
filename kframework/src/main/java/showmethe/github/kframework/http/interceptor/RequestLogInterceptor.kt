@@ -14,7 +14,7 @@ import okio.Buffer
 
 class RequestLogInterceptor : Interceptor {
 
-    @Throws(IOException::class)
+
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response = chain.proceed(request)
