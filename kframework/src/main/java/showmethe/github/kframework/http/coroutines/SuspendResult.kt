@@ -25,12 +25,15 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
                     try {
                         response =  block.invoke()
                     } catch (e: Exception) {
+                        loadingOutTime?.invoke()
                         Log.e("SuspendResult", "${e.message}")
                     }
                 }
                 withContext (Dispatchers.Main){
                      if(response!=null){
                          build()
+                     }else{
+                         loadingOutTime?.invoke()
                      }
                 }
             }
@@ -57,10 +60,10 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
                     if (body() == null) {
                         onError?.invoke(-1, "")
                     } else {
-                        if (body()?.resultCode == 1) {
+                        if (body()?.code == 1) {
                             onSuccess?.invoke(body()?.data, body()?.message!!)
                         } else {
-                            onError?.invoke(body()?.resultCode!!, body()?.message!!)
+                            onError?.invoke(body()?.code!!, body()?.message!!)
                         }
                     }
                 } catch (e: Exception) {
@@ -77,6 +80,12 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
         this.onLoading = onLoading
         return  this
     }
+
+    private var loadingOutTime :(()->Unit)? = null
+    fun outTime( loadingOutTime :(()->Unit)){
+        this.loadingOutTime = loadingOutTime
+    }
+
 
     private var  onSuccess : ((response: T?, message: String) ->Unit)?  = null
 
