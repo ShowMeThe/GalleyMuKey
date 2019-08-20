@@ -47,16 +47,18 @@ abstract class BaseRepository :  DefaultLifecycleObserver {
         onClear()
     }
 
-    fun init(owner: LifecycleOwner){
+    fun init(owner: LifecycleOwner) : BaseRepository{
         weakOwner = WeakReference(owner)
         this.owner = weakOwner?.get()
         this.owner?.lifecycle?.addObserver(this)
+        return this
     }
 
-    open fun initRefresh(refresh : SwipeRefreshLayout){
+    open fun initRefresh(refresh : SwipeRefreshLayout) : BaseRepository{
         if(this.refresh == null){
             this.refresh = WeakReference(refresh)
         }
+        return this
     }
 
     fun showRefresh(isLoading : Boolean){

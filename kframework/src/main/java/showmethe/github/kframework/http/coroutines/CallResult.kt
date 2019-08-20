@@ -35,24 +35,24 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
                 withContext(Dispatchers.IO) {
                     withTimeout(5000) {
                         val requests = result.invoke()
-                            try {
-                                response =  requests.execute()
-                            } catch (e: Exception) {
-                                loadingOutTime?.invoke()
-                                Log.e("CallResult", "${e.message}")
-                            }
+                        try {
+                            response = requests.execute()
+                        } catch (e: Exception) {
+                            loadingOutTime?.invoke(Result(Result.OutTime))
+                            Log.e("CallResult", "${e.message}")
+                        }
                     }
                 }
                 if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
                     withContext(Dispatchers.Main) {
                         if (response != null) {
                             build()
-                        }else{
-                            loadingOutTime?.invoke()
+                        } else {
+                            loadingOutTime?.invoke(Result(Result.OutTime))
                         }
                     }
                 } else {
-                    loadingOutTime?.invoke()
+                    loadingOutTime?.invoke(Result(Result.OutTime))
                     netJob?.cancel()
                 }
             }
@@ -67,22 +67,29 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
                     val result = JsonUtil.fromJson(errorBody().toString(), JsonResult::class.java)
                     if (result != null) {
                         val errorMessage = result.message!!
-                        onError?.invoke(-1, errorMessage)
+                        onError?.invoke(Result(Result.Failure, null, -1, errorMessage), -1, errorMessage)
                     }
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    onError?.invoke(-1, e.message.toString())
+                    onError?.invoke(Result(Result.Failure, null, -1, e.message.toString()), -1, e.message.toString())
                 }
             } else {
                 try {
                     if (body() == null) {
-                        onError?.invoke(-1, "")
+                        onError?.invoke(Result(Result.Failure, null, -1, ""), -1, "")
                     } else {
                         if (body()?.code == 1) {
-                            onSuccess?.invoke(body()?.data, body()?.message!!)
+                            onSuccess?.invoke(
+                                Result(Result.Success, body()?.data, body()?.code!!, body()?.message!!),
+                                body()?.message!!
+                            )
                         } else {
-                            onError?.invoke(body()?.code!!, body()?.message!!)
+                            onError?.invoke(
+                                Result(Result.Failure, null, body()?.code!!, body()?.message!!),
+                                body()?.code!!,
+                                body()?.message!!
+                            )
                         }
                     }
                 } catch (e: Exception) {
@@ -101,23 +108,23 @@ class CallResult<T> constructor(var owner: LifecycleOwner?) {
         return this
     }
 
-    private var loadingOutTime :(()->Unit)? = null
-    fun outTime( loadingOutTime :(()->Unit)){
+    private var loadingOutTime: ((result: Result<T>) -> Unit)? = null
+    fun outTime(loadingOutTime: ((result: Result<T>) -> Unit)) {
         this.loadingOutTime = loadingOutTime
     }
 
 
-    private var onSuccess: ((response: T?, message: String) -> Unit)? = null
+    private var onSuccess: ((result: Result<T>, message: String) -> Unit)? = null
 
-    private var onError: ((code: Int, message: String) -> Unit)? = null
+    private var onError: ((result: Result<T>, code: Int, message: String) -> Unit)? = null
 
-    fun success(onSuccess: ((response: T?, message: String) -> Unit)): CallResult<T> {
+    fun success(onSuccess: ((result: Result<T>, message: String) -> Unit)): CallResult<T> {
         this.onSuccess = onSuccess
         return this
     }
 
 
-    fun error(onError: ((code: Int, message: String) -> Unit)): CallResult<T> {
+    fun error(onError: ((result: Result<T>, code: Int, message: String) -> Unit)): CallResult<T> {
         this.onError = onError
         return this
     }
