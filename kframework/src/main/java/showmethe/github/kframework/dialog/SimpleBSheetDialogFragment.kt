@@ -9,16 +9,19 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import showmethe.github.kframework.R
 import java.lang.Exception
 
-abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() {
+abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() , DefaultLifecycleObserver {
 
     var mBehavior: BottomSheetBehavior<*>? = null
 
@@ -31,6 +34,20 @@ abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() {
     private var onView :((view: View)->Unit)? = null
 
     abstract fun build(savedInstanceState: Bundle?)
+
+    private var owner : LifecycleOwner? = null
+
+    private fun init(owner: LifecycleOwner){
+        this.owner = owner
+        this.owner?.lifecycle?.addObserver(this)
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        if(this.owner != null){
+            dismissAllowingStateLoss()
+            this.owner?.lifecycle?.removeObserver(this)
+        }
+    }
 
     fun buildDialog(onCreate :(()->Int)) : SimpleBSheetDialogFragment{
         this.onCreate = onCreate
@@ -56,6 +73,11 @@ abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context
+        if(context is AppCompatActivity){
+            init(context)
+        }else if(context is LifecycleOwner){
+            init(context)
+        }
     }
 
 

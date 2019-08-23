@@ -8,14 +8,17 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import showmethe.github.kframework.R
 import java.lang.Exception
 
-abstract class SimpleDialogFragment  : DialogFragment() {
+abstract class SimpleDialogFragment  : DialogFragment(),DefaultLifecycleObserver {
 
 
     lateinit var activity : Context
@@ -27,6 +30,23 @@ abstract class SimpleDialogFragment  : DialogFragment() {
     private var onView :((view:View)->Unit)? = null
 
     abstract fun build(savedInstanceState: Bundle?)
+
+    private var owner : LifecycleOwner? = null
+
+    private fun init(owner: LifecycleOwner){
+        this.owner = owner
+        this.owner?.lifecycle?.addObserver(this)
+    }
+
+
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        if(this.owner != null){
+            dismissAllowingStateLoss()
+            this.owner?.lifecycle?.removeObserver(this)
+        }
+    }
+
 
     fun buildDialog(onCreate :(()->Int)) : SimpleDialogFragment{
         this.onCreate = onCreate
@@ -52,6 +72,11 @@ abstract class SimpleDialogFragment  : DialogFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context
+        if(context is AppCompatActivity){
+            init(context)
+        }else if(context is LifecycleOwner){
+            init(context)
+        }
     }
 
 
