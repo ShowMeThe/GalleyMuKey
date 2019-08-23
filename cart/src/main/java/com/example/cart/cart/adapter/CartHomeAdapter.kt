@@ -38,18 +38,16 @@ class CartHomeAdapter(context: Context, data: ObservableArrayList<GoodsListDto>)
             executePendingBindings()
 
             if(item.vibrantColor == -1){
-                TGlide.loadIntoBitmap(item.coverImg,object : BitmapTarget(){
-                    override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        Palette.from(resource).generate {
-                            it?.apply {
-                                item.vibrantColor = getVibrantColor(defaultColor)
-                                tvDes.setTextColor(item.vibrantColor)
-                                cardView.strokeColor = item.vibrantColor
-                                btnBuy.setBackgroundColor(item.vibrantColor)
-                            }
+                TGlide.loadIntoBitmap(item.coverImg){ bitmap ->
+                    Palette.from(bitmap).generate {
+                        it?.apply {
+                            item.vibrantColor = getVibrantColor(defaultColor)
+                            tvDes.setTextColor(item.vibrantColor)
+                            cardView.strokeColor = item.vibrantColor
+                            btnBuy.setBackgroundColor(item.vibrantColor)
                         }
                     }
-                })
+                }
             }else{
                 tvDes.setTextColor(item.vibrantColor)
                 cardView.strokeColor = item.vibrantColor

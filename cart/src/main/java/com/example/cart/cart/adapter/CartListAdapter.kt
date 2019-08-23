@@ -1,5 +1,6 @@
 package com.example.cart.cart.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.core.content.ContextCompat
@@ -28,28 +29,27 @@ class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>)
     val white = ContextCompat.getColor(context, R.color.white)
 
     override fun getItemLayout(): Int = R.layout.item_cart_list
+    @SuppressLint("SetTextI18n")
     override fun bindItems(binding: ItemCartListBinding?, item: CartListBean, position: Int) {
         binding?.apply {
 
             if(item.vibrantColor == -1){
-                TGlide.loadIntoBitmap(item.getCoverImg(),object : BitmapTarget(){
-                    override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        Palette.from(resource).generate {
-                            it?.apply {
-                                item.vibrantColor = getVibrantColor(defaultColor)
-                                tvDes.setTextColor(item.vibrantColor)
-                                tvName.setTextColor(item.vibrantColor)
-                                tvCount.setTextColor(item.vibrantColor)
-                                tvPrice.setTextColor(item.vibrantColor)
-                                item.drawable = createWithStroke(
-                                    context, CornerFamily.CUT, 10, white, item.vibrantColor,
-                                    CornerType.ALL
-                                )
-                                layout.background = item.drawable
-                            }
+                TGlide.loadIntoBitmap(item.getCoverImg()){ bitmap ->
+                    Palette.from(bitmap).generate {
+                        it?.apply {
+                            item.vibrantColor = getVibrantColor(defaultColor)
+                            tvDes.setTextColor(item.vibrantColor)
+                            tvName.setTextColor(item.vibrantColor)
+                            tvCount.setTextColor(item.vibrantColor)
+                            tvPrice.setTextColor(item.vibrantColor)
+                            item.drawable = createWithStroke(
+                                context, CornerFamily.CUT, 10, white, item.vibrantColor,
+                                CornerType.ALL
+                            )
+                            layout.background = item.drawable
                         }
                     }
-                })
+                }
             }else{
                 tvDes.setTextColor(item.vibrantColor)
                 tvName.setTextColor(item.vibrantColor)
@@ -58,9 +58,7 @@ class CartListAdapter(context: Context, data: ObservableArrayList<CartListBean>)
                 tvPrice.setTextColor(item.vibrantColor)
             }
 
-            tvPrice.text = context.getString(R.string.dollars) + double2Decimal(
-                item.getCount() * item.getPrice().toDouble()
-            )
+            tvPrice.text = context.getString(R.string.dollars) + double2Decimal(item.getCount() * item.getPrice().toDouble())
             bean = item
             executePendingBindings()
         }

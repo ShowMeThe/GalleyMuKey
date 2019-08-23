@@ -24,10 +24,11 @@ import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okio.*
+import java.io.*
 import java.util.HashMap
 
 /**
@@ -185,7 +186,7 @@ class TGlide private constructor(context: Context){
         }
 
 
-        fun loadBlurImage(url : Any,imageView: ImageView){
+        fun loadBlurPicture(url : Any,imageView: ImageView){
             INSTANT.apply {
                 requestOptions = RequestOptions.bitmapTransform(BlurImageTransform())
                 mRequestManager.load(url).apply(requestOptions)
@@ -195,7 +196,7 @@ class TGlide private constructor(context: Context){
         }
 
 
-        fun loadBlurImage(url : Any,imageView: ImageView,radius: Int){
+        fun loadBlurPicture(url : Any,imageView: ImageView,radius: Int){
             INSTANT.apply {
                 requestOptions = RequestOptions.bitmapTransform(BlurImageTransform(radius))
                 mRequestManager.load(url).apply(requestOptions)
@@ -205,16 +206,24 @@ class TGlide private constructor(context: Context){
         }
 
         //读取到Drawable
-        fun loadIntoDrawable(url: Any, target: DrawableTarget) {
+        fun loadIntoDrawable(url: Any, target: (drawable:Drawable)->Unit) {
            INSTANT.apply {
-               mRequestManager.load(url).into(target)
+               mRequestManager.load(url).into(object : DrawableTarget() {
+                   override fun resourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                       target.invoke(resource)
+                   }
+               })
            }
         }
 
         //读取到Bitmap
-        fun loadIntoBitmap(url: Any, target: BitmapTarget) {
+        fun loadIntoBitmap(url: Any, target: (bitmap:Bitmap)->Unit) {
             INSTANT.apply {
-                mRequestManager.asBitmap().load(url).into(target)
+                mRequestManager.asBitmap().load(url).into(object : BitmapTarget() {
+                    override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        target.invoke(resource)
+                    }
+                })
             }
         }
 
@@ -252,46 +261,33 @@ class TGlide private constructor(context: Context){
     @SuppressLint("CheckResult")
     @Throws(IOException::class)
     private fun savePicture(storeDir: String, fileName: String, bitmap: Bitmap,callBack: (path:String)->Unit) {
-        Observable.create(ObservableOnSubscribe<String> { ee ->
-            val dir = File(storeDir)
-            if (!dir.exists()) {
+        val dir = File(storeDir)
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+        val filePath = dir.path + "/" + fileName + ".png"
+        val saveFile = File(filePath)
+        if (saveFile.exists()) {
+            if (dir.delete()) {
                 dir.mkdirs()
-            }
-            val filePath = dir.path + "/" + fileName + ".png"
-            val saveFile = File(filePath)
-            if (saveFile.exists()) {
-                if (dir.delete()) {
-                    dir.mkdirs()
-                    saveFile.createNewFile()
-                }
-            } else {
                 saveFile.createNewFile()
             }
-
-            var fos: FileOutputStream? = null
-            try {
-                fos = FileOutputStream(saveFile)
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            }
+        } else {
+            saveFile.createNewFile()
+        }
+        GlobalScope.launch(Dispatchers.IO) {
+            val fos = FileOutputStream(saveFile)
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos)
+
             try {
-                fos?.flush()
-                ee.onNext(saveFile.path)
+                fos.flush()
+                callBack.invoke(saveFile.path)
             } catch (e: IOException) {
                 e.printStackTrace()
+            }finally {
+                fos.close()
             }
-            try {
-                fos!!.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext {
-                Log.e("222222222","${it}")
-                callBack.invoke(it)
-            }.subscribe()
+        }
     }
 
 

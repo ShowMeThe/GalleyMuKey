@@ -36,16 +36,14 @@ class GoodsDetailActivity : BaseActivity<ActivityGoodsDetailBinding, GoodsViewMo
         dto = bundle.getSerializable("dto") as GoodsListDto?
         val defaultColor = ContextCompat.getColor(context,R.color.color_ff6e00)
         dto?.apply {
-            TGlide.loadIntoBitmap(coverImg,object : BitmapTarget(){
-                override fun resourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    Palette.from(resource).generate {
-                        it?.apply {
-                            tvDes.setTextColor(getVibrantColor(defaultColor))
-                            btnBuy.setBackgroundColor(getVibrantColor(defaultColor))
-                        }
+            TGlide.loadIntoBitmap(coverImg){ bitmap ->
+                Palette.from(bitmap).generate {
+                    it?.apply {
+                        tvDes.setTextColor(getVibrantColor(defaultColor))
+                        btnBuy.setBackgroundColor(getVibrantColor(defaultColor))
                     }
                 }
-            })
+            }
         }
     }
 
