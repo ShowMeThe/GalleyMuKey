@@ -14,13 +14,12 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"/>
 		
-		<showmethe.github.kframework.widget.common.ZoomImageView
-			android:id="@+id/image"
-			android:scaleType="fitXY"
+		<androidx.viewpager2.widget.ViewPager2
+			android:id="@+id/vp2"
 			android:transitionName="photo"
-			android:layout_centerInParent="true"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+			android:layout_height="match_parent">
+		</androidx.viewpager2.widget.ViewPager2>
 		
 		
 		<showmethe.github.kframework.widget.common.LikeView

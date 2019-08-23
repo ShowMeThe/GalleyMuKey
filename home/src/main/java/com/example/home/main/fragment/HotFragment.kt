@@ -19,6 +19,7 @@ import com.example.home.main.vm.HomeViewModel
 import com.example.router.constant.PathConst
 
 import kotlinx.android.synthetic.main.fragment_hot.*
+import showmethe.github.kframework.base.BaseActivity
 import showmethe.github.kframework.base.BaseFragment
 
 /**
@@ -75,9 +76,7 @@ class HotFragment : BaseFragment<FragmentHotBinding, HomeViewModel>() {
         }
 
         adapter.setOnPhotoClickListener { view, url ->
-            val bundle = Bundle()
-            bundle.putString("photo",url)
-            context.startActivity(bundle, ImageShowActivity::class.java,view,"photo")
+            ImageShowActivity.startImg(context,url,view)
         }
     }
 }

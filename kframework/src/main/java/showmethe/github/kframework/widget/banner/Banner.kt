@@ -255,6 +255,8 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
     fun addList(arrayList: ArrayList<*>) {
+        stopPlay()
+        viewPager?.currentItem = 0
         imageList.clear()
         imageList.addAll(arrayList)
         if(showIndicator&& arrayList.size>1){
@@ -262,6 +264,9 @@ class Banner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
             dotTabView!!.setViewPager2(viewPager, imageList.size, 10, selectColor, unselectColor)
         }
         count = imageList.size
+        if(autoPlay){
+            play()
+        }
     }
 
     companion object {

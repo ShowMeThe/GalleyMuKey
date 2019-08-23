@@ -1,6 +1,6 @@
 package showmethe.github.kframework.widget.common
 
-import android.R.attr.*
+import android.animation.Animator
 import android.content.Context
 import android.graphics.Matrix
 import android.util.AttributeSet
@@ -10,15 +10,17 @@ import kotlin.math.min
 import android.graphics.PointF
 import android.graphics.RectF
 import android.view.*
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import showmethe.github.kframework.util.widget.ScreenSizeUtil
 import kotlin.math.abs
 import kotlin.math.sqrt
+import android.view.VelocityTracker
+import android.view.MotionEvent
+import showmethe.github.kframework.R
+import showmethe.github.kframework.util.extras.SimpeAnimatorListener
 
 
 class ZoomImageView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, var attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ImageView(context, attrs, defStyleAttr), View.OnTouchListener, ScaleGestureDetector.OnScaleGestureListener,
     ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -27,8 +29,9 @@ class ZoomImageView @JvmOverloads constructor(
     private var mLastPointerX = 0f
     private var mLastPointerY = 0f
 
+    private var dropDownClose = false
 
-    private val SCALE_MIN = 0.8f
+    private val SCALE_MIN = 1.0f
 
     /**
      * 最大放大倍数
@@ -44,7 +47,7 @@ class ZoomImageView @JvmOverloads constructor(
      * 手势检测
      */
     private val scaleGestureDetector: ScaleGestureDetector
-
+    private var mVelocityTracker : VelocityTracker? = null
     private var scaleMatrix = Matrix()
     private var isCanDrag = false
 
@@ -55,6 +58,7 @@ class ZoomImageView @JvmOverloads constructor(
 
 
     private var offsetY = 0f
+    private var offsetX = 0f
     private var dPoint = PointF()
     private var imageX = 0f
     private var imageY = 0f
@@ -75,6 +79,13 @@ class ZoomImageView @JvmOverloads constructor(
         scaleGestureDetector = ScaleGestureDetector(context, this)
         setOnTouchListener(this)
         mTouchSlop = ViewConfiguration.get(context).scaledTouchSlop.toFloat()
+        initType()
+    }
+
+    private fun initType() {
+        val array = context.obtainStyledAttributes(attrs, R.styleable.ZoomImageView)
+        dropDownClose = array.getBoolean(R.styleable.ZoomImageView_dropDownClose,true)
+        array.recycle()
     }
 
     override fun onAttachedToWindow() {
@@ -112,7 +123,7 @@ class ZoomImageView @JvmOverloads constructor(
 
             if (scaleFactor * scale > SCALE_MAX){
                 scaleFactor = SCALE_MAX / scale
-                Log.e("222222222222","放大到了边界")
+                Log.e("ZoomImageView","放大到了边界")
             }
 
             mode = scaleLarge
@@ -181,6 +192,7 @@ class ZoomImageView @JvmOverloads constructor(
             return rect
         }
 
+
     override fun onTouch(p0: View?, event: MotionEvent): Boolean {
         scaleGestureDetector.onTouchEvent(event)
 
@@ -203,13 +215,7 @@ class ZoomImageView @JvmOverloads constructor(
         val rectF = matrixRectF
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                if (parent is ViewPager || parent is ViewPager2) {
-                    if (rectF.width() - width > 0.01 || rectF.height() - height > 0.01) {
-                        parent.requestDisallowInterceptTouchEvent(true)
-                    }
-                }
-
-
+                addIntoVelocity(event)
                 if(pointerCount == 1){
                     imageX = x
                     imageY = y
@@ -219,11 +225,25 @@ class ZoomImageView @JvmOverloads constructor(
             }
 
             MotionEvent.ACTION_MOVE -> {
-                if (parent is ViewPager || parent is ViewPager2) {
-                    if (rectF.width() - width > 0.01 || rectF.height() - height > 0.01) {
+                addIntoVelocity(event)
+                if (rectF.width() - width == 0.0f && rectF.height() - height == 1.0f){
+                    //vp可以滚动
+                    parent.requestDisallowInterceptTouchEvent(false)
+                }else if(rectF.width() - width > 0.0f && rectF.height() - height > 1.0f){
+                    if (rectF.right == width.toFloat() && rectF.left <0f) {
+                        isCanDrag = true
+                        parent.requestDisallowInterceptTouchEvent(false)
+                    }else if(rectF.left == 0f && rectF.right >0f){
+                        isCanDrag = true
+                        parent.requestDisallowInterceptTouchEvent(false)
+                    }else{
+                        //vp不可以滚动
+                        isCanDrag = false
                         parent.requestDisallowInterceptTouchEvent(true)
                     }
                 }
+
+
                 var dx = pointerX - mLastPointerX
                 var dy = pointerY - mLastPointerY
                 if (!isCanDrag) {
@@ -250,37 +270,36 @@ class ZoomImageView @JvmOverloads constructor(
                 mLastPointerY = pointerY
 
                 if(pointerCount == 1){
+                    offsetY = event.rawY - dPoint.y
 
-                    if(getScale()  ==  1.00f){
 
-                        offsetY =  event.rawY - dPoint.y
+
+                    //下拉关闭
+                    if(abs(offsetY) > 150 && (getScale() <= 1.01) && dropDownClose){
+
+                        offsetX = event.rawX - dPoint.x
                         translationY = offsetY
-                        translationX = event.rawX - dPoint.x
+                        translationX = offsetX
 
                         scaleX = 1  - abs(offsetY/ScreenSizeUtil.height)
                         scaleY = 1  - abs(offsetY/ScreenSizeUtil.height)
-
                         mode = scaleSmall
 
+
                         onDownProgress?.invoke(offsetY,false)
+
                     }
+
                 }
 
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 mLastPointerCount = 0
+                parent.requestDisallowInterceptTouchEvent(false)
 
-                /**
-                 * 缩小图片 松手 恢复为原始大小
-                 */
-                if(getScale() < initScale){
-                    val x = event.x
-                    val y = event.y
-                    postDelayed(SlowlyScaleRunnable(initScale, x, y), 5)
-                }
                 if(mode == scaleSmall && scaleX <1.0f){
-                    onDownProgress?.invoke(0f,true)
-                    animate().scaleX(1.0f).scaleY(1.0f).translationX(imageX).translationY(imageY).setDuration(300).start()
+                    animate().scaleX(1.0f).scaleY(1.0f).translationX(imageX).translationY(imageY).setDuration(300)
+                        .setListener(listener).start()
                 }
                 mode = scaleNormal
             }
@@ -290,18 +309,29 @@ class ZoomImageView @JvmOverloads constructor(
     }
 
 
+    private val listener = object : SimpeAnimatorListener() {
+        override fun onAnimationEnd(p0: Animator?) {
+            onDownProgress?.invoke(0f,true)
+            onDownComplete?.invoke(true)
+        }
+    }
+
+
     private var onDownProgress : ((offsetY :Float,onComplete:Boolean)->Unit)? = null
     fun setOnDownProgressListener( onDownProgress : ((offsetY :Float,onComplete:Boolean)->Unit)){
         this.onDownProgress = onDownProgress
     }
-
+    private var onDownComplete : ((onComplete:Boolean)->Unit)? = null
+    fun setOnDownCompleteListener( onComplete : ((onComplete:Boolean)->Unit)){
+        this.onDownComplete = onComplete
+    }
 
     private inner class SlowlyScaleRunnable(
         private val mTargetScale: Float,
         private val x: Float,
         private val y: Float
     ) : Runnable {
-        private val min = 0.75f
+        private val min = 1.00f
 
         private var tmpScale = 0f
 
@@ -327,6 +357,11 @@ class ZoomImageView @JvmOverloads constructor(
 
     }
 
+    private fun addIntoVelocity(event: MotionEvent) {
+        if (mVelocityTracker == null)
+            mVelocityTracker = VelocityTracker.obtain()
+        mVelocityTracker?.addMovement(event)
+    }
 
     private fun checkBorderWhenTranslate() {
 
@@ -338,16 +373,20 @@ class ZoomImageView @JvmOverloads constructor(
         val height = height
 
         if (rect.top > 0 && isCheckTopAndBottom) {
+
             deltaY = -rect.top
         }
         if (rect.bottom < height && isCheckTopAndBottom) {
+
             deltaY = height - rect.bottom
         }
 
         if (rect.left > 0 && isCheckLeftAndRight) {
+
             deltaX = -rect.left
         }
         if (rect.right < width && isCheckLeftAndRight) {
+
             deltaX = width - rect.right
         }
 

@@ -108,6 +108,9 @@
         <attr name="secondBallColor" format="color"/>
     </declare-styleable>
     
+    <declare-styleable name="ZoomImageView">
+        <attr name="dropDownClose" format="boolean"/>
+    </declare-styleable>
     
     <declare-styleable name="WheelPicker">
         <attr name="text_selected_color" format="color|reference"/>

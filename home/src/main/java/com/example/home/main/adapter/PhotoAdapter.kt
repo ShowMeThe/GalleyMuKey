@@ -46,15 +46,7 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
             tvSelect.text = "${item.currentPos+1}/${item.imagePaths!!.size}"
 
             banner.setOnPageClickListner {
-                val bundle = Bundle()
-                val intent = Intent(context,ImageShowActivity::class.java)
-                val option = ActivityOptions.makeSceneTransitionAnimation(context as BaseActivity<*, *>,
-                    *arrayOf<Pair<View, String>>(Pair.create(banner,"photo"))).toBundle()
-                bundle.putString("photo",data[position].imagePaths!![item.currentPos])
-                bundle.putInt("id",data[position].id)
-                intent.putExtras(bundle)
-                context.startActivity(intent,option)
-
+                ImageShowActivity.startImgs(context as BaseActivity<*, *>,data[position].imagePaths!!,it)
             }
 
             like.setLike(item.like,false)
