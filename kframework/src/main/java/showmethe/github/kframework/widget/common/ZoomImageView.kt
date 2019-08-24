@@ -275,7 +275,7 @@ class ZoomImageView @JvmOverloads constructor(
 
 
                     //下拉关闭
-                    if(abs(offsetY) > 150 && (getScale() <= 1.01) && dropDownClose){
+                    if(abs(offsetY) > 50 && (getScale() <= 1.01) && dropDownClose){
 
                         offsetX = event.rawX - dPoint.x
                         translationY = offsetY
@@ -298,8 +298,14 @@ class ZoomImageView @JvmOverloads constructor(
                 parent.requestDisallowInterceptTouchEvent(false)
 
                 if(mode == scaleSmall && scaleX <1.0f){
-                    animate().scaleX(1.0f).scaleY(1.0f).translationX(imageX).translationY(imageY).setDuration(300)
-                        .setListener(listener).start()
+                    onDownProgress?.invoke(0f,true)
+                    if(scaleX<0.75f){
+                        animate().scaleX(1.0f).scaleY(1.0f).translationX(imageX).translationY(imageY).setDuration(300)
+                            .setListener(listener).start()
+                    }else{
+                        animate().scaleX(1.0f).scaleY(1.0f).translationX(imageX).translationY(imageY).setDuration(300)
+                           .start()
+                    }
                 }
                 mode = scaleNormal
             }
@@ -311,7 +317,6 @@ class ZoomImageView @JvmOverloads constructor(
 
     private val listener = object : SimpeAnimatorListener() {
         override fun onAnimationEnd(p0: Animator?) {
-            onDownProgress?.invoke(0f,true)
             onDownComplete?.invoke(true)
         }
     }

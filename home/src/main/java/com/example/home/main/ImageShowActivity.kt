@@ -18,6 +18,7 @@ import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.widget.StatusBarUtil
 import androidx.appcompat.widget.PopupMenu
 import android.view.animation.AccelerateInterpolator
+import androidx.core.app.SharedElementCallback
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewpager2.widget.ViewPager2
@@ -25,6 +26,7 @@ import com.example.home.R
 import com.example.home.databinding.ActivityImageShowBinding
 import com.example.home.main.adapter.ImageViewAdapter
 import com.example.home.main.vm.HomeViewModel
+import showmethe.github.kframework.widget.transformer.ParallaxTransformer
 import java.text.FieldPosition
 import kotlin.math.abs
 import kotlin.math.sqrt
@@ -88,9 +90,8 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding, HomeViewModel>(
             }
         }
 
-
-
     }
+
 
     override fun observerUI() {
 

@@ -1,5 +1,6 @@
 package com.example.home.main.adapter
 
+import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
@@ -27,6 +28,7 @@ class PhotoAdapter(context: Context, data: ObservableArrayList<PhotoWallBean>) :
     DataBindBaseAdapter<PhotoWallBean, ItemPhotoBinding>(context, data) {
 
 
+    @SuppressLint("SetTextI18n")
     override fun bindItems(binding: ItemPhotoBinding?, item: PhotoWallBean, position: Int) {
 
         binding?.apply {
