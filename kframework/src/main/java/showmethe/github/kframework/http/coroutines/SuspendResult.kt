@@ -25,6 +25,7 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
                     try {
                         response =  block.invoke()
                     } catch (e: Exception) {
+                        netJob?.cancel()
                         loadingOutTime?.invoke()
                         Log.e("SuspendResult", "${e.message}")
                     }
@@ -33,6 +34,7 @@ class SuspendResult<T> constructor(var owner: LifecycleOwner?) {
                      if(response!=null){
                          build()
                      }else{
+                         netJob?.cancel()
                          loadingOutTime?.invoke()
                      }
                 }
