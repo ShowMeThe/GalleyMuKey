@@ -163,10 +163,10 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
         private val loadingId = R.layout.smart_loading_layout
         private val emptyId = R.layout.smart_empty_layout
         private val errorId = R.layout.smart_error_layout
-        private val loadingState = 0
-        private val emptyState = 1
-        private val errorState = 2
-        private val contentState = 4
+        private const val loadingState = 0
+        private const val emptyState = 1
+        private const val errorState = 2
+        private const val contentState = 4
         private val interpolator = AccelerateInterpolator()
 
         private var creator: DefaultLayoutCreator? = null
@@ -174,7 +174,8 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
             creator = defaultLayoutCreator
         }
 
-        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(LayoutParams.MATCH_PARENT,
+        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(
+            LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT)
     }
 
