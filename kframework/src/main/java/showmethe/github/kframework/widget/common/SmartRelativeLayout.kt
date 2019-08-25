@@ -34,8 +34,8 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
     private var loadinglayout = loadingId
     private var emptyLayout = emptyId
     private var errorLayout = errorId
-
-    private val isAnim = true
+    private var onReload : (()->Unit)? = null
+    private var currentState = 0
 
     private val views = ArrayList<View>()
 
@@ -88,9 +88,16 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
         errorView!!.layoutParams = DEFAULT_LAYOUT_PARAMS
         views.add(errorView!!)
 
+        loadingView?.isClickable = true
+        loadingView?.setOnClickListener { }
 
-        loadingView!!.setOnClickListener { }
-
+        errorView?.isClickable = true
+        errorView?.setOnClickListener {
+            if(currentState == errorState){
+                onReload?.invoke()
+                mHandler.sendEmptyMessageDelayed(0, 200)
+            }
+        }
 
     }
 
@@ -105,6 +112,9 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
     }
 
 
+    fun reloadWhenError(onReload:()->Unit){
+        this.onReload = onReload
+    }
 
     fun showLoading() {
         mHandler.sendEmptyMessageDelayed(0, 200)
@@ -136,7 +146,7 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
 
 
     private fun setViewState(state: Int) {
-
+        this.currentState = state
         for (i in views.indices) {
             if (state == i) {
                 views[i].visibility = View.VISIBLE
@@ -164,8 +174,8 @@ class SmartRelativeLayout @JvmOverloads constructor(context: Context, attrs: Att
             creator = defaultLayoutCreator
         }
 
-        private val DEFAULT_LAYOUT_PARAMS = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT)
+        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT)
     }
 
 

@@ -81,6 +81,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, HomeViewModel>() {
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         rv.addItemDecoration(RecycleViewDivider(context,RecyclerView.VERTICAL,1,ContextCompat.getColor(context,R.color.colorPrimaryDark)))
+        rv.hideWhenScrolling(refresh)
 
         viewModel.getHomePhoto()
     }

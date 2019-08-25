@@ -11,7 +11,9 @@ import android.view.animation.AnticipateInterpolator
 import android.widget.RelativeLayout
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import showmethe.github.kframework.R
+import java.lang.ref.WeakReference
 
 /**
  * PackageName: example.ken.com.library.widget
@@ -34,6 +36,7 @@ class AutoRecyclerView @JvmOverloads constructor(
     private var findFirstVisibleItemPosition = 0
     private var previousTotal: Int = 0
     private var scrollOffset = 0
+    private var refresh : WeakReference<SwipeRefreshLayout>? = null
     /**
      * 防止多次执行滑动
      */
@@ -65,7 +68,7 @@ class AutoRecyclerView @JvmOverloads constructor(
 
     private fun initType(){
         val array = context.obtainStyledAttributes(attrs,R.styleable.AutoRecyclerView)
-        autoFix = array.getBoolean(R.styleable.AutoRecyclerView_autoFix,true)
+        autoFix = array.getBoolean(R.styleable.AutoRecyclerView_autoFix,false)
         array.recycle()
     }
 
@@ -73,26 +76,33 @@ class AutoRecyclerView @JvmOverloads constructor(
     override fun onScrolled(dx: Int, dy: Int) {
         super.onScrolled(dx, dy)
 
+        if(dy > 50){ //下滑取消refresh动画
+            refresh?.get()?.isRefreshing = false
+        }
+
         val layoutManager = layoutManager
-        if (layoutManager is GridLayoutManager) {
-            layoutManagerType = TYPE_GRID_LAYOUT
-            lastPosition = layoutManager.findLastVisibleItemPosition()
-        } else if (layoutManager is LinearLayoutManager) {
-            layoutManagerType = TYPE_LINEAR_LAYOUT
-            lastPosition = layoutManager.findLastVisibleItemPosition()
-            findFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-        } else if (layoutManager is StaggeredGridLayoutManager) {
-            layoutManagerType = TYPE_STAGGERED_GRID_LAYOUT
-            staggeredGridLayoutManager = layoutManager
-            if (lastPositions == null) {
-                lastPositions = IntArray(staggeredGridLayoutManager!!.spanCount)
+        when (layoutManager) {
+            is GridLayoutManager -> {
+                layoutManagerType = TYPE_GRID_LAYOUT
+                lastPosition = layoutManager.findLastVisibleItemPosition()
             }
-            staggeredGridLayoutManager!!.findLastVisibleItemPositions(lastPositions)
-            lastPosition = findMax(lastPositions!!)
+            is LinearLayoutManager -> {
+                layoutManagerType = TYPE_LINEAR_LAYOUT
+                lastPosition = layoutManager.findLastVisibleItemPosition()
+                findFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-        } else {
-            throw RuntimeException("layoutManager not support")
+            }
+            is StaggeredGridLayoutManager -> {
+                layoutManagerType = TYPE_STAGGERED_GRID_LAYOUT
+                staggeredGridLayoutManager = layoutManager
+                if (lastPositions == null) {
+                    lastPositions = IntArray(staggeredGridLayoutManager!!.spanCount)
+                }
+                staggeredGridLayoutManager!!.findLastVisibleItemPositions(lastPositions)
+                lastPosition = findMax(lastPositions!!)
+
+            }
+            else -> throw RuntimeException("layoutManager not support")
         }
 
         itemCount = layoutManager.itemCount
@@ -213,6 +223,9 @@ class AutoRecyclerView @JvmOverloads constructor(
     }
 
 
+    fun hideWhenScrolling(refreshLayout: SwipeRefreshLayout){
+        this.refresh = WeakReference(refreshLayout)
+    }
 
 
     fun setOnLoadMoreListener(loadingMore: ()->Unit) {

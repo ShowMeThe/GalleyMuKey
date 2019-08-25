@@ -13,10 +13,10 @@ object Versions{
 object LibV{
 
 
-    val rxlifecycle3 ="3.0.0"
-    val rxjava = "2.2.11"
-    val rxandroid = "2.1.1"
-    val rxkotlin = "2.4.0"
-    val glide = "4.9.0"
-    val okhttp3 = "4.0.1"
+    const val rxlifecycle3 ="3.0.0"
+    const val rxjava = "2.2.11"
+    const val rxandroid = "2.1.1"
+    const val rxkotlin = "2.4.0"
+    const val glide = "4.9.0"
+    const val okhttp3 = "4.1.0"
 }

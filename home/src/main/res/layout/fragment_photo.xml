@@ -20,15 +20,16 @@
 			
 		
 				
-				<androidx.recyclerview.widget.RecyclerView
+				<showmethe.github.kframework.widget.common.AutoRecyclerView
 					android:id="@+id/rv"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:requiresFadingEdge="vertical"
 					android:fadingEdge="vertical"
 					android:fadingEdgeLength="@dimen/px20dp"
+					app:autoFix="false"
 					>
-				</androidx.recyclerview.widget.RecyclerView>
+				</showmethe.github.kframework.widget.common.AutoRecyclerView>
 			
 		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 		
