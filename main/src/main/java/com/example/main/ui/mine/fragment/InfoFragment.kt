@@ -1,5 +1,6 @@
 package com.example.main.ui.mine.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
@@ -14,7 +15,6 @@ import com.example.main.ui.mine.vm.ProfileInfoViewModel
 import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.fragment_info.ivHead
 import showmethe.github.kframework.base.BaseFragment
-import showmethe.github.kframework.dialog.CalendarDialogFragment
 import showmethe.github.kframework.glide.TGlide
 import showmethe.github.kframework.util.rden.RDEN
 import showmethe.github.kframework.widget.citypicker.picker.CityPicker
@@ -27,7 +27,7 @@ import showmethe.github.kframework.widget.citypicker.picker.CityPicker
 class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
 
 
-    val dialog = CalendarDialogFragment()
+    lateinit var  datePicker : DatePickerDialog
     val picker = CityPicker()
 
     override fun initViewModel(): ProfileInfoViewModel = createViewModel(ProfileInfoViewModel::class.java)
@@ -73,6 +73,9 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
     override fun init(savedInstanceState: Bundle?) {
         TGlide.loadCirclePicture( RDEN.get(RdenConstant.avatar,""),ivHead)
 
+        datePicker = DatePickerDialog(context,R.style.DatePickerTheme)
+
+
         viewModel.queryAccount(RDEN.get(RdenConstant.account,""))
     }
 
@@ -84,12 +87,13 @@ class InfoFragment : BaseFragment<FragmentInfoBinding, ProfileInfoViewModel>() {
         }
 
         llBirthday.setOnClickListener {
-            dialog.show(childFragmentManager,"CalendarDialogFragment")
+            datePicker.show()
         }
 
-        dialog.setOnDatePickDialogListener { day, month, year ->
-            viewModel.bean.value?.birthday =  "$year-$month-$day"
+        datePicker.setOnDateSetListener { datePicker, year,month,day  ->
+            viewModel.bean.value?.birthday =  "$year-${month+1}-$day"
         }
+
 
         llAddress.setOnClickListener {
             picker.show(context.supportFragmentManager,"picker")

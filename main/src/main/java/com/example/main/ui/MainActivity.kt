@@ -300,17 +300,27 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
 
     private fun switchColor(position: Int) {
         val color = ColorStateList.valueOf(colors[position])
-        CircularRevealUtils.circularRevealCenter(inner, colors[position], {
-        }, {
+        CircularRevealUtils.circularRevealCenter(inner, colors[position], {}, {
             layout.setBackgroundColor(colors[position])
-            btnLogOut.iconTint = color
-            btnLogOut.setTextColor(color)
+            setColor(color)
         })
         CircularRevealUtils.revealCenter(bottomBar, colors[position], {
         }, {
             bottomBar.backgroundTintList = color
         })
     }
+
+    private fun setColor(color: ColorStateList){
+        btnLogOut.iconTint = color
+        btnLogOut.setTextColor(color)
+        tvAddLike.compoundDrawableTintList = color
+        tvAddLike.setTextColor(color)
+        tvWallet.compoundDrawableTintList = color
+        tvWallet.setTextColor(color)
+        tvScan.compoundDrawableTintList = color
+        tvScan.setTextColor(color)
+    }
+
 
     fun catePopBack(boolean: Boolean){
         Share.get().popBack(boolean)

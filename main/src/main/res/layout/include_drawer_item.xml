@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	
-	<TextView
+	<com.google.android.material.textview.MaterialTextView
 		android:transitionName="title"
 		android:id="@+id/tvAddLike"
 		android:layout_width="match_parent"
@@ -16,12 +16,15 @@
 		android:textSize="@dimen/px45dp"
 		android:textColor="@color/colorAccent"
 		android:background="?android:attr/selectableItemBackground"
+		app:drawableStartCompat="@mipmap/heart"
+		app:drawableTintMode="src_in"
+		app:drawableTint="@color/colorAccent"
 		/>
 	
 	<View style="@style/line_7c4dff"/>
 	
 	
-	<TextView
+	<com.google.android.material.textview.MaterialTextView
 		android:transitionName="title"
 		android:id="@+id/tvWallet"
 		android:layout_width="match_parent"
@@ -35,6 +38,9 @@
 		android:textSize="@dimen/px45dp"
 		android:textColor="@color/colorAccent"
 		android:background="?android:attr/selectableItemBackground"
+		app:drawableStartCompat="@mipmap/wallet"
+		app:drawableTintMode="src_in"
+		app:drawableTint="@color/colorAccent"
 		/>
 	
 	<View style="@style/line_7c4dff"/>
@@ -54,6 +60,9 @@
 		android:textSize="@dimen/px45dp"
 		android:textColor="@color/colorAccent"
 		android:background="?android:attr/selectableItemBackground"
+		app:drawableStartCompat="@mipmap/scan"
+		app:drawableTintMode="src_in"
+		app:drawableTint="@color/colorAccent"
 		/>
 	
 	<View style="@style/line_7c4dff"/>
