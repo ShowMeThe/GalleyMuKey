@@ -272,8 +272,6 @@ class ZoomImageView @JvmOverloads constructor(
                 if(pointerCount == 1){
                     offsetY = event.rawY - dPoint.y
 
-
-
                     //下拉关闭
                     if(abs(offsetY) > 50 && (getScale() <= 1.01) && dropDownClose){
 
@@ -288,6 +286,8 @@ class ZoomImageView @JvmOverloads constructor(
 
                         onDownProgress?.invoke(offsetY,false)
 
+                        isCanDrag = false
+                        parent.requestDisallowInterceptTouchEvent(true)
                     }
 
                 }
