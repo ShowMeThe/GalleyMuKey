@@ -39,7 +39,7 @@ class AutoNestedScrollView : NestedScrollView {
     }
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
-
+        super.onScrollChanged(l, t, oldl, oldt)
         if(t > 50){ //下滑取消refresh动画
             refresh?.get()?.isRefreshing = false
         }
