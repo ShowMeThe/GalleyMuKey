@@ -1,4 +1,4 @@
-package com.example.ken.kmvvm.stick
+package showmethe.github.kframework.divider.stick
 
 class DecorationBuilder private constructor(){
 
@@ -8,7 +8,7 @@ class DecorationBuilder private constructor(){
 
 
 
-        fun newBuilder() : DecorationBuilder{
+        fun newBuilder() : DecorationBuilder {
             builder = DecorationBuilder()
             return builder!!
         }

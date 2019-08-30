@@ -1,6 +1,8 @@
 package showmethe.github.kframework.divider.stick
 
+import android.content.Context
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import showmethe.github.kframework.divider.stick.module.GroupModule
 import showmethe.github.kframework.divider.stick.module.SortModule
 
@@ -14,6 +16,7 @@ class DecorationFactory private constructor(){
         }
     }
 
+
     var textColor = Color.BLACK
     var textSize = 43f
     var textMarinStart = 35f
@@ -22,8 +25,16 @@ class DecorationFactory private constructor(){
     lateinit var groupModule : GroupModule
     lateinit var sortModule : SortModule<*>
 
+
+
+
     fun setTextColor(color:Int) : DecorationFactory {
         this.textColor = color
+        return  this
+    }
+
+    fun setTextColor(context: Context,color:Int) : DecorationFactory {
+        this.textColor = ContextCompat.getColor(context,color)
         return  this
     }
 
@@ -47,8 +58,13 @@ class DecorationFactory private constructor(){
         return  this
     }
 
-    fun build(groupModule: GroupModule, sortModule: SortModule<*>) : DecorationFactory {
-        this.groupModule = groupModule
+    fun setGroupColor(context: Context,groupColor:Int) : DecorationFactory {
+        this.groupColor = ContextCompat.getColor(context,groupColor)
+        return  this
+    }
+
+    fun build(sortModule: SortModule<*>) : DecorationFactory {
+        this.groupModule = GroupModule()
         this.sortModule = sortModule
         this.groupModule.init(this.sortModule)
         return  this

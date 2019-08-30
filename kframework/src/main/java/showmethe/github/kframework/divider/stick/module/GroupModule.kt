@@ -15,7 +15,7 @@ class GroupModule {
 
     fun getGroupCount() = softModule.getArrayMap().keys.size
 
-    fun getGrouSize(groupName:String) : Int {
+    fun getGroupSize(groupName:String) : Int {
         return if(softModule.getArrayMap()[groupName] == null){
             0
         }else{
@@ -25,6 +25,19 @@ class GroupModule {
 
 
     fun getGroupName(flagPosition:Int ):String = softModule.getGroupName()[flagPosition]!!
+
+    fun isContainInGroup(position: Int) : Boolean{
+        if(!isInit){
+            return false
+        }
+        val groupName = softModule.getGroupName()[position]
+        val list  = softModule.getArrayMap()[groupName]
+        if(list!=null){
+            return position <= list.size
+        }else{
+            return false
+        }
+    }
 
     fun isFirstPositionInGroup(position:Int) : Boolean{
         if(!isInit){

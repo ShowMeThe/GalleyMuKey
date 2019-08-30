@@ -5,6 +5,8 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.text.TextPaint
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class GroupDecoration(var factory : DecorationFactory) : RecyclerView.ItemDecoration() {
@@ -26,6 +28,7 @@ class GroupDecoration(var factory : DecorationFactory) : RecyclerView.ItemDecora
     }
 
 
+
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         val  position = parent.getChildAdapterPosition(view)
@@ -34,29 +37,50 @@ class GroupDecoration(var factory : DecorationFactory) : RecyclerView.ItemDecora
         }else{
             outRect.set(0, 0, 0, 0)
         }
-
     }
 
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDraw(c, parent, state)
+
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDrawOver(c, parent, state)
         val  childCount = parent.childCount
+
 
         for (i in 0 until childCount) {
             val childView = parent.getChildAt(i)
             val  position = parent.getChildAdapterPosition(childView)
             var  top :Float
+            var firstPosition = 0
+            var flag = false
+
+            if(parent.layoutManager is LinearLayoutManager){
+                firstPosition = (parent.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            }else if(parent.layoutManager is GridLayoutManager){
+                firstPosition = (parent.layoutManager as GridLayoutManager).findFirstVisibleItemPosition()
+            }
+
 
             if(factory.groupModule.isFirstPositionInGroup(position)){
-                if(position == 0){
-                    drawOver(c,factory.groupModule.getGroupName(position),0f,0f, parent.width.toFloat(),groupHeight)
-                }else{
-                    top = childView.top.toFloat()
-                    drawOver(c,factory.groupModule.getGroupName(position),0f,top - groupHeight, parent.width.toFloat(),top)
+                top = childView.top.toFloat()
+                drawOver(c,factory.groupModule.getGroupName(position),0f,top - groupHeight, parent.width.toFloat(),top)
+            }else{
+                if(factory.groupModule.getGroupName(firstPosition + 1) != factory.groupModule.getGroupName(firstPosition)){ //group只有一个时候无法固定
+                    c.save()
+                    flag = true
+                    c.translate(0f,childView.height + childView.top - groupHeight)
                 }
+
+                if(factory.groupModule.getGroupName(position) == factory.groupModule.getGroupName(firstPosition)){
+                    drawOver(c,factory.groupModule.getGroupName(position),0f,0f, parent.width.toFloat(),groupHeight)
+                }
+                 if(flag){
+                     c.restore()
+                 }
             }
         }
     }
+
+
 
 
     private fun drawOver(c: Canvas, groupName:String, left:Float, top:Float, right:Float, bottom:Float){
