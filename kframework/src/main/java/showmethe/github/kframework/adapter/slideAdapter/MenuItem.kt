@@ -5,17 +5,18 @@ package showmethe.github.kframework.adapter.slideAdapter
  */
 class MenuItem {
     internal var type: MenuType
-    lateinit var stringText: String
+    internal  var stringText: String = ""
+    internal var stringTextSize: Float = 22f
     internal var parseTextColor: Int = 0
     internal var backgroundColor: Int = 0
 
-
     internal var resId: Int = 0
 
-    constructor(type: MenuType, stringText: String, parseTextColor: Int, backgroundColor: Int) {
+    constructor(type: MenuType, stringText: String, stringTextSize:Float,parseTextColor: Int, backgroundColor: Int) {
         this.type = type
         this.stringText = stringText
         this.parseTextColor = parseTextColor
+        this.stringTextSize = stringTextSize
         this.backgroundColor = backgroundColor
     }
 

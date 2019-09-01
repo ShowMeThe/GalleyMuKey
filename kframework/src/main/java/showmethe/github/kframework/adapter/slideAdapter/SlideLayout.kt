@@ -1,5 +1,6 @@
 package showmethe.github.kframework.adapter.slideAdapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
@@ -20,26 +21,26 @@ class SlideLayout constructor(context: Context, attrs: AttributeSet? = null) : H
         private set
 
 
-    val adapter: SlideAdapter<*, *>
+    val adapter: SlideAdapter<*>
         get() {
             var view: View = this
             while (true) {
                 view = view.parent as View
-                if (view is androidx.recyclerview.widget.RecyclerView) {
+                if (view is RecyclerView) {
                     break
                 }
             }
-            return (view as androidx.recyclerview.widget.RecyclerView).adapter as SlideAdapter<*, *>
+            return (view as RecyclerView).adapter as SlideAdapter<*>
         }
 
 
-    var scrollingItem: SlideLayout?
+    private var scrollingItem: SlideLayout?
         get() = adapter.scrollingItem
         set(scrollingItem) {
             adapter.scrollingItem = scrollingItem
         }
 
-    internal var downTime: Long = 0
+    private var downTime: Long = 0
 
     private var mCustomOnClickListener: CustomOnClickListener? = null
 
@@ -81,6 +82,7 @@ class SlideLayout constructor(context: Context, attrs: AttributeSet? = null) : H
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         closeOpenMenu()
         if (scrollingItem != null && scrollingItem !== this) {
@@ -98,9 +100,7 @@ class SlideLayout constructor(context: Context, attrs: AttributeSet? = null) : H
                 scrollingItem = null
                 val scrollX = scrollX
                 if (System.currentTimeMillis() - downTime <= 100 && scrollX == 0) {
-                    if (mCustomOnClickListener != null) {
-                        mCustomOnClickListener!!.onClick()
-                    }
+                    mCustomOnClickListener?.onClick()
                     return false
                 }
 

@@ -1,11 +1,11 @@
 object Versions{
-    val compileSdkVersion = 28
+    val compileSdkVersion = 29
 
-    val buildToolsVersion = "28.0.3"
+    val buildToolsVersion = "29.0.2"
 
     val minSdkVersion = 24
 
-    val targetSdkVersion = 28
+    val targetSdkVersion = 29
 }
 
 

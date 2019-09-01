@@ -6,6 +6,6 @@ package showmethe.github.kframework.adapter.slideAdapter
  * Date : 2018/9/30
  * Time : 17:02
  */
-class SlideItem(var itemLayoutId: Int,
+class SlideItem(
                 var rightMenuRatio: Float,
                 var menuItemList: List<MenuItem>)

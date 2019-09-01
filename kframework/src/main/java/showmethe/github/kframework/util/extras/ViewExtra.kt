@@ -1,4 +1,4 @@
-package showmethe.github.kframework.adapter
+package showmethe.github.kframework.util.extras
 
 import android.media.Image
 import androidx.databinding.BindingAdapter

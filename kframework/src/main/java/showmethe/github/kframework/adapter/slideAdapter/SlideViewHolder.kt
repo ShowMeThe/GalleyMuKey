@@ -16,15 +16,15 @@ import showmethe.github.kframework.R
  * Date : 2018/9/30
  * Time : 17:00
  */
-class SlideViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mItemView) {
-    private val views: SparseArray<View> = SparseArray()
+class SlideViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    private val mViews: SparseArray<View> = SparseArray()
 
     fun <T : View> getView(viewId: Int): T? {
-        var view: View? = views.get(viewId)
+        var view: View? = mViews.get(viewId)
         if (view == null) {
-            view = mItemView.findViewById(viewId)
-            views.put(viewId, view)
+            view = itemView.findViewById(viewId)
+            mViews.put(viewId, view)
         }
         return view as T?
     }
@@ -40,6 +40,11 @@ class SlideViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mIt
     fun setTextColor(context: Context, textColor: Int) {
         val textView = getView<TextView>(R.id.slideLayout_tv_content)
         textView?.setTextColor(ContextCompat.getColor(context, textColor))
+    }
+
+    fun setTextSize(textSize: Float) {
+        val textView = getView<TextView>(R.id.slideLayout_tv_content)
+        textView?.textSize = textSize
     }
 
     fun setBackgroundColor(context: Context, backgroundColor: Int, type: MenuType) {

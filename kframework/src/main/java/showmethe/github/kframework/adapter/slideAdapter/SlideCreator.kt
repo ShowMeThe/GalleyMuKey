@@ -10,37 +10,30 @@ import java.util.ArrayList
 class SlideCreator {
 
     lateinit var slideItems: SlideItem
-    lateinit var menuItemList: ArrayList<MenuItem>
-    lateinit var mAdapter: RecyclerView.Adapter<*>
-    lateinit var recyclerView: RecyclerView
+    private  var menuItemList: ArrayList<MenuItem> = ArrayList()
 
 
-    fun addItemMenu(content: String, textColor: Int, backgroundColor: Int): SlideCreator {
-
-        val item = MenuItem(MenuType.TEXT, content, textColor, backgroundColor)
+    fun addItemMenu(content: String, textColor: Int, backgroundColor: Int,textSize:Float = 19f): SlideCreator {
+        val item = MenuItem(MenuType.TEXT, content, textSize,textColor, backgroundColor)
         menuItemList.add(item)
         return this
     }
 
     fun addImageItem(resId: Int, imageBackground: Int): SlideCreator {
-
         val item = MenuItem(MenuType.IMAGE, resId, imageBackground)
         menuItemList.add(item)
         return this
     }
 
 
+    /**
+     * @param rightMenuRatio 滑动菜单的宽度为全屏幕宽度的百分比
+     */
     fun bind(adapter: RecyclerView.Adapter<*>, rightMenuRatio: Float): SlideCreator {
-        if (adapter is SlideAdapter<*, *>) {
-            mAdapter = adapter
-            slideItems = SlideItem(adapter.viewId, rightMenuRatio, menuItemList)
+        if (adapter is SlideAdapter<*>) {
+            slideItems = SlideItem(rightMenuRatio, menuItemList)
+            adapter.setSlideItems(slideItems)
         }
-        return this
-    }
-
-    fun into(recyclerView: RecyclerView): SlideCreator {
-        this.recyclerView = recyclerView
-        recyclerView.adapter = mAdapter
         return this
     }
 
