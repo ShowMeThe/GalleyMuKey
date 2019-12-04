@@ -8,8 +8,8 @@ import androidx.databinding.ObservableArrayList
 data class ProvinceBean(val id: String = "", var name: String = "", var cityList: ObservableArrayList<CityBean>) :
     Parcelable {
     constructor(source: Parcel) : this(
-        source.readString(),
-        source.readString(),
+        source.readString()!!,
+        source.readString()!!,
         source.createTypedArrayList(CityBean.CREATOR) as ObservableArrayList<CityBean>
     )
 

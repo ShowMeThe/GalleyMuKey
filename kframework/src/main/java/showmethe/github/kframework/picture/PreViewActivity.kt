@@ -66,7 +66,7 @@ class PreViewActivity : BaseActivity<ViewDataBinding,PictureViewModel>() {
         bundle.apply {
             type  = getInt(mode,PictureSelectorActivity.SINGLE)
             if(type ==  PictureSelectorActivity.MULTI){
-                imgList  = getStringArrayList(imgPaths)
+                imgList  = getStringArrayList(imgPaths) as ArrayList<String>
                 positions = getInt(curPos,0)
             }else{
                 img = getString(imgPath,"")

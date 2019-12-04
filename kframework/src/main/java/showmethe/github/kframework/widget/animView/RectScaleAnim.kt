@@ -115,7 +115,7 @@ class RectScaleAnim @JvmOverloads constructor(context: Context, attrs: Attribute
         for (child in rectChildList!!) {
             val matrix = Matrix()
             matrix.setScale(child.scale, child.scale, (child.right - rectWidth / 2).toFloat(), (child.bottom - rectWidth / 2).toFloat())
-            canvas.matrix = matrix
+            canvas.setMatrix(matrix)
             canvas.drawRect(child.createRect(), mPaint!!)
         }
     }

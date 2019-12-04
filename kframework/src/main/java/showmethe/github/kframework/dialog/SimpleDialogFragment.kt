@@ -87,7 +87,7 @@ abstract class SimpleDialogFragment  : DialogFragment(),DefaultLifecycleObserver
             val view = View.inflate(activity, viewId, null)
 
 
-            val param = javaClass.getAnnotation(WindowParam::class.java)
+            val param = javaClass.getAnnotation(WindowParam::class.java)!!
             val gravity  = param.gravity
             val outSideCanceled   = param.outSideCanceled
             val canceled  = param.canceled

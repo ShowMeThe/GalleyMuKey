@@ -86,7 +86,7 @@ class CheckableRelativeLayout @JvmOverloads constructor(context: Context, attrs:
     public override fun onSaveInstanceState(): Parcelable? {
         // Force our ancestor class to save its state
         val superState = super.onSaveInstanceState()
-        val savedState = SavedState(superState)
+        val savedState = SavedState(superState!!)
         savedState.checked = isChecked
         return savedState
     }

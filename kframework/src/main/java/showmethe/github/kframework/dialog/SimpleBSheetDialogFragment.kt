@@ -87,7 +87,7 @@ abstract  class SimpleBSheetDialogFragment  : BottomSheetDialogFragment() , Defa
         val viewId = onCreate?.invoke()
         if(viewId!= null){
 
-            val param = javaClass.getAnnotation(WindowParam::class.java)
+            val param = javaClass.getAnnotation(WindowParam::class.java)!!
             val gravity  = param.gravity
             val outSideCanceled   = param.outSideCanceled
             val canceled  = param.canceled

@@ -16,7 +16,7 @@ import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 fun copyTextToClipboard(context:Context,text : CharSequence ){
     val clipboard = context.getSystemService(RxAppCompatActivity.CLIPBOARD_SERVICE) as ClipboardManager;
     val clipData = ClipData.newPlainText("text","$text")
-    clipboard.primaryClip = clipData
+    clipboard.setPrimaryClip(clipData)
 }
 
 fun getTextFromClipboard(context:Context) : String{
@@ -32,7 +32,7 @@ fun getTextFromClipboard(context:Context) : String{
 fun copyUriToClipboard(context:Context,uri : Uri){
     val clipboard = context.getSystemService(RxAppCompatActivity.CLIPBOARD_SERVICE) as ClipboardManager;
     val clipData = ClipData.newUri(context.contentResolver,"uri",uri)
-    clipboard.primaryClip = clipData
+    clipboard.setPrimaryClip(clipData)
 }
 
 fun getUriFromClipboard(context:Context) : Uri{

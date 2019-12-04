@@ -27,7 +27,7 @@ object LocalUtil {
         val configuration = context.resources.configuration
         configuration.setLocale(locale)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            configuration.locales = LocaleList(locale)
+            configuration.setLocales(LocaleList(locale))
         }
         return context.createConfigurationContext(configuration)
     }

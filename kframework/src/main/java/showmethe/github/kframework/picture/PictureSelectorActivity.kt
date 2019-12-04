@@ -214,9 +214,12 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
          var c : Cursor? = null
          try {
              c = contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
-             val  calumniatorData  = c!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-             while(c.moveToNext()){
-                 val path = c.getString(calumniatorData)
+             while(c!!.moveToNext()){
+                 val  id = c.getColumnIndex(MediaStore.Images.Media._ID)
+                 val path = MediaStore.Images.Media
+                     .EXTERNAL_CONTENT_URI
+                     .buildUpon()
+                     .appendPath(c.getInt(id).toString()).build().toString()
                  imgStringPath.add(path)
              }
              dismissLoading()

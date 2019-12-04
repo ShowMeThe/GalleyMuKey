@@ -52,7 +52,7 @@ class ParallaxBackHelper private constructor(): SimpleLifecyclerCallbacks(){
             parallaxBack = mc.getAnnotation(ParallaxBack::class.java)
             if (parallaxBack != null)
                 return parallaxBack
-            mc = mc.superclass
+            mc = mc.superclass as Class<*>
         }
         return null
     }
