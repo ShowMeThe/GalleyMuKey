@@ -228,7 +228,7 @@ class MainActivity : BaseActivity<ViewDataBinding, MainViewModel>() {
                 val list = PictureSelector.findLocalPictures(data)
                 val datas = ArrayList<String>()
                 list.forEach {
-                    datas.add(it.compress)
+                    datas.add(it.origin)
                 }
                 val bean = PhotoWallDto()
                 bean.id = System.currentTimeMillis().toInt()

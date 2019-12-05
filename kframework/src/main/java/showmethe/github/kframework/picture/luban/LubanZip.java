@@ -25,7 +25,7 @@ public class LubanZip  {
 
 
     private LubanZip(Context context){
-        CACHEDIR = context.getExternalCacheDir().getAbsolutePath();
+        CACHEDIR = context.getCacheDir().getAbsolutePath();
     }
 
     public static LubanZip get(Context context){
@@ -86,7 +86,6 @@ public class LubanZip  {
 
             @Override
             public void onFinish() {
-                Log.e("LUBAN","" + files.size());
                 //onFilesComPressCallBack.onFinish(files);
             }
         }).launch();

@@ -17,7 +17,7 @@ interface PhotoWallDao {
     fun addPhotoBean(bean : PhotoWallDto)
 
 
-    @Query("select * from PhotoWallDto order by id DESC")
+    @Query("select * from PhotoWallDto order by id ASC")
     fun getPhotoBean() : LiveData<List<PhotoWallDto>>
 
     @Query("delete  from PhotoWallDto")

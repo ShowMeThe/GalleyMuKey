@@ -47,7 +47,7 @@ class SplashActivity : BaseActivity<ViewDataBinding,AuthViewModel>() {
     @SuppressLint("CheckResult")
     override fun init(savedInstanceState: Bundle?) {
         RxPermissions(this)
-            .request(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO)
+            .request(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_EXTERNAL_STORAGE)
             .subscribe {
                 if(it){
                     startToMain()

@@ -141,6 +141,7 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
                         jo.compress = temp[index].path
                         list.add(jo)
                     }
+
                     val intent = Intent()
                     intent.putParcelableArrayListExtra("PictureSelector",list)
                     setResult(Activity.RESULT_OK,intent)
