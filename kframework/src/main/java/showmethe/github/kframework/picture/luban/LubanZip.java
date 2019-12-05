@@ -19,13 +19,13 @@ public class LubanZip  {
 
     private  String CACHEDIR = "";
 
-    private static final int  DEFAULTIGNOR = 100;
+    private static final int  DEFAULTIGNOR = 50;
 
     private static final CompressionPredicate predicate = path -> !(path.isEmpty() || path.toLowerCase().endsWith(".gif"));
 
 
     private LubanZip(Context context){
-        CACHEDIR = context.getCacheDir().getAbsolutePath();
+        CACHEDIR = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
     }
 
     public static LubanZip get(Context context){

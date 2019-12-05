@@ -173,48 +173,23 @@ class PictureSelectorActivity : BaseActivity<ViewDataBinding,PictureViewModel>()
     }
 
 
-    @SuppressLint("CheckResult")
-    private fun mapPic(rootPath: String){
-        val temp = ObservableArrayList<LocalMedia>()
-        val root = File(rootPath)
-        if(root.exists() && root.isDirectory)
-        Observable.fromArray(*root.listFiles()).flatMap { file -> MapFile.list(file) }.filter { o ->
-            (((!o.absolutePath.contains("emoji"))
-                    && (!o.absolutePath.contains("thumbnails") )
-                    && (o.absolutePath.substringAfter(basePath).length<50)
-                    && (o.name.toLowerCase().endsWith(".png"))
-                    || o.name.toLowerCase().endsWith(".jpg")
-                    || o.name.toLowerCase().endsWith(".jpeg")
-                    || o.name.toLowerCase().endsWith(".webp")))
-        }.map { o -> o.absolutePath }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<String> {
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onNext(s: String) {
-                imgStringPath.add(s)
-                temp.add(LocalMedia(s))
-
-            }
-
-            override fun onError(e: Throwable) {
-
-            }
-
-            override fun onComplete() {
-                dismissLoading()
-                imgPath.addAll(temp)
-            }
-        })
-    }
 
      fun findAllPic(){
+         val QUERY_URI = MediaStore.Files.getContentUri("external")
+         val ORDER_BY = MediaStore.Files.FileColumns._ID + " DESC"
+         val PROJECTION = arrayOf(MediaStore.Files.FileColumns._ID,
+             MediaStore.MediaColumns.DATA,
+             MediaStore.MediaColumns.MIME_TYPE,
+             MediaStore.MediaColumns.WIDTH,
+             MediaStore.MediaColumns.HEIGHT,
+             MediaStore.MediaColumns.DURATION,
+             MediaStore.MediaColumns.SIZE,
+             MediaStore.MediaColumns.BUCKET_DISPLAY_NAME)
+
+
          var c : Cursor? = null
          try {
-             c = contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
+             c = contentResolver.query(QUERY_URI, PROJECTION, null, null, ORDER_BY)
              while(c!!.moveToNext()){
                  val  id = c.getColumnIndex(MediaStore.Images.Media._ID)
                  val path = MediaStore.Images.Media
